@@ -4,6 +4,7 @@ export default defineConfig({
   head: [["link", { rel: "icon", href: "/favicon.png" }]],
   title: "Sword Web Framework",
   description: "Sword Web Framework Documentation",
+  base: "/docs/",
   locales: {
     en: {
       label: "English",
