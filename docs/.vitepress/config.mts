@@ -37,12 +37,21 @@ export default defineConfig({
                 link: "/en/key-concepts/application-structure",
               },
               {
-                text: "Application configuration",
-                link: "/en/key-concepts/application-configuration",
+                text: "The `main` function and macro",
+                link: "/en/key-concepts/the-main-function",
               },
               {
-                text: "Custom configuration",
-                link: "/en/key-concepts/custom-configuration",
+                text: "Configuring the application",
+                items: [
+                  {
+                    text: "Application Configuration",
+                    link: "/en/key-concepts/configuration/application",
+                  },
+                  {
+                    text: "Custom Configuration",
+                    link: "/en/key-concepts/configuration/custom",
+                  },
+                ],
               },
               {
                 text: "Controllers and Routes",
@@ -58,9 +67,10 @@ export default defineConfig({
               },
               {
                 text: "Middlewares",
+                link: "/en/key-concepts/middlewares/mod.md",
                 items: [
                   {
-                    text: "Common Middlewares",
+                    text: "Simple Middlewares",
                     link: "/en/key-concepts/middlewares/common",
                   },
                   {
@@ -141,12 +151,21 @@ export default defineConfig({
                 link: "/es/key-concepts/application-structure",
               },
               {
-                text: "Configuración de la aplicación",
-                link: "/es/key-concepts/application-configuration",
+                text: "La función y macro `main`",
+                link: "/es/key-concepts/the-main-function",
               },
               {
-                text: "Configuración personalizada",
-                link: "/es/key-concepts/custom-configuration",
+                text: "Configurando la aplicación",
+                items: [
+                  {
+                    text: "Configuración de la Aplicación",
+                    link: "/es/key-concepts/configuration/application",
+                  },
+                  {
+                    text: "Configuración Personalizada",
+                    link: "/es/key-concepts/configuration/custom",
+                  },
+                ],
               },
               {
                 text: "Controladores y Rutas",
@@ -162,9 +181,10 @@ export default defineConfig({
               },
               {
                 text: "Middlewares",
+                link: "/es/key-concepts/middlewares/mod.md",
                 items: [
                   {
-                    text: "Middlewares Comunes",
+                    text: "Middlewares simples",
                     link: "/es/key-concepts/middlewares/common",
                   },
                   {
