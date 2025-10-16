@@ -201,7 +201,7 @@ Este método permite ejecutar la aplicación con una señal de apagado personali
 
 Ejemplo, quieres escuchar una señal de Ctrl+C para apagar la aplicación de manera segura (proveer tiempo para completar las solicitudes en curso):
 
-Si quieres usar la señal graceful por defecto que provee Sword, habilita la opción `graceful-shutdown` en el fichero de configuración. (Ver [Configuración](../key-concepts/application-configuration.md))
+Si quieres usar la señal graceful por defecto que provee Sword, habilita la opción `graceful-shutdown` en el fichero de configuración. (Ver [Configuración](../key-concepts/configuration/application.md))
 
 Mientras tanto si quieres usar una señal personalizada, puedes hacerlo de la siguiente manera:
 

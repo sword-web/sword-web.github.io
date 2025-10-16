@@ -201,7 +201,7 @@ This method allows you to run the application with a custom shutdown signal.
 
 For example, you want to listen for a Ctrl+C signal to gracefully shut down your application (allowing time for in-flight requests to complete):
 
-If you want to use the default graceful shutdown signal provided by Sword, enable the `graceful-shutdown` option in your configuration file. (See [Configuration](../key-concepts/application-configuration.md))
+If you want to use the default graceful shutdown signal provided by Sword, enable the `graceful-shutdown` option in your configuration file. (See [Configuration](../key-concepts/configuration/application.md))
 
 If you want to use a custom signal instead, you can do it like this:
 
