@@ -55,7 +55,16 @@ export default defineConfig({
               },
               {
                 text: "Controllers and Routes",
-                link: "/en/key-concepts/controllers-routes",
+                items: [
+                  {
+                    text: "Defining Controllers",
+                    link: "/en/key-concepts/controllers/definition",
+                  },
+                  {
+                    text: "Defining Routes",
+                    link: "/en/key-concepts/controllers/routes",
+                  },
+                ],
               },
               {
                 text: "Context and Request Handling",
@@ -168,8 +177,17 @@ export default defineConfig({
                 ],
               },
               {
-                text: "Controladores y Rutas",
-                link: "/es/key-concepts/controllers-routes",
+                text: "Controladores y rutas",
+                items: [
+                  {
+                    text: "Defición de Controladores",
+                    link: "/es/key-concepts/controllers/definition",
+                  },
+                  {
+                    text: "Implementación de Rutas",
+                    link: "/es/key-concepts/controllers/routes",
+                  },
+                ],
               },
               {
                 text: "Manejo de Contexto y Peticiones",
