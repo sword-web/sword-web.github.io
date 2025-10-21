@@ -18,7 +18,7 @@ impl ApiController {
 }
 ```
 
-A controller can access the request context through the `ctx: Context` parameter:
+A controller can access the request context through the `req: Request` parameter:
 
 ```rust
 use sword::prelude::*;
@@ -29,15 +29,17 @@ struct ApiController;
 #[routes]
 impl ApiController {
     #[get("/hello/{name}")]
-    async fn hello(&self, ctx: Context) -> HttpResult<HttpResponse> {
-        let name: String = ctx.param("name")?;
+    async fn hello(&self, req: Request) -> HttpResult {
+        let name: String = req.param("name")?;
+
+        ... Process logic ...
 
         Ok(HttpResponse::Ok().message(format!("Hello, {}!", name)))
     }
 }
 ```
 
-To learn about all the features of `Context`, see the [Request Context](../context-requests.md) section.
+To learn about all the features of `Request`, see the [Request Context](../context-requests.md) section.
 
 ## Supported HTTP Methods
 

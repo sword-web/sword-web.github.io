@@ -67,8 +67,26 @@ export default defineConfig({
                 ],
               },
               {
-                text: "Context and Request Handling",
-                link: "/en/key-concepts/context-requests",
+                text: "Request Handling",
+                link: "/en/key-concepts/request-handling/explanation",
+                items: [
+                  {
+                    text: "The `Request` structure",
+                    link: "/en/key-concepts/request-handling/request-structure",
+                  },
+                  {
+                    text: "Extending `Request`",
+                    link: "/en/key-concepts/request-handling/extending-request",
+                  },
+                  {
+                    text: "Error Handling in Requests",
+                    link: "/en/key-concepts/request-handling/error-handling",
+                  },
+                ],
+              },
+              {
+                text: "Request Handling",
+                link: "/en/key-concepts/request-handling",
               },
               {
                 text: "Data Validation",
@@ -190,8 +208,22 @@ export default defineConfig({
                 ],
               },
               {
-                text: "Manejo de Contexto y Peticiones",
-                link: "/es/key-concepts/context-requests",
+                text: "Manejo de Solicitudes HTTP",
+                link: "/es/key-concepts/request-handling/explanation",
+                items: [
+                  {
+                    text: "La estructura `Request`",
+                    link: "/es/key-concepts/request-handling/request-structure",
+                  },
+                  {
+                    text: "Manejo de Errores en `Request`",
+                    link: "/es/key-concepts/request-handling/error-handling",
+                  },
+                  {
+                    text: "Extender `Request`",
+                    link: "/es/key-concepts/request-handling/extending-request",
+                  },
+                ],
               },
               {
                 text: "Validación de Datos",

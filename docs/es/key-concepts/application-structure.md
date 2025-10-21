@@ -50,8 +50,8 @@ struct SomeController;
 #[routes]
 impl SomeController {
     #[get("/hello")]
-    async fn hello(&self) -> impl IntoResponse {
-        "Hello, World!"
+    async fn hello(&self) -> HttpResponse {
+        HttpResponse::Ok().message("Hello, World!")
     }
 }
 
@@ -64,7 +64,7 @@ let app = Application::builder()
 
 #### `with_dependency_container`
 
-Registra un contenedor de dependencias para la aplicación.
+Registra un contenedor de dependencias para la aplicación. **IMPORTANTE**: Este método debe ser llamado antes de registrar cualquier controlador.
 
 ##### Parámetros
 
@@ -140,7 +140,7 @@ Este método:
 let app = Application::builder()
     .with_controller::<SomeController>()
     .with_prefix("/api")
-    .build();  // Retorna Application
+    .build();
 ```
 
 ## Ejecución de la aplicación

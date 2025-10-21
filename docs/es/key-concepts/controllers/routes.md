@@ -29,8 +29,10 @@ struct ApiController;
 #[routes]
 impl ApiController {
     #[get("/hello/{name}")]
-    async fn hello(&self, ctx: Context) -> HttpResult<HttpResponse> {
-        let name: String = ctx.param("name")?;
+    async fn hello(&self, req: Request) -> HttpResult {
+        let name: String = req.param("name")?;
+
+        ... Process logic ...
 
         Ok(HttpResponse::Ok().message(format!("Hello, {}!", name)))
     }

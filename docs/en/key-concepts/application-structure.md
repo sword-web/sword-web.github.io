@@ -50,8 +50,8 @@ struct SomeController;
 #[routes]
 impl SomeController {
     #[get("/hello")]
-    async fn hello(&self) -> impl IntoResponse {
-        "Hello, World!"
+    async fn hello(&self) -> HttpResponse {
+        HttpResponse::Ok().message("Hello, World!")
     }
 }
 
@@ -64,7 +64,7 @@ let app = Application::builder()
 
 #### `with_dependency_container`
 
-Registers a dependency container for the application.
+Registers a dependency container for the application. **IMPORTANT**: This method must be called before registering any controllers.
 
 ##### Parameters
 
@@ -140,7 +140,7 @@ This method:
 let app = Application::builder()
     .with_controller::<SomeController>()
     .with_prefix("/api")
-    .build();  // Returns Application
+    .build();
 ```
 
 ## Running the Application
@@ -160,7 +160,7 @@ async fn main() {
 
 The `run()` method starts the web server and begins listening for incoming HTTP requests. If you've enabled the `graceful-shutdown` option in your configuration, the application will handle termination signals gracefully by allowing in-flight requests to complete before shutting down.
 
-### Application Methods
+### Useful Application Methods
 
 #### `router()`
 
