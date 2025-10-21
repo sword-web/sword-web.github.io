@@ -1,3 +1,9 @@
+---
+title: Simple Middlewares - Sword Framework
+description: Create simple middlewares in Sword using the #[middleware] macro and OnRequest trait. Learn request and response interception patterns.
+keywords: ["simple middleware", "OnRequest trait", "middleware macro", "sword framework", "request processing"]
+---
+
 # Middlewares
 
 A Sword middleware is a structure declared under the `#[middleware]` macro. Middlewares allow you to intercept and process HTTP requests and responses on specific controllers or routes.

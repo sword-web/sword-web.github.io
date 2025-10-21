@@ -1,3 +1,15 @@
+---
+title: Project Structure - Sword Framework
+description: Understand the recommended project structure and file organization in Sword applications. Learn the module-based architecture pattern.
+keywords: ["project structure", "sword framework", "rust project layout", "modular architecture", "file organization"]
+---
+
+---
+title: Project Structure - Sword Framework
+description: Understand Sword's recommended project structure. Learn how to organize your Rust web application with a module-based architecture.
+keywords: ["project structure", "file organization", "sword framework", "modular architecture", "rust project layout"]
+---
+
 # File Structure
 
 As mentioned in the introduction, Sword suggests a module-based development structure.

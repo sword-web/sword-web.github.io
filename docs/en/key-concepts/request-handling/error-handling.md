@@ -1,3 +1,9 @@
+---
+title: Error Handling in Requests - Sword Framework
+description: Handle errors in Sword request processing. Learn about automatic error conversion, custom error responses, and Result types.
+keywords: ["error handling", "request errors", "error responses", "sword framework", "http errors", "result type"]
+---
+
 # Error Handling in `Request`
 
 As you may have noticed, some methods of the `Request` structure return a `Result`. This is because these methods can fail for various reasons.

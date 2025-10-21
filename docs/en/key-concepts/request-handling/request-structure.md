@@ -1,3 +1,9 @@
+---
+title: Request Structure - Sword Framework
+description: Explore the Request structure in Sword. Learn about available methods for accessing URI, headers, body, query parameters, and more.
+keywords: ["request structure", "request methods", "http request", "sword framework", "request api", "query parameters"]
+---
+
 # The `Request` Structure
 
 As mentioned in the previous section, Sword provides a `Request` structure that encapsulates all relevant information about an incoming HTTP request.

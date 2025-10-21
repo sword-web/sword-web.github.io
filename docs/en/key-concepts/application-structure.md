@@ -1,3 +1,9 @@
+---
+title: Application Structure - Sword Framework
+description: Learn about Sword's Application and ApplicationBuilder structures. Master the Builder pattern for configuring web applications in Rust.
+keywords: ["application structure", "builder pattern", "sword framework", "rust web app", "application configuration"]
+---
+
 # The Application and ApplicationBuilder Structures
 
 Sword uses the **Builder** pattern to construct web applications. This pattern is implemented through two main structs:
@@ -60,7 +66,7 @@ let app = Application::builder()
     .build();
 ```
 
-[Learn more about controllers in the [Controllers](../key-concepts/controllers-routes.md) section]
+[Learn more about controllers in the [Controllers](../key-concepts/controllers/definition.md) section.]
 
 #### `with_dependency_container`
 

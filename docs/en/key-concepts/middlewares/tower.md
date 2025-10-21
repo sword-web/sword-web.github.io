@@ -1,3 +1,9 @@
+---
+title: Tower Middleware - Sword Framework
+description: Integrate Tower middleware ecosystem with Sword. Learn to use Tower layers for CORS, timeouts, compression, and more.
+keywords: ["tower middleware", "tower layers", "cors", "middleware integration", "sword framework", "axum middleware"]
+---
+
 # Middlewares and Layers with `tower`
 
 Sword, like axum, integrates with the Tower middleware ecosystem. This means you can use any Tower-compatible middleware in your application.

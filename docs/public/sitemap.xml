@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Main pages -->
+  <url>
+    <loc>https://sword-web.github.io/</loc>
+    <priority>1.0</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://sword-web.github.io/en/</loc>
+    <priority>0.9</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  
+  <!-- Introduction -->
+  <url>
+    <loc>https://sword-web.github.io/en/introduction/</loc>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://sword-web.github.io/en/introduction/getting-started</loc>
+    <priority>0.9</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://sword-web.github.io/en/introduction/ecosystem</loc>
+    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://sword-web.github.io/en/introduction/project-structure</loc>
+    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  
+  <!-- Key Concepts -->
+  <url>
+    <loc>https://sword-web.github.io/en/key-concepts/</loc>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://sword-web.github.io/en/key-concepts/application-structure</loc>
+    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://sword-web.github.io/en/key-concepts/data-validation</loc>
+    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://sword-web.github.io/en/key-concepts/dependency-injection</loc>
+    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://sword-web.github.io/en/key-concepts/the-main-function</loc>
+    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  
+  <!-- Configuration -->
+  <url>
+    <loc>https://sword-web.github.io/en/key-concepts/configuration/application</loc>
+    <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://sword-web.github.io/en/key-concepts/configuration/custom</loc>
+    <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  
+  <!-- Controllers -->
+  <url>
+    <loc>https://sword-web.github.io/en/key-concepts/controllers/definition</loc>
+    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://sword-web.github.io/en/key-concepts/controllers/routes</loc>
+    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  
+  <!-- Middlewares -->
+  <url>
+    <loc>https://sword-web.github.io/en/key-concepts/middlewares/</loc>
+    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://sword-web.github.io/en/key-concepts/middlewares/common</loc>
+    <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://sword-web.github.io/en/key-concepts/middlewares/extensions</loc>
+    <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://sword-web.github.io/en/key-concepts/middlewares/tower</loc>
+    <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://sword-web.github.io/en/key-concepts/middlewares/with-config</loc>
+    <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  
+  <!-- Request Handling -->
+  <url>
+    <loc>https://sword-web.github.io/en/key-concepts/request-handling/explanation</loc>
+    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://sword-web.github.io/en/key-concepts/request-handling/request-structure</loc>
+    <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://sword-web.github.io/en/key-concepts/request-handling/extending-request</loc>
+    <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://sword-web.github.io/en/key-concepts/request-handling/error-handling</loc>
+    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  
+  <!-- Advanced Concepts -->
+  <url>
+    <loc>https://sword-web.github.io/en/advanced-concepts/</loc>
+    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://sword-web.github.io/en/advanced-concepts/cookies</loc>
+    <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://sword-web.github.io/en/advanced-concepts/hot-reload</loc>
+    <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://sword-web.github.io/en/advanced-concepts/multipart-form-data</loc>
+    <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://sword-web.github.io/en/advanced-concepts/security</loc>
+    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://sword-web.github.io/en/advanced-concepts/testing</loc>
+    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  
+  <!-- Examples -->
+  <url>
+    <loc>https://sword-web.github.io/en/examples/</loc>
+    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://sword-web.github.io/en/examples/basic-examples</loc>
+    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://sword-web.github.io/en/examples/advanced-examples</loc>
+    <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  
+  <!-- Changelog & Roadmap -->
+  <url>
+    <loc>https://sword-web.github.io/en/changelog-roadmap/</loc>
+    <priority>0.6</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+</urlset>

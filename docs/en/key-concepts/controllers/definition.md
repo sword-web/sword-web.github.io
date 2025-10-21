@@ -1,3 +1,9 @@
+---
+title: Defining Controllers - Sword Framework
+description: Learn how to define controllers in Sword using the #[controller] macro. Understand the struct-based approach to handling HTTP requests.
+keywords: ["controllers", "controller macro", "http handlers", "sword framework", "request handlers", "rust controllers"]
+---
+
 # Defining Controllers
 
 A controller is commonly known as a function that handles an HTTP request and returns an HTTP response. In Sword, we handle controllers as `structs`, and their methods are what actually handle the HTTP requests.

@@ -18,7 +18,7 @@ impl ApiController {
 }
 ```
 
-Un controlador puede tener acceso al contexto de la `request` mediante el parámetro `ctx: Context`
+Un controlador puede tener acceso a la `request` mediante el parámetro `req: Request`:
 
 ```rust
 use sword::prelude::*;
@@ -39,7 +39,7 @@ impl ApiController {
 }
 ```
 
-Para conocer todas las funcionalidades de `Context`, ver [Contexto de la Request](../context-requests.md).
+Para conocer todas las funcionalidades de `Request`, ver [Manejo de Requests](../request-handling/explanation.md).
 
 ## Métodos HTTP soportados
 
@@ -53,7 +53,7 @@ De momento, sword soporta los metódos HTTP más comunes:
 
 ### Sintaxis de las rutas
 
-Las rutas pueden incluir parámetros, que se definen encerrando el nombre del parámetro entre llaves `{}`. Por ejemplo, en la ruta `/users/{id}`, `{id}` es un parámetro que puede ser extraído desde el contexto de la request.
+Las rutas pueden incluir parámetros, que se definen encerrando el nombre del parámetro entre llaves `{}`. Por ejemplo, en la ruta `/users/{id}`, `{id}` es un parámetro que puede ser extraído desde el path de la request.
 
 Para más detalles sobre la sintaxis de las rutas, puedes [consultar la documentación de axum](https://docs.rs/axum/latest/axum/routing/struct.Router.html#method.route)
 

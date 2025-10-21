@@ -1,3 +1,9 @@
+---
+title: Data Validation - Sword Framework
+description: Implement robust data validation in Sword applications using the validator crate. Learn validation patterns and custom validation logic.
+keywords: ["data validation", "validator crate", "rust validation", "input validation", "sword framework", "form validation"]
+---
+
 # Data Validation
 
 Data validation is a fundamental aspect of web applications. It ensures that incoming data meets specific rules before being processed or stored.

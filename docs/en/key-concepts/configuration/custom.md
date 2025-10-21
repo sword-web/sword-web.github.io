@@ -1,3 +1,9 @@
+---
+title: Custom Configuration - Sword Framework
+description: Create custom configurations in Sword using the #[config] macro. Learn to manage application-specific settings and database configurations.
+keywords: ["custom configuration", "config macro", "sword configuration", "toml settings", "application settings"]
+---
+
 # Custom Configuration
 
 Sword allows you to create your own custom configurations beyond the default application configuration. This is useful when your application needs additional parameters specific to your business logic.

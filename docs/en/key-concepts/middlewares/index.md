@@ -1,3 +1,9 @@
+---
+title: Middlewares - Sword Framework
+description: Understand middleware in Sword for request processing, authentication, logging, and more. Learn about global and route-specific middleware.
+keywords: ["middleware", "request interceptor", "authentication", "logging", "sword framework", "http middleware"]
+---
+
 # What is a Middleware?
 
 A middleware is a component that sits between an incoming request and the controller that handles that request. It allows you to intercept, modify, or process HTTP requests and responses either globally or specifically for certain routes.

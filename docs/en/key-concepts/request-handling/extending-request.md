@@ -1,3 +1,9 @@
+---
+title: Extending Request - Sword Framework
+description: Extend the Request structure in Sword with custom methods and extractors. Learn to add application-specific request handling logic.
+keywords: ["extending request", "custom extractors", "request traits", "sword framework", "request customization"]
+---
+
 # Extending `Request` Capabilities
 
 One of the benefits of using a centralized extractor like `Request` is the ability to extend its functionality to suit your application's specific needs.

@@ -1,3 +1,9 @@
+---
+title: Middlewares with Configuration - Sword Framework
+description: Create configurable middlewares in Sword using OnRequestWithConfig trait. Learn to pass parameters and settings to your middleware.
+keywords: ["configurable middleware", "OnRequestWithConfig", "middleware parameters", "sword framework", "middleware settings"]
+---
+
 # Middlewares with Configuration or Parameters
 
 As you've seen, you can declare simple middlewares that don't require additional configuration. However, in many cases, you may want a middleware to accept parameters or configuration to customize its behavior.

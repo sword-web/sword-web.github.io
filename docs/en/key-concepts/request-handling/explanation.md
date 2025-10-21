@@ -1,3 +1,9 @@
+---
+title: Request Handling - Sword Framework
+description: Learn HTTP request handling in Sword using the unified Request object. Understand extractors, parameters, and request processing.
+keywords: ["request handling", "http request", "request object", "extractors", "sword framework", "request processing"]
+---
+
 # HTTP Request Handling and Extraction
 
 In Sword, unlike axum, individual extractors aren't used in controller method parameters. Instead, a `Request` structure is used that provides an API similar to other popular web frameworks.

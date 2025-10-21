@@ -1,10 +1,14 @@
 import { defineConfig } from "vitepress";
 
 export default defineConfig({
-  head: [["link", { rel: "icon", href: "/favicon.png" }]],
+  head: [
+    ["link", { rel: "icon", href: "/favicon.png" }], ['meta', { name: 'author', content: 'Luciano Revillod' }],
+    ['meta', { name: 'keywords', content: 'rust, framework, web, axum, sword, documentación' }],
+    ['meta', { name: 'theme-color', content: '#111111' }],
+  ],
   title: "Sword Web Framework",
   description: "Sword Web Framework Documentation",
-  base: "/docs/",
+  base: "/",
   locales: {
     en: {
       label: "English",
@@ -21,7 +25,7 @@ export default defineConfig({
           {
             text: "Introduction",
             items: [
-              { text: "How to start?", link: "/en/introduction/how-to-start" },
+              { text: "Getting Started", link: "/en/introduction/getting-started" },
               {
                 text: "Project structure",
                 link: "/en/introduction/project-structure",
@@ -94,7 +98,7 @@ export default defineConfig({
               },
               {
                 text: "Middlewares",
-                link: "/en/key-concepts/middlewares/mod.md",
+                link: "/en/key-concepts/middlewares/",
                 items: [
                   {
                     text: "Simple Middlewares",
@@ -143,7 +147,7 @@ export default defineConfig({
               },
             ],
           },
-          { text: "Changelog and Roadmap", link: "/en/changelog-roadmap/mod" },
+          { text: "Changelog and Roadmap", link: "/en/changelog-roadmap/" },
         ],
       },
     },
@@ -162,7 +166,7 @@ export default defineConfig({
           {
             text: "Introducción",
             items: [
-              { text: "¿Cómo empezar?", link: "/es/introduction/how-to-start" },
+              { text: "¿Cómo empezar?", link: "/es/introduction/getting-started" },
               {
                 text: "Estructura de un proyecto",
                 link: "/es/introduction/project-structure",
@@ -231,7 +235,7 @@ export default defineConfig({
               },
               {
                 text: "Middlewares",
-                link: "/es/key-concepts/middlewares/mod.md",
+                link: "/es/key-concepts/middlewares/",
                 items: [
                   {
                     text: "Middlewares simples",
@@ -283,7 +287,7 @@ export default defineConfig({
               },
             ],
           },
-          { text: "Changelog y Roadmap", link: "/es/changelog-roadmap/mod" },
+          { text: "Changelog y Roadmap", link: "/es/changelog-roadmap/" },
         ],
       },
     },

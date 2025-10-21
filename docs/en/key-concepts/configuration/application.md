@@ -1,3 +1,9 @@
+---
+title: Application Configuration - Sword Framework
+description: Configure your Sword application using TOML files. Learn about server settings, CORS, logging, and environment-specific configurations.
+keywords: ["application configuration", "toml config", "sword settings", "environment variables", "server configuration"]
+---
+
 # Application Configuration
 
 Sword uses a TOML configuration file to manage the main parameters of your web application. This file is loaded automatically when your application starts up.

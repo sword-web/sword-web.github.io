@@ -1,3 +1,9 @@
+---
+title: Getting Started with Sword - Rust Web Framework
+description: Learn how to start building web applications with Sword framework. Install sword-cli and create your first Rust web project in minutes.
+keywords: ["rust web framework", "getting started", "sword framework", "rust tutorial", "web development", "sword-cli"]
+---
+
 # How to Start?
 
 There are two ways to start using Sword: the first is configuring everything manually, and the second is using `sword-cli`, a tool that provides a set of utilities for creating projects and generating code.

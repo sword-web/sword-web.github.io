@@ -60,7 +60,7 @@ let app = Application::builder()
     .build();
 ```
 
-[Ver más sobre controladores en la sección de [Controladores](../key-concepts/controllers-routes.md)]
+[Ver más sobre controladores en la sección de [Controladores](../key-concepts/controllers/definition.md).]
 
 #### `with_dependency_container`
 

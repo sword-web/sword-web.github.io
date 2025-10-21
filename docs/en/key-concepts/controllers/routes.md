@@ -1,3 +1,9 @@
+---
+title: Defining Routes - Sword Framework
+description: Define HTTP routes in Sword controllers using the #[routes] macro. Learn about route parameters, HTTP methods, and path configuration.
+keywords: ["routes", "routing", "http routes", "sword framework", "route parameters", "rest api"]
+---
+
 # Defining Routes in Controllers
 
 In Sword, routes are defined within the implementation block of a controller. To do this, you use the `#[routes]` macro above the `impl` block.
@@ -18,7 +24,7 @@ impl ApiController {
 }
 ```
 
-A controller can access the request context through the `req: Request` parameter:
+A controller can access the request through the `req: Request` parameter:
 
 ```rust
 use sword::prelude::*;
@@ -39,7 +45,7 @@ impl ApiController {
 }
 ```
 
-To learn about all the features of `Request`, see the [Request Context](../context-requests.md) section.
+To learn about all the features of `Request`, see the [Request Handling](../request-handling/explanation.md) section.
 
 ## Supported HTTP Methods
 
@@ -53,7 +59,7 @@ Currently, Sword supports the most common HTTP methods:
 
 ### Route Syntax
 
-Routes can include parameters, which are defined by enclosing the parameter name in curly braces `{}`. For example, in the route `/users/{id}`, `{id}` is a parameter that can be extracted from the request context.
+Routes can include parameters, which are defined by enclosing the parameter name in curly braces `{}`. For example, in the route `/users/{id}`, `{id}` is a parameter that can be extracted from the request path.
 
 For more details on route syntax, you can [check the axum documentation](https://docs.rs/axum/latest/axum/routing/struct.Router.html#method.route).
 

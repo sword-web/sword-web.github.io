@@ -1,3 +1,9 @@
+---
+title: The Main Function and Macro - Sword Framework
+description: Understand the #[sword::main] macro for async Rust applications. Learn about hot-reload and async runtime configuration in Sword.
+keywords: ["sword macro", "main function", "async rust", "tokio main", "hot reload", "rust async runtime"]
+---
+
 # The Main Function and Macro
 
 As you know, in Rust, program execution begins with the `main` function.

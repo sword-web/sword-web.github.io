@@ -1,3 +1,9 @@
+---
+title: Extensions - Sword Framework
+description: Use extensions to share data across the HTTP request lifecycle in Sword. Learn to pass information between middlewares and controllers.
+keywords: ["extensions", "request extensions", "data sharing", "sword framework", "request lifecycle", "middleware state"]
+---
+
 # Extensions
 
 Extensions, like in axum, are a way to store and share data throughout the lifecycle of an HTTP request. They allow middlewares and controllers to share information.

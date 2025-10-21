@@ -1,3 +1,9 @@
+---
+title: Ecosystem and Integrations - Sword Framework
+description: Explore Sword's ecosystem built on Axum and Tokio. Learn about Tower middleware integration and recommended crates for databases and services.
+keywords: ["sword ecosystem", "axum integration", "tokio", "tower middleware", "rust crates", "database integration"]
+---
+
 # Ecosystem and Integrations
 
 Sword is built on top of `Axum` and, by extension, on `Tokio`. This means you can use any crate compatible with both in a Sword application.
