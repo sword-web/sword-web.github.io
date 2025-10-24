@@ -63,4 +63,4 @@ Sword está construido sobre `axum`, que utiliza `tokio` como runtime asíncrono
 
 ## Uso de `&self`
 
-Como te habrás percatado, los métodos de los controladores reciben `&self` como primer parámetro. Esto permite que los controladores puedan inyectar dependencias a través de sus campos. Sin embargo, este tema se abordará en detalle en la sección de [Inyección de Dependencias](../dependency-injection.md).
+Como te habrás percatado, los métodos de los controladores reciben `&self` como primer parámetro. Esto permite que los controladores puedan inyectar dependencias a través de sus campos. Sin embargo, este tema se abordará en detalle en la sección de [Inyección de Dependencias](../dependency-injection/index.md).

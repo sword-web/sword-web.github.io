@@ -72,4 +72,4 @@ async fn main() {
 }
 ```
 
-Además, puedes extraer la configuración desde otras partes de tu aplicación, como controladores o servicios, usando inyección de dependencias. Ver la sección de [Inyección de Dependencias](../dependency-injection.md) para más detalles.
+Además, puedes extraer la configuración desde otras partes de tu aplicación, como controladores o servicios, usando inyección de dependencias. Ver la sección de [Inyección de Dependencias](../dependency-injection/index.md) para más detalles.
