@@ -89,10 +89,6 @@ export default defineConfig({
                 ],
               },
               {
-                text: "Request Handling",
-                link: "/en/key-concepts/request-handling",
-              },
-              {
                 text: "Data Validation",
                 link: "/en/key-concepts/data-validation",
               },
@@ -120,8 +116,26 @@ export default defineConfig({
               },
               {
                 text: "Dependency Injection (DI)",
-                link: "/en/key-concepts/dependency-injection",
-              },
+                link: "/en/key-concepts/dependency-injection/",
+                items: [
+                  {
+                    text: "Defining a Dependency Container",
+                    link: "/en/key-concepts/dependency-injection/defining-container",
+                  },
+                  {
+                    text: "Defining Providers",
+                    link: "/en/key-concepts/dependency-injection/defining-providers",
+                  },
+                  {
+                    text: "Defining Components",
+                    link: "/en/key-concepts/dependency-injection/defining-components",
+                  },
+                  {
+                    text: "Using Dependencies",
+                    link: "/en/key-concepts/dependency-injection/using-dependencies",
+                  }
+                ]
+              }
             ],
           },
           {
@@ -257,8 +271,26 @@ export default defineConfig({
               },
               {
                 text: "Inyección de Dependencias (DI)",
-                link: "/es/key-concepts/dependency-injection",
-              },
+                link: "/es/key-concepts/dependency-injection/",
+                items: [
+                  {
+                    text: "Definiendo un contenedor de dependencias",
+                    link: "/es/key-concepts/dependency-injection/defining-container",
+                  },
+                  {
+                    text: "Injectable: Providers",
+                    link: "/es/key-concepts/dependency-injection/defining-providers",
+                  },
+                  {
+                    text: "Injectable: Components",
+                    link: "/es/key-concepts/dependency-injection/defining-components",
+                  },
+                  {
+                    text: "Usando dependencias en controladores y middlewares",
+                    link: "/es/key-concepts/dependency-injection/using-dependencies",
+                  }
+                ]
+              }
             ],
           },
           {

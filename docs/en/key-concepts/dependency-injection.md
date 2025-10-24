@@ -4,4 +4,6 @@ description: Master dependency injection patterns in Sword. Learn how to manage 
 keywords: ["dependency injection", "DI", "state management", "rust services", "sword framework", "application state"]
 ---
 
-# Inyección de Dependencias (DI)
+# Dependency Injection (DI)
+
+Please refer to the [Dependency Injection section](./dependency-injection/) for comprehensive documentation on this topic.

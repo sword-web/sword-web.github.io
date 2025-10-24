@@ -14,7 +14,7 @@ hero:
       link: /es/introduction/
     - theme: alt
       text: Empezar
-      link: /es/introduction/how-to-start.md
+      link: /es/introduction/getting-started
     - theme: alt
       text: GitHub
       link: "https://github.com/sword-web/"

@@ -134,6 +134,33 @@
     <changefreq>monthly</changefreq>
   </url>
   
+  <!-- Dependency Injection -->
+  <url>
+    <loc>https://sword-web.github.io/en/key-concepts/dependency-injection/</loc>
+    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://sword-web.github.io/en/key-concepts/dependency-injection/defining-container</loc>
+    <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://sword-web.github.io/en/key-concepts/dependency-injection/defining-providers</loc>
+    <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://sword-web.github.io/en/key-concepts/dependency-injection/defining-components</loc>
+    <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://sword-web.github.io/en/key-concepts/dependency-injection/using-dependencies</loc>
+    <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  
   <!-- Advanced Concepts -->
   <url>
     <loc>https://sword-web.github.io/en/advanced-concepts/</loc>
