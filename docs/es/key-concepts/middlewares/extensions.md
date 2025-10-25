@@ -12,14 +12,14 @@ use uuid::Uuid;
 struct LoggerMiddleware;
 
 impl OnRequest for LoggerMiddleware {
-    async fn on_request(&self, mut req: Request, next: Next) -> MiddlewareResult {
+    async fn on_request(&self, mut req: Request) -> MiddlewareResult {
         let request_id = Uuid::new_v4();
 
         println!("Incoming request: {} {}", req.method(), req.uri());
 
         req.extensions.insert::<Uuid>(request_id);
 
-        next!(req, next)
+        req.next().await
     }
 }
 ```

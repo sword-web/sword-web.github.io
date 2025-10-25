@@ -1,6 +1,6 @@
 ---
 title: Definiendo Providers - Sword Framework
-description: Aprende a definir Providers en Sword usando la macro #[injectable(provider)]. Comprende el registro manual y conexiones a servicios externos.
+description: Aprende a definir Providers en Sword usando la macro `#[injectable(provider)]`. Comprende el registro manual y conexiones a servicios externos.
 keywords: ["providers", "injectable provider", "inyección de dependencias", "sword framework", "servicios externos", "conexiones base de datos"]
 ---
 

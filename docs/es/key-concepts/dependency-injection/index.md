@@ -1,4 +1,3 @@
-
 ---
 title: Inyección de Dependencias - Sword Framework
 description: Domina la inyección de dependencias en Sword. Aprende sobre el DependencyContainer, tipos Injectable, Providers y Components para aplicaciones modulares.

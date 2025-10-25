@@ -1,6 +1,6 @@
 ---
 title: Simple Middlewares - Sword Framework
-description: Create simple middlewares in Sword using the #[middleware] macro and OnRequest trait. Learn request and response interception patterns.
+description: Create simple middlewares in Sword using the `#[middleware]` macro and OnRequest trait. Learn request and response interception patterns.
 keywords: ["simple middleware", "OnRequest trait", "middleware macro", "sword framework", "request processing"]
 ---
 
@@ -19,9 +19,9 @@ use sword::prelude::*;
 struct LoggerMiddleware;
 
 impl OnRequest for LoggerMiddleware {
-    async fn on_request(&self, req: Request, next: Next) -> MiddlewareResult {
+    async fn on_request(&self, req: Request) -> MiddlewareResult {
         println!("Incoming request: {} {}", req.method(), req.uri());
-        next!(req, next)
+        req.next().await
     }
 }
 ```

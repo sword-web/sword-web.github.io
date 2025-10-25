@@ -1,4 +1,3 @@
-
 ---
 title: Contenedor de Dependencias - Sword Framework
 description: Aprende sobre el DependencyContainer en Sword. Comprende el registro de dependencias, uso de Arc y gestión centralizada de dependencias.

@@ -37,12 +37,12 @@ pub struct AuthMiddleware {
 }
 
 impl OnRequest for AuthMiddleware {
-    async fn on_request(&self, req: Request, next: Next) -> MiddlewareResult {
+    async fn on_request(&self, req: Request) -> MiddlewareResult {
         let token = req.headers().get("Authorization");
 
         if let Some(token) = token {
             if self.auth_service.validate_token(token).await {
-                next!(req, next)
+                return req.next().await;
             }
         }
 

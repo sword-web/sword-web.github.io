@@ -24,7 +24,6 @@ impl OnRequestWithConfig<LogLevel> for LoggerMiddleware {
         &self,
         config: LogLevel,
         req: Request,
-        next: Next,
     ) -> MiddlewareResult {
         let message = format!("Incoming request: {} {}", req.method(), req.uri());
 
@@ -33,7 +32,7 @@ impl OnRequestWithConfig<LogLevel> for LoggerMiddleware {
             LogLevel::Warn => println!("[WARN] {message}"),
         }
 
-        next!(req, next)
+        req.next().await
     }
 }
 ```

@@ -13,9 +13,9 @@ use sword::prelude::*;
 struct LoggerMiddleware;
 
 impl OnRequest for LoggerMiddleware {
-    async fn on_request(&self, req: Request, next: Next) -> MiddlewareResult {
+    async fn on_request(&self, req: Request) -> MiddlewareResult {
         println!("Incoming request: {} {}", req.method(), req.uri());
-        next!(req, next)
+        req.next().await
     }
 }
 ```
