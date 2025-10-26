@@ -8,6 +8,8 @@ keywords: ["usando dependencias", "inyección en controller", "inyección en mid
 
 Una vez que has definido y registrado tus `Providers` y `Components`, puedes inyectarlos en `Controllers` y `Middlewares` siguiendo el mismo patrón que en los ejemplos anteriores.
 
+De la misma forma que un `Component`, tanto los `Controllers` como los `Middlewares` pueden declarar dependencias en sus campos. Estas dependencias pueden ser cualquier tipo registrado en el contenedor de dependencias, incluyendo otros `Components`, `Providers`, o incluso configuraciones personalizadas (`#[config]`).
+
 ## Ejemplo de inyección en un `Controller`
 
 ```rust

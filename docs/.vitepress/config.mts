@@ -141,6 +141,7 @@ export default defineConfig({
           {
             text: "Advanced Concepts",
             items: [
+              { text: "Watch Mode and Hot Reload", link: "/en/advanced-concepts/hot-reload" },
               { text: "Cookies", link: "/en/advanced-concepts/cookies" },
               {
                 text: "Multipart/Form Data Handling",
@@ -148,17 +149,6 @@ export default defineConfig({
               },
               { text: "Security", link: "/en/advanced-concepts/security" },
               { text: "Testing", link: "/en/advanced-concepts/testing" },
-              { text: "Hot Reload", link: "/en/advanced-concepts/hot-reload" },
-            ],
-          },
-          {
-            text: "Examples",
-            items: [
-              { text: "Basic Examples", link: "/en/examples/basic-examples" },
-              {
-                text: "Advanced Examples",
-                link: "/en/examples/advanced-examples",
-              },
             ],
           },
           { text: "Changelog and Roadmap", link: "/en/changelog-roadmap/" },
@@ -296,6 +286,10 @@ export default defineConfig({
           {
             text: "Conceptos avanzados",
             items: [
+              {
+                text: "Watch Mode y Hot Reload",
+                link: "/es/advanced-concepts/hot-reload",
+              },
               { text: "Cookies", link: "/es/advanced-concepts/cookies" },
               {
                 text: "Manejo de Multipart/Form Data",
@@ -303,20 +297,6 @@ export default defineConfig({
               },
               { text: "Seguridad", link: "/es/advanced-concepts/security" },
               { text: "Testing", link: "/es/advanced-concepts/testing" },
-              {
-                text: "Hot Reload",
-                link: "/es/advanced-concepts/hot-reload",
-              },
-            ],
-          },
-          {
-            text: "Ejemplos",
-            items: [
-              { text: "Ejemplos Básicos", link: "/es/examples/basic-examples" },
-              {
-                text: "Ejemplos Avanzados",
-                link: "/es/examples/advanced-examples",
-              },
             ],
           },
           { text: "Changelog y Roadmap", link: "/es/changelog-roadmap/" },

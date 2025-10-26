@@ -8,6 +8,8 @@ keywords: ["sword framework", "rust web framework", "axum", "tokio", "desarrollo
 
 Sword es un framework web que permite construir aplicaciones del lado del servidor de forma estructurada y opinionada, basado en `Axum` y `Tokio`.
 
+Sword se encuentra en una etapa de desarrollo activo, por lo que algunas características pueden cambiar o eliminarse frecuentemente. Hasta alcanzar una versión estable esta documentación puede sufrir modificaciones. En el momento que se alcance una versión estable, se publicará una versión específica de la documentación para dicha versión.
+
 ### Motivación
 
 La idea principal de Sword es establecer una estructura de desarrollo basada en módulos, al estilo de frameworks como Spring (Java) o NestJS (Node.js). Además, Sword provee un conjunto de herramientas y utilidades comúnmente necesarias en aplicaciones web con `Axum`, tales como:

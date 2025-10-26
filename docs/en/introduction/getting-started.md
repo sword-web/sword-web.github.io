@@ -35,7 +35,7 @@ Then add Sword and serde as dependencies in your `Cargo.toml`:
 
 ```toml
 [dependencies]
-sword =  "0.1.8"
+sword =  "0.2.1"
 serde = "*"
 serde_json = "*"
 ```

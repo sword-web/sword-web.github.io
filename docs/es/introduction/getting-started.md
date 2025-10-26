@@ -29,7 +29,7 @@ Y luego añade sword y serde como dependencias en tu `Cargo.toml`:
 
 ```toml
 [dependencies]
-sword =  "0.1.8"
+sword =  "0.2.0"
 serde = "*"
 serde_json = "*"
 ```

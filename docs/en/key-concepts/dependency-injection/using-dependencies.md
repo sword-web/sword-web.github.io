@@ -8,6 +8,8 @@ keywords: ["using dependencies", "controller injection", "middleware injection",
 
 Once you have defined and registered your `Providers` and `Components`, you can inject them into `Controllers` and `Middlewares` following the same pattern as in the previous examples.
 
+Similarly to a `Component`, both `Controllers` and `Middlewares` can declare dependencies in their fields. These dependencies can be any type registered in the dependency container, including other `Components`, `Providers`, or even custom configurations (`#[config]`).
+
 ## Controller Injection Example
 
 ```rust
