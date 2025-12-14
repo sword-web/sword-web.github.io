@@ -6,8 +6,12 @@ hero:
   text: "Rust Web Framework"
   tagline: Asincrono, modular y listo para escalar.
   image:
-    src: /logo.png
-    alt: Sword Logo
+    light:
+      src: /logo-inverse.png
+      alt: Sword Logo
+    dark:
+      src: /logo.png
+      alt: Sword Logo
   actions:
     - theme: brand
       text: ¿Qué es Sword?

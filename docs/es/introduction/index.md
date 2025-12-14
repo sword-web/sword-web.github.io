@@ -1,14 +1,24 @@
 ---
 title: Introducción a Sword - Framework Web para Rust
 description: Sword es un framework web estructurado y opinionado para Rust, construido sobre Axum y Tokio. Aprende sobre su arquitectura modular y características.
-keywords: ["sword framework", "rust web framework", "axum", "tokio", "desarrollo web rust", "framework modular"]
+keywords:
+  [
+    "sword framework",
+    "rust web framework",
+    "axum",
+    "tokio",
+    "desarrollo web rust",
+    "framework modular",
+  ]
 ---
 
 # Introducción
 
 Sword es un framework web que permite construir aplicaciones del lado del servidor de forma estructurada y opinionada, basado en `Axum` y `Tokio`.
 
+::: warning
 Sword se encuentra en una etapa de desarrollo activo, por lo que algunas características pueden cambiar o eliminarse frecuentemente. Hasta alcanzar una versión estable esta documentación puede sufrir modificaciones. En el momento que se alcance una versión estable, se publicará una versión específica de la documentación para dicha versión.
+:::
 
 ### Motivación
 
@@ -16,7 +26,7 @@ La idea principal de Sword es establecer una estructura de desarrollo basada en 
 
 - Manejo de configuración y variables de entorno
 - Formato estandarizado de respuestas HTTP
-- Middlewares integrados (CORS, Timeout, Helmet headers, etc.)
+- Middlewares integrados (CORS, Timeout, Body limit, Compression, Helmet y más.)
 - Inyección de dependencias
 - CLI interactiva para creación de proyectos y módulos
 - Manejo de cookies

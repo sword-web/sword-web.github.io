@@ -11,7 +11,7 @@ El flujo de construcción es simple: llamas a `Application::builder()` para obte
 
 ```rust
 let app = Application::builder()
-    .with_controller::<SomeController>()
+    .with_module::<SomeModule>()
     .build();
 ```
 
@@ -21,9 +21,9 @@ let app = Application::builder()
 
    - El router interno (vacío al inicio)
    - El estado compartido de la aplicación
-   - La configuración cargada desde `config/config.toml`
+   - La configuración cargada por defecto desde `config/config.toml`
 
-2. **Métodos de configuración** (`.with_controller()`, `.with_layer()`, etc.): Cada método retorna `self`, permitiendo encadenar llamadas y configurar la aplicación de forma fluida.
+2. **Métodos de configuración** (`.with_module()`, `.with_layer()`, etc.): Cada método retorna `self`, permitiendo encadenar llamadas y configurar la aplicación de forma fluida.
 
 3. **`.build()`**: Finaliza la construcción, aplica los middlewares automáticos y retorna una instancia de `Application` lista para ejecutar.
 
@@ -31,29 +31,29 @@ let app = Application::builder()
 
 Estos son los métodos disponibles en `ApplicationBuilder` para configurar tu aplicación antes de construirla.
 
-#### `with_controller`
+#### `with_module`
 
-Registra un controlador que implementa el trait `Controller`. Los controladores definen las rutas y manejan las solicitudes HTTP.
+Registra un módulo en la aplicación. Un módulo es una colección de controladores, servicios y otros componentes relacionados.
 
 ##### Parámetros
 
-- `C`: Un struct que implementa el trait `Controller`.
+- `M`: Un struct que implementa el trait `Module`.
 
 ##### Ejemplo
 
 ```rust
 use sword::prelude::*;
 
-#[controller("/api")]
-struct SomeController;
+struct SomeModule;
 
-#[routes]
-impl SomeController {
-    #[get("/hello")]
-    async fn hello(&self) -> HttpResponse {
-        HttpResponse::Ok().message("Hello, World!")
+impl Module for SomeModule {
+    fn configure(&self, builder: &mut ModuleBuilder) {
+        builder
+            .with_controller::<SomeController>()
+            .with_service::<SomeService>();
     }
 }
+
 
 let app = Application::builder()
     .with_controller::<SomeController>()

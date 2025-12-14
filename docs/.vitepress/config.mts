@@ -89,6 +89,10 @@ export default defineConfig({
                 ],
               },
               {
+                text: "Response Handling",
+                link: "/en/key-concepts/response-handling"
+              },
+              {
                 text: "Data Validation",
                 link: "/en/key-concepts/data-validation",
               },
@@ -234,6 +238,10 @@ export default defineConfig({
                 ],
               },
               {
+                text: "Manejo de Respuestas HTTP",
+                link: "/es/key-concepts/response-handling"
+              },
+              {
                 text: "Validación de Datos",
                 link: "/es/key-concepts/data-validation",
               },
@@ -306,6 +314,12 @@ export default defineConfig({
   },
   themeConfig: {
     socialLinks: [{ icon: "github", link: "https://github.com/sword-web" }],
-    logo: "/logo.png",
+    logo: {
+      light: "/favicon-inverse.ico",
+      dark: "/favicon.png",
+    }
   },
+  markdown: {
+    lineNumbers: true,
+  }
 });
