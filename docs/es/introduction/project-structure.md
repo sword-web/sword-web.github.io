@@ -13,7 +13,6 @@ my-sword-app
 └── src
     ├── controller.rs
     ├── main.rs
-    ├── module.rs
     └── service.rs
 ```
 

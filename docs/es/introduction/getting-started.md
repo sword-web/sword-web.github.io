@@ -1,8 +1,10 @@
 # ¿Cómo empezar?
 
-La forma más óptima de comenzar a utilizar sword es usando `sword-cli`, una herramienta que provee un conjunto de utilidades para crear proyectos y generar código.
+La forma más sencilla de empezar a usar sword es utilizando `sword-cli`, una herramienta de línea de comandos que facilita la creación y configuración de proyectos basados en Sword.
 
-Para ello deberás instalar el binario que provee un conjunto de herramientas para crear y generar código de forma interactiva.
+## Usando sword-cli
+
+Para usar esta forma es necesario instalar `sword-cli` primero. Este binario provee un conjunto de herramientas para crear y generar código de forma interactiva.
 
 ```shell
 cargo install sword-cli

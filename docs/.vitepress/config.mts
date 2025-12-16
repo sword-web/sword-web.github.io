@@ -24,6 +24,7 @@ export default defineConfig({
         sidebar: [
           {
             text: "Introduction",
+            link: "/en/introduction/",
             items: [
               { text: "Getting Started", link: "/en/introduction/getting-started" },
               {
@@ -34,128 +35,161 @@ export default defineConfig({
             ],
           },
           {
-            text: "Key Concepts",
+            text: "Fundamental Concepts",
             items: [
               {
-                text: "The `Application` structure",
-                link: "/en/key-concepts/application-structure",
-              },
-              {
-                text: "The `main` function and macro",
-                link: "/en/key-concepts/the-main-function",
+                text: "The Sword Application",
+                collapsed: true,
+                items: [
+                  {
+                    text: "Application builder",
+                    link: "/en/fundamental-concepts/application/builder",
+                  },
+                  {
+                    text: "Application instance",
+                    link: "/en/fundamental-concepts/application/instance",
+                  },
+                  {
+                    text: "The main function",
+                    link: "/en/fundamental-concepts/application/the-main-function",
+                  },
+                ],
               },
               {
                 text: "Configuring the application",
+                collapsed: true,
                 items: [
                   {
                     text: "Application Configuration",
-                    link: "/en/key-concepts/configuration/application",
+                    link: "/en/fundamental-concepts/configuration/application",
                   },
                   {
                     text: "Custom Configuration",
-                    link: "/en/key-concepts/configuration/custom",
+                    link: "/en/fundamental-concepts/configuration/custom",
                   },
                 ],
               },
               {
-                text: "Controllers and Routes",
+                text: "Built-in Tower Middlewares",
+                link: "/en/fundamental-concepts/built-in-mws/",
+                collapsed: true,
                 items: [
                   {
-                    text: "Defining Controllers",
-                    link: "/en/key-concepts/controllers/definition",
+                    text: "Compression",
+                    link: "/en/fundamental-concepts/built-in-mws/compression",
                   },
                   {
-                    text: "Defining Routes",
-                    link: "/en/key-concepts/controllers/routes",
+                    text: "CORS",
+                    link: "/en/fundamental-concepts/built-in-mws/cors",
+                  },
+                  {
+                    text: "Helmet - Security Headers",
+                    link: "/en/fundamental-concepts/built-in-mws/helmet",
+                  },
+                  {
+                    text: "Http Logger (Coming Soon)",
+                  },
+                  {
+                    text: "Request Body Limit",
+                    link: "/en/fundamental-concepts/built-in-mws/request-body-limit",
+                  },
+                  {
+                    text: "Request Id",
+                    link: "/en/fundamental-concepts/built-in-mws/request-id",
+                  },
+                  {
+                    text: "Request Timeout",
+                    link: "/en/fundamental-concepts/built-in-mws/request-timeout",
                   },
                 ],
+              }
+            ],
+            },
+          {
+            text: "Application Components",
+            items: [
+              {
+                text: "Modules",
+                link: "/en/application-components/modules",
               },
               {
-                text: "Request Handling",
-                link: "/en/key-concepts/request-handling/explanation",
+                text: "Gateways",
+                link: "/en/application-components/gateways/",
                 items: [
                   {
-                    text: "The `Request` structure",
-                    link: "/en/key-concepts/request-handling/request-structure",
+                    text: "REST Controllers",
+                    link: "/en/application-components/gateways/rest-controller",
                   },
                   {
-                    text: "Extending `Request`",
-                    link: "/en/key-concepts/request-handling/extending-request",
+                    text: "SocketIO Controllers",
+                    link: "/en/application-components/gateways/socketio-controller",
                   },
                   {
-                    text: "Error Handling in Requests",
-                    link: "/en/key-concepts/request-handling/error-handling",
+                    text: "gRPC Controllers (Coming Soon)",
+                    link: "/en/application-components/gateways/grpc-controller",
                   },
                 ],
               },
               {
-                text: "Response Handling",
-                link: "/en/key-concepts/response-handling"
+                text: "Injectables",
+                link: "/en/application-components/di/",
+                items: [
+                  {
+                    text: "Providers",
+                    link: "/en/application-components/di/providers",
+                  },
+                  {
+                    text: "Components",
+                    link: "/en/application-components/di/components",
+                  },
+                  {
+                    text: "Injecting injectables",
+                    link: "/en/application-components/di/injecting",
+                  }
+                ],
               },
               {
-                text: "Data Validation",
-                link: "/en/key-concepts/data-validation",
-              },
-              {
-                text: "Middlewares",
-                link: "/en/key-concepts/middlewares/",
+                text: "Middlewares and Layers",
+                link: "/en/application-components/middlewares-and-layers",
+                collapsed: true,
                 items: [
                   {
                     text: "Simple Middlewares",
-                    link: "/en/key-concepts/middlewares/common",
+                    link: "/en/application-components/middlewares-and-layers/simple-middlewares",
                   },
                   {
                     text: "Middlewares with Configuration/Parameters",
-                    link: "/en/key-concepts/middlewares/with-config",
+                    link: "/en/application-components/middlewares-and-layers/middlewares-with-config",
                   },
                   {
                     text: "Tower Middleware",
-                    link: "/en/key-concepts/middlewares/tower",
+                    link: "/en/application-components/middlewares-and-layers/tower-middleware",
                   },
                   {
                     text: "Extensions",
-                    link: "/en/key-concepts/middlewares/extensions",
+                    link: "/en/application-components/middlewares-and-layers/extensions",
                   },
                 ],
               },
-              {
-                text: "Dependency Injection (DI)",
-                link: "/en/key-concepts/dependency-injection/",
-                items: [
-                  {
-                    text: "Defining a Dependency Container",
-                    link: "/en/key-concepts/dependency-injection/defining-container",
-                  },
-                  {
-                    text: "Defining Providers",
-                    link: "/en/key-concepts/dependency-injection/defining-providers",
-                  },
-                  {
-                    text: "Defining Components",
-                    link: "/en/key-concepts/dependency-injection/defining-components",
-                  },
-                  {
-                    text: "Using Dependencies",
-                    link: "/en/key-concepts/dependency-injection/using-dependencies",
-                  }
-                ]
-              }
             ],
           },
           {
-            text: "Advanced Concepts",
+            text: "Extra Concepts",
             items: [
-              { text: "Watch Mode and Hot Reload", link: "/en/advanced-concepts/hot-reload" },
-              { text: "Cookies", link: "/en/advanced-concepts/cookies" },
               {
-                text: "Multipart/Form Data Handling",
-                link: "/en/advanced-concepts/multipart-form-data",
+                text: "Watch Mode and Hot Reload",
+                link: "/en/extra-concepts/hot-reload",
               },
-              { text: "Security", link: "/en/advanced-concepts/security" },
-              { text: "Testing", link: "/en/advanced-concepts/testing" },
-            ],
-          },
-          { text: "Changelog and Roadmap", link: "/en/changelog-roadmap/" },
+              {
+                text: "Sword CLI",
+                link: "/en/extra-concepts/sword-cli",
+              },
+              {
+                text: "Testing",
+                link: "/en/extra-concepts/testing",
+              }
+            ]
+          }
         ],
       },
     },
@@ -174,140 +208,170 @@ export default defineConfig({
           {
             text: "Introducción",
             items: [
-              { text: "¿Cómo empezar?", link: "/es/introduction/getting-started" },
+              { text: "Comenzando", link: "/es/introduction/getting-started" },
               {
-                text: "Estructura de un proyecto",
+                text: "Estructura del proyecto",
                 link: "/es/introduction/project-structure",
               },
               { text: "Ecosistema", link: "/es/introduction/ecosystem" },
             ],
           },
           {
-            text: "Conceptos Clave",
+            text: "Conceptos Fundamentales",
             items: [
               {
-                text: "La estructura `Application`",
-                link: "/es/key-concepts/application-structure",
-              },
-              {
-                text: "La función y macro `main`",
-                link: "/es/key-concepts/the-main-function",
+                text: "La Aplicación Sword",
+                collapsed: true,
+                items: [
+                  {
+                    text: "Constructor de aplicación",
+                    link: "/es/fundamental-concepts/application/builder",
+                  },
+                  {
+                    text: "Instancia de aplicación",
+                    link: "/es/fundamental-concepts/application/instance",
+                  },
+                  {
+                    text: "La función main",
+                    link: "/es/fundamental-concepts/application/the-main-function",
+                  },
+                ],
               },
               {
                 text: "Configurando la aplicación",
+                collapsed: true,
                 items: [
                   {
-                    text: "Configuración de la Aplicación",
-                    link: "/es/key-concepts/configuration/application",
+                    text: "Configuración de Aplicación",
+                    link: "/es/fundamental-concepts/configuration/application",
                   },
                   {
                     text: "Configuración Personalizada",
-                    link: "/es/key-concepts/configuration/custom",
+                    link: "/es/fundamental-concepts/configuration/custom",
                   },
                 ],
               },
               {
-                text: "Controladores y rutas",
+                text: "Middlewares Tower Integrados",
+                link: "/es/fundamental-concepts/built-in-mws/",
+                collapsed: true,
                 items: [
                   {
-                    text: "Defición de Controladores",
-                    link: "/es/key-concepts/controllers/definition",
+                    text: "Compresión",
+                    link: "/es/fundamental-concepts/built-in-mws/compression",
                   },
                   {
-                    text: "Implementación de Rutas",
-                    link: "/es/key-concepts/controllers/routes",
+                    text: "CORS",
+                    link: "/es/fundamental-concepts/built-in-mws/cors",
+                  },
+                  {
+                    text: "Helmet - Headers de Seguridad",
+                    link: "/es/fundamental-concepts/built-in-mws/helmet",
+                  },
+                  {
+                    text: "Logger HTTP (Próximamente)",
+                  },
+                  {
+                    text: "Body limit",
+                    link: "/es/fundamental-concepts/built-in-mws/request-body-limit",
+                  },
+                  {
+                    text: "Request ID",
+                    link: "/es/fundamental-concepts/built-in-mws/request-id",
+                  },
+                  {
+                    text: "Request Timeout",
+                    link: "/es/fundamental-concepts/built-in-mws/request-timeout",
+                  },
+                ],
+              }
+            ],
+            },
+          {
+            text: "Componentes de Aplicación",
+            items: [
+              {
+                text: "Módulos",
+                link: "/es/application-components/modules",
+              },
+              {
+                text: "Gateways",
+                link: "/es/application-components/gateways/",
+                items: [
+                  {
+                    text: "Controladores REST",
+                    link: "/es/application-components/gateways/rest-controller",
+                  },
+                  {
+                    text: "Controladores SocketIO",
+                    link: "/es/application-components/gateways/socketio-controller",
+                  },
+                  {
+                    text: "Controladores gRPC (Próximamente)",
+                    link: "/es/application-components/gateways/grpc-controller",
                   },
                 ],
               },
               {
-                text: "Manejo de Solicitudes HTTP",
-                link: "/es/key-concepts/request-handling/explanation",
+                text: "Inyectables",
+                link: "/es/application-components/di/",
                 items: [
                   {
-                    text: "La estructura `Request`",
-                    link: "/es/key-concepts/request-handling/request-structure",
+                    text: "Providers",
+                    link: "/es/application-components/di/providers",
                   },
                   {
-                    text: "Manejo de Errores en `Request`",
-                    link: "/es/key-concepts/request-handling/error-handling",
+                    text: "Componentes",
+                    link: "/es/application-components/di/components",
                   },
                   {
-                    text: "Extender `Request`",
-                    link: "/es/key-concepts/request-handling/extending-request",
-                  },
+                    text: "Inyectando dependencias",
+                    link: "/es/application-components/di/injecting",
+                  }
                 ],
               },
               {
-                text: "Manejo de Respuestas HTTP",
-                link: "/es/key-concepts/response-handling"
-              },
-              {
-                text: "Validación de Datos",
-                link: "/es/key-concepts/data-validation",
-              },
-              {
-                text: "Middlewares",
-                link: "/es/key-concepts/middlewares/",
+                text: "Middlewares y Capas",
+                link: "/es/application-components/middlewares-and-layers",
+                collapsed: true,
                 items: [
                   {
-                    text: "Middlewares simples",
-                    link: "/es/key-concepts/middlewares/common",
+                    text: "Middlewares Simples",
+                    link: "/es/application-components/middlewares-and-layers/simple-middlewares",
                   },
                   {
                     text: "Middlewares con Configuración/Parámetros",
-                    link: "/es/key-concepts/middlewares/with-config",
+                    link: "/es/application-components/middlewares-and-layers/middlewares-with-config",
                   },
                   {
-                    text: "Tower Middleware",
-                    link: "/es/key-concepts/middlewares/tower",
+                    text: "Middleware Tower",
+                    link: "/es/application-components/middlewares-and-layers/tower-middleware",
                   },
                   {
                     text: "Extensiones",
-                    link: "/es/key-concepts/middlewares/extensions",
+                    link: "/es/application-components/middlewares-and-layers/extensions",
                   },
                 ],
               },
-              {
-                text: "Inyección de Dependencias (DI)",
-                link: "/es/key-concepts/dependency-injection/",
-                items: [
-                  {
-                    text: "Definiendo un contenedor de dependencias",
-                    link: "/es/key-concepts/dependency-injection/defining-container",
-                  },
-                  {
-                    text: "Injectable: Providers",
-                    link: "/es/key-concepts/dependency-injection/defining-providers",
-                  },
-                  {
-                    text: "Injectable: Components",
-                    link: "/es/key-concepts/dependency-injection/defining-components",
-                  },
-                  {
-                    text: "Usando dependencias en controladores y middlewares",
-                    link: "/es/key-concepts/dependency-injection/using-dependencies",
-                  }
-                ]
-              }
             ],
           },
           {
-            text: "Conceptos avanzados",
+            text: "Conceptos Extra",
             items: [
               {
-                text: "Watch Mode y Hot Reload",
-                link: "/es/advanced-concepts/hot-reload",
+                text: "Modo Watch y Hot Reload",
+                link: "/es/extra-concepts/hot-reload",
               },
-              { text: "Cookies", link: "/es/advanced-concepts/cookies" },
               {
-                text: "Manejo de Multipart/Form Data",
-                link: "/es/advanced-concepts/multipart-form-data",
+                text: "Sword CLI",
+                link: "/es/extra-concepts/sword-cli",
               },
-              { text: "Seguridad", link: "/es/advanced-concepts/security" },
-              { text: "Testing", link: "/es/advanced-concepts/testing" },
-            ],
-          },
-          { text: "Changelog y Roadmap", link: "/es/changelog-roadmap/" },
+              {
+                text: "Testing",
+                link: "/es/extra-concepts/testing",
+              }
+            ]
+          }
         ],
       },
     },
