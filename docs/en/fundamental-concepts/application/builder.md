@@ -8,25 +8,25 @@ The build flow is straightforward: you call `Application::builder()` to get an `
 
 ```rust
 let app = Application::builder()
-    .with_controller::<SomeController>()
+    .with_module::<SomeModule>()
     .build();
 ```
 
 ### How Does the Builder Pattern Work?
 
-**`Application::builder()`**: Creates a new `ApplicationBuilder` that initializes:
+**Application::builder()**: Creates a new `ApplicationBuilder` that initializes:
 
-- The internal router (empty at first)
+- The internal router
 - The application's shared state
-- Configuration loaded from `config/config.toml`
+- Loading configuration from the `.toml` file
 
-### Fields and Methods
+### Methods and attributes of the structure
 
-These are the fields and methods available on `ApplicationBuilder` to configure your application before building it.
+The structure has key fields and methods that allow you to customize your application:
 
 #### `config`
 
-Public field that allows you to access the application's configuration settings loaded from the `config/config.toml` file.
+Public attribute that allows access to the application configuration loaded from the configuration file.
 
 <hr/>
 
@@ -44,11 +44,11 @@ Learn more about modules in the [Modules](../../application-components/modules) 
 
 #### `with_layer::<L>(layer: L)`
 
-Registers a Tower middleware layer globally for the application.
+Registers a Tower middleware `Layer` globally for the application. (Applied over the application Router).
 
 ##### Parameters
 
-- `layer`: An instance that implements the `Layer` trait and complies with Tower's middleware system.
+- `layer`: An instance that implements the `Layer` trait.
 
 ##### Example
 

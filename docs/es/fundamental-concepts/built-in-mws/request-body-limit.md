@@ -1,4 +1,4 @@
-# Limite del Cuerpo de la Petición
+# Body Limit en Sword
 
 El middleware de límite del cuerpo de la petición permite restringir el tamaño máximo del cuerpo de las peticiones entrantes. Esto es útil para prevenir ataques de denegación de servicio y para controlar el uso de recursos del servidor.
 

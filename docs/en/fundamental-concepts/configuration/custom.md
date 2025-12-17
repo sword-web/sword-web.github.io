@@ -46,9 +46,9 @@ The `#[config(key = "...")]` macro automatically generates:
 - Implementation of `TryFrom<&State>` for dependency injection
 - Automatic registration in the application state during initialization
 
-## Configuration Structure in the TOML File
+## Structure in the configuration file
 
-Custom configuration must be placed in the `config/config.toml` file under the specified key:
+Custom configuration must be in the `config/config.toml` file under the specified key:
 
 ```toml
 [application]
@@ -62,7 +62,7 @@ max_connections = 50
 debug_mode = true
 ```
 
-## Accessing Configuration Values
+## Getting values from configuration
 
 Once you've defined your custom configuration, Sword automatically registers it in the application state. You can access it in several ways:
 
@@ -72,13 +72,13 @@ use sword::prelude::*;
 #[sword::main]
 async fn main() {
     let app = Application::builder();
-    let my_app_conf = app.config::<ApplicationConfig>()
+    let my_app_conf = app.config::<MyConfig>()
         .expect("Failed to get app config");
 
     println!("{my_app_conf:?}");
 
     let app = app
-        .with_module::<MyModule>()
+        .with_module::<SomeModule>()
         .build();
 
     app.run().await;

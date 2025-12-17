@@ -11,7 +11,7 @@ keywords:
   ]
 ---
 
-# The Application Instance
+# The `Application` structure
 
 Once you've built an `Application` instance using the builder pattern, you can run it with the `run()` method:
 
@@ -28,11 +28,17 @@ async fn main() {
 
 The `run()` method starts the web server and begins listening for incoming HTTP requests. If you've enabled the `graceful-shutdown` option in your configuration, the application will handle termination signals gracefully by allowing in-flight requests to complete before shutting down.
 
-### Useful Application Methods
+### Methods and attributes of the structure
+
+#### `config`
+
+Public attribute that allows access to the application configuration loaded from the configuration file.
+
+<hr/>
 
 #### `router()`
 
-Returns a clone of the application's internal router. This is useful if you need to access the router for advanced operations or to inspect route configuration.
+Returns a copy of the application's internal router. This is useful if you need to access the router for advanced operations or to inspect route configuration.
 
 ##### Example
 
