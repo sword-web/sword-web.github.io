@@ -28,11 +28,11 @@ hero:
 
   actions:
     - theme: brand
-      text: What is Sword?
-      link: /en/introduction/
+      text: ¿Qué es Sword?
+      link: /es/introduction/
     - theme: alt
-      text: Get Started
-      link: /en/introduction/how-to-start.md
+      text: Empezar
+      link: /es/introduction/getting-started
     - theme: alt
       text: GitHub
       link: "https://github.com/sword-web/"
