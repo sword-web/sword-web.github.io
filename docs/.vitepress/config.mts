@@ -42,20 +42,19 @@ export default defineConfig({
                 sidebar: [
                     {
                         text: "Introducción",
-                        items: [
-                            {
-                                text: "Comenzando",
-                                link: "/es/introduction/getting-started",
-                            },
-                            {
-                                text: "Estructura del proyecto",
-                                link: "/es/introduction/project-structure",
-                            },
-                            {
-                                text: "Ecosistema",
-                                link: "/es/introduction/ecosystem",
-                            },
-                        ],
+                        link: "/es/introduction/",
+                    },
+                    {
+                        text: "Comenzando",
+                        link: "/es/introduction/getting-started",
+                    },
+                    {
+                        text: "Estructura del proyecto",
+                        link: "/es/introduction/project-structure",
+                    },
+                    {
+                        text: "Ecosistema",
+                        link: "/es/introduction/ecosystem",
                     },
                     {
                         text: "Conceptos Fundamentales",
@@ -90,39 +89,13 @@ export default defineConfig({
                                         text: "Configuración Personalizada",
                                         link: "/es/fundamental-concepts/configuration/custom",
                                     },
-                                ],
-                            },
-                            {
-                                text: "Middlewares Tower Integrados",
-                                link: "/es/fundamental-concepts/built-in-mws/",
-                                collapsed: true,
-                                items: [
                                     {
-                                        text: "Compresión",
-                                        link: "/es/fundamental-concepts/built-in-mws/compression",
+                                        text: "Extracción de estructuras",
+                                        link: "/es/fundamental-concepts/configuration/extract",
                                     },
                                     {
-                                        text: "CORS",
-                                        link: "/es/fundamental-concepts/built-in-mws/cors",
-                                    },
-                                    {
-                                        text: "Helmet - Headers de Seguridad",
-                                        link: "/es/fundamental-concepts/built-in-mws/helmet",
-                                    },
-                                    {
-                                        text: "Logger HTTP (Próximamente)",
-                                    },
-                                    {
-                                        text: "Body limit",
-                                        link: "/es/fundamental-concepts/built-in-mws/request-body-limit",
-                                    },
-                                    {
-                                        text: "Request ID",
-                                        link: "/es/fundamental-concepts/built-in-mws/request-id",
-                                    },
-                                    {
-                                        text: "Request Timeout",
-                                        link: "/es/fundamental-concepts/built-in-mws/request-timeout",
+                                        text: "Unidades Especiales",
+                                        link: "/es/fundamental-concepts/configuration/special-units",
                                     },
                                 ],
                             },
@@ -136,20 +109,20 @@ export default defineConfig({
                                 link: "/es/application-components/modules",
                             },
                             {
-                                text: "Gateways",
-                                link: "/es/application-components/gateways/",
+                                text: "Controladores",
+                                link: "/es/application-components/controllers",
                                 items: [
                                     {
-                                        text: "Controladores REST",
-                                        link: "/es/application-components/gateways/rest-controller",
+                                        text: "Controladores Web",
+                                        link: "/es/application-components/controllers/web-controllers",
                                     },
                                     {
-                                        text: "Controladores SocketIO",
-                                        link: "/es/application-components/gateways/socketio-controller",
+                                        text: "Controladores Socket.IO",
+                                        link: "/es/application-components/controllers/socket-io-controllers",
                                     },
                                     {
                                         text: "Controladores gRPC (Próximamente)",
-                                        link: "/es/application-components/gateways/grpc-controller",
+                                        link: "/es/application-components/controllers/grpc-controllers",
                                     },
                                 ],
                             },
@@ -172,44 +145,101 @@ export default defineConfig({
                                 ],
                             },
                             {
-                                text: "Middlewares y Capas",
-                                link: "/es/application-components/middlewares-and-layers",
+                                text: "Interceptors",
+                                link: "/es/application-components/interceptors/",
                                 collapsed: true,
                                 items: [
                                     {
-                                        text: "Middlewares Simples",
-                                        link: "/es/application-components/middlewares-and-layers/simple-middlewares",
+                                        text: "Interceptores tradicionales",
+                                        link: "/es/application-components/interceptors/traditional",
                                     },
                                     {
-                                        text: "Middlewares con Configuración/Parámetros",
-                                        link: "/es/application-components/middlewares-and-layers/middlewares-with-config",
+                                        text: "Interceptores con Configuración/Parámetros",
+                                        link: "/es/application-components/interceptors/with-config",
                                     },
                                     {
-                                        text: "Middleware Tower",
-                                        link: "/es/application-components/middlewares-and-layers/tower-middleware",
+                                        text: "Layers con Tower",
+                                        link: "/es/application-components/interceptors/tower",
                                     },
                                     {
                                         text: "Extensiones",
-                                        link: "/es/application-components/middlewares-and-layers/extensions",
+                                        link: "/es/application-components/interceptors/extensions",
                                     },
                                 ],
                             },
                         ],
                     },
                     {
-                        text: "Conceptos Extra",
+                        text: "Guías Prácticas",
                         items: [
                             {
-                                text: "Modo Watch y Hot Reload",
-                                link: "/es/extra-concepts/hot-reload",
+                                text: "Web",
+                                collapsed: true,
+                                items: [
+                                    {
+                                        text: "Validación de Datos",
+                                        link: "/es/practical-guides/web/data-validation",
+                                    },
+                                    {
+                                        text: "Manejo de Requests",
+                                        link: "/es/practical-guides/web/request-handling/explanation",
+                                    },
+                                    {
+                                        text: "Estructura de Request",
+                                        link: "/es/practical-guides/web/request-handling/request-structure",
+                                    },
+                                    {
+                                        text: "Manejo de Errores",
+                                        link: "/es/practical-guides/web/request-handling/error-handling",
+                                    },
+                                    {
+                                        text: "Extender Request",
+                                        link: "/es/practical-guides/web/request-handling/extending-request",
+                                    },
+                                    {
+                                        text: "Manejo de Respuestas",
+                                        link: "/es/practical-guides/web/response-handling",
+                                    },
+                                ],
                             },
                             {
-                                text: "Sword CLI",
-                                link: "/es/extra-concepts/sword-cli",
+                                text: "Socket.IO",
+                                collapsed: true,
+                                items: [
+                                    {
+                                        text: "Manejo de eventos",
+                                        link: "/es/practical-guides/socketio/event-handling",
+                                    },
+                                    {
+                                        text: "Validación de Datos",
+                                        link: "/es/practical-guides/socketio/data-validation",
+                                    },
+                                    {
+                                        text: "ACKs",
+                                        link: "/es/practical-guides/socketio/acknowledgements",
+                                    },
+                                    {
+                                        text: "Contexto y extensiones",
+                                        link: "/es/practical-guides/socketio/context-and-extensions",
+                                    },
+                                ],
                             },
                             {
                                 text: "Testing",
-                                link: "/es/extra-concepts/testing",
+                                link: "/es/practical-guides/testing",
+                            },
+                        ],
+                    },
+                    {
+                        text: "Tooling",
+                        items: [
+                            {
+                                text: "Modo Watch y Hot Reload",
+                                link: "/es/tooling/hot-reload",
+                            },
+                            {
+                                text: "Sword CLI",
+                                link: "/es/tooling/sword-cli",
                             },
                         ],
                     },

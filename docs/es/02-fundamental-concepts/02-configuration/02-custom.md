@@ -10,12 +10,11 @@ Para crear una configuración personalizada, debes marcar tu struct con la macro
 use serde::Deserialize;
 use sword::prelude::*;
 
+#[config(key = "database")]
 #[derive(Debug, Clone, Deserialize)]
-#[config(key = "my-custom-section")]
-pub struct MyConfig {
+pub struct DatabaseConfig {
     database_url: String,
     max_connections: u32,
-    debug_mode: bool,
 }
 ```
 
@@ -43,33 +42,7 @@ host = "0.0.0.0"
 port = 8080
 # ... otra configuración de aplicación ...
 
-[my-custom-section]
+[database]
 database_url = "postgres://user:password@localhost/mydb"
 max_connections = 50
-debug_mode = true
 ```
-
-## Obtener valores desde la configuración
-
-Una vez que has definido tu configuración personalizada, Sword se encarga de registrarla automáticamente en el estado de la aplicación. Puedes acceder a ella de varias formas:
-
-```rust
-use sword::prelude::*;
-
-#[sword::main]
-async fn main() {
-    let app = Application::builder();
-    let my_app_conf = app.config::<MyConfig>()
-        .expect("Failed to get app config");
-
-    println!("{my_app_conf:?}");
-
-    let app = app
-        .with_module::<SomeModule>()
-        .build();
-
-    app.run().await;
-}
-```
-
-Además, puedes extraer la configuración desde otras partes de tu aplicación, como controladores o servicios, usando inyección de dependencias. Ver la sección de [Inyección de Dependencias](/es/application-components/injectables/) para más detalles.

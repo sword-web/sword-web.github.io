@@ -2,18 +2,18 @@
 title: Application Configuration - Sword Framework
 description: Configure your Sword application using TOML files. Learn about server settings, CORS, logging, and environment-specific configurations.
 keywords:
-  [
-    "application configuration",
-    "toml config",
-    "sword settings",
-    "environment variables",
-    "server configuration",
-  ]
+    [
+        "application configuration",
+        "toml config",
+        "sword settings",
+        "environment variables",
+        "server configuration",
+    ]
 ---
 
 # Configuración de la Aplicación
 
-Sword utiliza un archivo de configuración TOML para gestionar los parámetros principales de su aplicación web. Este archivo se carga automáticamente cuando su aplicación se inicia.
+Sword utiliza el crate `thisconfig` para cargar uno o múltiples archivos de configuración TOML. Esto permite definir la configuración de su aplicación de manera estructurada y fácil de mantener.
 
 ## Ubicación y carga del archivo
 
@@ -21,30 +21,20 @@ Por defecto, Sword busca el archivo de configuración en `config/config.toml` en
 
 Si el archivo no se encuentra o contiene TOML inválido, la aplicación fallará durante la construcción.
 
-## Estructura del archivo de configuración
+Si desea usar un archivo de configuración con un nombre o ubicación diferente, puede especificarlo al construir la aplicación como se mostró en secciones anteriores.
 
-La configuración debe definirse bajo la sección `[application]`:
+## Primera sección: `[application]`
+
+Esta sección define atributos generales de la aplicación, como el nombre, el entorno y el comportamiento de apagado.
 
 ```toml
 [application]
-# Dirección del host a la que se enlazará el servidor. Por defecto es "0.0.0.0".
-host = "0.0.0.0"
-
-# Número de puerto al que se enlazará el servidor. Por defecto es 8080.
-port = 8080
+name = "My Sword App"
 
 # Habilitar el apagado elegante del servidor.
-# Por defecto es false.
 # Si está habilitado, el servidor terminará de procesar las solicitudes en curso
 # antes de apagarse cuando reciba una señal de terminación.
-#
-# Si desea usar un manejador de señales personalizado, puede deshabilitar esto
-# e implementar su propio manejador usando el método `run_with_graceful_shutdown`.
 graceful_shutdown = false
-
-# Nombre opcional de la aplicación.
-# Se usa principalmente para propósitos de registro y visualización al iniciar.
-name = "My Sword App"
 
 # Nombre opcional del entorno (por ejemplo, "development", "production", "staging").
 # Puede usar esta variable para condicionar el comportamiento de su aplicación
@@ -52,14 +42,29 @@ name = "My Sword App"
 environment = "development"
 ```
 
+## Segunda sección: `[server]`
+
+Dependiendo del runtime (web / grpc) seleccionado en las `features` de sword, se cargará la sección correspondiente para configurar el servidor. Para ver en detalle las opciones disponibles, consulte la documentación de cada runtime.
+
 ## Interpolación de Variables de Entorno
 
 Sword soporta la interpolación de variables de entorno directamente en el archivo de configuración. Esto es útil para mantener información sensible fuera del control de versiones:
 
 ```toml
-[application]
+[some-section]
 host = "${HOST:127.0.0.1}" # Usa la variable HOST, o 127.0.0.1 si no está definida
 port = "${PORT:8080}" # Usa la variable PORT, o 8080 como valor por defecto
 ```
 
 La sintaxis es: `${VARIABLE_NAME:default_value}`. Si no especifica un valor por defecto y la variable no existe, la carga de configuración fallará.
+
+## Cargar contenido de archivos externos
+
+El crate `thisconfig` permite cargar contenido de archivos directamente como parte de la configuración. Esto es útil para incluir certificados, claves privadas u otros datos que no desea escribir directamente en el archivo de configuración:
+
+```toml
+[auth]
+jwt_secret = "file:secrets/jwt_secret.txt"
+```
+
+Es altamente recomendado usar rutas absolutas o relativas al working directory de ejecución para evitar problemas de carga.

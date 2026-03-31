@@ -2,13 +2,13 @@
 title: Application Structure - Sword Framework
 description: Learn about Sword's Application and ApplicationBuilder structures. Master the Builder pattern for configuring web applications in Rust.
 keywords:
-  [
-    "application structure",
-    "builder pattern",
-    "sword framework",
-    "rust web app",
-    "application configuration",
-  ]
+    [
+        "application structure",
+        "builder pattern",
+        "sword framework",
+        "rust web app",
+        "application configuration",
+    ]
 ---
 
 # La estructura `Application`
@@ -36,7 +36,7 @@ Atributo público que permite acceder a la configuración de la aplicación carg
 
 <hr/>
 
-#### `router()`
+#### `web_router()` (solo disponible en el feature `web-runtime`)
 
 Devuelve una copia del enrutador interno de la aplicación. Esto es útil si necesitas acceder al enrutador para operaciones avanzadas o para inspeccionar la configuración de rutas.
 
@@ -47,7 +47,7 @@ let app = Application::builder()
     .with_module::<SomeModule>()
     .build();
 
-let router = app.router();
+let router: axum::Router = app.router();
 ```
 
 <hr/>

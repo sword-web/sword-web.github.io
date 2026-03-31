@@ -16,7 +16,7 @@ let app = Application::builder()
 
 **Application::builder()**: Crea un nuevo `ApplicationBuilder` que inicializa:
 
-- El enrutador interno
+- El runtime interno de la aplicación
 - El estado compartido de la aplicación
 - Carga de la configuración desde el fichero `.toml`
 
@@ -32,7 +32,7 @@ Atributo público que permite acceder a la configuración de la aplicación carg
 
 #### `with_module::<M>()`
 
-Método que registra un módulo que implementa el trait `Module`. Los módulos definen puntos de entrada para agrupar gateways, componentes y proveedores relacionados.
+Método que registra un módulo que implementa el trait `Module`. Los módulos definen puntos de entrada para agrupar controladores, componentes y proveedores relacionados.
 
 ##### Parameters
 
@@ -65,6 +65,18 @@ let app = Application::builder()
 ```
 
 Learn more about middleware in the [Middleware](/es/application-components/middlewares/tower) section.
+
+<hr/>
+
+#### `from_config_path<P: AsRef<Path>>(path: P)`
+
+Permite cargar la configuración de la aplicación desde un fichero `.toml` ubicado en una ruta personalizada.
+
+<hr/>
+
+#### `from_config(config: Config)`
+
+Permite cargar la configuración de la aplicación a partir de una instancia de `Config` creada manualmente.
 
 <hr/>
 
