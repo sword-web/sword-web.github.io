@@ -54,7 +54,7 @@ impl UsersController {
 }
 ```
 
-Para más detalles sobre extracción, revisa [Manejo de Requests](/es/usefull-patterns/request-handling/explanation).
+Para más detalles sobre extracción, revisa [Manejo de Requests](/es/practical-guides/web/request-handling/explanation).
 
 ## Métodos HTTP soportados
 

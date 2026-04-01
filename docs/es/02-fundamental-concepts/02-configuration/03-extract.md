@@ -40,4 +40,4 @@ Este método es útil cuando quieres asegurarte de que una configuración críti
 
 <hr/>
 
-Además, puedes extraer la configuración desde otras partes de tu aplicación, como controladores o componentes, usando inyección de dependencias. Ver la sección de [Inyección de Dependencias](/es/application-components/injectables/) para más detalles.
+Además, puedes extraer la configuración desde otras partes de tu aplicación, como controladores o componentes, usando inyección de dependencias. Ver la sección de [Inyección de Dependencias](/es/application-components/di/) para más detalles.

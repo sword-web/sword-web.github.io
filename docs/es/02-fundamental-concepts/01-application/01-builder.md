@@ -64,7 +64,7 @@ let app = Application::builder()
     .build();
 ```
 
-Learn more about middleware in the [Middleware](/es/application-components/middlewares/tower) section.
+Para más detalles sobre Tower, revisa la sección de [Layers con Tower](/es/application-components/interceptors/tower).
 
 <hr/>
 
