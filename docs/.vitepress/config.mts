@@ -45,7 +45,7 @@ export default defineConfig({
                         link: "/es/introduction/",
                     },
                     {
-                        text: "Comenzando",
+                        text: "Iniciando",
                         link: "/es/introduction/getting-started",
                     },
                     {
@@ -63,6 +63,10 @@ export default defineConfig({
                                 text: "La Aplicación Sword",
                                 collapsed: true,
                                 items: [
+                                    {
+                                        text: "Tipos de aplicación",
+                                        link: "/es/fundamental-concepts/application/application-types",
+                                    },
                                     {
                                         text: "Constructor de aplicación",
                                         link: "/es/fundamental-concepts/application/builder",
@@ -127,7 +131,7 @@ export default defineConfig({
                                 ],
                             },
                             {
-                                text: "Inyectables",
+                                text: "Inyección de Dependencias",
                                 link: "/es/application-components/di/",
                                 items: [
                                     {

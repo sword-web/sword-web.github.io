@@ -1,12 +1,20 @@
+---
+title: Controladores Socket.IO
+description: Definición, eventos soportados, SocketContext y configuración de controladores Socket.IO en Sword.
+outline: [2, 3]
+prev:
+  text: Controladores Web
+  link: /es/application-components/controllers/web-controllers
+next:
+  text: Inyección de Dependencias
+  link: /es/application-components/di/
+---
+
 # Controladores Socket.IO
 
-En Sword, los controladores Socket.IO son una adaptación de los `handlers` de `socketioxide`. Con ellos tendrás la capacidad de manejar conexiones bidireccionales y en tiempo real.
+En Sword, un controlador Socket.IO es un `struct` anotado con `#[controller(kind = Controller::SocketIo, namespace = "...")]` cuyos métodos manejan eventos declarados con `#[on("...")]`.
 
-A diferencia de un controlador web, con estos controladores trabajarás con eventos usando el atributo `#[on("event")]`.
-
-## Definir un controlador Socket.IO
-
-Para definir un controlador Socket.IO debes declarar el atributo kind como `Controller::SocketIo` y un `namespace` asociado al controlador.
+## Definir un controlador
 
 ```rust
 use sword::prelude::*;
@@ -33,42 +41,44 @@ impl ChatController {
 
 ## Eventos soportados
 
-Sword soporta estos eventos especiales:
+### Eventos especiales
 
 - `#[on("connection")]`
 - `#[on("disconnection")]`
 - `#[on("fallback")]`
 
-Y además cualquier evento personalizado:
+### Eventos personalizados
 
 - `#[on("message")]`
 - `#[on("chat-message")]`
 - `#[on("room:join")]`
 
-## Estructura `SocketContext` en detalle
+## `SocketContext`
 
-La estructura `SocketContext` es el extractor principal en los métodos de un controlador Socket.IO. Se construye internamente para eventos de conexión, mensaje o desconexión.
+`SocketContext` es el extractor principal en handlers Socket.IO.
 
-### Métodos y atributos de utilidad
+### Resumen rápido
 
-- `ctx.socket` te da acceso directo al `SocketRef` para `emit`, `join`, `leave`, `broadcast`, etc.
-- `ctx.id()` retorna el `Sid` del socket.
-- `ctx.event()` retorna el nombre del evento (solo en handlers de mensaje).
-- `ctx.try_data::<T>()` deserializa el payload a un tipo `T`.
-- `ctx.try_validated_data::<T>()` deserializa y valida con `validator` (si está activo `validation-validator`).
-- `ctx.ack(&data)` responde ACK al cliente cuando el evento fue enviado con callback.
-- `ctx.has_ack()` indica si hay ACK disponible.
-- `ctx.has_data()` indica si aún no consumiste el payload.
-- `ctx.disconnect_reason()` solo tiene valor en `disconnection`.
-- `ctx.disconnect()` cierra la conexión desde servidor.
-- `ctx.extensions()` acceso a extensiones del socket.
-- `ctx.http_extensions()` acceso a extensiones HTTP de la request inicial.
+| API | Uso |
+| --- | --- |
+| `ctx.socket` | acceso directo a `emit`, `join`, `leave`, `broadcast`, etc. |
+| `ctx.id()` | leer el identificador del socket |
+| `ctx.event()` | leer el nombre del evento actual |
+| `ctx.try_data::<T>()` | deserializar el payload |
+| `ctx.try_validated_data::<T>()` | deserializar y validar payload |
+| `ctx.ack(&value)` | responder un ACK |
+| `ctx.has_ack()` | comprobar si existe ACK |
+| `ctx.has_data()` | saber si el payload sigue disponible |
+| `ctx.disconnect_reason()` | leer motivo de desconexión |
+| `ctx.disconnect()` | cerrar la conexión desde servidor |
+| `ctx.extensions()` | extensiones del socket |
+| `ctx.http_extensions()` | extensiones HTTP del handshake |
+| `ctx.transport_type()` | transporte actual |
+|
 
-### Nota importante sobre `try_data`
+`ctx.try_data::<T>()` consume el payload interno. Si se invoca dos veces en el mismo handler, la segunda llamada falla porque ya no queda data disponible.
 
-`try_data::<T>()` consume el payload interno. Si llamas `try_data` dos veces en el mismo handler, la segunda llamada fallará porque ya no hay data disponible.
-
-## Ejemplo con eventos de conexión, mensaje y desconexión
+### Ejemplo con conexión, mensaje y desconexión
 
 ```rust
 use sword::prelude::*;
@@ -98,9 +108,9 @@ impl ChatController {
 }
 ```
 
-## Respuestas ACK
+## ACKs
 
-Si el cliente envía un evento con callback ACK, puedes responder desde el handler:
+Si el cliente envía un evento con callback ACK, el handler puede responder mediante `ctx.ack(...)`.
 
 ```rust
 use serde::Serialize;
@@ -124,9 +134,11 @@ impl ChatController {
 }
 ```
 
-## Interceptors en Socket.IO
+`ctx.has_ack()` permite comprobar si el evento actual incluye callback ACK.
 
-Socket.IO tiene interceptores de conexión mediante el trait `OnConnect`.
+## Interceptors de conexión
+
+Socket.IO en Sword soporta interceptors de conexión mediante `OnConnect` y `OnConnectWithConfig`.
 
 ```rust
 use sword::prelude::*;
@@ -153,24 +165,17 @@ impl OnConnect for AuthConnectInterceptor {
 }
 ```
 
-Y se aplica en el `struct` del controlador:
+Aplicación sobre el controlador:
 
 ```rust
 #[controller(kind = Controller::SocketIo, namespace = "/chat")]
 #[interceptor(AuthConnectInterceptor)]
 pub struct ChatController;
-
-impl ChatController {
-    #[on("connection")]
-    async fn on_connect(&self, ctx: SocketContext) {
-        println!("authorized socket: {}", ctx.id());
-    }
-}
 ```
 
-Si el interceptor retorna `Err`, la conexión se rechaza.
+Si el interceptor retorna `Err`, la conexión se rechaza. El tipo de error debe implementar `Display`.
 
-## Registrar el controlador en un módulo
+## Registro en un módulo
 
 ```rust
 use sword::prelude::*;
@@ -184,22 +189,40 @@ impl Module for ChatModule {
 }
 ```
 
-## Configuración completa de Socket.IO
+## Configuración de `[socketio]`
 
-Para habilitar Socket.IO debes usar el feature `socketio-controllers` y configurar `[socketio]` en el fichero de configuración.
+Para habilitar Socket.IO debes compilar con `socketio-controllers` y definir la sección `[socketio]` en la configuración.
+
+```toml
+[socketio]
+enabled = true
+parser = "common"
+transports = ["websocket", "polling"]
+ping-timeout = "20s"
+ping-interval = "25s"
+```
 
 ### Campos disponibles en `SocketIoServerConfig`
 
-| Key                   | Tipo                    | Default                          | Descripción |
-| --------------------- | ----------------------- | -------------------------------- | ----------- |
-| `ack-timeout`         | `Option<TimeConfig>`    | `5s` (si no se define)           |             |
-| `connect-timeout`     | `Option<TimeConfig>`    | `45s` (si no se define)          |             |
-| `max-buffer-size`     | `Option<usize>`         | `128` (si no se define)          |             |
-| `max-payload`         | `Option<ByteConfig>`    | `100KB` (si no se define)        |             |
-| `ping-interval`       | `Option<TimeConfig>`    | `25s` (si no se define)          |             |
-| `ping-timeout`        | `Option<TimeConfig>`    | `20s` (si no se define)          |             |
-| `req-path`            | `Option<String>`        | `"/socket.io"` (si no se define) |             |
-| `transports`          | `Option<Vec<String>>`   | `["polling", "websocket"]`       |             |
-| `parser`              | `"common" \| "msgpack"` | `"common"`                       |             |
-| `ws-read-buffer-size` | `Option<usize>`         | `4096` bytes (si no se define)   |             |
-| `display`             | `bool`                  | `false`                          |             |
+| Key | Tipo | Default | Descripción |
+| --- | --- | --- | --- |
+| `ack-timeout` | `Option<TimeConfig>` | `5s` | Tiempo máximo para ACK saliente |
+| `connect-timeout` | `Option<TimeConfig>` | `45s` | Límite para completar la conexión inicial |
+| `max-buffer-size` | `Option<usize>` | `128` | Máximo de paquetes en buffer por conexión |
+| `max-payload` | `Option<ByteConfig>` | `100KB` | Tamaño máximo de payload saliente |
+| `ping-interval` | `Option<TimeConfig>` | `25s` | Intervalo de ping del servidor |
+| `ping-timeout` | `Option<TimeConfig>` | `20s` | Tiempo de espera de pong antes de desconectar |
+| `req-path` | `Option<String>` | `"/socket.io"` | Ruta HTTP donde se monta Socket.IO |
+| `transports` | `Option<Vec<String>>` | `["polling", "websocket"]` | Transportes permitidos |
+| `parser` | `"common" \| "msgpack"` | `"common"` | Parser de payloads |
+| `ws-read-buffer-size` | `Option<usize>` | `4096` | Tamaño del buffer de lectura websocket |
+| `display` | `bool` | `false` | Muestra esta config en startup |
+
+La clave soportada por configuración es `transports`.
+
+## Ver también
+
+- [Manejo de eventos](/es/practical-guides/socketio/event-handling)
+- [ACKs](/es/practical-guides/socketio/acknowledgements)
+- [Contexto y extensiones](/es/practical-guides/socketio/context-and-extensions)
+- [Interceptores con Configuración](/es/application-components/interceptors/with-config)

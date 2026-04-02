@@ -1,3 +1,12 @@
+---
+prev:
+  text: Módulos
+  link: /es/application-components/modules
+next:
+  text: Controladores Web
+  link: /es/application-components/controllers/web-controllers
+---
+
 # Controladores
 
 En Sword, un controlador es un punto de entrada a tu aplicación.

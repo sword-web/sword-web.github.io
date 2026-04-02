@@ -79,7 +79,7 @@ Este enfoque es útil para:
 
 - probar rutas HTTP completas
 - verificar el payload JSON de respuesta
-- validar interceptors, layers y middleware integrados
+- validar interceptors, layers e integración HTTP del framework
 - comprobar códigos de estado y estructura estándar de respuesta
 
 ## `JsonResponseBody`

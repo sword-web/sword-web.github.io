@@ -125,9 +125,9 @@ Entre las más comunes se encuentran:
 - `CompressionLayer`
 - `CookieManagerLayer`
 - `Helmet`
-- `RequestTimeoutLayer`
+- `TimeoutLayer`
 - `RequestIdLayer`
-- `ServeDirLayer`
+- `ServeDir`
 
 Estas layers se usan igual que cualquier otra layer de Tower, normalmente con `with_layer(...)` a nivel global.
 

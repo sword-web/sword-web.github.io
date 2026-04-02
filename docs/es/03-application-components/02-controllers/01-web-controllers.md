@@ -1,8 +1,8 @@
 # Definición de Controladores Web
 
-Un controlador web en Sword es una `struct` marcada con `#[controller(kind = Controller::Web, path = "...")]`. Está basado en los handlers de `axum`, pero añade una capa de integración con el sistema de módulos, inyección de dependencias e interceptors del framework.
+Un controlador web en Sword es una `struct` marcada con `#[controller(kind = Controller::Web, path = "...")]`.
 
-Sus métodos manejan rutas HTTP mediante atributos como `#[get("...")]`, `#[post("...")]`, `#[put("...")]`, `#[delete("...")]` y `#[patch("...")]`.
+Estos controladores están basado en los handlers de `axum`, pero añadiendo una capa de integración con el sistema de módulos, inyección de dependencias e interceptors del framework.
 
 ## Definir un controlador web
 

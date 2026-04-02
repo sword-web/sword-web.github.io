@@ -1,19 +1,42 @@
 ---
-title: Manejo de Respuestas HTTP - Sword Framework
-description: Aprende a construir respuestas HTTP en Sword usando JsonResponse y WebResult.
-keywords: ["http", "jsonresponse", "webresult", "sword", "respuestas web"]
+title: Manejo de respuestas HTTP
+description: Cómo decidir entre JsonResponse, WebResult y respuestas compatibles con Axum en controladores web de Sword.
+outline: [2, 3]
+prev:
+  text: Extender Request
+  link: /es/practical-guides/web/request-handling/extending-request
 ---
 
 # Manejo de respuestas HTTP
 
 En Sword, la forma recomendada de responder desde un controlador web es usando `JsonResponse` o `WebResult`.
 
-## Tipos de retorno más comunes
+## Tipos de retorno habituales
 
-Los tipos más habituales en controladores web son:
+::: code-group
+
+```rust [JsonResponse]
+#[get("/")]
+async fn health(&self) -> JsonResponse {
+    JsonResponse::Ok().message("Service available")
+}
+```
+
+```rust [WebResult]
+#[get("/{id}")]
+async fn get_user(&self, req: Request) -> WebResult {
+    let id = req.param::<u64>("id")?;
+
+    Ok(JsonResponse::Ok().data(id))
+}
+```
+
+:::
 
 - `JsonResponse`
 - `WebResult`
+
+## `WebResult`
 
 `WebResult` es un alias de:
 
@@ -21,23 +44,22 @@ Los tipos más habituales en controladores web son:
 Result<JsonResponse, JsonResponse>
 ```
 
-Esto permite devolver respuestas exitosas y errores con el mismo formato JSON estandarizado del framework.
+Esto permite devolver respuestas exitosas y de error con el mismo formato JSON del framework.
 
 ## `JsonResponse`
 
-`JsonResponse` es la estructura principal para construir respuestas HTTP JSON en Sword.
+`JsonResponse` es la estructura principal para construir respuestas JSON en Sword.
 
-### Estados HTTP
-
-Puedes crear respuestas con distintos códigos de estado usando constructores como:
+### Constructores habituales
 
 - `JsonResponse::Ok()`
 - `JsonResponse::Created()`
 - `JsonResponse::BadRequest()`
 - `JsonResponse::Unauthorized()`
+- `JsonResponse::NotFound()`
 - `JsonResponse::InternalServerError()`
 
-Ejemplo:
+### Ejemplo mínimo
 
 ```rust
 use sword::prelude::*;
@@ -47,19 +69,21 @@ async fn example() -> JsonResponse {
 }
 ```
 
-## Añadir contenido a la respuesta
+## Construcción de payload
 
-### Método `message()`
+::: details `message()`
 
-Permite añadir un mensaje descriptivo:
+Añade un mensaje descriptivo a la respuesta.
 
 ```rust
 let response = JsonResponse::Ok().message("Successful operation");
 ```
 
-### Método `data()`
+:::
 
-Permite adjuntar cualquier valor serializable:
+::: details `data()`
+
+Adjunta cualquier valor serializable.
 
 ```rust
 use serde::Serialize;
@@ -70,33 +94,39 @@ struct MyData {
     field2: u32,
 }
 
-let my_data = MyData {
+let response = JsonResponse::Ok().data(MyData {
     field1: "value".to_string(),
     field2: 42,
-};
-
-let response = JsonResponse::Ok().data(my_data);
+});
 ```
 
-### Método `error()`
+:::
 
-Permite adjuntar un error único:
+::: details `error()`
+
+Adjunta un error único.
 
 ```rust
 let response = JsonResponse::BadRequest().error("Invalid input data");
 ```
 
-### Método `errors()`
+:::
 
-Permite adjuntar múltiples errores o una estructura de errores validada:
+::: details `errors()`
+
+Adjunta una colección de errores o una estructura de validación.
 
 ```rust
 let response = JsonResponse::BadRequest().errors(vec!["Error 1", "Error 2"]);
 ```
 
+:::
+
 ## Ejemplo de controlador
 
-```rust
+::: code-group
+
+```rust [Retorno simple]
 use sword::prelude::*;
 
 #[controller(kind = Controller::Web, path = "/users")]
@@ -107,28 +137,10 @@ impl UsersController {
     async fn list_users(&self) -> JsonResponse {
         JsonResponse::Ok().message("Users list")
     }
-
-    #[post("/")]
-    async fn create_user(&self) -> WebResult {
-        Ok(JsonResponse::Created().message("User created"))
-    }
 }
 ```
 
-## Errores automáticos desde `Request`
-
-Muchos métodos de `Request` retornan errores que Sword convierte automáticamente en `JsonResponse`.
-
-Por ejemplo:
-
-- `req.param::<T>(...)`
-- `req.body::<T>()`
-- `req.query::<T>()`
-- `req.body_validator::<T>()`
-
-Esto permite escribir handlers como:
-
-```rust
+```rust [Con errores]
 use sword::prelude::*;
 
 #[controller(kind = Controller::Web, path = "/users")]
@@ -144,6 +156,27 @@ impl UsersController {
 }
 ```
 
-## Trait `IntoResponse`
+:::
 
-Aunque `JsonResponse` y `WebResult` son las opciones recomendadas, un controlador también puede retornar cualquier tipo que implemente `IntoResponse`, ya que la capa web de Sword se apoya en Axum.
+## Errores automáticos desde `Request`
+
+Muchos métodos de `Request` retornan `RequestError`, y Sword los convierte en respuestas JSON cuando trabajas con `WebResult`.
+
+Métodos comunes:
+
+- `req.param::<T>(...)`
+- `req.body::<T>()`
+- `req.query::<T>()`
+- `req.body_validator::<T>()`
+
+## ¿Puedo devolver otra cosa?
+
+Sí. Un controlador también puede retornar cualquier tipo que implemente `IntoResponse`, porque la capa web de Sword se apoya en Axum.
+
+`JsonResponse` y `WebResult` siguen siendo la opción recomendada si quieres conservar el formato estándar de respuestas del framework.
+
+## Ver también
+
+- [Manejo de Requests](/es/practical-guides/web/request-handling/explanation)
+- [La estructura `Request`](/es/practical-guides/web/request-handling/request-structure)
+- [Manejo de Errores](/es/practical-guides/web/request-handling/error-handling)

@@ -24,7 +24,7 @@ La idea principal de Sword es establecer una estructura de desarrollo basada en 
 
 - Manejo de configuración y variables de entorno
 - Formato estandarizado de respuestas HTTP en formato JSON
-- Middlewares esenciales incorporados por defecto
+- Middlewares esenciales incorporados por defecto (Interceptors)
 - Inyección de dependencias (Construcción automática de componentes)
 
 ### ¿A qué nos referimos con "estructurada/opinionada"?

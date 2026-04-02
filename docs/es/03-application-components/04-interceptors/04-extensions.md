@@ -54,7 +54,7 @@ Este patrón es útil para compartir:
 
 - request ids
 - información de autenticación
-- flags calculadas por middleware
+- flags calculadas por interceptors o layers
 - contexto de trazabilidad
 
 ### Mutabilidad de la request

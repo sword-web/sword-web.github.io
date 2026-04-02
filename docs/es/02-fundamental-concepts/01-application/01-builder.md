@@ -24,17 +24,17 @@ let app = Application::builder()
 
 La estructura tiene campos y metodos clave que te permiten personalizar tu aplicación:
 
-#### `config`
+#### Atributo `config`
 
 Atributo público que permite acceder a la configuración de la aplicación cargada desde el fichero de configuración.
 
 <hr/>
 
-#### `with_module::<M>()`
+#### Método `with_module::<M>()`
 
 Método que registra un módulo que implementa el trait `Module`. Los módulos definen puntos de entrada para agrupar controladores, componentes y proveedores relacionados.
 
-##### Parameters
+##### Parámetros
 
 - `M`: Un tipo que implementa el trait `Module`.
 
@@ -42,9 +42,9 @@ Learn more about modules in the [Modules](../../application-components/modules) 
 
 <hr/>
 
-#### `with_layer::<L>(layer: L)`
+#### Método `with_layer::<L>(layer: L)`
 
-Registra un `Layer` de Tower middleware de forma global en la aplicación.
+Registra un `Layer` de Tower de forma global en la aplicación.
 
 ##### Parámetros
 
@@ -68,18 +68,18 @@ Para más detalles sobre Tower, revisa la sección de [Layers con Tower](/es/app
 
 <hr/>
 
-#### `from_config_path<P: AsRef<Path>>(path: P)`
+#### Método `from_config_path<P: AsRef<Path>>(path: P)`
 
 Permite cargar la configuración de la aplicación desde un fichero `.toml` ubicado en una ruta personalizada.
 
 <hr/>
 
-#### `from_config(config: Config)`
+#### Método `from_config(config: Config)`
 
 Permite cargar la configuración de la aplicación a partir de una instancia de `Config` creada manualmente.
 
 <hr/>
 
-#### `build()`
+#### Método `build()`
 
 Finaliza la construcción del `ApplicationBuilder` y devuelve una instancia de `Application` lista para ejecutarse.

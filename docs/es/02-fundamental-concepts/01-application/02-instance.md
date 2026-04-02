@@ -30,15 +30,19 @@ El método `run()` inicia el servidor web y comienza a escuchar las solicitudes 
 
 ### Métodos y atributos de la estructura
 
-#### `config`
+#### Atributo `config`
 
 Atributo público que permite acceder a la configuración de la aplicación cargada desde el fichero de configuración.
 
 <hr/>
 
-#### `web_router()` (solo disponible en el feature `web-runtime`)
+#### Método `router()`
 
-Devuelve una copia del enrutador interno de la aplicación. Esto es útil si necesitas acceder al enrutador para operaciones avanzadas o para inspeccionar la configuración de rutas.
+Retorna una clon del router (`axum::Router`) interno de la aplicación. Esto es útil si necesitas acceder al enrutador para operaciones avanzadas o para inspeccionar la configuración de rutas.
+
+::: info
+Solo disponible si has habilitado los features `web-controllers` o `socketio-controllers` en tu proyecto.
+:::
 
 ##### Ejemplo
 
@@ -52,9 +56,9 @@ let router: axum::Router = app.router();
 
 <hr/>
 
-#### `run()`
+#### Método `run()`
 
-Inicia el servidor web y comienza a escuchar las solicitudes HTTP entrantes.
+Inicia la aplicación sword y los controladores asociados a ella.
 
 Si has habilitado la opción `graceful-shutdown` en tu configuración, la aplicación manejará las señales de terminación de manera elegante, permitiendo que las solicitudes en curso se completen antes de apagarse.
 
@@ -73,52 +77,13 @@ async fn main() {
 
 <hr/>
 
-#### `run_with_graceful_shutdown()`
+#### Apagado elegante
 
-Este método te permite ejecutar la aplicación con una señal de apagado personalizada.
+Sword gestiona el apagado elegante mediante la opción `graceful-shutdown` en la configuración de la aplicación.
 
-Por ejemplo, si quieres escuchar una señal de Ctrl+C para apagar tu aplicación de manera elegante (permitiendo que las solicitudes en curso se completen):
-
-Si quieres usar la señal de `graceful-shutdown` predeterminada proporcionada por Sword, habilita la opción `graceful-shutdown` en tu archivo de configuración. (Ver [Configuración](/es/fundamental-concepts/configuration/application))
-
-Si quieres usar una señal personalizada en su lugar, puedes hacerlo así:
-
-Primero, deshabilita la opción `graceful_shutdown` en tu archivo de configuración.
-
-```rust
-use tokio::signal;
-use sword::prelude::*;
-
-#[sword::main]
-async fn main() {
-    let app = Application::builder()
-        .with_module::<SomeModule>()
-        .build();
-
-    app.run_with_graceful_shutdown(shutdown_signal()).await;
-}
-
-async fn shutdown_signal() {
-    let ctrl_c = async {
-        signal::ctrl_c()
-            .await
-            .expect("failed to install Ctrl+C handler");
-    };
-
-    #[cfg(unix)]
-    let terminate = async {
-        signal::unix::signal(signal::unix::SignalKind::terminate())
-            .expect("failed to install signal handler")
-            .recv()
-            .await;
-    };
-
-    #[cfg(not(unix))]
-    let terminate = std::future::pending::<()>();
-
-    tokio::select! {
-        _ = ctrl_c => {},
-        _ = terminate => {},
-    }
-}
+```toml
+[application]
+graceful-shutdown = true
 ```
+
+Cuando esta opción está activada, `app.run().await` inicia el servidor con el manejo de señales integrado del framework.

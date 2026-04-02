@@ -6,9 +6,9 @@ Una vez que has definido tu configuración, Sword se encarga de registrarla auto
 
 Puedes acceder a ella desde el una instancia de `ApplicationBuilder` o `Application` usando el campo `config`.
 
-### Métodos de extracción:
+### Métodos de extracción
 
-- `get::<T: DeserializeOwned + ConfigItem>()`
+#### Método `get::<T: DeserializeOwned + ConfigItem>()`
 
 Extraer una estructura de configuración específica desde la configuración.
 
@@ -16,7 +16,7 @@ Retorna `Option<T>`.
 
 <hr/>
 
-- `get_or_default::<T: DeserializeOwned + ConfigItem + Default>()`
+#### Método `get_or_default::<T: DeserializeOwned + ConfigItem + Default>()`
 
 Extraer una estructura específica o retornar su `Default` si no está presente.
 
@@ -24,7 +24,7 @@ Retorna `T`.
 
 <hr/>
 
-- `expect::<T: DeserializeOwned + ConfigItem>()`
+#### Método `expect::<T: DeserializeOwned + ConfigItem>()`
 
 Extraer una estructura de configuración específica o lanzar `panic!` si no está presente.
 

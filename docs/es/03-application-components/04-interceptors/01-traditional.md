@@ -22,7 +22,7 @@ impl OnRequest for RequestLogger {
 }
 ```
 
-Luego, puedes aplicar este middleware a un controlador o ruta específica:
+Luego, puedes aplicar este interceptor a un controlador o ruta específica:
 
 ```rust
 use sword::prelude::*;

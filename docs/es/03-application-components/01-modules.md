@@ -1,23 +1,31 @@
+---
+title: Módulos
+description: Organización de aplicaciones Sword mediante Module, controllers, components y providers.
+outline: [2, 3]
+prev:
+  text: Configuración personalizada
+  link: /es/fundamental-concepts/configuration/custom
+next:
+  text: Controladores
+  link: /es/application-components/controllers
+---
+
 # Módulos en Sword
 
-En Sword, un módulo es una unidad de organización que agrupa partes relacionadas de la aplicación, como `controllers`, `components` y `providers`.
+En Sword, un módulo agrupa piezas relacionadas de una misma capacidad de la aplicación, como controllers, components y providers.
 
-La idea es estructurar la aplicación por dominio (por ejemplo: `UsersModule`, `AuthModule`, `TasksModule`) para mantener el código escalable y fácil de mantener.
+## Qué problema resuelven
 
-## ¿Qué problema resuelven los módulos?
+Cuando una aplicación crece, registrar todo directamente en `main.rs` deja de ser mantenible. Los módulos permiten:
 
-Cuando una aplicación crece, registrar todo directamente en `main.rs` se vuelve difícil de mantener.
-
-Los módulos permiten:
-
-- Agrupar funcionalidades relacionadas.
-- Encapsular el registro de dependencias del módulo.
-- Separar responsabilidades por dominio.
-- Mantener una arquitectura consistente en proyectos grandes.
+- agrupar funcionalidad relacionada
+- encapsular el registro de dependencias
+- separar responsabilidades por dominio
+- mantener una arquitectura estable a medida que la app crece
 
 ## Trait `Module`
 
-Sword define el trait `Module` como contrato de registro:
+El contrato base es:
 
 ```rust
 pub trait Module {
@@ -27,13 +35,13 @@ pub trait Module {
 }
 ```
 
-Todos los métodos tienen implementación por defecto vacía, por lo que puedes implementar solo los que necesites.
+Todos los métodos tienen implementación por defecto vacía.
 
-<hr/>
+## Qué registra cada método
 
-### Método `register_controllers`
+::: details `register_controllers(...)`
 
-Registra puntos de entrada de la aplicación (controllers), que permiten una comunicación externa (HTTP, WebSocket, gRPC, etc.).
+Registra puntos de entrada externos: HTTP, Socket.IO y otros tipos de controller soportados por el framework.
 
 ```rust
 fn register_controllers(controllers: &ControllerRegistry) {
@@ -41,11 +49,11 @@ fn register_controllers(controllers: &ControllerRegistry) {
 }
 ```
 
-<hr/>
+:::
 
-### Método `register_components`
+::: details `register_components(...)`
 
-Registra estructuras `#[injectable]` que deben autoconstruirse desde el contenedor de dependencias.
+Registra estructuras `#[injectable]` que deben construirse desde el contenedor de dependencias.
 
 ```rust
 fn register_components(components: &ComponentRegistry) {
@@ -54,13 +62,13 @@ fn register_components(components: &ComponentRegistry) {
 }
 ```
 
-<hr/>
+:::
 
-### Método `register_providers`
+::: details `register_providers(...)`
 
-Registra estructuras `#[injectable(provider)]`, generalmente conexiones o clientes externos (base de datos, cache, APIs, etc.).
+Registra estructuras `#[injectable(provider)]`, normalmente conexiones o clientes externos: base de datos, cache o servicios remotos.
 
-Este método es `async`, por lo que puedes inicializar recursos asíncronos.
+Este método es `async`.
 
 ```rust
 async fn register_providers(config: &Config, providers: &ProviderRegistry) {
@@ -74,7 +82,9 @@ async fn register_providers(config: &Config, providers: &ProviderRegistry) {
 }
 ```
 
-## Definición de un módulo
+:::
+
+## Ejemplo de módulo
 
 ```rust
 use sword::prelude::*;
@@ -93,9 +103,9 @@ impl Module for UsersModule {
 }
 ```
 
-## Registro de módulos en la aplicación
+## Registro en la aplicación
 
-Los módulos se registran usando `with_module::<M>()` en el `ApplicationBuilder`.
+Los módulos se registran con `with_module::<M>()` en `ApplicationBuilder`.
 
 ```rust
 #[sword::main]
@@ -109,12 +119,70 @@ async fn main() {
 }
 ```
 
-## ¿Qué ocurre al llamar `with_module`?
+## Comportamiento de `with_module`
 
-Internamente, Sword ejecuta el registro del módulo en este orden:
+Cada llamada a `with_module::<M>()` ejecuta el registro del módulo en este orden:
 
 1. `register_providers(...)`
 2. `register_components(...)`
 3. `register_controllers(...)`
 
-Esto asegura que las dependencias estén disponibles antes de exponer los puntos de entrada de la aplicación.
+Ese orden describe el registro interno del módulo, no la resolución final de dependencias.
+
+La construcción efectiva de components y la resolución del contenedor ocurren después, durante `build()`, cuando Sword ejecuta el proceso global de construcción del contenedor con todos los módulos ya registrados.
+
+## Separación de responsabilidades
+
+::: code-group
+
+```text [Controller]
+Expone una interfaz externa.
+Ejemplos: endpoint HTTP, namespace Socket.IO.
+```
+
+```text [Component]
+Lógica interna autoconstruida por DI.
+Ejemplos: servicio de dominio, repositorio, hasher.
+```
+
+```text [Provider]
+Recurso externo o inicialización async.
+Ejemplos: base de datos, cliente Redis, SDK externo.
+```
+
+:::
+
+## Estructura habitual
+
+Una estructura habitual es:
+
+```text
+users/
+  controller.rs
+  service.rs
+  repository.rs
+  mod.rs
+```
+
+Y en `mod.rs`:
+
+```rust
+pub struct UsersModule;
+
+impl Module for UsersModule {
+    // registro del dominio users
+}
+```
+
+## Criterio de partición
+
+- cuando un área del dominio tiene controllers y dependencias propias
+- cuando conviene aislar registro y responsabilidades
+- cuando `main.rs` empieza a acumular wiring de múltiples capacidades
+
+## Ver también
+
+- [Controladores](/es/application-components/controllers/)
+- [Providers](/es/application-components/di/providers)
+- [Componentes](/es/application-components/di/components)
+- [Inyectando dependencias](/es/application-components/di/injecting)

@@ -4,9 +4,9 @@ Sword usa `thisconfig` para parsear valores legibles por humanos en el `config.t
 
 Estas estructuras no guardan solo el valor parseado, también conservan el valor crudo (`raw`) para logging y display de configuración.
 
-## `ByteConfig`
+## Unidad `ByteConfig`
 
-`ByteConfig` representa tamaños en bytes con formato humano.
+Esta estructura representa tamaños en bytes con formato humano.
 
 ```rust
 pub struct ByteConfig {
@@ -27,9 +27,9 @@ body-limit = { max-size = "1MB", display = true }
 
 También puedes usar formatos binarios como `KiB`, `MiB`, etc.
 
-## `TimeConfig`
+## Unidad `TimeConfig`
 
-`TimeConfig` representa duraciones en formato humano.
+Esta estructura representa duraciones de tiempo con formato humano.
 
 ```rust
 pub struct TimeConfig {
@@ -51,5 +51,5 @@ ping-interval = "25s"
 
 ## Formatos
 
-- `ByteConfig` ver [byte-unit](https://docs.rs/byte-unit/latest)
-- `TimeConfig` ver [duration_str](https://docs.rs/duration_str/latest/
+- `ByteConfig` ver documentación de [byte-unit](https://docs.rs/byte-unit/latest)
+- `TimeConfig` ver documentación de [duration_str](https://docs.rs/duration_str/latest/)
