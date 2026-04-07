@@ -148,3 +148,37 @@ impl EventController {
 ```
 
 En este ejemplo, el interceptor se aplica antes del evento `#[on("connection")]`. Cualquier interacción en otros eventos asociados al controlador no pasará por el interceptor aplicado.
+
+## Controladores gRPC - Interceptor
+
+### El Trait `OnRequest`
+
+En gRPC, `OnRequest` permite interceptar la request antes de que llegue al método del servicio.
+
+```rust
+use sword::grpc::*;
+use sword::prelude::*;
+
+#[derive(Interceptor)]
+struct AuthInterceptor;
+
+impl OnRequest for AuthInterceptor {
+    async fn on_request(&self, req: Request<()>) -> GrpcInterceptorResult {
+        if req.metadata().get("authorization").is_none() {
+            return Err(Status::unauthenticated("missing authorization metadata"));
+        }
+
+        Ok(req)
+    }
+}
+```
+
+Aplicación sobre un controlador gRPC:
+
+```rust
+#[controller(kind = Controller::Grpc, service = proto::user_service_server::UserServiceServer)]
+#[interceptor(AuthInterceptor)]
+struct UsersController;
+```
+
+En esta variante no existe `next()`: el interceptor valida/transforma metadata de entrada y retorna `Ok(req)` o un `Status` de error.

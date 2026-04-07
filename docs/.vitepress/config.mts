@@ -14,7 +14,7 @@ export default defineConfig({
         ],
         ["meta", { name: "theme-color", content: "#111111" }],
     ],
-    title: "Sword Web Framework",
+    title: " ",
     description: "Sword Web Framework Documentation",
     base: "/",
     rewrites: (page) => {
@@ -32,6 +32,10 @@ export default defineConfig({
             label: "Español",
             lang: "es",
             themeConfig: {
+                logo: {
+                    dark: "/logo-new.png",
+                    light: "/logo-new-dark.png",
+                },
                 nav: [
                     { text: "Inicio", link: "/es/" },
                     {
@@ -49,12 +53,8 @@ export default defineConfig({
                         link: "/es/introduction/getting-started",
                     },
                     {
-                        text: "Estructura del proyecto",
-                        link: "/es/introduction/project-structure",
-                    },
-                    {
-                        text: "Ecosistema",
-                        link: "/es/introduction/ecosystem",
+                        text: "Estructura de archivos",
+                        link: "/es/introduction/file-structure",
                     },
                     {
                         text: "Conceptos Fundamentales",
@@ -101,6 +101,10 @@ export default defineConfig({
                                         text: "Unidades Especiales",
                                         link: "/es/fundamental-concepts/configuration/special-units",
                                     },
+                                    {
+                                        text: "Tracing y Logging",
+                                        link: "/es/fundamental-concepts/configuration/tracing",
+                                    },
                                 ],
                             },
                         ],
@@ -125,7 +129,7 @@ export default defineConfig({
                                         link: "/es/application-components/controllers/socket-io-controllers",
                                     },
                                     {
-                                        text: "Controladores gRPC (Próximamente)",
+                                        text: "Controladores gRPC",
                                         link: "/es/application-components/controllers/grpc-controllers",
                                     },
                                 ],
@@ -139,7 +143,7 @@ export default defineConfig({
                                         link: "/es/application-components/di/providers",
                                     },
                                     {
-                                        text: "Componentes",
+                                        text: "Components",
                                         link: "/es/application-components/di/components",
                                     },
                                     {
@@ -225,6 +229,24 @@ export default defineConfig({
                                     {
                                         text: "Contexto y extensiones",
                                         link: "/es/practical-guides/socketio/context-and-extensions",
+                                    },
+                                ],
+                            },
+                            {
+                                text: "gRPC",
+                                collapsed: true,
+                                items: [
+                                    {
+                                        text: "Ficheros .proto",
+                                        link: "/es/practical-guides/grpc/ficheros-proto",
+                                    },
+                                    {
+                                        text: "Fundamentos de tonic",
+                                        link: "/es/practical-guides/grpc/fundamentos-de-tonic",
+                                    },
+                                    {
+                                        text: "Inspección con grpcurl",
+                                        link: "/es/practical-guides/grpc/inspeccion-de-servicios-con-grpcurl",
                                     },
                                 ],
                             },

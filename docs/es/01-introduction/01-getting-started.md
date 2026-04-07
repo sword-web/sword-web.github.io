@@ -19,7 +19,7 @@ Puedes encontrar los ejemplos en el repositorio en [Github](https://github.com/s
 
 Cada example está pensado para mostrar una parte concreta del framework. Si es tu primer contacto con Sword, lo normal es empezar por `web-controllers`.
 
-### `web-controllers`
+### Ejemplo `web-controllers`
 
 Es el ejemplo más directo para entender el flujo base de una aplicación HTTP basada en Axum con Sword.
 
@@ -30,7 +30,7 @@ Incluye:
 - Components y providers
 - Configuración desde archivo
 
-### `socketio-controllers`
+### Ejemplo `socketio-controllers`
 
 Ejemplo centrado en la integración Socket.IO con Sword, tomando como base el crate `socketioxide`.
 
@@ -41,7 +41,7 @@ Incluye:
 - Eventos
 - Configuración `[socketio]`
 
-### `interceptors`
+### Ejemplo `interceptors`
 
 Example centrado en interceptors aplicados a controladores web y Socket.IO.
 

@@ -1,6 +1,6 @@
 ---
 title: Configuración de la Aplicación
-description: Estructura de la sección [application] para la web app de Sword y separación entre configuración general y configuración web.
+description: Estructura de la sección [application] para runtimes web y gRPC en Sword.
 outline: [2, 3]
 ---
 
@@ -14,14 +14,14 @@ Si necesitas otra ruta, puedes construir la aplicación con `Application::from_c
 
 ## Sección `[application]`
 
-La configuración principal de la web app se carga desde `[application]`.
+La configuración principal de Sword se carga desde `[application]`.
 
-Esta sección contiene dos grupos de datos:
+Esta sección contiene:
 
 - campos generales de `ApplicationConfig`
-- configuración web de la aplicación, expuesta en la misma sección mediante `#[serde(flatten)]`
+- configuración del runtime activo (web o gRPC), expuesta mediante `#[serde(flatten)]`
 
-Eso significa que, en TOML, toda esta información vive bajo `[application]`, aunque en código la configuración web esté modelada en un struct separado: `WebApplicationConfig`.
+Eso significa que, en TOML, toda esta información vive bajo `[application]`, aunque en código la configuración de cada runtime esté modelada en structs separados (`WebApplicationConfig` y `GrpcApplicationConfig`).
 
 Para la relación entre feature flags y tipo de aplicación, consulta [Tipos de aplicación](/es/fundamental-concepts/application/application-types).
 
@@ -44,6 +44,24 @@ display = true
 
 [application.body-limit]
 max-size = "5MB"
+display = true
+```
+
+## Ejemplo gRPC
+
+```toml
+[application]
+name = "My Sword gRPC App"
+environment = "development"
+graceful-shutdown = true
+
+host = "0.0.0.0"
+port = 50051
+enable-tonic-reflection = true
+
+[application.body-limit]
+max-decoding-message-size = "2 MiB"
+max-encoding-message-size = "2 MiB"
 display = true
 ```
 
@@ -92,12 +110,34 @@ max-size = "5MB"
 display = true
 ```
 
+## Configuración gRPC dentro de `[application]`
+
+Estos campos pertenecen conceptualmente a `GrpcApplicationConfig`, pero se serializan dentro de `[application]` mediante `flatten`.
+
+| Key | Tipo | Default | Descripción |
+| --- | --- | --- | --- |
+| `host` | `String` | `"0.0.0.0"` | Host o IP de bind del servidor gRPC |
+| `port` | `u16` | `50051` | Puerto del servidor gRPC |
+| `enable-tonic-reflection` | `bool` | `false` | Habilita el servicio de reflection de tonic |
+
+### `[application.body-limit]` en gRPC
+
+Para gRPC, `body-limit` usa límites de mensaje de entrada/salida:
+
+```toml
+[application.body-limit]
+max-decoding-message-size = "2 MiB"
+max-encoding-message-size = "2 MiB"
+display = true
+```
+
 ## Nota de implementación
 
 En código, la relación es esta:
 
 - `ApplicationConfig` define los campos generales
-- `WebApplicationConfig` define la configuración específica del runtime web
-- `ApplicationConfig` incluye `WebApplicationConfig` mediante `#[serde(flatten)]`
+- `WebApplicationConfig` define la configuración del runtime web
+- `GrpcApplicationConfig` define la configuración del runtime gRPC
+- `ApplicationConfig` incluye el runtime activo mediante `#[serde(flatten)]`
 
-Por eso `host`, `port`, `web-router-prefix`, `request-timeout` y `body-limit` forman parte de la configuración de la aplicación en TOML, aunque no sean campos generales del runtime.
+Por eso `host`, `port`, `web-router-prefix`, `request-timeout`, `enable-tonic-reflection` y `body-limit` forman parte de la configuración de la aplicación en TOML, aunque no sean campos generales.

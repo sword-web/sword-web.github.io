@@ -24,3 +24,4 @@ Además, por cada tipo existe una variante aplicable al tipo de `Controller` aso
 
 - Controladores Web
 - Controladores Socket.IO
+- Controladores gRPC

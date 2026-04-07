@@ -153,3 +153,47 @@ impl EventController {
 ```
 
 En este ejemplo, el interceptor se aplica antes del evento `#[on("connection")]`. Cualquier interacción en otros eventos asociados al controlador no pasará por el interceptor aplicado.
+
+## Controladores gRPC - Interceptor con configuración
+
+### El Trait `OnRequestWithConfig`
+
+En gRPC puedes usar `OnRequestWithConfig<T>` para inyectar parámetros de configuración en la validación/intercepción.
+
+```rust
+use sword::grpc::*;
+use sword::prelude::*;
+
+#[derive(Interceptor)]
+struct ApiKeyInterceptor;
+
+impl OnRequestWithConfig<&'static str> for ApiKeyInterceptor {
+    async fn on_request(
+        &self,
+        expected_key: &'static str,
+        req: Request<()>,
+    ) -> GrpcInterceptorResult {
+        let Some(value) = req.metadata().get("x-api-key") else {
+            return Err(Status::unauthenticated("missing x-api-key"));
+        };
+
+        let Ok(value) = value.to_str() else {
+            return Err(Status::unauthenticated("invalid x-api-key"));
+        };
+
+        if value != expected_key {
+            return Err(Status::permission_denied("invalid x-api-key"));
+        }
+
+        Ok(req)
+    }
+}
+```
+
+Aplicación sobre un controlador gRPC:
+
+```rust
+#[controller(kind = Controller::Grpc, service = proto::user_service_server::UserServiceServer)]
+#[interceptor(ApiKeyInterceptor, config = "dev-key")]
+struct UsersController;
+```

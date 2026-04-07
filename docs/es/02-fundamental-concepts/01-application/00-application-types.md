@@ -17,7 +17,13 @@ La grpc app corresponde a:
 
 - `grpc-controllers`
 
-Actualmente esta opción se mantiene en desarrollo. Se basará en tonic y su ecosistema.
+Sword usa `tonic` como runtime gRPC e integra:
+
+- registro de controladores por módulos,
+- interceptores async (`OnRequest`, `OnRequestWithConfig`),
+- health service (`grpc.health.v1.Health`) habilitado por defecto,
+- reflection opcional con `enable-tonic-reflection`,
+- límites de mensaje via `[application.body-limit]`.
 
 ## Feature flags complementarias
 
@@ -29,4 +35,4 @@ Estas flags no definen un tipo de aplicación:
 
 ## Configuración
 
-La página [Configuración de la Aplicación](/es/fundamental-concepts/configuration/application) documenta la configuración de la web app actual.
+La página [Configuración de la Aplicación](/es/fundamental-concepts/configuration/application) documenta la sección `[application]` para ambos runtimes (web y gRPC).

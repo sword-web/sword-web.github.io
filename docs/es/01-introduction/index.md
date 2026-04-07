@@ -31,6 +31,6 @@ La idea principal de Sword es establecer una estructura de desarrollo basada en 
 
 Crear aplicaciones web escalables requiere organizar el código en capas bien definidas y mantener una clara separación de responsabilidades.
 
-Si estás aquí, probablemente hayas revisado `Axum`, un framework desarrollado por el equipo de `tokio-rs`. Axum ofrece un conjunto bastante completo de funcionalidades para desarrollar aplicaciones web; sin embargo, a medida que tu proyecto crece, el código puede volverse complejo de mantener, o puedes terminar agregando features para extender o simplificar las propias funcionalidades de `Axum`, lo que puede resultar en una base de código difícil de mantener a largo plazo.
+Si estás aquí, probablemente hayas usado `Axum`, un framework desarrollado por el equipo de `tokio-rs`. Axum ofrece un conjunto bastante completo de funcionalidades para desarrollar aplicaciones web; sin embargo, a medida que tu proyecto crece, el código puede volverse complejo de mantener, o puedes terminar agregando features para extender o simplificar las propias funcionalidades de `Axum`, lo que puede resultar en una base de código difícil de mantener a largo plazo.
 
-Por esto, Sword toma como base `Axum` y librerías del ecosistema de `tokio` para construir una estructura de desarrollo más organizada y modular, con el objetivo de facilitar la escalabilidad y mantenibilidad de tus proyectos web en Rust.
+Por esto, Sword toma como base librerías del ecosistema de `tokio` para construir una estructura de desarrollo más organizada y modular, con el objetivo de facilitar la escalabilidad y mantenibilidad de tus proyectos web en Rust.
