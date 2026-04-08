@@ -16,6 +16,9 @@ En Sword, la forma recomendada de responder desde un controlador web es usando `
 ::: code-group
 
 ```rust [JsonResponse]
+use sword::prelude::*;
+use sword::web::*;
+
 #[get("/")]
 async fn health(&self) -> JsonResponse {
     JsonResponse::Ok().message("Service available")
@@ -23,6 +26,9 @@ async fn health(&self) -> JsonResponse {
 ```
 
 ```rust [WebResult]
+use sword::prelude::*;
+use sword::web::*;
+
 #[get("/{id}")]
 async fn get_user(&self, req: Request) -> WebResult {
     let id = req.param::<u64>("id")?;
@@ -63,6 +69,7 @@ Esto permite devolver respuestas exitosas y de error con el mismo formato JSON d
 
 ```rust
 use sword::prelude::*;
+use sword::web::*;
 
 async fn example() -> JsonResponse {
     JsonResponse::Ok().message("Successful operation")
@@ -128,6 +135,7 @@ let response = JsonResponse::BadRequest().errors(vec!["Error 1", "Error 2"]);
 
 ```rust [Retorno simple]
 use sword::prelude::*;
+use sword::web::*;
 
 #[controller(kind = Controller::Web, path = "/users")]
 pub struct UsersController;
@@ -142,6 +150,7 @@ impl UsersController {
 
 ```rust [Con errores]
 use sword::prelude::*;
+use sword::web::*;
 
 #[controller(kind = Controller::Web, path = "/users")]
 pub struct UsersController;

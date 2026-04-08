@@ -219,25 +219,12 @@ No uses `req.next().await` en handlers normales. Está pensado para implementaci
 
 ```rust
 use sword::prelude::*;
+use sword::web::*;
 
 #[controller(kind = Controller::Web, path = "/users")]
 pub struct UsersController;
-
-impl UsersController {
-    #[get("/{id}")]
-    async fn get_user(&self, req: Request) -> WebResult {
-        let id = req.param::<u64>("id")?;
-        let request_id = req.id();
-
-        Ok(JsonResponse::Ok()
-            .message("User loaded")
-            .data(serde_json::json!({
-                "id": id,
-                "request_id": request_id,
-            })))
-    }
-}
 ```
+
 
 ## Errores más comunes
 

@@ -18,25 +18,12 @@ Sword convierte automáticamente muchos errores de `Request` en una `JsonRespons
 ```rust
 use serde::{Deserialize, Serialize};
 use sword::prelude::*;
+use sword::web::*;
 
 #[controller(kind = Controller::Web, path = "/")]
 pub struct MyController;
-
-#[derive(Serialize, Deserialize)]
-struct MyData {
-    pub field1: String,
-    pub field2: i32,
-}
-
-impl MyController {
-    #[post("/")]
-    pub async fn post_data(&self, req: Request) -> WebResult {
-        let data = req.body::<MyData>()?;
-
-        Ok(JsonResponse::Ok().data(data))
-    }
-}
 ```
+
 
 Si el body no puede deserializarse correctamente, Sword responderá automáticamente con una respuesta JSON de error estandarizada.
 

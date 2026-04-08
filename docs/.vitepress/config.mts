@@ -3,7 +3,7 @@ import { defineConfig } from "vitepress";
 export default defineConfig({
     appearance: "dark",
     head: [
-        ["link", { rel: "icon", href: "/favicon.png" }],
+        ["link", { rel: "icon", href: "/logo-squared.png" }],
         ["meta", { name: "author", content: "Luciano Revillod" }],
         [
             "meta",
@@ -18,7 +18,7 @@ export default defineConfig({
     description: "Sword Web Framework Documentation",
     base: "/",
     rewrites: (page) => {
-        if (!page.startsWith("es/")) return page;
+        if (!page.startsWith("es/") && !page.startsWith("en/")) return page;
 
         return page
             .split("/")
@@ -28,6 +28,250 @@ export default defineConfig({
             .join("/");
     },
     locales: {
+        en: {
+            label: "English",
+            lang: "en",
+            themeConfig: {
+                logo: {
+                    dark: "/logo-new.png",
+                    light: "/logo-new-dark.png",
+                },
+                nav: [
+                    { text: "Home", link: "/en/" },
+                    {
+                        text: "Examples",
+                        link: "https://github.com/sword-web/sword/tree/main/examples",
+                    },
+                ],
+                sidebar: [
+                    {
+                        text: "Introduction",
+                        link: "/en/introduction/",
+                    },
+                    {
+                        text: "Getting Started",
+                        link: "/en/introduction/getting-started",
+                    },
+                    {
+                        text: "File Structure",
+                        link: "/en/introduction/file-structure",
+                    },
+                    {
+                        text: "Fundamental Concepts",
+                        items: [
+                            {
+                                text: "The Sword Application",
+                                collapsed: true,
+                                items: [
+                                    {
+                                        text: "Application Types",
+                                        link: "/en/fundamental-concepts/application/application-types",
+                                    },
+                                    {
+                                        text: "Application Builder",
+                                        link: "/en/fundamental-concepts/application/builder",
+                                    },
+                                    {
+                                        text: "Application Instance",
+                                        link: "/en/fundamental-concepts/application/instance",
+                                    },
+                                    {
+                                        text: "The main function",
+                                        link: "/en/fundamental-concepts/application/the-main-function",
+                                    },
+                                ],
+                            },
+                            {
+                                text: "Configuring the application",
+                                collapsed: true,
+                                items: [
+                                    {
+                                        text: "Application Configuration",
+                                        link: "/en/fundamental-concepts/configuration/application",
+                                    },
+                                    {
+                                        text: "Custom Configuration",
+                                        link: "/en/fundamental-concepts/configuration/custom",
+                                    },
+                                    {
+                                        text: "Struct Extraction",
+                                        link: "/en/fundamental-concepts/configuration/extract",
+                                    },
+                                    {
+                                        text: "Special Units",
+                                        link: "/en/fundamental-concepts/configuration/special-units",
+                                    },
+                                    {
+                                        text: "Tracing & Logging",
+                                        link: "/en/fundamental-concepts/configuration/tracing",
+                                    },
+                                ],
+                            },
+                        ],
+                    },
+                    {
+                        text: "Application Components",
+                        items: [
+                            {
+                                text: "Modules",
+                                link: "/en/application-components/modules",
+                            },
+                            {
+                                text: "Controllers",
+                                link: "/en/application-components/controllers",
+                                items: [
+                                    {
+                                        text: "Web Controllers",
+                                        link: "/en/application-components/controllers/web-controllers",
+                                    },
+                                    {
+                                        text: "Socket.IO Controllers",
+                                        link: "/en/application-components/controllers/socket-io-controllers",
+                                    },
+                                    {
+                                        text: "gRPC Controllers",
+                                        link: "/en/application-components/controllers/grpc-controllers",
+                                    },
+                                ],
+                            },
+                            {
+                                text: "Dependency Injection",
+                                link: "/en/application-components/di/",
+                                items: [
+                                    {
+                                        text: "Providers",
+                                        link: "/en/application-components/di/providers",
+                                    },
+                                    {
+                                        text: "Components",
+                                        link: "/en/application-components/di/components",
+                                    },
+                                    {
+                                        text: "Injecting dependencies",
+                                        link: "/en/application-components/di/injecting",
+                                    },
+                                ],
+                            },
+                            {
+                                text: "Interceptors",
+                                link: "/en/application-components/interceptors/",
+                                collapsed: true,
+                                items: [
+                                    {
+                                        text: "Traditional Interceptors",
+                                        link: "/en/application-components/interceptors/traditional",
+                                    },
+                                    {
+                                        text: "Interceptors with Config/Params",
+                                        link: "/en/application-components/interceptors/with-config",
+                                    },
+                                    {
+                                        text: "Tower Layers",
+                                        link: "/en/application-components/interceptors/tower",
+                                    },
+                                    {
+                                        text: "Extensions",
+                                        link: "/en/application-components/interceptors/extensions",
+                                    },
+                                ],
+                            },
+                        ],
+                    },
+                    {
+                        text: "Practical Guides",
+                        items: [
+                            {
+                                text: "Web",
+                                collapsed: true,
+                                items: [
+                                    {
+                                        text: "Data Validation",
+                                        link: "/en/practical-guides/web/data-validation",
+                                    },
+                                    {
+                                        text: "Request Handling",
+                                        link: "/en/practical-guides/web/request-handling/explanation",
+                                    },
+                                    {
+                                        text: "Request Structure",
+                                        link: "/en/practical-guides/web/request-handling/request-structure",
+                                    },
+                                    {
+                                        text: "Error Handling",
+                                        link: "/en/practical-guides/web/request-handling/error-handling",
+                                    },
+                                    {
+                                        text: "Extending Request",
+                                        link: "/en/practical-guides/web/request-handling/extending-request",
+                                    },
+                                    {
+                                        text: "Response Handling",
+                                        link: "/en/practical-guides/web/response-handling",
+                                    },
+                                ],
+                            },
+                            {
+                                text: "Socket.IO",
+                                collapsed: true,
+                                items: [
+                                    {
+                                        text: "Event Handling",
+                                        link: "/en/practical-guides/socketio/event-handling",
+                                    },
+                                    {
+                                        text: "Data Validation",
+                                        link: "/en/practical-guides/socketio/data-validation",
+                                    },
+                                    {
+                                        text: "ACKs",
+                                        link: "/en/practical-guides/socketio/acknowledgements",
+                                    },
+                                    {
+                                        text: "Context & Extensions",
+                                        link: "/en/practical-guides/socketio/context-and-extensions",
+                                    },
+                                ],
+                            },
+                            {
+                                text: "gRPC",
+                                collapsed: true,
+                                items: [
+                                    {
+                                        text: ".proto files",
+                                        link: "/en/practical-guides/grpc/ficheros-proto",
+                                    },
+                                    {
+                                        text: "Tonic Fundamentals",
+                                        link: "/en/practical-guides/grpc/fundamentos-de-tonic",
+                                    },
+                                    {
+                                        text: "Service Inspection with grpcurl",
+                                        link: "/en/practical-guides/grpc/inspeccion-de-servicios-con-grpcurl",
+                                    },
+                                ],
+                            },
+                            {
+                                text: "Testing",
+                                link: "/en/practical-guides/testing",
+                            },
+                        ],
+                    },
+                    {
+                        text: "Tooling",
+                        items: [
+                            {
+                                text: "Watch Mode & Hot Reload",
+                                link: "/en/tooling/hot-reload",
+                            },
+                            {
+                                text: "Sword CLI",
+                                link: "/en/tooling/sword-cli",
+                            },
+                        ],
+                    },
+                ],
+            },
+        },
         es: {
             label: "Español",
             lang: "es",

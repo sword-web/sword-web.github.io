@@ -27,7 +27,7 @@ use sword::prelude::*;
 #[controller(kind = Controller::Grpc, service = UserGrpcServiceServer)]
 pub struct UsersController;
 
-#[async_trait]
+#[sword::grpc::async_trait]
 impl UserGrpcService for UsersController {
     async fn get_user(
         &self,

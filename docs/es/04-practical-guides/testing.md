@@ -22,6 +22,7 @@ cargo add axum-test --dev
 use axum_test::TestServer;
 use serde_json::json;
 use sword::prelude::*;
+use sword::web::*;
 
 #[controller(kind = Controller::Web, path = "/users")]
 pub struct UsersController;

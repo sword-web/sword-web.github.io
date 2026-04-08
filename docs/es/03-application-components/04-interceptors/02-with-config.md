@@ -10,6 +10,7 @@ Al igual que `OnRequest`, este trait permite definir lógica personalizada que s
 
 ```rust
 use sword::prelude::*;
+use sword::web::*;
 
 #[derive(Interceptor)]
 struct RequestLogger;
@@ -45,6 +46,7 @@ Si la ruta recibe `StreamRequest`, la variante configurada debe implementarse co
 
 ```rust
 use sword::prelude::*;
+use sword::web::*;
 
 #[derive(Interceptor)]
 struct StreamConfigInterceptor;
@@ -106,6 +108,7 @@ Al igual que `OnConnect`, este trait permite definir lógica personalizada que s
 
 ```rust
 use sword::prelude::*;
+use sword::socketio::*;
 
 #[derive(Interceptor)]
 struct EventLogger;
@@ -132,6 +135,7 @@ Luego, puedes aplicar este interceptor a un controlador Socket.IO:
 
 ```rust
 use sword::prelude::*;
+use sword::socketio::*;
 
 #[controller(kind = Controller::SocketIo, namespace = "/events")]
 #[interceptor(EventLogger, config = "some &str")]
@@ -167,6 +171,7 @@ use sword::prelude::*;
 #[derive(Interceptor)]
 struct ApiKeyInterceptor;
 
+#[sword::grpc::async_trait]
 impl OnRequestWithConfig<&'static str> for ApiKeyInterceptor {
     async fn on_request(
         &self,

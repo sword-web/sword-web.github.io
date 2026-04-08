@@ -8,6 +8,7 @@ Estos controladores están basado en los handlers de `axum`, pero añadiendo una
 
 ```rust
 use sword::prelude::*;
+use sword::web::*;
 
 #[controller(kind = Controller::Web, path = "/users")]
 pub struct UsersController;
@@ -40,6 +41,7 @@ Puedes recibir `req: Request` como parámetro y extraer params, body, query, hea
 
 ```rust
 use sword::prelude::*;
+use sword::web::*;
 
 #[controller(kind = Controller::Web, path = "/users")]
 pub struct UsersController;

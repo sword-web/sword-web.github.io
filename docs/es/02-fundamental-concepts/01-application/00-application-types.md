@@ -6,8 +6,8 @@ Sword distingue dos tipos de aplicación que se pueden ajustar a tus necesidades
 
 La web app se basa en axum y se construye a partir de estas feature flags:
 
-- `web-controllers`
-- `socketio-controllers`
+- `web-controllers`: Habilita controladores HTTP. Requiere importar `sword::web::*`.
+- `socketio-controllers`: Habilita controladores de tiempo real. Requiere importar `sword::socketio::*`.
 
 Puedes elegir una o ambas, dependiendo de si quieres construir una aplicación web tradicional o una aplicación en tiempo real con Socket.IO.
 
@@ -15,7 +15,7 @@ Puedes elegir una o ambas, dependiendo de si quieres construir una aplicación w
 
 La grpc app corresponde a:
 
-- `grpc-controllers`
+- `grpc-controllers`: Habilita controladores gRPC basados en `tonic`. Requiere importar `sword::grpc::*`.
 
 Sword usa `tonic` como runtime gRPC e integra:
 

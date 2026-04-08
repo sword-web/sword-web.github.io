@@ -17,6 +17,7 @@ if ctx.has_ack() {
 ```rust
 use serde::Serialize;
 use sword::prelude::*;
+use sword::socketio::*;
 
 #[derive(Serialize)]
 struct AckPayload {

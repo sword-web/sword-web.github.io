@@ -10,6 +10,7 @@ Este trait permite definir lógica personalizada que se ejecuta antes de que una
 
 ```rust
 use sword::prelude::*;
+use sword::web::*;
 
 #[derive(Interceptor)]
 struct RequestLogger;
@@ -47,6 +48,7 @@ Este caso es útil cuando no quieres bufferizar el body completo en memoria y ne
 
 ```rust
 use sword::prelude::*;
+use sword::web::*;
 
 #[derive(Interceptor)]
 struct StreamTagInterceptor;
@@ -106,6 +108,7 @@ A diferencia de los interceptores de controladores web, el interceptor `OnConnec
 
 ```rust
 use sword::prelude::*;
+use sword::socketio::*;
 
 #[derive(Interceptor)]
 struct EventLogger;
@@ -127,6 +130,7 @@ Luego, puedes aplicar este interceptor a un controlador Socket.IO:
 
 ```rust
 use sword::prelude::*;
+use sword::socketio::*;
 
 #[controller(kind = Controller::SocketIo, namespace = "/events")]
 #[interceptor(EventLogger)]
@@ -162,6 +166,7 @@ use sword::prelude::*;
 #[derive(Interceptor)]
 struct AuthInterceptor;
 
+#[sword::grpc::async_trait]
 impl OnRequest for AuthInterceptor {
     async fn on_request(&self, req: Request<()>) -> GrpcInterceptorResult {
         if req.metadata().get("authorization").is_none() {

@@ -18,6 +18,7 @@ En Sword, un controlador Socket.IO es un `struct` anotado con `#[controller(kind
 
 ```rust
 use sword::prelude::*;
+use sword::socketio::*;
 
 #[controller(kind = Controller::SocketIo, namespace = "/chat")]
 pub struct ChatController;
@@ -82,6 +83,7 @@ impl ChatController {
 
 ```rust
 use sword::prelude::*;
+use sword::socketio::*;
 
 #[controller(kind = Controller::SocketIo, namespace = "/chat")]
 pub struct ChatController;
@@ -115,6 +117,7 @@ Si el cliente envía un evento con callback ACK, el handler puede responder medi
 ```rust
 use serde::Serialize;
 use sword::prelude::*;
+use sword::socketio::*;
 
 #[derive(Serialize)]
 struct AckPayload {
@@ -142,6 +145,7 @@ Socket.IO en Sword soporta interceptors de conexión mediante `OnConnect` y `OnC
 
 ```rust
 use sword::prelude::*;
+use sword::socketio::*;
 
 #[derive(Interceptor)]
 pub struct AuthConnectInterceptor;

@@ -10,6 +10,7 @@ Un interceptor web puede insertar valores dentro de `req.extensions` antes de de
 
 ```rust
 use sword::prelude::*;
+use sword::web::*;
 use uuid::Uuid;
 
 #[derive(Interceptor)]
@@ -32,6 +33,7 @@ Luego, un controlador web puede leer ese valor desde la misma request:
 
 ```rust
 use sword::prelude::*;
+use sword::web::*;
 use uuid::Uuid;
 
 #[controller(kind = Controller::Web, path = "/api")]

@@ -60,6 +60,7 @@ struct GetUsersQuery {
 
 ```rust
 use sword::prelude::*;
+use sword::web::*;
 
 #[controller(kind = Controller::Web, path = "/users")]
 struct UsersController;

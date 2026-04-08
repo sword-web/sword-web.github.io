@@ -14,6 +14,7 @@ Los eventos más frecuentes son:
 
 ```rust
 use sword::prelude::*;
+use sword::socketio::*;
 
 #[controller(kind = Controller::SocketIo, namespace = "/chat")]
 pub struct ChatController;

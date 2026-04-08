@@ -17,7 +17,7 @@ layout: home
 hero:
     name: "Sword"
     text: "Rust Web Framework"
-    tagline: Asíncrono, modular y listo para escalar.
+    tagline: Asíncrono, modular y opinionado
     image:
         light:
             src: /logo-new-dark.png

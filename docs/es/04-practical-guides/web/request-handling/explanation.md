@@ -11,6 +11,7 @@ En Sword, a diferencia de Axum, no se utilizan extractores individuales en la fi
 ```rust
 use serde_json::Value;
 use sword::prelude::*;
+use sword::web::*;
 
 #[controller(kind = Controller::Web, path = "/api")]
 struct ApiController;
