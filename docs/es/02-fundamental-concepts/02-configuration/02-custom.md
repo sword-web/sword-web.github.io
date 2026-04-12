@@ -73,8 +73,58 @@ jwt_secret = "file:secrets/jwt_secret.txt"
 
 Esto es útil para secretos, certificados o claves privadas.
 
-## Alcance de estas capacidades
+## Unidades Especiales
 
-La interpolación de variables de entorno y la carga con `file:` pertenecen al sistema de configuración basado en `thisconfig`, no a una sección concreta del TOML.
+Gracias a `thisconfig`, es posible usar unidades legibles por humanos para configurar tamaños y duraciones. Estas unidades son `ByteConfig` para tamaños en bytes y `TimeConfig` para duraciones temporales.
 
-Por eso pueden utilizarse tanto en configuraciones personalizadas como en la configuración base del framework.
+Estas estructuras no guardan solo el valor parseado, también conservan el valor crudo (`raw`) para logging y display de configuración.
+
+### Unidad `ByteConfig`
+
+Esta estructura representa tamaños en bytes con formato humano.
+
+```rust
+pub struct ByteConfig {
+    pub parsed: usize,
+    pub raw: String,
+}
+```
+
+- `raw`: string original leída desde TOML (por ejemplo `"10MB"`).
+- `parsed`: valor convertido a bytes (`usize`) para uso interno.
+
+##### Ejemplos válidos
+
+```toml
+max-payload = "100KB"
+body-limit = "1MB"
+```
+
+También puedes usar formatos binarios como `KiB`, `MiB`, etc.
+
+### Unidad `TimeConfig`
+
+Esta estructura representa duraciones de tiempo con formato humano.
+
+```rust
+pub struct TimeConfig {
+    pub parsed: Duration,
+    pub raw: String,
+}
+```
+
+- `raw`: string original (por ejemplo `"30s"`, `"1h 30m"`).
+- `parsed`: `std::time::Duration` listo para aplicar en timeouts, intervalos, etc.
+
+#### Ejemplos válidos
+
+```toml
+request-timeout = { enabled = true, timeout = "10s", display = true }
+ping-timeout = "20s"
+ping-interval = "25s"
+```
+
+### Formatos
+
+- `ByteConfig` ver documentación de [byte-unit](https://docs.rs/byte-unit/latest)
+- `TimeConfig` ver documentación de [duration_str](https://docs.rs/duration_str/latest/)

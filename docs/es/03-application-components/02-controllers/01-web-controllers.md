@@ -1,6 +1,7 @@
 # Definición de Controladores Web
 
-Un controlador web en Sword es una `struct` marcada con `#[controller(kind = Controller::Web, path = "...")]`.
+En Sword un controlador web es una estructura que actúa como un grupo de methods relacionados a una ruta base, y cada método representa un endpoint HTTP específico. Se definen usando el atributo
+`#[controller(kind = Controller::Web, path = "...")]`.
 
 Estos controladores están basado en los handlers de `axum`, pero añadiendo una capa de integración con el sistema de módulos, inyección de dependencias e interceptors del framework.
 
@@ -60,13 +61,19 @@ Para más detalles sobre extracción, revisa [Manejo de Requests](/es/practical-
 
 ## Métodos HTTP soportados
 
-Sword soporta los métodos más comunes:
+Sword soporta los métodos HTTP estándar que provee `axum`:
 
-- `#[get("...")]`
-- `#[post("...")]`
-- `#[put("...")]`
-- `#[delete("...")]`
-- `#[patch("...")]`
+- GET: `#[get("...")]`
+- POST: `#[post("...")]`
+- PUT: `#[put("...")]`
+- DELETE: `#[delete("...")]`
+- PATCH: `#[patch("...")]`
+- HEAD: `#[head("...")]`
+- OPTIONS: `#[options("...")]`
+- CONNECT: `#[connect("...")]`
+- TRACE: `#[trace("...")]`
+
+Todos los métodos reciben la ruta de la misma forma, por ejemplo: `#[get("/")]`, `#[post("/api/users")]`, etc.
 
 ## Sobre `&self`
 

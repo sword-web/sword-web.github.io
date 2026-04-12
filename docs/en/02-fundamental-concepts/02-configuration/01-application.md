@@ -1,143 +1,124 @@
 ---
 title: Application Configuration
-description: Structure of the [application] section for Web and gRPC runtimes in Sword.
+description: Structure of the [application] section for web and gRPC runtimes in Sword.
 outline: [2, 3]
 ---
 
 # Application Configuration
 
-Sword uses `thisconfig` to load one or multiple TOML files.
+Sword uses `thisconfig` to load one or more TOML files.
 
-By default, `ApplicationBuilder` loads `config/config.toml` during initialization. If the file does not exist or contains invalid TOML, the application will fail to build.
+By default, `ApplicationBuilder` loads `config/config.toml` during initialization. If the file is missing or contains invalid TOML, application build fails.
 
-If you need a different path, you can build the application using `Application::from_config_path(...)`.
+If you need a different path, you can build the application with:
 
-## The `[application]` Section
+- `Application::from_config(...)`.
+- `Application::from_config_path(...)`.
 
-The main Sword configuration is loaded from the `[application]` section.
+## `[application]` section
 
-This section contains:
+This section contains general application-level values:
 
-- General fields from `ApplicationConfig`.
-- Configuration for the active runtime (Web or gRPC), exposed via `#[serde(flatten)]`.
+| Key                 | Type             | Default | Description                                                       |
+| ------------------- | ---------------- | ------- | ----------------------------------------------------------------- |
+| `name`              | `Option<String>` | `None`  | Application name                                                  |
+| `environment`       | `Option<String>` | `None`  | Environment name                                                  |
+| `graceful-shutdown` | `bool`           | `false` | Enables graceful shutdown when termination signals are received   |
 
-This means that in the TOML file, all this information lives under `[application]`, even though in the code, each runtime's configuration is modeled as separate structs (`WebApplicationConfig` and `GrpcApplicationConfig`).
-
-For more details on the relationship between feature flags and application types, see [Application Types](/en/fundamental-concepts/application/application-types).
-
-## Complete Example
+::: details TOML example
 
 ```toml
 [application]
 name = "My Sword App"
 environment = "development"
-graceful-shutdown = false
-
-host = "0.0.0.0"
-port = 8080
-web-router-prefix = "/api"
-
-[application.request-timeout]
-enabled = true
-timeout = "15s"
-display = true
-
-[application.body-limit]
-max-size = "5MB"
-display = true
+graceful-shutdown = true
 ```
 
-## gRPC Example
+:::
+
+## Runtime-specific configuration
+
+As shown in [Application Types](../01-application/00-application-types.md), Sword supports two runtime types: Web and gRPC. Each one has its own section.
+
+### `[web]` configuration
+
+This applies to web applications and web extensions such as `socketio`.
+
+| Key               | Type                           | Default     | Description                                                             |
+| ----------------- | ------------------------------ | ----------- | ----------------------------------------------------------------------- |
+| `host`            | `String`                       | `"0.0.0.0"` | Bind host or IP for the web application                                 |
+| `port`            | `u16`                          | `8000`      | Web application port                                                    |
+| `router-prefix`   | `Option<String>`               | `None`      | Global prefix for web routes                                            |
+| `request-timeout` | `Option<RequestTimeoutConfig>` | `None`      | Timeout configuration for web controllers                               |
+| `body-limit`      | `Option<BodyLimitConfig>`      | `10MB`      | Body size limit configuration for web request extraction                |
+
+::: details TOML example
 
 ```toml
-[application]
-name = "My Sword gRPC App"
-environment = "development"
-graceful-shutdown = true
+[web]
+host = "0.0.0.0"
+port = 8000
+router-prefix = "/api"
+body-limit = "2MB"
+request-timeout = { enabled = true, timeout = "30s" }
+```
 
+:::
+
+### `[socketio]` configuration
+
+In Sword, `socketio` is a web extension. So when you use it, you configure the web runtime first and then add the dedicated Socket.IO section.
+
+| Key                   | Type                    | Default                    | Description                                   |
+| --------------------- | ----------------------- | -------------------------- | --------------------------------------------- |
+| `ack-timeout`         | `Option<TimeConfig>`    | `5s`                       | Maximum time for outgoing ACKs                |
+| `connect-timeout`     | `Option<TimeConfig>`    | `45s`                      | Time limit to complete initial connection     |
+| `max-buffer-size`     | `Option<usize>`         | `128`                      | Max buffered packets per connection           |
+| `max-payload`         | `Option<ByteConfig>`    | `100KB`                    | Maximum outgoing payload size                 |
+| `ping-interval`       | `Option<TimeConfig>`    | `25s`                      | Server ping interval                          |
+| `ping-timeout`        | `Option<TimeConfig>`    | `20s`                      | Pong timeout before disconnect                |
+| `req-path`            | `Option<String>`        | `"/socket.io"`             | HTTP path where Socket.IO is mounted          |
+| `transports`          | `Option<Vec<String>>`   | `["polling", "websocket"]` | Allowed transports                            |
+| `parser`              | `"common" \| "msgpack"` | `"common"`                 | Payload parser                                |
+| `ws-read-buffer-size` | `Option<usize>`         | `4096`                     | WebSocket read buffer size                    |
+
+::: details TOML example
+
+```toml
+[socketio]
+ack-timeout = "5s"
+connect-timeout = "45s"
+max-buffer-size = 128
+max-payload = "100KB"
+ping-interval = "25s"
+ping-timeout = "20s"
+req-path = "/socket.io"
+transports = ["polling", "websocket"]
+parser = "common"
+ws-read-buffer-size = 4096
+```
+
+:::
+
+### `[grpc]` configuration
+
+This section applies to gRPC applications and is unrelated to the web runtime.
+
+| Key                       | Type                          | Default     | Description                                                              |
+| ------------------------- | ----------------------------- | ----------- | ------------------------------------------------------------------------ |
+| `host`                    | `String`                      | `"0.0.0.0"` | Bind host or IP for the gRPC server                                      |
+| `port`                    | `u16`                         | `50051`     | gRPC server port                                                         |
+| `enable-tonic-reflection` | `bool`                        | `false`     | Enables tonic reflection service                                         |
+| `body-limit`              | `Option<GrpcBodyLimitConfig>` | `10MB`      | Size limit config for incoming/outgoing gRPC messages                   |
+
+::: details TOML example
+
+```toml
+[grpc]
 host = "0.0.0.0"
 port = 50051
 enable-tonic-reflection = true
-
-[application.body-limit]
-max-decoding-message-size = "2 MiB"
-max-encoding-message-size = "2 MiB"
-display = true
+body-limit = { max-decoding-message-size = "4MB", max-encoding-message-size = "4MB" }
 ```
 
-## General Fields
-
-These fields belong directly to `ApplicationConfig`.
-
-| Key | Type | Default | Description |
-| --- | --- | --- | --- |
-| `name` | `Option<String>` | `None` | Application name. |
-| `environment` | `Option<String>` | `None` | Environment name (e.g., "production", "development"). |
-| `graceful-shutdown` | `bool` | `false` | Enables graceful shutdown when receiving termination signals. |
-
-## Web Configuration within `[application]`
-
-These fields conceptually belong to `WebApplicationConfig` but are serialized within `[application]` via `flatten`.
-
-| Key | Type | Default | Description |
-| --- | --- | --- | --- |
-| `host` | `String` | `"0.0.0.0"` | Host or IP for the web application bind. |
-| `port` | `u16` | `8000` | Port for the web application. |
-| `web-router-prefix` | `Option<String>` | `None` | Global prefix for web routes. |
-
-## Web Configuration Subtables
-
-In addition to the simple fields above, the web configuration exposes two subtables under the same `[application]` section.
-
-### `[application.request-timeout]`
-
-Configures the timeout applied to web controllers.
-
-```toml
-[application.request-timeout]
-enabled = true
-timeout = "15s"
-display = true
-```
-
-### `[application.body-limit]`
-
-Configures the size limit for body extraction in web requests.
-
-```toml
-[application.body-limit]
-max-size = "5MB"
-display = true
-```
-
-## gRPC Configuration within `[application]`
-
-These fields conceptually belong to `GrpcApplicationConfig` but are serialized within `[application]` via `flatten`.
-
-| Key | Type | Default | Description |
-| --- | --- | --- | --- |
-| `host` | `String` | `"0.0.0.0"` | Host or IP for the gRPC server bind. |
-| `port` | `u16` | `50051` | Port for the gRPC server. |
-| `enable-tonic-reflection` | `bool` | `false` | Enables the Tonic reflection service. |
-
-### `[application.body-limit]` in gRPC
-
-For gRPC, `body-limit` uses input/output message limits:
-
-```toml
-[application.body-limit]
-max-decoding-message-size = "2 MiB"
-max-encoding-message-size = "2 MiB"
-display = true
-```
-
-## Implementation Note
-
-In the code, the relationship is as follows:
-
-- `ApplicationConfig` defines general fields.
-- `WebApplicationConfig` defines web runtime configuration.
-- `GrpcApplicationConfig` defines gRPC runtime configuration.
-- `ApplicationConfig` includes the active runtime via `#[serde(flatten)]`.
-
-This is why `host`, `port`, `web-router-prefix`, `request-timeout`, `enable-tonic-reflection`, and `body-limit` are part of the application configuration in TOML, even though they are not "general" fields.
+:::

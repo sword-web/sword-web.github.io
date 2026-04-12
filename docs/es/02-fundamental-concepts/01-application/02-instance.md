@@ -41,7 +41,7 @@ Atributo público que permite acceder a la configuración de la aplicación carg
 Retorna una clon del router (`axum::Router`) interno de la aplicación. Esto es útil si necesitas acceder al enrutador para operaciones avanzadas o para inspeccionar la configuración de rutas.
 
 ::: info
-Solo disponible si has habilitado los features `web-controllers` o `socketio-controllers` en tu proyecto.
+Solo disponible si has habilitado los features `web` o `socketio` en tu proyecto.
 :::
 
 ##### Ejemplo

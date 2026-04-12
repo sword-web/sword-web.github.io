@@ -1,12 +1,12 @@
 # Custom Configuration
 
-Sword allows you to define your own configurations in addition to the framework's base settings. This is useful when your application needs domain-specific parameters or integration details.
+Sword lets you define your own configuration alongside the framework's base configuration. This is useful when your app needs domain-specific or integration-specific settings.
 
-Furthermore, the configuration system supports general capabilities such as environment variable interpolation and loading content from files.
+The configuration system also supports shared capabilities such as environment variable interpolation and loading values from files.
 
-## Using the `#[config]` Macro
+## Using the `#[config]` macro
 
-To create a custom configuration, you must mark your struct with the `#[config]` macro and specify the TOML key where that configuration will be loaded:
+To create custom configuration, annotate your struct with `#[config]` and set the TOML key where this configuration should be loaded:
 
 ```rust
 use serde::Deserialize;
@@ -20,9 +20,9 @@ pub struct DatabaseConfig {
 }
 ```
 
-## Required Traits
+## Required traits
 
-For a struct to be used as a custom configuration, it must derive or implement the following traits:
+For a struct to be used as custom configuration, it must derive or implement:
 
 - `Debug`
 - `Clone`
@@ -30,13 +30,13 @@ For a struct to be used as a custom configuration, it must derive or implement t
 
 The `#[config(key = "...")]` macro automatically generates:
 
-- The implementation of `ConfigItem`.
-- The implementation of `TryFrom<&State>` for dependency injection.
-- Automatic registration in the application state during initialization.
+- `ConfigItem` implementation
+- `TryFrom<&State>` implementation for dependency injection
+- Automatic registration in application state during initialization
 
-## TOML File Structure
+## TOML file structure
 
-Custom configuration must exist under the key specified in `#[config(key = "...")]`.
+Custom configuration must exist under the key declared in `#[config(key = "...")]`.
 
 ```toml
 [application]
@@ -48,7 +48,7 @@ database_url = "postgres://user:password@localhost/mydb"
 max_connections = 50
 ```
 
-## Environment Variable Interpolation
+## Environment variable interpolation
 
 Configuration loading supports direct interpolation of environment variables.
 
@@ -58,23 +58,73 @@ database_url = "${DATABASE_URL:postgres://localhost/app}"
 max_connections = "${DB_MAX_CONNECTIONS:20}"
 ```
 
-The syntax is `${VARIABLE_NAME:default_value}`.
+Syntax: `${VARIABLE_NAME:default_value}`.
 
-If no default value is specified and the environment variable does not exist, loading will fail.
+If no default is defined and the variable does not exist, loading fails.
 
-## Loading Content from Files
+## Loading content from files
 
-`thisconfig` allows loading file content into the TOML using the `file:` prefix.
+`thisconfig` can load file content into TOML values using the `file:` prefix.
 
 ```toml
 [auth]
 jwt_secret = "file:secrets/jwt_secret.txt"
 ```
 
-This is useful for secrets, certificates, or private keys.
+This is useful for secrets, certificates, and private keys.
 
-## Scope of these Capabilities
+## Special Units
 
-Environment variable interpolation and `file:` loading are features of the underlying `thisconfig`-based system, not limited to a specific TOML section.
+Thanks to `thisconfig`, you can use human-readable units for size and duration settings. The two unit structs are `ByteConfig` for byte sizes and `TimeConfig` for time durations.
 
-As such, they can be used in both custom configurations and the framework's base configuration.
+These structs do not just keep the parsed value: they also preserve the original raw value (`raw`) for logging and config display.
+
+### `ByteConfig` unit
+
+This struct represents byte sizes in a human-readable format.
+
+```rust
+pub struct ByteConfig {
+    pub parsed: usize,
+    pub raw: String,
+}
+```
+
+- `raw`: original TOML string (for example, `"10MB"`)
+- `parsed`: value converted to bytes (`usize`) for runtime use
+
+##### Valid examples
+
+```toml
+max-payload = "100KB"
+body-limit = "1MB"
+```
+
+You can also use binary units such as `KiB`, `MiB`, and so on.
+
+### `TimeConfig` unit
+
+This struct represents time durations in a human-readable format.
+
+```rust
+pub struct TimeConfig {
+    pub parsed: Duration,
+    pub raw: String,
+}
+```
+
+- `raw`: original string (for example, `"30s"`, `"1h 30m"`)
+- `parsed`: `std::time::Duration` ready to use in timeouts, intervals, etc.
+
+#### Valid examples
+
+```toml
+request-timeout = { enabled = true, timeout = "10s", display = true }
+ping-timeout = "20s"
+ping-interval = "25s"
+```
+
+### Formats
+
+- `ByteConfig`: see [byte-unit](https://docs.rs/byte-unit/latest)
+- `TimeConfig`: see [duration_str](https://docs.rs/duration_str/latest/)

@@ -1,59 +1,97 @@
 # Error Handling in `Request`
 
-Many `Request` methods return a `Result` because extraction or deserialization can fail.
+Many `Request` methods return `Result` because extraction and deserialization can fail.
 
-For example:
+Common examples:
 
 - `req.param::<T>(...)`
 - `req.body::<T>()`
 - `req.query::<T>()`
-- `req.body_validator::<T>()`
 
-## Automatic Error Conversion
+## Automatic error conversion
 
-Sword automatically converts many `Request` errors into an appropriate `JsonResponse` when the handler returns `WebResult` and you propagate the error using `?`.
+When a handler returns `WebResult`, Sword automatically converts many `RequestError` values into `JsonResponse` when you propagate with `?`.
 
-## Example
+## Structured handling with `#[derive(HttpError)]`
+
+`HttpError` is a derive macro for HTTP error enums. It generates:
+
+- `From<Self> for JsonResponse`
+- `IntoResponse`
+
+This lets you return domain errors directly from web handlers.
+
+## Supported attributes
+
+According to the macro rustdoc:
+
+- `#[http_error(...)]`: enum-level defaults.
+- `#[http(...)]`: per-variant override.
+
+Supported keys:
+
+- `code = <u16>`
+- `message = "text"`
+- `message = field_name`
+- `error = field_name` (named-field variants only)
+- `errors = field_name` (named-field variants only)
+- `transparent` (variant-only, delegates to another `HttpError` type)
+- `tracing = <level>` in `http_error/http`
+- `#[tracing(level)]` as backward-compatible shorthand
+
+Valid tracing levels: `trace`, `debug`, `info`, `warn`, `error`.
+
+## Full example
 
 ```rust
-use serde::{Deserialize, Serialize};
+use serde_json::Value;
 use sword::prelude::*;
 use sword::web::*;
+use thiserror::Error;
 
-#[controller(kind = Controller::Web, path = "/")]
-pub struct MyController;
-```
+#[derive(Debug, Error, HttpError)]
+#[http_error(code = 500, tracing = error, message = "Internal server error")]
+pub enum ApiError {
+    #[error("Not found")]
+    #[http(code = 404, message = "Resource missing", tracing = info)]
+    NotFound,
 
+    #[error("Conflict: {field}")]
+    #[http(code = 409, message = client_message, error = detail)]
+    Conflict {
+        client_message: String,
+        field: String,
+        detail: Value,
+    },
 
-If the body cannot be correctly deserialized, Sword will automatically respond with a standardized JSON error response.
+    #[error("Auth error: {0}")]
+    #[http(transparent)]
+    Auth(#[from] AuthError),
+}
 
-## Error Example
-
-### Sent Body
-
-```json
-{
-  "field1": "example",
-  "field2": "not_an_integer"
+#[derive(Debug, Error, HttpError)]
+#[http_error(code = 401, message = "Unauthorized")]
+pub enum AuthError {
+    #[error("Invalid token")]
+    #[http(code = 401, message = "Invalid token")]
+    InvalidToken,
 }
 ```
 
-### Approximate Response
+## Tracing note
 
-```json
-{
-  "code": 400,
-  "error": "...",
-  "message": "Invalid request body",
-  "success": false,
-  "timestamp": "2025-10-21T01:52:13Z"
-}
-```
+When `tracing` is enabled in the macro, generated code emits structured logs with fields such as:
 
-## Error Customization
+- `error`
+- `error_type`
+- `status_code`
+- variant fields when available
 
-If you want to override this behavior, you can avoid using `?` and handle the error manually using `match`, `map_err`, or any other approach you prefer.
+## When to handle manually
 
-## Limitations
+If you need a fully custom response in a specific case, you can avoid `?` and transform errors manually with `match` or `map_err`.
 
-Deserialization depends on `serde`, so it won't always be possible to obtain messages as specific as those from structured validation. If you need richer or field-specific errors, it's best to combine extraction with explicit validation.
+## See also
+
+- [Request Reference](/en/practical-guides/web/request-handling/request-structure)
+- [Request Handling](/en/practical-guides/web/request-handling/explanation)

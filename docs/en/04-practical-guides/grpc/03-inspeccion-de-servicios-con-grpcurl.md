@@ -17,7 +17,7 @@ For design recommendations on `.proto` contracts, see [.proto Files](/en/practic
 3. Enable reflection in your configuration:
 
 ```toml
-[application]
+[grpc]
 enable-tonic-reflection = true
 ```
 

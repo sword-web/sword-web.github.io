@@ -17,9 +17,9 @@ The `sword-cli` command line tool is currently in development. For now, the reco
 
 You can find the examples in the repository on [GitHub](https://github.com/sword-web/sword/tree/main/examples).
 
-Each example is designed to showcase a specific part of the framework. If this is your first time using Sword, we recommend starting with `web-controllers`.
+Each example is designed to showcase a specific part of the framework. If this is your first time using Sword, we recommend starting with `web`.
 
-### `web-controllers` Example
+### `web` Example
 
 This is the most straightforward example for understanding the base flow of an Axum-based HTTP application with Sword.
 
@@ -30,7 +30,7 @@ It includes:
 - Components and providers
 - Configuration from a file
 
-### `socketio-controllers` Example
+### `socketio` Example
 
 This example focuses on Socket.IO integration with Sword, built on top of the `socketioxide` crate.
 

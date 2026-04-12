@@ -2,6 +2,8 @@
 
 Sword allows you to validate incoming data in Socket.IO events using the `validator` crate, similar to how validation works in web controllers.
 
+For the full reference of `try_data` and `try_validated_data`, see [Event handling and SocketContext reference](/en/practical-guides/socketio/event-handling).
+
 ## Enabling `validation-validator`
 
 To use validation in `SocketContext`, you must enable the `validation-validator` feature.

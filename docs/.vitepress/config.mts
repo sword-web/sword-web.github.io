@@ -98,10 +98,6 @@ export default defineConfig({
                                         link: "/en/fundamental-concepts/configuration/extract",
                                     },
                                     {
-                                        text: "Special Units",
-                                        link: "/en/fundamental-concepts/configuration/special-units",
-                                    },
-                                    {
                                         text: "Tracing & Logging",
                                         link: "/en/fundamental-concepts/configuration/tracing",
                                     },
@@ -248,6 +244,10 @@ export default defineConfig({
                                         text: "Service Inspection with grpcurl",
                                         link: "/en/practical-guides/grpc/inspeccion-de-servicios-con-grpcurl",
                                     },
+                                    {
+                                        text: "gRPC Errors",
+                                        link: "/en/practical-guides/grpc/errores-grpc",
+                                    },
                                 ],
                             },
                             {
@@ -340,10 +340,6 @@ export default defineConfig({
                                     {
                                         text: "Extracción de estructuras",
                                         link: "/es/fundamental-concepts/configuration/extract",
-                                    },
-                                    {
-                                        text: "Unidades Especiales",
-                                        link: "/es/fundamental-concepts/configuration/special-units",
                                     },
                                     {
                                         text: "Tracing y Logging",
@@ -491,6 +487,10 @@ export default defineConfig({
                                     {
                                         text: "Inspección con grpcurl",
                                         link: "/es/practical-guides/grpc/inspeccion-de-servicios-con-grpcurl",
+                                    },
+                                    {
+                                        text: "Errores gRPC",
+                                        link: "/es/practical-guides/grpc/errores-grpc",
                                     },
                                 ],
                             },

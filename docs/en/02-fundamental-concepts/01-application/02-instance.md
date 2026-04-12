@@ -41,7 +41,7 @@ A public attribute that allows access to the application configuration loaded fr
 Returns a clone of the internal application router (`axum::Router`). This is useful if you need to access the router for advanced operations or to inspect the route configuration.
 
 ::: info
-Only available if you have enabled the `web-controllers` or `socketio-controllers` features in your project.
+Only available if you have enabled the `web` or `socketio` features in your project.
 :::
 
 ##### Example

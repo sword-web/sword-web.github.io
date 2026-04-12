@@ -17,7 +17,7 @@ Para recomendaciones de diseño del contrato `.proto`, revisa [Ficheros .proto](
 3. Activar reflection en configuración:
 
 ```toml
-[application]
+[grpc]
 enable-tonic-reflection = true
 ```
 

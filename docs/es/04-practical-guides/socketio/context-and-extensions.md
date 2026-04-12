@@ -1,43 +1,33 @@
 # Contexto y extensiones
 
-`SocketContext` es el punto central de acceso al estado de una conexión Socket.IO dentro de un handler.
+Esta guia se enfoca en compartir estado con extensiones durante el ciclo de vida de una conexion Socket.IO.
 
-## Información básica del socket
-
-Puedes acceder a datos del socket actual con métodos como:
-
-- `ctx.id()`
-- `ctx.event()`
-- `ctx.protocol_version()`
-- `ctx.transport_type()`
-- `ctx.disconnect_reason()`
-
-Ejemplo:
-
-```rust
-println!("Socket ID: {}", ctx.id());
-
-if let Some(event) = ctx.event() {
-    println!("Current event: {event}");
-}
-```
+La referencia completa de `SocketContext` (metodos, firmas y semantica por tipo de handler) esta en [Manejo de eventos y referencia de SocketContext](/es/practical-guides/socketio/event-handling).
 
 ## Extensiones del socket
 
-`ctx.extensions()` da acceso al almacenamiento de extensiones propio del socket.
+`ctx.extensions()` da acceso al almacenamiento de extensiones del socket.
 
-Esto puede servir para compartir estado durante la vida de la conexión.
+Uso recomendado:
 
-## Extensiones HTTP
+- guardar estado asociado a una conexion concreta.
+- compartir datos entre distintos eventos del mismo cliente.
 
-`ctx.http_extensions()` da acceso a las extensiones HTTP de la request inicial del handshake.
+## Extensiones HTTP del handshake
 
-Esto es útil cuando una layer o interceptor HTTP deja información en la request y luego necesitas reutilizarla en el contexto Socket.IO.
+`ctx.http_extensions()` permite leer extensiones de la request HTTP inicial del handshake.
 
-## Cerrar la conexión
+Uso recomendado:
 
-Puedes cerrar la conexión desde el servidor con:
+- reutilizar datos agregados por layers o interceptors HTTP antes de entrar al mundo Socket.IO.
+
+## Ejemplo conceptual
 
 ```rust
-let _ = ctx.disconnect();
+use sword::socketio::SocketContext;
+
+fn read_shared_data(ctx: &SocketContext) {
+    let _socket_ext = ctx.extensions();
+    let _http_ext = ctx.http_extensions();
+}
 ```

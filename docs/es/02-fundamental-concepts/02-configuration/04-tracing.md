@@ -6,7 +6,7 @@ outline: [2, 3]
 
 # Configuración de Tracing
 
-Sword instala tracing automáticamente durante el bootstrap de la aplicación cuando construyes la app desde configuración.
+Sword puede configurar un subscriber global de `tracing` para capturar eventos de log en toda la aplicación.
 
 La configuración se carga desde la sección `[tracing]` del archivo TOML.
 
@@ -15,12 +15,7 @@ La configuración se carga desde la sección `[tracing]` del archivo TOML.
 ```rust
 use sword::prelude::*;
 
-let config = Config::builder()
-    .add_required_file("config/config.toml")
-    .build()
-    .expect("Configuration loading error");
-
-let app = Application::from_config(config)
+let app = Application::builder(config)
     .with_module::<UsersModule>()
     .build();
 ```
@@ -29,13 +24,12 @@ let app = Application::from_config(config)
 
 ```toml
 [tracing]
-display = false
 enabled = true
 use-env-filter = true
 filter = "info,sword=info,sqlx=warn"
 
 format = "dev"
-time-style = "local"
+time-style = "utc"
 time-pattern = "%H:%M:%S"
 
 with-fields = []
@@ -45,7 +39,6 @@ with-fields = []
 
 | Key              | Tipo                                                                  | Default      | Descripción                                                               |
 | ---------------- | --------------------------------------------------------------------- | ------------ | ------------------------------------------------------------------------- |
-| `display`        | `bool`                                                                | `false`      | Muestra el evento inicial del subscriber al arrancar                      |
 | `enabled`        | `bool`                                                                | `true`       | Habilita o deshabilita la inicialización global del subscriber            |
 | `use-env-filter` | `bool`                                                                | `true`       | Intenta leer directivas desde `RUST_LOG` antes de usar `filter`           |
 | `filter`         | `String`                                                              | `"info"`     | Filtro por defecto usado cuando no existe `RUST_LOG` o está deshabilitado |
@@ -74,15 +67,6 @@ Usa una variante más densa en una sola línea, cercana al estilo clásico de `t
 
 Formato propio de Sword orientado a desarrollo en consola.
 
-Características:
-
-- prioriza legibilidad humana en consola
-- eventos pequeños pueden verse en una sola línea
-- eventos con varios fields o valores largos se expanden en varias líneas
-- el mensaje principal aparece antes que los campos
-- los campos se muestran como `key: value`
-- cuando la terminal soporta ANSI, las `keys` y el nivel (`INFO`, `WARN`, `ERROR`, etc.) se colorean automáticamente
-
 Ejemplo:
 
 ```text
@@ -91,8 +75,6 @@ INFO  Initialized tracing subscriber
        filter: info,sword=info
        use_env_filter: true
 ```
-
-Si `display = false`, este evento inicial no se imprime.
 
 ### Formato `json`
 
@@ -115,24 +97,6 @@ Valores soportados:
 - `line-number`
 - `thread-id`
 - `thread-name`
-
-Ejemplos:
-
-```toml
-with-fields = []
-```
-
-No incluye metadata extra.
-
-```toml
-with-fields = ["target"]
-```
-
-Incluye solo el target del evento. Este es el default de Sword.
-
-```toml
-with-fields = ["target", "file", "line-number"]
-```
 
 Incluye target y ubicación fuente.
 

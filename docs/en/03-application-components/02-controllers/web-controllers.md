@@ -1,6 +1,6 @@
 # Web Controller Definition
 
-A web controller in Sword is a `struct` marked with `#[controller(kind = Controller::Web, path = "...")]`.
+In Sword, a web controller is a struct that acts as a group of methods under a base path, where each method represents a specific HTTP endpoint. Controllers are declared with `#[controller(kind = Controller::Web, path = "...")]`.
 
 These controllers are based on `axum` handlers but add an integration layer with the framework's module system, dependency injection, and interceptors.
 
@@ -60,13 +60,19 @@ For more details on extraction, check the [Request Handling](/en/practical-guide
 
 ## Supported HTTP Methods
 
-Sword supports the most common methods:
+Sword supports the standard HTTP methods provided by `axum`:
 
-- `#[get("...")]`
-- `#[post("...")]`
-- `#[put("...")]`
-- `#[delete("...")]`
-- `#[patch("...")]`
+- GET: `#[get("...")]`
+- POST: `#[post("...")]`
+- PUT: `#[put("...")]`
+- DELETE: `#[delete("...")]`
+- PATCH: `#[patch("...")]`
+- HEAD: `#[head("...")]`
+- OPTIONS: `#[options("...")]`
+- CONNECT: `#[connect("...")]`
+- TRACE: `#[trace("...")]`
+
+All methods receive the route in the same way, for example: `#[get("/")]`, `#[post("/api/users")]`, etc.
 
 ## About `&self`
 

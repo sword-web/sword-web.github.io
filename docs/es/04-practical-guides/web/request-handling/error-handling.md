@@ -1,59 +1,97 @@
 # Manejo de errores en `Request`
 
-Muchos métodos de `Request` retornan un `Result` porque la extracción o deserialización puede fallar.
+Muchos metodos de `Request` retornan `Result` porque la extraccion o deserializacion puede fallar.
 
-Por ejemplo:
+Ejemplos comunes:
 
 - `req.param::<T>(...)`
 - `req.body::<T>()`
 - `req.query::<T>()`
-- `req.body_validator::<T>()`
 
-## Conversión automática de errores
+## Conversion automatica de errores
 
-Sword convierte automáticamente muchos errores de `Request` en una `JsonResponse` adecuada cuando el handler retorna `WebResult` y propagas el error con `?`.
+Cuando el handler retorna `WebResult`, Sword convierte automaticamente muchos `RequestError` en `JsonResponse` al propagar con `?`.
 
-## Ejemplo
+## Manejo estructurado con `#[derive(HttpError)]`
+
+`HttpError` es una derive macro para enums de error HTTP. Genera:
+
+- `From<Self> for JsonResponse`
+- `IntoResponse`
+
+Esto te permite retornar errores de dominio directamente desde handlers web.
+
+## Atributos soportados
+
+Segun el rustdoc de la macro:
+
+- `#[http_error(...)]`: defaults a nivel enum.
+- `#[http(...)]`: override por variante.
+
+Claves disponibles:
+
+- `code = <u16>`
+- `message = "texto"`
+- `message = nombre_de_campo`
+- `error = nombre_de_campo` (solo variantes con campos nombrados)
+- `errors = nombre_de_campo` (solo variantes con campos nombrados)
+- `transparent` (solo variante, delega en otro tipo `HttpError`)
+- `tracing = <level>` en `http_error/http`
+- `#[tracing(level)]` como shorthand compatible hacia atras
+
+Niveles validos para tracing: `trace`, `debug`, `info`, `warn`, `error`.
+
+## Ejemplo completo
 
 ```rust
-use serde::{Deserialize, Serialize};
+use serde_json::Value;
 use sword::prelude::*;
 use sword::web::*;
+use thiserror::Error;
 
-#[controller(kind = Controller::Web, path = "/")]
-pub struct MyController;
-```
+#[derive(Debug, Error, HttpError)]
+#[http_error(code = 500, tracing = error, message = "Internal server error")]
+pub enum ApiError {
+    #[error("Not found")]
+    #[http(code = 404, message = "Resource missing", tracing = info)]
+    NotFound,
 
+    #[error("Conflict: {field}")]
+    #[http(code = 409, message = client_message, error = detail)]
+    Conflict {
+        client_message: String,
+        field: String,
+        detail: Value,
+    },
 
-Si el body no puede deserializarse correctamente, Sword responderá automáticamente con una respuesta JSON de error estandarizada.
+    #[error("Auth error: {0}")]
+    #[http(transparent)]
+    Auth(#[from] AuthError),
+}
 
-## Ejemplo de error
-
-### Cuerpo enviado
-
-```json
-{
-  "field1": "example",
-  "field2": "not_an_integer"
+#[derive(Debug, Error, HttpError)]
+#[http_error(code = 401, message = "Unauthorized")]
+pub enum AuthError {
+    #[error("Invalid token")]
+    #[http(code = 401, message = "Invalid token")]
+    InvalidToken,
 }
 ```
 
-### Respuesta aproximada
+## Nota sobre tracing
 
-```json
-{
-  "code": 400,
-  "error": "...",
-  "message": "Invalid request body",
-  "success": false,
-  "timestamp": "2025-10-21T01:52:13Z"
-}
-```
+Si habilitas `tracing` en la macro, el codigo generado emite logs estructurados con datos como:
 
-## Personalización de errores
+- `error`
+- `error_type`
+- `status_code`
+- campos de la variante cuando existen
 
-Si quieres reemplazar ese comportamiento, puedes no utilizar `?` y manejar el error manualmente con `match`, `map_err` o cualquier otro enfoque que prefieras.
+## Cuando manejar manualmente
 
-## Limitaciones
+Si quieres una respuesta totalmente custom para un caso puntual, puedes evitar `?` y transformar errores manualmente con `match` o `map_err`.
 
-La deserialización depende de `serde`, por lo que no siempre será posible obtener mensajes tan específicos como los de una validación estructurada. Si necesitas errores más ricos o por campo, conviene combinar extracción con validación explícita.
+## Ver tambien
+
+- [Referencia de Request](/es/practical-guides/web/request-handling/request-structure)
+- [Manejo de Requests](/es/practical-guides/web/request-handling/explanation)

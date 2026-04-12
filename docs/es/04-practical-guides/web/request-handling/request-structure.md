@@ -1,7 +1,7 @@
 ---
 title: Referencia de Request
-description: Referencia rápida de los métodos más útiles de Request en Sword para parámetros, body, query, headers y metadata de la request.
-outline: [2, 3]
+description: Referencia tipo API de Request en Sword para parámetros, body, query, headers, cookies y metadata HTTP.
+outline: false
 prev:
   text: Manejo de Requests
   link: /es/practical-guides/web/request-handling/explanation
@@ -14,75 +14,73 @@ next:
 
 `Request` es el extractor principal para trabajar con solicitudes HTTP en controladores web de Sword.
 
-## Resumen rápido
+## Atributo `extensions`
 
-| Método | Uso principal | Retorno |
-| --- | --- | --- |
-| `uri()` | Leer la URI completa | `String` |
-| `method()` | Leer el método HTTP | `&Method` |
-| `header()` | Leer un header puntual | `Option<&str>` |
-| `headers()` | Leer todos los headers | `&HeaderMap` |
-| `headers_mut()` | Modificar headers | `&mut HeaderMap` |
-| `set_header()` | Insertar o reemplazar un header | `Result<(), RequestError>` |
-| `param()` | Leer un parámetro de ruta tipado | `Result<T, RequestError>` |
-| `body()` | Deserializar body JSON | `Result<T, RequestError>` |
-| `query()` | Deserializar query string | `Result<Option<T>, RequestError>` |
-| `id()` | Leer request id | `String` |
-| `authorization()` | Leer header Authorization | `Option<&str>` |
-| `user_agent()` | Leer User-Agent | `Option<&str>` |
-| `ip()` | Leer `X-Forwarded-For` principal | `Option<&str>` |
-| `ips()` | Leer todas las IPs reenviadas | `Option<Vec<&str>>` |
-| `protocol()` | Leer protocolo reportado | `&str` |
-| `content_type()` | Leer Content-Type | `Option<&str>` |
-| `content_length()` | Leer Content-Length | `Option<u64>` |
-| `next()` | Continuar la cadena de interceptors | `WebInterceptorResult` |
+```rust
+pub extensions: Extensions
+```
 
-## Metadata HTTP
+**Retorna**
 
-::: details `uri()`
+- Extensiones de Axum asociadas a la request actual.
 
-Retorna la URI completa de la solicitud.
+**Cuándo usarlo**
+
+- Para leer estado agregado por layers o interceptores previos.
+
+## Referencia de métodos
+
+### Método `uri()`
 
 ```rust
 pub fn uri(&self) -> String
 ```
 
-:::
+**Retorna**
 
-::: details `method()`
+- URI completa de la solicitud.
 
-Retorna el método HTTP de la solicitud.
+### Método `method()`
 
 ```rust
 pub fn method(&self) -> &Method
 ```
 
-:::
+**Retorna**
 
-::: details `header()`
+- Método HTTP (`GET`, `POST`, etc.).
 
-Lee un header puntual por nombre.
+### Método `header()`
 
 ```rust
 pub fn header(&self, key: &str) -> Option<&str>
 ```
 
-:::
+**Retorna**
 
-::: details `headers()` y `headers_mut()`
+- Valor de header si existe y es UTF-8 válido.
 
-Permiten acceder al `HeaderMap` completo.
+### Método `headers()`
 
 ```rust
 pub fn headers(&self) -> &HeaderMap
+```
+
+**Retorna**
+
+- Referencia inmutable al `HeaderMap` completo.
+
+### Método `headers_mut()`
+
+```rust
 pub fn headers_mut(&mut self) -> &mut HeaderMap
 ```
 
-:::
+**Retorna**
 
-::: details `set_header()`
+- Referencia mutable al `HeaderMap`.
 
-Inserta o reemplaza un header.
+### Método `set_header()`
 
 ```rust
 pub fn set_header(
@@ -92,15 +90,12 @@ pub fn set_header(
 ) -> Result<(), RequestError>
 ```
 
-Puede fallar si el nombre o valor del header no son válidos.
+**Retorna**
 
-:::
+- `Ok(())` si inserta/reemplaza correctamente.
+- `Err(RequestError)` si nombre o valor son inválidos.
 
-## Parámetros y payload
-
-::: details `param()`
-
-Lee un parámetro de ruta y lo convierte al tipo indicado.
+### Método `param::<T>()`
 
 ```rust
 pub fn param<T>(&self, key: &str) -> Result<T, RequestError>
@@ -109,136 +104,190 @@ where
     T::Err: Display,
 ```
 
-Errores habituales:
+**Retorna**
 
-- el parámetro no existe
-- el valor no puede parsearse al tipo pedido
+- `Ok(T)` si el parámetro existe y parsea.
+- `Err(RequestError)` si no existe o no puede parsearse.
 
-```rust
-let id = req.param::<u64>("id")?;
-```
+**Cuándo usarlo**
 
-:::
+- Parámetros de ruta como `/users/{id}`.
 
-::: details `body()`
-
-Deserializa el body JSON al tipo pedido.
+### Método `body::<T>()`
 
 ```rust
 pub fn body<T: DeserializeOwned>(&self) -> Result<T, RequestError>
 ```
 
-Errores habituales:
+**Retorna**
 
-- body vacío
-- `Content-Type` no compatible con JSON
-- JSON inválido o shape incorrecto
+- `Ok(T)` si el body es JSON válido compatible con `T`.
+- `Err(RequestError)` si body vacío, media type inválido o deserialización fallida.
 
-```rust
-let dto = req.body::<CreateUserDto>()?;
-```
+**Cuándo usarlo**
 
-:::
+- Requests JSON en endpoints `POST`, `PUT`, `PATCH`.
 
-::: details `query()`
-
-Deserializa los parámetros de query string.
+### Método `query::<T>()`
 
 ```rust
 pub fn query<T: DeserializeOwned>(&self) -> Result<Option<T>, RequestError>
 ```
 
-Retorna:
+**Retorna**
 
-- `Ok(Some(T))` si hay query y se deserializa bien
-- `Ok(None)` si no hay query string
-- `Err(RequestError)` si la query existe pero es inválida
+- `Ok(Some(T))` si hay query string válida.
+- `Ok(None)` si no hay query string.
+- `Err(RequestError)` si la query existe pero no deserializa.
+
+### Método `cookies()`
 
 ```rust
-let query = req.query::<ListUsersQuery>()?.unwrap_or_default();
+pub fn cookies(&self) -> Result<&Cookies, JsonResponse>
 ```
 
-:::
+**Retorna**
 
-## Helpers comunes
+- `Ok(&Cookies)` si la capa de cookies está disponible.
+- `Err(JsonResponse)` si no puede extraer cookies.
 
-::: details `authorization()`, `user_agent()`, `content_type()`, `content_length()`
+**Cuándo no usarlo**
 
-Helpers de lectura sobre headers comunes.
+- Si no tienes habilitada/aplicada la `CookieManagerLayer` en el router.
+
+### Método `authorization()`
 
 ```rust
 pub fn authorization(&self) -> Option<&str>
-pub fn user_agent(&self) -> Option<&str>
-pub fn content_type(&self) -> Option<&str>
-pub fn content_length(&self) -> Option<u64>
 ```
 
-:::
+**Retorna**
 
-::: details `ip()`, `ips()` y `protocol()`
+- Valor del header `Authorization`.
 
-Helpers basados en headers reenviados por proxies.
+### Método `user_agent()`
+
+```rust
+pub fn user_agent(&self) -> Option<&str>
+```
+
+**Retorna**
+
+- Valor del header `User-Agent`.
+
+### Método `ip()`
 
 ```rust
 pub fn ip(&self) -> Option<&str>
+```
+
+**Retorna**
+
+- Primer valor de `X-Forwarded-For` como texto.
+
+### Método `ips()`
+
+```rust
 pub fn ips(&self) -> Option<Vec<&str>>
+```
+
+**Retorna**
+
+- Lista de IPs en `X-Forwarded-For` separadas por coma.
+
+### Método `protocol()`
+
+```rust
 pub fn protocol(&self) -> &str
 ```
 
-::: warning Proxy awareness
-Estos métodos dependen de headers como `X-Forwarded-For` y `X-Forwarded-Proto`. Si tu despliegue no los inyecta, pueden venir vacíos o devolver valores por defecto.
-:::
+**Retorna**
 
-:::
+- Valor de `X-Forwarded-Proto` o `"http"` por defecto.
 
-::: details `id()`
+### Método `content_type()`
 
-Retorna el request id actual.
+```rust
+pub fn content_type(&self) -> Option<&str>
+```
+
+**Retorna**
+
+- Valor de `Content-Type`.
+
+### Método `content_length()`
+
+```rust
+pub fn content_length(&self) -> Option<u64>
+```
+
+**Retorna**
+
+- `Content-Length` parseado a `u64`.
+
+### Método `id()`
 
 ```rust
 pub fn id(&self) -> String
 ```
 
-Si no hay `RequestIdLayer`, devuelve `"unknown"`.
+**Retorna**
 
-:::
+- Request ID de `RequestIdLayer`.
+- `"unknown"` si no está disponible.
 
-## Uso dentro de interceptors
-
-`next()` existe para continuar la cadena de interceptors.
+### Método `next()`
 
 ```rust
 pub async fn next(self) -> WebInterceptorResult
 ```
 
-::: danger Solo en interceptors
-No uses `req.next().await` en handlers normales. Está pensado para implementaciones de `OnRequest*` dentro de la cadena de interceptors de Sword.
-:::
+**Retorna**
 
-## Ejemplo completo
+- Resultado de la cadena de interceptores.
+
+**Cuándo usarlo**
+
+- Solo dentro de implementaciones `OnRequest*`.
+
+**Cuándo no usarlo**
+
+- En handlers web normales.
+
+## Notas operativas
+
+- `ip()`, `ips()` y `protocol()` dependen de headers de proxy (`X-Forwarded-For`, `X-Forwarded-Proto`).
+- `body::<T>()` exige `Content-Type` JSON (`application/json` o `+json`).
+
+## Ejemplo de uso
 
 ```rust
+use serde::Deserialize;
 use sword::prelude::*;
 use sword::web::*;
 
+#[derive(Deserialize)]
+struct ListUsersQuery {
+    page: Option<u32>,
+}
+
 #[controller(kind = Controller::Web, path = "/users")]
 pub struct UsersController;
+
+impl UsersController {
+    #[get("/{id}")]
+    async fn get_user(&self, req: Request) -> WebResult {
+        let id = req.param::<u64>("id")?;
+        let query = req.query::<ListUsersQuery>()?.unwrap_or(ListUsersQuery { page: Some(1) });
+        let ua = req.user_agent().unwrap_or("unknown");
+
+        Ok(JsonResponse::Ok().data(format!(
+            "id={id}, page={:?}, ua={ua}",
+            query.page
+        )))
+    }
+}
 ```
-
-
-## Errores más comunes
-
-::: details `RequestError` más frecuentes
-
-- `ParseError`
-- `DeserializationError`
-- `BodyIsEmpty`
-- `BodyTooLarge`
-- `UnsupportedMediaType`
-- `InvalidHeaderName`
-- `InvalidHeaderValue`
-
-:::
 
 ## Ver también
 

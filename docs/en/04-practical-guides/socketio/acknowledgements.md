@@ -4,6 +4,8 @@ When a client sends a Socket.IO event with a callback, the server can respond us
 
 In Sword, this is handled through the `SocketContext`.
 
+If you need the exact signatures for `has_ack()` and `ack(...)`, check the [SocketContext reference](/en/practical-guides/socketio/event-handling).
+
 ## Detecting if the event expects an ACK
 
 ```rust

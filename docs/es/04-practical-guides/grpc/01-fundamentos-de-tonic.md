@@ -51,12 +51,14 @@ Esto permite:
 - devolver respuestas tipadas,
 - retornar errores gRPC con `Status`.
 
-## Unary vs streaming (visión rápida)
+## Manejo de errores
 
-- **Unary**: una request, una response.
-- **Streaming**: una request y múltiples respuestas (o viceversa, según contrato).
+La documentacion de `#[derive(GrpcError)]`, atributos soportados (`grpc_error`, `grpc`, `tracing`) y ejemplos de uso se encuentra en la guia dedicada:
+
+- [Errores gRPC con GrpcError](/es/practical-guides/grpc/errores-grpc)
 
 ## Ver también
 
 - [Ficheros .proto](/es/practical-guides/grpc/ficheros-proto)
+- [Errores gRPC con GrpcError](/es/practical-guides/grpc/errores-grpc)
 - [Inspección de servicios gRPC con grpcurl](/es/practical-guides/grpc/inspeccion-de-servicios-con-grpcurl)
