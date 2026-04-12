@@ -9,7 +9,7 @@ export default defineConfig({
             "meta",
             {
                 name: "keywords",
-                content: "rust, framework, web, axum, sword, documentación",
+                content: "rust, framework, web, axum, sword, documentation",
             },
         ],
         ["meta", { name: "theme-color", content: "#111111" }],
