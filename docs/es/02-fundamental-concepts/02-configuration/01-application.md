@@ -38,7 +38,7 @@ graceful-shutdown = true
 
 ## Configuración especifica para tipos de Aplicación
 
-Como habrás visto en la sección de [Tipos de aplicación](../01-application/00-application-types.md), Sword tiene 2 tipos de aplicación: Web y gRPC. Cada tipo tiene su propia configuración.
+Como habrás visto en la sección de [Tipos de aplicación](/es/fundamental-concepts/application/application-types), Sword tiene 2 tipos de aplicación: Web y gRPC. Cada tipo tiene su propia configuración.
 
 ### Configuración `[web]`
 

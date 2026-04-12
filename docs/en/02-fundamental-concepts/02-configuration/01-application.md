@@ -38,7 +38,7 @@ graceful-shutdown = true
 
 ## Runtime-specific configuration
 
-As shown in [Application Types](../01-application/00-application-types.md), Sword supports two runtime types: Web and gRPC. Each one has its own section.
+As shown in [Application Types](/en/fundamental-concepts/application/application-types), Sword supports two runtime types: Web and gRPC. Each one has its own section.
 
 ### `[web]` configuration
 
