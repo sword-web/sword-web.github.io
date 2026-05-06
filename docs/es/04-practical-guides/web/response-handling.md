@@ -1,12 +1,12 @@
 ---
-title: Manejo de respuestas HTTP
-description: Cómo decidir entre JsonResponse, WebResult y respuestas compatibles con Axum en controladores web de Sword.
+title: "Manejo de respuestas HTTP"
+description: "Cómo decidir entre JsonResponse, WebResult y respuestas compatibles con Axum en controladores web de Sword."
 outline: [2, 3]
+
 prev:
   text: Extender Request
   link: /es/practical-guides/web/request-handling/extending-request
 ---
-
 # Manejo de respuestas HTTP
 
 En Sword, la forma recomendada de responder desde un controlador web es usando `JsonResponse` o `WebResult`.

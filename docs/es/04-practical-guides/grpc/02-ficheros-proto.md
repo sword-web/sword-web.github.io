@@ -1,9 +1,8 @@
 ---
-title: Ficheros .proto
-description: Recomendaciones para organizar y nombrar contratos .proto en aplicaciones gRPC con Sword.
+title: "Ficheros .proto"
+description: "Recomendaciones para organizar y nombrar contratos .proto en aplicaciones gRPC con Sword."
 outline: [2, 3]
 ---
-
 # Ficheros .proto
 
 En Sword, los ficheros `.proto` definen el contrato público de tu servicio gRPC. Este contrato luego se convierte en código Rust mediante `tonic` y `tonic-prost-build`.

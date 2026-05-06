@@ -1,9 +1,10 @@
 ---
-title: Modo Watch y Hot Reload - Framework Sword
-description: Aprende a usar watch y hot reload en Sword durante el desarrollo.
+title: "Modo Watch y Hot Reload - Framework Sword"
+description: "Aprende a usar watch y hot reload en Sword durante el desarrollo."
+outline: [2, 3]
+
 keywords: ["hot reload", "watch", "sword", "desarrollo", "dioxus", "subsecond"]
 ---
-
 # Modo Watch y Hot Reload
 
 Durante el desarrollo, puedes utilizar distintas herramientas para recompilar o refrescar tu aplicación automáticamente cuando detectan cambios en el código.

@@ -1,7 +1,8 @@
 ---
-title: Controladores gRPC
-description: Definición y registro de controladores gRPC en Sword.
+title: "Controladores gRPC"
+description: "Definición y registro de controladores gRPC en Sword."
 outline: [2, 3]
+
 prev:
     text: Controladores Socket.IO
     link: /es/application-components/controllers/socket-io-controllers
@@ -9,7 +10,6 @@ next:
     text: Inyección de Dependencias
     link: /es/application-components/di/
 ---
-
 # Controladores gRPC
 
 En Sword, un controlador gRPC es un `struct` anotado con `#[controller(kind = Controller::Grpc, ...)]` que implementa el trait generado por `tonic`.

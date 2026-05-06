@@ -1,3 +1,8 @@
+---
+title: "Extensiones"
+description: "Las extensiones, al igual que en Axum, permiten almacenar y compartir datos a lo largo del ciclo de vida de una request HTTP."
+outline: [2, 3]
+---
 # Extensiones
 
 Las extensiones, al igual que en Axum, permiten almacenar y compartir datos a lo largo del ciclo de vida de una request HTTP. En Sword son especialmente útiles para compartir información entre interceptors web y controladores.

@@ -1,3 +1,8 @@
+---
+title: "ACKs"
+description: "Cuando un cliente envía un evento Socket.IO con callback, el servidor puede responder usando un ACK."
+outline: [2, 3]
+---
 # ACKs
 
 Cuando un cliente envía un evento Socket.IO con callback, el servidor puede responder usando un ACK.

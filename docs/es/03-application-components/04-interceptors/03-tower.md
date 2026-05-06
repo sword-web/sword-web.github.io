@@ -1,3 +1,8 @@
+---
+title: "Layers con `tower`"
+description: "Sword se integra con el ecosistema de Tower. Esto significa que puedes aplicar cualquier tower::Layer compatible allí donde el framework lo permita."
+outline: [2, 3]
+---
 # Layers con `tower`
 
 Sword se integra con el ecosistema de Tower. Esto significa que puedes aplicar cualquier `tower::Layer` compatible allí donde el framework lo permita.

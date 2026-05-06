@@ -1,3 +1,8 @@
+---
+title: "Extracting Configuration Structs"
+description: "Once you have defined your configuration, Sword takes care of automatically registering it in the application state."
+outline: [2, 3]
+---
 # Extracting Configuration Structs
 
 Once you have defined your configuration, Sword takes care of automatically registering it in the application state. You can access it in several ways:

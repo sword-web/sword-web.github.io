@@ -1,6 +1,8 @@
 ---
-title: Definición de Components - Framework Sword
-description: Aprende a definir Components en Sword usando la macro #[injectable]. Comprende la resolución de dependencias y patrones de inyección múltiple.
+title: "Definición de Components - Framework Sword"
+description: "Aprende a definir Components en Sword usando la macro #[injectable]. Comprende la resolución de dependencias y patrones de inyección múltiple."
+outline: [2, 3]
+
 keywords:
     [
         "components",
@@ -11,7 +13,6 @@ keywords:
         "patrón repository",
     ]
 ---
-
 # Definición y Registro de `Components`
 
 Un `Component` es una estructura `Injectable` que se construye automáticamente basándose en las dependencias ya registradas en el contenedor.

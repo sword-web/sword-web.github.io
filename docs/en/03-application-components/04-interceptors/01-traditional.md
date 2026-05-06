@@ -1,3 +1,8 @@
+---
+title: "Traditional Interceptors"
+description: "This is the most common type of interceptor."
+outline: [2, 3]
+---
 # Traditional Interceptors
 
 This is the most common type of interceptor. It is declared as a struct that derives the `Interceptor` trait. As mentioned in the dependency injection section, interceptors are `Components` under the hood; this means they can have dependencies without requiring a defined constructor.

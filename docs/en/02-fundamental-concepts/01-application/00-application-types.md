@@ -1,3 +1,8 @@
+---
+title: "Application Types"
+description: "Sword distinguishes between two types of applications to suit your needs."
+outline: [2, 3]
+---
 # Application Types
 
 Sword distinguishes between two types of applications to suit your needs.

@@ -1,3 +1,8 @@
+---
+title: "Extracción de estructuras de configuración"
+description: "Una vez que has definido tu configuración, Sword se encarga de registrarla automáticamente en el estado de la aplicación."
+outline: [2, 3]
+---
 # Extracción de estructuras de configuración
 
 Una vez que has definido tu configuración, Sword se encarga de registrarla automáticamente en el estado de la aplicación. Puedes acceder a ella de varias formas:

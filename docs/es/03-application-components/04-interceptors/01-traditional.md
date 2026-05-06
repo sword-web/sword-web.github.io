@@ -1,3 +1,8 @@
+---
+title: "Interceptores Tradicionales"
+description: "Este tipo es el más común."
+outline: [2, 3]
+---
 # Interceptores Tradicionales
 
 Este tipo es el más común. Se declara como una estructura que deriva el trait `Interceptor`. Como se mencionó en la sección de inyección de dependencias, por debajo los interceptores son `Components`; es decir, pueden poseer dependencias sin requerir un constructor definido.

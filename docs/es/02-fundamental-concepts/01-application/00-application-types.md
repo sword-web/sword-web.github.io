@@ -1,3 +1,8 @@
+---
+title: "Tipos de aplicación"
+description: "Sword distingue dos tipos de aplicación que se pueden ajustar a tus necesidades."
+outline: [2, 3]
+---
 # Tipos de aplicación
 
 Sword distingue dos tipos de aplicación que se pueden ajustar a tus necesidades.

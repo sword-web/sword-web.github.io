@@ -1,3 +1,8 @@
+---
+title: "Contexto y extensiones"
+description: "Esta guia se enfoca en compartir estado con extensiones durante el ciclo de vida de una conexion Socket.IO."
+outline: [2, 3]
+---
 # Contexto y extensiones
 
 Esta guia se enfoca en compartir estado con extensiones durante el ciclo de vida de una conexion Socket.IO.

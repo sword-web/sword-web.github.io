@@ -1,9 +1,10 @@
 ---
-title: Pruebas - Framework Sword
-description: Aprende a probar controladores web en Sword usando axum-test y el builder actual de la aplicación.
+title: "Pruebas - Framework Sword"
+description: "Aprende a probar controladores web en Sword usando axum-test y el builder actual de la aplicación."
+outline: [2, 3]
+
 keywords: ["testing", "axum-test", "sword", "pruebas web", "rust"]
 ---
-
 # Pruebas
 
 Sword puede probarse cómodamente con herramientas del ecosistema de Tokio, dependiento el tipo de aplicación que estés construyendo. Para aplicaciones web, `axum-test` es una excelente opción para probar controladores y rutas HTTP.

@@ -1,6 +1,7 @@
 ---
-title: Application Structure - Sword Framework
-description: Learn about Sword's Application and ApplicationBuilder structures. Master the Builder pattern for configuring web applications in Rust.
+title: "Application Structure - Sword Framework"
+description: "Learn about Sword's Application and ApplicationBuilder structures. Master the Builder pattern for configuring web applications in Rust."
+
 keywords:
     [
         "application structure",
@@ -10,7 +11,6 @@ keywords:
         "application configuration",
     ]
 ---
-
 # The `Application` struct
 
 Once you have built an `Application` instance using the builder pattern, you can execute it with the `run()` method:

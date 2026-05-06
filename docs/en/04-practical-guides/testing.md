@@ -1,9 +1,10 @@
 ---
-title: Testing - Sword Framework
-description: Learn how to test web controllers in Sword using axum-test and the application's current builder.
+title: "Testing - Sword Framework"
+description: "Learn how to test web controllers in Sword using axum-test and the application's current builder."
+outline: [2, 3]
+
 keywords: ["testing", "axum-test", "sword", "web testing", "rust"]
 ---
-
 # Testing
 
 Sword can be conveniently tested using tools from the Tokio ecosystem, depending on the type of application you are building. For web applications, `axum-test` is an excellent choice for testing controllers and HTTP routes.

@@ -1,6 +1,8 @@
 ---
-title: Defining Components - Sword Framework
-description: Learn how to define Components in Sword using the #[injectable] macro. Understand dependency resolution and multiple injection patterns.
+title: "Defining Components - Sword Framework"
+description: "Learn how to define Components in Sword using the #[injectable] macro. Understand dependency resolution and multiple injection patterns."
+outline: [2, 3]
+
 keywords:
     [
         "components",
@@ -11,7 +13,6 @@ keywords:
         "repository pattern",
     ]
 ---
-
 # Defining and Registering `Components`
 
 A `Component` is an `Injectable` struct that is automatically constructed based on dependencies already registered in the container.

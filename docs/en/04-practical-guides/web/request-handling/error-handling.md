@@ -1,3 +1,8 @@
+---
+title: "Error Handling in `Request`"
+description: "Many Request methods return Result because extraction and deserialization can fail."
+outline: [2, 3]
+---
 # Error Handling in `Request`
 
 Many `Request` methods return `Result` because extraction and deserialization can fail.

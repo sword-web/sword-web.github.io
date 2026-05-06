@@ -1,3 +1,8 @@
+---
+title: "Interceptores con Configuración"
+description: "Este tipo de interceptor posee el mismo comportamiento del Interceptor tradicional, pero añade un parámetro adicional en la firma de su método de intercepción."
+outline: [2, 3]
+---
 # Interceptores con Configuración
 
 Este tipo de interceptor posee el mismo comportamiento del `Interceptor` tradicional, pero añade un parámetro adicional en la firma de su método de intercepción.

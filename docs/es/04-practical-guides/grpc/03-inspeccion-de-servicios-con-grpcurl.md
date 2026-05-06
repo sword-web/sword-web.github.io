@@ -1,9 +1,8 @@
 ---
-title: Inspección de servicios gRPC con grpcurl
-description: Cómo habilitar reflection en Sword y usar grpcurl para inspeccionar y probar servicios gRPC.
+title: "Inspección de servicios gRPC con grpcurl"
+description: "Cómo habilitar reflection en Sword y usar grpcurl para inspeccionar y probar servicios gRPC."
 outline: [2, 3]
 ---
-
 # Inspección de servicios gRPC con grpcurl
 
 Esta guía explica cómo inspeccionar y probar tus servicios gRPC con `grpcurl` en una aplicación Sword.

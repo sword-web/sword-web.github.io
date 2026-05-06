@@ -1,3 +1,8 @@
+---
+title: "Data Validation"
+description: "Input data validation is a fundamental aspect of web applications. It ensures that data meets specific rules before being processed or stored."
+outline: [2, 3]
+---
 # Data Validation
 
 Input data validation is a fundamental aspect of web applications. It ensures that data meets specific rules before being processed or stored.

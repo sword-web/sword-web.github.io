@@ -1,3 +1,8 @@
+---
+title: "Definición de Controladores Web"
+description: "En Sword un controlador web es una estructura que actúa como un grupo de methods relacionados a una ruta base, y cada método representa un endpoint HTTP específico."
+outline: [2, 3]
+---
 # Definición de Controladores Web
 
 En Sword un controlador web es una estructura que actúa como un grupo de methods relacionados a una ruta base, y cada método representa un endpoint HTTP específico. Se definen usando el atributo

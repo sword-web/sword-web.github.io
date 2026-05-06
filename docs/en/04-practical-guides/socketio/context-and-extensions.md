@@ -1,3 +1,8 @@
+---
+title: "Context and Extensions"
+description: "This guide focuses on sharing state through extensions during the lifecycle of a Socket.IO connection."
+outline: [2, 3]
+---
 # Context and Extensions
 
 This guide focuses on sharing state through extensions during the lifecycle of a Socket.IO connection.

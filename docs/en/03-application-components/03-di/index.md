@@ -1,6 +1,8 @@
 ---
-title: Dependency Injection - Sword Framework
-description: Master dependency injection in Sword. Learn about the DependencyContainer, Injectable types, Providers, and Components for modular applications.
+title: "Dependency Injection - Sword Framework"
+description: "Master dependency injection in Sword. Learn about the DependencyContainer, Injectable types, Providers, and Components for modular applications."
+outline: [2, 3]
+
 keywords:
     [
         "dependency injection",
@@ -12,7 +14,6 @@ keywords:
         "modular architecture",
     ]
 ---
-
 # Dependency Injection in Sword
 
 Dependency injection (DI) is a design pattern in which an object receives its dependencies from external sources rather than creating them itself.

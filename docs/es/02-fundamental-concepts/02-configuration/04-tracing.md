@@ -1,9 +1,8 @@
 ---
-title: Configuración de Tracing
-description: Configuración de logging y tracing en Sword mediante la sección [tracing].
+title: "Configuración de Tracing"
+description: "Configuración de logging y tracing en Sword mediante la sección [tracing]."
 outline: [2, 3]
 ---
-
 # Configuración de Tracing
 
 Sword puede configurar un subscriber global de `tracing` para capturar eventos de log en toda la aplicación.

@@ -1,7 +1,8 @@
 ---
-title: Modules
-description: Organizing Sword applications using Module, controllers, components, and providers.
+title: "Modules"
+description: "Organizing Sword applications using Module, controllers, components, and providers."
 outline: [2, 3]
+
 prev:
   text: Custom Configuration
   link: /en/fundamental-concepts/configuration/custom
@@ -9,7 +10,6 @@ next:
   text: Controllers
   link: /en/application-components/controllers
 ---
-
 # Modules in Sword
 
 In Sword, a module groups related pieces of the same application capability, such as controllers, components, and providers.

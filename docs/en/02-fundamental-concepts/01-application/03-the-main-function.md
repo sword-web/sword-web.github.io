@@ -1,3 +1,8 @@
+---
+title: "The `main` Function and Macro"
+description: "As you know, in Rust, program execution begins at the main function."
+outline: [2, 3]
+---
 # The `main` Function and Macro
 
 As you know, in Rust, program execution begins at the `main` function.

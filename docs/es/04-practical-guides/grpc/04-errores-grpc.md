@@ -1,9 +1,8 @@
 ---
-title: Errores gRPC con GrpcError
-description: Guia dedicada para modelar errores gRPC con #[derive(GrpcError)] en Sword.
+title: "Errores gRPC con GrpcError"
+description: "Guia dedicada para modelar errores gRPC con #[derive(GrpcError)] en Sword."
 outline: [2, 3]
 ---
-
 # Errores gRPC con `GrpcError`
 
 Para modelar errores de dominio y convertirlos a `tonic::Status`, Sword proporciona `#[derive(GrpcError)]`.

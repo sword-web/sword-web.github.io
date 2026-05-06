@@ -1,4 +1,8 @@
 ---
+title: "Controllers"
+description: "In Sword, a controller is an entry point to your application."
+outline: [2, 3]
+
 prev:
   text: Modules
   link: /en/application-components/modules
@@ -6,7 +10,6 @@ next:
   text: Web Controllers
   link: /en/application-components/controllers/web-controllers
 ---
-
 # Controllers
 
 In Sword, a controller is an entry point to your application.

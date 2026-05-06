@@ -1,3 +1,8 @@
+---
+title: "Manejo de eventos y referencia de SocketContext"
+description: "En Sword, los controladores Socket.IO trabajan con eventos (#[on(\"...\")]) y reciben un SocketContext."
+outline: [2, 3]
+---
 # Manejo de eventos y referencia de SocketContext
 
 En Sword, los controladores Socket.IO trabajan con eventos (`#[on("...")]`) y reciben un `SocketContext`.

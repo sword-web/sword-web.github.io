@@ -1,6 +1,7 @@
 ---
-title: Sword - Web Framework for Rust
-description: Sword is an asynchronous and modular web framework for Rust built on top of Axum and Tokio. Ready to scale with dependency injection, interceptors, and reusable layers.
+title: "Sword - Web Framework for Rust"
+description: "Sword is an asynchronous and modular web framework for Rust built on top of Axum and Tokio. Ready to scale with dependency injection, interceptors, and reusable layers."
+
 keywords:
     [
         "sword framework",

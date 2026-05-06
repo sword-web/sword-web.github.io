@@ -1,6 +1,8 @@
 ---
-title: Definición de Providers - Framework Sword
-description: Aprende a definir Providers en Sword usando la macro #[injectable(provider)]. Comprende el registro manual y conexiones a servicios externos.
+title: "Definición de Providers - Framework Sword"
+description: "Aprende a definir Providers en Sword usando la macro #[injectable(provider)]. Comprende el registro manual y conexiones a servicios externos."
+outline: [2, 3]
+
 keywords:
     [
         "providers",
@@ -11,7 +13,6 @@ keywords:
         "conexiones base de datos",
     ]
 ---
-
 # Definición y Registro de `Providers`
 
 Un `Provider` es un tipo de estructura `Injectable` que debe ser instanciada y registrada manualmente en el contenedor de dependencias.

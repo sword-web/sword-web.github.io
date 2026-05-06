@@ -1,3 +1,8 @@
+---
+title: "Custom Configuration"
+description: "Sword lets you define your own configuration alongside the framework's base configuration."
+outline: [2, 3]
+---
 # Custom Configuration
 
 Sword lets you define your own configuration alongside the framework's base configuration. This is useful when your app needs domain-specific or integration-specific settings.

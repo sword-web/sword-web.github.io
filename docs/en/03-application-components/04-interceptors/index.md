@@ -1,3 +1,8 @@
+---
+title: "What is an Interceptor?"
+description: "An Interceptor is a component that sits between an incoming request/message and its corresponding Controller."
+outline: [2, 3]
+---
 # What is an Interceptor?
 
 An `Interceptor` is a component that sits between an incoming request/message and its corresponding `Controller`. They allow you to read, modify, and process incoming requests.

@@ -1,3 +1,8 @@
+---
+title: "Configuración Personalizada"
+description: "Sword permite definir configuraciones propias además de la configuración base del framework."
+outline: [2, 3]
+---
 # Configuración Personalizada
 
 Sword permite definir configuraciones propias además de la configuración base del framework. Esto es útil cuando la aplicación necesita parámetros específicos de dominio o de integración.

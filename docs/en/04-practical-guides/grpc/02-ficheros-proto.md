@@ -1,9 +1,8 @@
 ---
-title: .proto Files
-description: Recommendations for organizing and naming .proto contracts in gRPC applications with Sword.
+title: ".proto Files"
+description: "Recommendations for organizing and naming .proto contracts in gRPC applications with Sword."
 outline: [2, 3]
 ---
-
 # .proto Files
 
 In Sword, `.proto` files define the public contract of your gRPC service. This contract is then converted into Rust code using `tonic` and `tonic-prost-build`.

@@ -1,6 +1,8 @@
 ---
-title: Inyección de Dependencias - Sword Framework
-description: Domina la inyección de dependencias en Sword. Aprende sobre el DependencyContainer, tipos Injectable, Providers y Components para aplicaciones modulares.
+title: "Inyección de Dependencias - Sword Framework"
+description: "Domina la inyección de dependencias en Sword. Aprende sobre el DependencyContainer, tipos Injectable, Providers y Components para aplicaciones modulares."
+outline: [2, 3]
+
 keywords:
     [
         "inyección de dependencias",
@@ -12,7 +14,6 @@ keywords:
         "arquitectura modular",
     ]
 ---
-
 # Inyección de dependencias en Sword
 
 La inyección de dependencias es un patrón de diseño que permite a un objeto recibir sus dependencias de fuentes externas en lugar de crearlas por sí mismo.

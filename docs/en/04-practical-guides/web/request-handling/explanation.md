@@ -1,3 +1,8 @@
+---
+title: "HTTP Request Handling and Extraction"
+description: "In Sword, unlike Axum, individual extractors are not used in the signature of web controller methods."
+outline: [2, 3]
+---
 # HTTP Request Handling and Extraction
 
 In Sword, unlike Axum, individual extractors are not used in the signature of web controller methods. Instead, a `Request` struct is used, which centralizes the request information and exposes a unified API for accessing the body, query, params, headers, cookies, and extensions.

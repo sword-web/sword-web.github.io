@@ -1,6 +1,7 @@
 ---
-title: Usando Dependencias - Framework Sword
-description: Aprende cómo inyectar dependencias en Controllers y Middlewares. Ve ejemplos prácticos de inyección de dependencias en acción.
+title: "Usando Dependencias - Framework Sword"
+description: "Aprende cómo inyectar dependencias en Controllers y Middlewares. Ve ejemplos prácticos de inyección de dependencias en acción."
+
 keywords:
     [
         "usando dependencias",
@@ -11,7 +12,6 @@ keywords:
         "inyección de servicios",
     ]
 ---
-
 # Inyección de dependencias en `Controllers` e `Interceptors`
 
 Una vez que hayas definido y registrado tus `Providers` y `Components`, puedes inyectarlos en `Controllers` e `Interceptors` siguiendo el mismo patrón que en los ejemplos anteriores.

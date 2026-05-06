@@ -1,9 +1,9 @@
 ---
-title: Sword CLI - Sword Framework
-description: Learn about the Sword command line tool.
+title: "Sword CLI - Sword Framework"
+description: "Learn about the Sword command line tool."
+
 keywords: ["sword-cli", "cli", "sword", "tooling", "rust"]
 ---
-
 # Sword CLI
 
 The `sword-cli` command line tool is currently in development.

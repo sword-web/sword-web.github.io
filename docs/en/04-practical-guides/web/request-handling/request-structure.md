@@ -1,7 +1,8 @@
 ---
-title: Request Reference
-description: API-style reference of Request in Sword for params, body, query, headers, cookies, and HTTP metadata.
+title: "Request Reference"
+description: "API-style reference of Request in Sword for params, body, query, headers, cookies, and HTTP metadata."
 outline: false
+
 prev:
   text: Request Handling
   link: /en/practical-guides/web/request-handling/explanation
@@ -9,7 +10,6 @@ next:
   text: Error Handling
   link: /en/practical-guides/web/request-handling/error-handling
 ---
-
 # The `Request` structure
 
 `Request` is the main extractor for working with HTTP requests in Sword web controllers.

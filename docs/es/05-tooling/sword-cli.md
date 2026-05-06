@@ -1,9 +1,9 @@
 ---
-title: Sword CLI - Framework Sword
-description: Aprende sobre la herramienta de línea de comandos de Sword.
+title: "Sword CLI - Framework Sword"
+description: "Aprende sobre la herramienta de línea de comandos de Sword."
+
 keywords: ["sword-cli", "cli", "sword", "herramientas", "rust"]
 ---
-
 # Sword CLI
 
 La herramienta de línea de comandos `sword-cli` se encuentra actualmente en desarrollo.

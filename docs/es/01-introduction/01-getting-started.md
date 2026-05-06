@@ -1,12 +1,12 @@
 ---
-title: Iniciando con Sword
-description: Examples disponibles en el repositorio para comenzar a usar Sword.
+title: "Iniciando con Sword"
+description: "Examples disponibles en el repositorio para comenzar a usar Sword."
 outline: [2, 3]
+
 next:
     text: Estructura del proyecto
     link: /es/introduction/project-structure
 ---
-
 # Iniciando con Sword
 
 ::: info Estado del CLI

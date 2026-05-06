@@ -1,3 +1,8 @@
+---
+title: "La estructura `ApplicationBuilder`"
+description: "Sword usa un patrón **Builder** para construir aplicaciones web."
+outline: [2, 3]
+---
 # La estructura `ApplicationBuilder`
 
 Sword usa un patrón **Builder** para construir aplicaciones web. Este patrón se implementa en la estructura `ApplicationBuilder`, que te permite configurar varios aspectos de tu aplicación de manera fluida antes de construir finalmente la instancia de `Application`.

@@ -1,9 +1,8 @@
 ---
-title: Fundamentos de tonic
-description: Conceptos base de tonic necesarios para implementar controladores gRPC en Sword.
+title: "Fundamentos de tonic"
+description: "Conceptos base de tonic necesarios para implementar controladores gRPC en Sword."
 outline: [2, 3]
 ---
-
 # Fundamentos de tonic
 
 Sword usa `tonic` como base para gRPC. Esta guía resume lo necesario para entender qué implementas cuando creas controladores gRPC en Sword.

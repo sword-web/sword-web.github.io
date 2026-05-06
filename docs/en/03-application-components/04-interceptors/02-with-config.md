@@ -1,3 +1,8 @@
+---
+title: "Interceptors with Configuration"
+description: "This type of interceptor behaves similarly to a traditional Interceptor but adds an extra parameter to its interception method signature."
+outline: [2, 3]
+---
 # Interceptors with Configuration
 
 This type of interceptor behaves similarly to a traditional `Interceptor` but adds an extra parameter to its interception method signature.

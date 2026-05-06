@@ -1,3 +1,7 @@
+---
+title: "File Structure"
+description: "As mentioned in the introduction, Sword suggests a development structure based on modules."
+---
 # File Structure
 
 As mentioned in the introduction, Sword suggests a development structure based on modules.

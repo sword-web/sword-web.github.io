@@ -1,7 +1,8 @@
 ---
-title: Referencia de Request
-description: Referencia tipo API de Request en Sword para parámetros, body, query, headers, cookies y metadata HTTP.
+title: "Referencia de Request"
+description: "Referencia tipo API de Request en Sword para parámetros, body, query, headers, cookies y metadata HTTP."
 outline: false
+
 prev:
   text: Manejo de Requests
   link: /es/practical-guides/web/request-handling/explanation
@@ -9,7 +10,6 @@ next:
   text: Manejo de Errores
   link: /es/practical-guides/web/request-handling/error-handling
 ---
-
 # La estructura `Request`
 
 `Request` es el extractor principal para trabajar con solicitudes HTTP en controladores web de Sword.

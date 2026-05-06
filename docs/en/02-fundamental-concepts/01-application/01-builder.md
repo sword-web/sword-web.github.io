@@ -1,3 +1,8 @@
+---
+title: "The `ApplicationBuilder` struct"
+description: "Sword uses a **Builder** pattern to construct web applications."
+outline: [2, 3]
+---
 # The `ApplicationBuilder` struct
 
 Sword uses a **Builder** pattern to construct web applications. This pattern is implemented in the `ApplicationBuilder` struct, which allows you to configure various aspects of your application in a fluid way before finally building the `Application` instance.

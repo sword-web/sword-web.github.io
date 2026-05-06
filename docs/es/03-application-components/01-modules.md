@@ -1,7 +1,8 @@
 ---
-title: Módulos
-description: Organización de aplicaciones Sword mediante Module, controllers, components y providers.
+title: "Módulos"
+description: "Organización de aplicaciones Sword mediante Module, controllers, components y providers."
 outline: [2, 3]
+
 prev:
   text: Configuración personalizada
   link: /es/fundamental-concepts/configuration/custom
@@ -9,7 +10,6 @@ next:
   text: Controladores
   link: /es/application-components/controllers
 ---
-
 # Módulos en Sword
 
 En Sword, un módulo agrupa piezas relacionadas de una misma capacidad de la aplicación, como controllers, components y providers.

@@ -1,9 +1,8 @@
 ---
-title: Application Configuration
-description: Structure of the [application] section for web and gRPC runtimes in Sword.
+title: "Application Configuration"
+description: "Structure of the [application] section for web and gRPC runtimes in Sword."
 outline: [2, 3]
 ---
-
 # Application Configuration
 
 Sword uses `thisconfig` to load one or more TOML files.

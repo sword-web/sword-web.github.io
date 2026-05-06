@@ -1,3 +1,8 @@
+---
+title: "Validación de datos"
+description: "Sword permite validar datos entrantes en eventos Socket.IO usando el crate validator, de forma similar a la validación en controladores web."
+outline: [2, 3]
+---
 # Validación de datos
 
 Sword permite validar datos entrantes en eventos Socket.IO usando el crate `validator`, de forma similar a la validación en controladores web.

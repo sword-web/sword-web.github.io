@@ -1,3 +1,7 @@
+---
+title: "Estructura de archivos"
+description: "Como se mencionó en la introducción, sword sugiere una estructura de desarrollo basada en modulos."
+---
 # Estructura de archivos
 
 Como se mencionó en la introducción, sword sugiere una estructura de desarrollo basada en modulos.
