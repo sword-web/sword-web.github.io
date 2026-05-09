@@ -3,6 +3,7 @@ title: "Configuración de la Aplicación"
 description: "Estructura de la sección [application] para runtimes web y gRPC en Sword."
 outline: [2, 3]
 ---
+
 # Configuración de la Aplicación
 
 Sword utiliza `thisconfig` para cargar uno o múltiples archivos TOML.
@@ -81,6 +82,8 @@ En Sword, `socketio` es una extensión de aplicación web. Por lo tanto, al usar
 | `parser`              | `"common" \| "msgpack"` | `"common"`                 | Parser de payloads                            |
 | `ws-read-buffer-size` | `Option<usize>`         | `4096`                     | Tamaño del buffer de lectura websocket        |
 
+```
+
 :::details Ejemplo en formato TOML
 
 ```toml
@@ -95,7 +98,7 @@ req-path = "/socket.io"
 transports = ["polling", "websocket"]
 parser = "common"
 ws-read-buffer-size = 4096
-```
+````
 
 ### Configuración `[grpc]`
 
