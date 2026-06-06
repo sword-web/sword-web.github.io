@@ -82,8 +82,6 @@ En Sword, `socketio` es una extensión de aplicación web. Por lo tanto, al usar
 | `parser`              | `"common" \| "msgpack"` | `"common"`                 | Parser de payloads                            |
 | `ws-read-buffer-size` | `Option<usize>`         | `4096`                     | Tamaño del buffer de lectura websocket        |
 
-```
-
 :::details Ejemplo en formato TOML
 
 ```toml
@@ -98,7 +96,7 @@ req-path = "/socket.io"
 transports = ["polling", "websocket"]
 parser = "common"
 ws-read-buffer-size = 4096
-````
+```
 
 ### Configuración `[grpc]`
 
