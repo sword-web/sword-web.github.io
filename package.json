@@ -1,10 +1,11 @@
 {
-	"scripts": {
-		"docs:dev": "vitepress dev docs",
-		"docs:build": "vitepress build docs",
-		"docs:preview": "vitepress preview docs"
-	},
-	"devDependencies": {
-		"vitepress": "^2.0.0-alpha.12"
-	}
+    "scripts": {
+        "docs:dev": "vitepress dev docs",
+        "docs:build": "vitepress build docs",
+        "docs:preview": "vitepress preview docs"
+    },
+    "packageManager": "pnpm@11.5.2",
+    "devDependencies": {
+        "vitepress": "^2.0.0-alpha.12"
+    }
 }
