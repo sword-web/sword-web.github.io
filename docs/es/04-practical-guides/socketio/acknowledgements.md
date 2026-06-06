@@ -36,9 +36,9 @@ pub struct ChatController;
 
 impl ChatController {
     #[on("ping")]
-    async fn ping(&self, ctx: SocketContext) {
-        if ctx.has_ack() {
-            let _ = ctx.ack(&AckPayload { ok: true });
+    async fn ping(&self, socket: SocketContext) {
+        if socket.has_ack() {
+            let _ = socket.ack(&AckPayload { ok: true });
         }
     }
 }

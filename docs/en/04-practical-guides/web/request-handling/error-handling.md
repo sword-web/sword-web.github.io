@@ -46,6 +46,24 @@ Supported keys:
 
 Valid tracing levels: `trace`, `debug`, `info`, `warn`, `error`.
 
+## Message Interpolation
+
+In `#[http(message = "...")]` you can reference variant fields with `{field_name}` syntax. The macro generates `format!(...)` automatically:
+
+```rust
+#[derive(Debug, Error, HttpError)]
+pub enum AppError {
+    #[http(code = 409, message = "Conflict on {field}: {value}")]
+    UserConflictError {
+        field: String,
+        value: String,
+    },
+}
+// Generates: JsonResponse::status(409).message(format!("Conflict on {}: {}", field, value))
+```
+
+The compiler validates that the referenced fields exist on the variant. This feature is not supported on tuple or unit variants.
+
 ## Full example
 
 ```rust

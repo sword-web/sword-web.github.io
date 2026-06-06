@@ -25,18 +25,32 @@ pub struct ChatController;
 
 impl ChatController {
     #[on("connection")]
-    async fn on_connect(&self, ctx: SocketContext) {
-        println!("Client connected: {}", ctx.id());
+    async fn on_connect(&self, socket: SocketContext) {
+        println!("Client connected: {}", socket.id());
+
+        let query: Option<MyQuery> = socket.query().unwrap();
+        println!("Query params: {:?}", query);
     }
 
     #[on("message")]
-    async fn on_message(&self, ctx: SocketContext) {
-        let Ok(message) = ctx.try_data::<String>() else {
+    async fn on_message(&self, socket: SocketContext) {
+        let Ok(message) = socket.try_data::<String>() else {
             return;
         };
 
-        ctx.socket.emit("message", &message).ok();
+        socket.emit("message", &message).ok();
     }
+}
+```
+
+## Reading Query Parameters
+
+The `socket.query::<T>()` method deserializes query parameters from the connection URL:
+
+```rust
+#[on("connection")]
+async fn on_connect(&self, socket: SocketContext) {
+    let query: Option<MyQuery> = socket.query().unwrap();
 }
 ```
 

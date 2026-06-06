@@ -46,6 +46,24 @@ Claves disponibles:
 
 Niveles validos para tracing: `trace`, `debug`, `info`, `warn`, `error`.
 
+## Interpolación de Mensajes
+
+En `#[http(message = "...")]` puedes referenciar campos de la variante con sintaxis `{field_name}`. La macro genera `format!(...)` automáticamente:
+
+```rust
+#[derive(Debug, Error, HttpError)]
+pub enum AppError {
+    #[http(code = 409, message = "Conflicto en {field}: {value}")]
+    UserConflictError {
+        field: String,
+        value: String,
+    },
+}
+// Genera: JsonResponse::status(409).message(format!("Conflicto en {}: {}", field, value))
+```
+
+El compilador valida que los campos referenciados existan en la variante. No soportado en variantes tuple o unit.
+
 ## Ejemplo completo
 
 ```rust

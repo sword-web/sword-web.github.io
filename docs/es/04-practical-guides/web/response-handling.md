@@ -178,6 +178,32 @@ Métodos comunes:
 - `req.query::<T>()`
 - `req.body_validator::<T>()`
 
+## Auto-wrap con `Result<T, E>`
+
+Las macros de ruta (`#[get]`, `#[post]`, etc.) detectan `Result<T, E>` y envuelven automáticamente el valor de éxito en un `JsonResponse`:
+
+| Tipo en `Ok(...)` | Comportamiento |
+|---|---|
+| `JsonResponse`, `File`, `Redirect` | Pasa directo (`.into_response()`) |
+| `T: Serialize` | Envuelto como `JsonResponse::status(N).data(value)` |
+| `()` | `JsonResponse::status(N)` sin data |
+
+Status codes: `201` para POST, `200` para el resto.
+
+```rust
+#[post("/users")]
+async fn create(&self) -> Result<User, JsonResponse> {
+    Ok(User { id: 1, name: "Alice".into() })
+    // → JsonResponse::status(201).data(User{...})
+}
+
+#[delete("/users/{id}")]
+async fn delete(&self) -> Result<(), JsonResponse> {
+    Ok(())
+    // → JsonResponse::status(200)
+}
+```
+
 ## ¿Puedo devolver otra cosa?
 
 Sí. Un controlador también puede retornar cualquier tipo que implemente `IntoResponse`, porque la capa web de Sword se apoya en Axum.

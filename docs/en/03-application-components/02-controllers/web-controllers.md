@@ -89,4 +89,16 @@ This flow is explained in [Dependency Injection](/en/application-components/di/)
 
 Sword aims to simplify and standardize HTTP responses into a common JSON format, so the recommended return type is `JsonResponse` or `WebResult`, which is an alias for `Result<JsonResponse, JsonResponse>`.
 
+You can also use `WebResult<JsonResponse>` explicitly for clarity:
+
+```rust
+#[get("/")]
+async fn get_users(&self, req: Request) -> WebResult<JsonResponse> {
+    let data = req.body::<Vec<User>>()?;
+    Ok(JsonResponse::Ok().data(data).request_id(req.id()))
+}
+```
+
+For all response patterns — auto-wrap with `Result<T, E>`, error handling, and payload construction — see [Response Handling](/en/practical-guides/web/response-handling).
+
 However, controller methods can also return any type that implements `IntoResponse`, as Sword's web layer is built on top of `axum`.

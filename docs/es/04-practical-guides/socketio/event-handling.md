@@ -3,10 +3,11 @@ title: "Manejo de eventos y referencia de SocketContext"
 description: "En Sword, los controladores Socket.IO trabajan con eventos (#[on(\"...\")]) y reciben un SocketContext."
 outline: [2, 3]
 ---
+
 # Manejo de eventos y referencia de SocketContext
 
 En Sword, los controladores Socket.IO trabajan con eventos (`#[on("...")]`) y reciben un `SocketContext`.
-Esta pagina unifica el flujo de eventos con la referencia de la API publica de `SocketContext`, basada en la implementacion real del crate `sword-socketio`.
+Esta pagina unifica el flujo de eventos con la referencia de la API publica de `SocketContext`.
 
 ## Tipos de eventos
 
@@ -24,24 +25,6 @@ Los handlers mas comunes son:
 
 ## Referencia de SocketContext
 
-### Atributo `socket`
-
-```rust
-pub socket: SocketRef<A>
-```
-
-**Retorna**
-
-- Acceso directo al socket de `socketioxide`.
-
-**Cuando usarlo**
-
-- Para `emit`, `join`, `leave`, `broadcast`, `to(room)`, etc.
-
-**Cuando no usarlo**
-
-- Cuando solo necesitas informacion del contexto (`id`, `event`, `transport_type`, etc.).
-
 ### Método `id()`
 
 ```rust
@@ -55,6 +38,40 @@ pub fn id(&self) -> &Sid
 **Cuando usarlo**
 
 - Logging, trazabilidad, asociar eventos a una conexion especifica.
+
+### Método `connected()`
+
+```rust
+pub fn connected(&self) -> bool
+```
+
+**Retorna**
+
+- `true` si el socket está conectado al namespace.
+
+**Cuando usarlo**
+
+- Verificar si el socket sigue activo antes de realizar operaciones.
+
+### Método `ns()`
+
+```rust
+pub fn ns(&self) -> &str
+```
+
+**Retorna**
+
+- La ruta del namespace actual de este socket.
+
+### Método `rooms()`
+
+```rust
+pub fn rooms(&self) -> Vec<Room>
+```
+
+**Retorna**
+
+- Todos los nombres de salas a las que este socket está conectado.
 
 ### Método `event()`
 
@@ -70,6 +87,21 @@ pub fn event(&self) -> Option<&str>
 **Cuando usarlo**
 
 - Para enrutar logica por nombre de evento o registrar metricas por evento.
+
+### Método `disconnect_reason()`
+
+```rust
+pub fn disconnect_reason(&self) -> Option<&DisconnectReason>
+```
+
+**Retorna**
+
+- `Some(reason)` en handlers de desconexion.
+- `None` en connect/message.
+
+**Cuando usarlo**
+
+- Auditar porque se cierra una conexion.
 
 ### Método `protocol_version()`
 
@@ -98,21 +130,6 @@ pub fn transport_type(&self) -> TransportType
 **Cuando usarlo**
 
 - Telemetria, reglas por tipo de transporte, debugging de handshake.
-
-### Método `disconnect_reason()`
-
-```rust
-pub fn disconnect_reason(&self) -> Option<&DisconnectReason>
-```
-
-**Retorna**
-
-- `Some(reason)` en handlers de desconexion.
-- `None` en connect/message.
-
-**Cuando usarlo**
-
-- Auditar porque se cierra una conexion.
 
 ### Método `try_data::<T>()`
 
@@ -176,6 +193,167 @@ pub fn has_data(&self) -> bool
 
 - Para evitar intentar parsear dos veces.
 
+### Método `query::<T>()`
+
+```rust
+pub fn query<T: DeserializeOwned>(&self) -> Result<Option<T>, SocketError>
+```
+
+**Retorna**
+
+- `Ok(Some(T))` si la query string existe y es válida.
+- `Ok(None)` si no hay query string.
+- `Err(SocketError)` si la query existe pero no deserializa.
+
+**Cuando usarlo**
+
+- Para leer parámetros de query de la URL durante la conexión.
+
+### Método `emit()`
+
+```rust
+pub fn emit<T>(&self, event: impl AsRef<str>, data: &T) -> Result<(), SocketError>
+where
+    T: Serialize + ?Sized
+```
+
+**Retorna**
+
+- `Ok(())` si el evento se envía.
+- `Err(SocketError)` si falla el envío.
+
+**Cuando usarlo**
+
+- Enviar eventos al cliente conectado.
+
+### Método `emit_with_ack()`
+
+```rust
+pub fn emit_with_ack<T: ?Sized + Serialize, V>(
+    &self,
+    event: impl AsRef<str>,
+    data: &T,
+) -> Result<AckStream<V>, SocketError>
+```
+
+**Retorna**
+
+- Un `AckStream` que se resuelve cuando el cliente confirma el evento.
+
+**Cuando usarlo**
+
+- Cuando necesitas confirmación del cliente de que el evento fue recibido.
+
+### Método `broadcast()`
+
+```rust
+pub fn broadcast(&self) -> BroadcastOperators<A>
+```
+
+**Retorna**
+
+- Un operador de broadcast que envía a todos los clientes conectados (excepto el emisor).
+
+**Cuando usarlo**
+
+- Transmitir un mensaje a cada cliente conectado.
+
+### Método `local()`
+
+```rust
+pub fn local(&self) -> BroadcastOperators<A>
+```
+
+**Retorna**
+
+- Un operador de broadcast que envía solo a los clientes de este nodo.
+
+**Cuando usarlo**
+
+- Broadcast solo a la instancia actual del servidor (despliegues multi-nodo).
+
+### Método `to()`
+
+```rust
+pub fn to(&self, rooms: impl RoomParam) -> BroadcastOperators<A>
+```
+
+**Retorna**
+
+- Un operador de broadcast limitado a las salas especificadas.
+
+**Cuando usarlo**
+
+- Enviar a salas específicas a las que el socket pertenece.
+
+### Método `within()`
+
+```rust
+pub fn within(&self, rooms: impl RoomParam) -> BroadcastOperators<A>
+```
+
+**Retorna**
+
+- Un operador de broadcast limitado a las salas especificadas (alias de `to()`).
+
+### Método `except()`
+
+```rust
+pub fn except(&self, rooms: impl RoomParam) -> BroadcastOperators<A>
+```
+
+**Retorna**
+
+- Un operador de broadcast que excluye las salas especificadas.
+
+**Cuando usarlo**
+
+- Broadcast a todos excepto ciertas salas.
+
+### Método `timeout()`
+
+```rust
+pub fn timeout(&self, timeout: Duration) -> ConfOperators<'_, A>
+```
+
+**Retorna**
+
+- Un operador de configuración con timeout personalizado para acknowledgement.
+
+**Cuando usarlo**
+
+- Establecer un timeout al enviar un mensaje con acknowledgement.
+
+### Método `join()`
+
+```rust
+pub fn join(&self, rooms: impl RoomParam)
+```
+
+**Cuando usarlo**
+
+- Agregar el socket actual a una o más salas.
+
+### Método `leave()`
+
+```rust
+pub fn leave(&self, rooms: impl RoomParam)
+```
+
+**Cuando usarlo**
+
+- Remover el socket actual de una o más salas.
+
+### Método `leave_all()`
+
+```rust
+pub fn leave_all(&self)
+```
+
+**Cuando usarlo**
+
+- Remover el socket actual de todas sus salas.
+
 ### Método `has_ack()`
 
 ```rust
@@ -190,7 +368,7 @@ pub fn has_ack(&self) -> bool
 
 - Antes de llamar `ack(...)` en handlers de mensaje.
 
-### Método `ack(&value)`
+### Método `ack()`
 
 ```rust
 pub fn ack<D>(self, data: &D) -> Result<(), SendError>
@@ -214,6 +392,48 @@ where
 **Notas**
 
 - Consume `self`; despues de `ack(...)` no puedes seguir usando ese `SocketContext`.
+
+### Método `req_parts()`
+
+```rust
+pub fn req_parts(&self) -> &Parts
+```
+
+**Retorna**
+
+- Las partes del request HTTP del handshake inicial.
+
+**Cuando usarlo**
+
+- Acceder a datos HTTP crudos (method, URI, etc.).
+
+### Método `headers()`
+
+```rust
+pub fn headers(&self) -> &HeaderMap
+```
+
+**Retorna**
+
+- Una referencia a los headers del request del socket.
+
+**Cuando usarlo**
+
+- Leer headers HTTP del handshake inicial.
+
+### Método `authorization()`
+
+```rust
+pub fn authorization(&self) -> Option<&str>
+```
+
+**Retorna**
+
+- El valor del header `Authorization`, si está presente.
+
+**Cuando usarlo**
+
+- Extraer tokens bearer u otros datos de autenticación del handshake.
 
 ### Método `extensions()`
 
@@ -273,27 +493,29 @@ pub struct ChatController;
 
 impl ChatController {
     #[on("connection")]
-    async fn on_connect(&self, ctx: SocketContext) {
-        println!("connected: {}", ctx.id());
+    async fn on_connect(&self, socket: SocketContext) {
+        println!("connected: {}", socket.id());
+
+        let query: Option<MyQuery> = socket.query().unwrap();
     }
 
     #[on("message")]
-    async fn on_message(&self, ctx: SocketContext) {
-        let Ok(message) = ctx.try_data::<String>() else {
+    async fn on_message(&self, socket: SocketContext) {
+        let Ok(message) = socket.try_data::<String>() else {
             return;
         };
 
-        if ctx.has_ack() {
-            let _ = ctx.ack(&"ok");
+        if socket.has_ack() {
+            let _ = socket.ack(&"ok");
             return;
         }
 
-        ctx.socket.emit("message", &message).ok();
+        socket.emit("message", &message).ok();
     }
 
     #[on("disconnection")]
-    async fn on_disconnect(&self, ctx: SocketContext) {
-        println!("reason: {:?}", ctx.disconnect_reason());
+    async fn on_disconnect(&self, socket: SocketContext) {
+        println!("reason: {:?}", socket.disconnect_reason());
     }
 }
 ```

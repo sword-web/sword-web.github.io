@@ -113,6 +113,30 @@ where
 
 - Parámetros de ruta como `/users/{id}`.
 
+### Método `params()`
+
+```rust
+pub fn params(&self) -> &HashMap<String, String>
+```
+
+**Retorna**
+
+- Todos los parámetros de ruta como `HashMap<String, String>`.
+
+**Cuándo usarlo**
+
+- Cuando necesitas acceder a múltiples path params dinámicamente.
+
+```rust
+#[get("/users/{id}/posts/{post_id}")]
+async fn get_user_post(&self, req: Request) -> WebResult {
+    let all_params = req.params();
+    let id = all_params.get("id").unwrap();
+    let post_id = all_params.get("post_id").unwrap();
+    // ...
+}
+```
+
 ### Método `body::<T>()`
 
 ```rust

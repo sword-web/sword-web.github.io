@@ -44,13 +44,13 @@ pub struct ChatController;
 
 impl ChatController {
     #[on("message")]
-    async fn handle_message(&self, ctx: SocketContext) {
-        let Ok(data) = ctx.try_validated_data::<IncomingMessageDto>() else {
+    async fn handle_message(&self, socket: SocketContext) {
+        let Ok(data) = socket.try_validated_data::<IncomingMessageDto>() else {
             eprintln!("Failed to validate message data");
             return;
         };
 
-        ctx.socket.emit("message", &data.content).ok();
+        socket.emit("message", &data.content).ok();
     }
 }
 ```

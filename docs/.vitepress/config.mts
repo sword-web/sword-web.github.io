@@ -101,6 +101,10 @@ export default defineConfig({
                                         text: "Tracing & Logging",
                                         link: "/en/fundamental-concepts/configuration/tracing",
                                     },
+                                    {
+                                        text: "Auto-registered Layers & Services",
+                                        link: "/en/fundamental-concepts/configuration/auto-layers",
+                                    },
                                 ],
                             },
                         ],
@@ -145,6 +149,10 @@ export default defineConfig({
                                     {
                                         text: "Injecting dependencies",
                                         link: "/en/application-components/di/injecting",
+                                    },
+                                    {
+                                        text: "Dependency Inversion",
+                                        link: "/en/application-components/di/contract",
                                     },
                                 ],
                             },
@@ -203,6 +211,10 @@ export default defineConfig({
                                     {
                                         text: "Response Handling",
                                         link: "/en/practical-guides/web/response-handling",
+                                    },
+                                    {
+                                        text: "OpenAPI & Swagger UI",
+                                        link: "/en/practical-guides/web/openapi",
                                     },
                                 ],
                             },
@@ -345,6 +357,10 @@ export default defineConfig({
                                         text: "Tracing y Logging",
                                         link: "/es/fundamental-concepts/configuration/tracing",
                                     },
+                                    {
+                                        text: "Layers y Servicios Auto-registrados",
+                                        link: "/es/fundamental-concepts/configuration/auto-layers",
+                                    },
                                 ],
                             },
                         ],
@@ -389,6 +405,10 @@ export default defineConfig({
                                     {
                                         text: "Inyectando dependencias",
                                         link: "/es/application-components/di/injecting",
+                                    },
+                                    {
+                                        text: "Inversión de dependencias",
+                                        link: "/es/application-components/di/contract",
                                     },
                                 ],
                             },
@@ -447,6 +467,10 @@ export default defineConfig({
                                     {
                                         text: "Manejo de Respuestas",
                                         link: "/es/practical-guides/web/response-handling",
+                                    },
+                                    {
+                                        text: "OpenAPI y Swagger UI",
+                                        link: "/es/practical-guides/web/openapi",
                                     },
                                 ],
                             },

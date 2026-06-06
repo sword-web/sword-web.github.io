@@ -4,12 +4,13 @@ description: "Organizing Sword applications using Module, controllers, component
 outline: [2, 3]
 
 prev:
-  text: Custom Configuration
-  link: /en/fundamental-concepts/configuration/custom
+    text: Custom Configuration
+    link: /en/fundamental-concepts/configuration/custom
 next:
-  text: Controllers
-  link: /en/application-components/controllers
+    text: Controllers
+    link: /en/application-components/controllers
 ---
+
 # Modules in Sword
 
 In Sword, a module groups related pieces of the same application capability, such as controllers, components, and providers.
@@ -173,12 +174,6 @@ impl Module for UsersModule {
     // register users domain
 }
 ```
-
-## Partitioning Criteria
-
-- When a domain area has its own controllers and dependencies.
-- When it's beneficial to isolate registration and responsibilities.
-- When `main.rs` starts accumulating wiring for multiple capabilities.
 
 ## See Also
 
