@@ -39,13 +39,43 @@ hero:
 
 features:
     - title: Asynchronous by default
+      icon: "⚡"
       details:
           Built on Tokio, Sword is an asynchronous framework that relies on the
           well-known Tokio runtime to handle multiple concurrent connections efficiently.
 
     - title: Module-based architecture
+      icon: "🧩"
       details: Build server-side applications with a modular architecture, layer separation, and dependency injection.
 
     - title: Integrated interceptors and layers
+      icon: "🛡️"
       details: Includes typed interceptors and reusable Tower layers for CORS, request timeout, security headers, and more.
 ---
+
+## Quick start
+
+Clone the repository and run the `web` example to see Sword in action:
+
+```bash
+git clone https://github.com/sword-web/sword.git
+cd sword/examples/web
+cargo run
+```
+
+Then open `http://localhost:3000` in your browser.
+
+## Why Sword?
+
+- **Async by default** — built on Tokio and Axum for high concurrency.
+- **Modular and testable** — modules, dependency injection and interceptors as first-class citizens.
+- **Web, Socket.IO and gRPC** — one framework for all your APIs.
+- **OpenAPI ready** — generate docs from your controllers out of the box.
+
+<div class="sword-cta">
+<h2>Ready to build with Sword?</h2>
+<div class="sword-cta-actions">
+<a class="sword-cta-btn brand" href="/en/introduction/getting-started">Get Started</a>
+<a class="sword-cta-btn alt" href="https://github.com/sword-web">Star on GitHub</a>
+</div>
+</div>

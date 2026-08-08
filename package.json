@@ -7,5 +7,10 @@
     "packageManager": "pnpm@11.5.2",
     "devDependencies": {
         "vitepress": "^2.0.0-alpha.12"
+    },
+    "dependencies": {
+        "@fontsource-variable/inter": "^5.3.0",
+        "@fontsource-variable/jetbrains-mono": "^5.3.0",
+        "@fontsource-variable/space-grotesk": "^5.3.0"
     }
 }
