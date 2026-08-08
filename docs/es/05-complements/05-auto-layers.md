@@ -82,4 +82,4 @@ Cuando Sword carga la configuración, verifica estas secciones y registra autom�
 ## Véase También
 
 - [Configuración de Aplicación](/es/fundamental-concepts/configuration/application)
-- [Layers con Tower](/es/application-components/interceptors/tower)
+- [Interceptores en Controladores Web](/es/practical-guides/web/interceptors)

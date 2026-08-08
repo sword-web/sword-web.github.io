@@ -62,4 +62,4 @@ You can define custom events using the `#[on("event_name")]` attribute, where `e
 - [Event handling](/en/practical-guides/socketio/event-handling)
 - [ACKs](/en/practical-guides/socketio/acknowledgements)
 - [Context and extensions](/en/practical-guides/socketio/context-and-extensions)
-- [Interceptors with configuration](/en/application-components/interceptors/with-config)
+- [Interceptors in Socket.IO Controllers](/en/practical-guides/socketio/interceptors)

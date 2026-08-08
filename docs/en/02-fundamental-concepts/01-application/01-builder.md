@@ -69,7 +69,7 @@ let app = Application::builder()
     .build();
 ```
 
-For more details on Tower, check the [Tower Layers](/en/application-components/interceptors/tower) section.
+For more details on Tower, check the [Interceptors in Web Controllers](/en/practical-guides/web/interceptors) section.
 
 <hr/>
 

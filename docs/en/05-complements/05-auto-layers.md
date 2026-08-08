@@ -82,4 +82,4 @@ When Sword loads the configuration, it checks for these sections and automatical
 ## See Also
 
 - [Application Configuration](/en/fundamental-concepts/configuration/application)
-- [Tower Layers](/en/application-components/interceptors/tower)
+- [Interceptors in Web Controllers](/en/practical-guides/web/interceptors)

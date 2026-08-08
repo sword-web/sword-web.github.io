@@ -16,18 +16,26 @@ Los interceptors son útiles para:
 - Registro y monitoreo de solicitudes
 - Validación de solicitudes
 
-## Tipos de `Interceptors`
+## Las tres variantes
 
-Sword provee tres tipos:
+Sword provee tres tipos de interceptors:
 
-- Tradicionales
-- Con configuración asociada
-- Layers de Tower
+### Tradicionales
 
-Cada tipo de interceptor tiene sus características propias y casos de uso, que se describen en las siguientes secciones.
+La variante más común. Se declaran como estructuras que derivan el trait `Interceptor` e implementan traits como `OnRequest`, `OnRequestStream` u `OnConnect`, según el tipo de controller. Por debajo son `Components`, por lo que pueden poseer dependencias sin requerir un constructor definido.
 
-Además, por cada tipo existe una variante aplicable al tipo de `Controller` asociado:
+### Con configuración
 
-- Controladores Web
-- Controladores Socket.IO
-- Controladores gRPC
+Poseen el mismo comportamiento que los tradicionales, pero añaden un parámetro de tipo `T` extra en la firma del método de intercepción (`OnRequestWithConfig`, `OnConnectWithConfig`, etc.). Ese parámetro permite pasar configuración adicional al interceptor.
+
+### Layers de Tower
+
+Sword se integra con el ecosistema de Tower. Puedes aplicar layers globales sobre toda la aplicación con `Application::builder().with_layer(...)`, o layers locales en controladores web usando el atributo `#[interceptor(expr)]`.
+
+## Aplicación por tipo de controller
+
+Cada variante se aplica de forma distinta según el tipo de controller. Los ejemplos completos viven en las guías prácticas:
+
+- Controladores Web → [Interceptores en controladores web](/es/practical-guides/web/interceptors)
+- Controladores Socket.IO → [Interceptores en controladores Socket.IO](/es/practical-guides/socketio/interceptors)
+- Controladores gRPC → [Interceptores en controladores gRPC](/es/practical-guides/grpc/interceptors)

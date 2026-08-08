@@ -1,32 +1,41 @@
 ---
 title: "What is an Interceptor?"
-description: "An Interceptor is a component that sits between an incoming request/message and its corresponding Controller."
+description: "An Interceptor is a component that sits between the incoming request/message and the corresponding Controller."
 outline: [2, 3]
 ---
+
 # What is an Interceptor?
 
-An `Interceptor` is a component that sits between an incoming request/message and its corresponding `Controller`. They allow you to read, modify, and process incoming requests.
+An `Interceptor` is a component that sits between the incoming request/message and the corresponding `Controller`. They allow you to read, modify, and process incoming requests.
 
 ## Why use Interceptors?
 
 Interceptors are useful for:
 
-- Authentication and authorization.
-- Request logging and monitoring.
-- Request validation.
+- Authentication and authorization
+- Request logging and monitoring
+- Request validation
 
-## Types of `Interceptors`
+## The three variants
 
-Sword provides three types:
+Sword provides three types of interceptors:
 
-- Traditional Interceptors.
-- Interceptors with associated configuration.
-- Tower Layers.
+### Traditional
 
-Each type of interceptor has its own characteristics and use cases, which are described in the following sections.
+The most common variant. They are declared as structs that derive the `Interceptor` trait and implement traits such as `OnRequest`, `OnRequestStream`, or `OnConnect`, depending on the controller type. Under the hood they are `Components`, so they can have dependencies without requiring a defined constructor.
 
-Additionally, for each type, there is a variant applicable to its associated `Controller` type:
+### With configuration
 
-- Web Controllers.
-- Socket.IO Controllers.
-- gRPC Controllers.
+They behave like the traditional ones, but add an extra `T` parameter to the signature of the interception method (`OnRequestWithConfig`, `OnConnectWithConfig`, etc.). That parameter lets you pass additional configuration to the interceptor.
+
+### Tower layers
+
+Sword integrates with the Tower ecosystem. You can apply global layers over the whole application with `Application::builder().with_layer(...)`, or local layers in web controllers using the `#[interceptor(expr)]` attribute.
+
+## Application by controller type
+
+Each variant is applied differently depending on the controller type. The full examples live in the practical guides:
+
+- Web Controllers → [Interceptors in web controllers](/en/practical-guides/web/interceptors)
+- Socket.IO Controllers → [Interceptors in Socket.IO controllers](/en/practical-guides/socketio/interceptors)
+- gRPC Controllers → [Interceptors in gRPC controllers](/en/practical-guides/grpc/interceptors)

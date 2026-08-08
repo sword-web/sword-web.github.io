@@ -165,25 +165,6 @@ export default defineConfig({
                             {
                                 text: "Interceptors",
                                 link: "/en/application-components/interceptors/",
-                                collapsed: true,
-                                items: [
-                                    {
-                                        text: "Traditional Interceptors",
-                                        link: "/en/application-components/interceptors/traditional",
-                                    },
-                                    {
-                                        text: "Interceptors with Config/Params",
-                                        link: "/en/application-components/interceptors/with-config",
-                                    },
-                                    {
-                                        text: "Tower Layers",
-                                        link: "/en/application-components/interceptors/tower",
-                                    },
-                                    {
-                                        text: "Extensions",
-                                        link: "/en/application-components/interceptors/extensions",
-                                    },
-                                ],
                             },
                         ],
                     },
@@ -219,6 +200,10 @@ export default defineConfig({
                                         link: "/en/practical-guides/web/response-handling",
                                     },
                                     {
+                                        text: "Interceptors",
+                                        link: "/en/practical-guides/web/interceptors",
+                                    },
+                                    {
                                         text: "OpenAPI & Swagger UI",
                                         link: "/en/practical-guides/web/openapi",
                                     },
@@ -244,6 +229,10 @@ export default defineConfig({
                                         text: "Context & Extensions",
                                         link: "/en/practical-guides/socketio/context-and-extensions",
                                     },
+                                    {
+                                        text: "Interceptors",
+                                        link: "/en/practical-guides/socketio/interceptors",
+                                    },
                                 ],
                             },
                             {
@@ -265,6 +254,10 @@ export default defineConfig({
                                     {
                                         text: "gRPC Errors",
                                         link: "/en/practical-guides/grpc/errores-grpc",
+                                    },
+                                    {
+                                        text: "Interceptors",
+                                        link: "/en/practical-guides/grpc/interceptors",
                                     },
                                 ],
                             },
@@ -414,25 +407,6 @@ export default defineConfig({
                             {
                                 text: "Interceptors",
                                 link: "/es/application-components/interceptors/",
-                                collapsed: true,
-                                items: [
-                                    {
-                                        text: "Interceptores tradicionales",
-                                        link: "/es/application-components/interceptors/traditional",
-                                    },
-                                    {
-                                        text: "Interceptores con Configuración/Parámetros",
-                                        link: "/es/application-components/interceptors/with-config",
-                                    },
-                                    {
-                                        text: "Layers con Tower",
-                                        link: "/es/application-components/interceptors/tower",
-                                    },
-                                    {
-                                        text: "Extensiones",
-                                        link: "/es/application-components/interceptors/extensions",
-                                    },
-                                ],
                             },
                         ],
                     },
@@ -468,6 +442,10 @@ export default defineConfig({
                                         link: "/es/practical-guides/web/response-handling",
                                     },
                                     {
+                                        text: "Interceptors",
+                                        link: "/es/practical-guides/web/interceptors",
+                                    },
+                                    {
                                         text: "OpenAPI y Swagger UI",
                                         link: "/es/practical-guides/web/openapi",
                                     },
@@ -493,6 +471,10 @@ export default defineConfig({
                                         text: "Contexto y extensiones",
                                         link: "/es/practical-guides/socketio/context-and-extensions",
                                     },
+                                    {
+                                        text: "Interceptors",
+                                        link: "/es/practical-guides/socketio/interceptors",
+                                    },
                                 ],
                             },
                             {
@@ -514,6 +496,10 @@ export default defineConfig({
                                     {
                                         text: "Errores gRPC",
                                         link: "/es/practical-guides/grpc/errores-grpc",
+                                    },
+                                    {
+                                        text: "Interceptors",
+                                        link: "/es/practical-guides/grpc/interceptors",
                                     },
                                 ],
                             },
