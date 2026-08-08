@@ -47,7 +47,7 @@ impl UsersController {
 }
 ```
 
-For more details on extraction, check the [Request Handling](/en/practical-guides/web/request-handling/explanation) section.
+For more details on extraction, check the [Request Handling](/en/practical-guides/web/request-flow) section.
 
 ## Supported HTTP Methods
 

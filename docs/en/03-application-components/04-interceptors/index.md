@@ -6,7 +6,7 @@ outline: [2, 3]
 
 # What is an Interceptor?
 
-An `Interceptor` is a component that sits between the incoming request/message and the corresponding `Controller`. They allow you to read, modify, and process incoming requests.
+An `Interceptor` is a component that sits between the incoming request/message and the controller where it is applied. They allow you to read, modify, and process incoming requests.
 
 ## Why use Interceptors?
 
@@ -30,7 +30,7 @@ They behave like the traditional ones, but add an extra `T` parameter to the sig
 
 ### Tower layers
 
-Sword integrates with the Tower ecosystem. You can apply global layers over the whole application with `Application::builder().with_layer(...)`, or local layers in web controllers using the `#[interceptor(expr)]` attribute.
+Sword integrates with the Tower ecosystem. You can apply local layers in web controllers using the `#[interceptor(TowerLayer::example())]` attribute.
 
 ## Application by controller type
 

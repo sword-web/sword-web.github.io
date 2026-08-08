@@ -176,28 +176,24 @@ export default defineConfig({
                                 collapsed: true,
                                 items: [
                                     {
+                                        text: "Request Flow",
+                                        link: "/en/practical-guides/web/request-flow",
+                                    },
+                                    {
+                                        text: "Request Structure",
+                                        link: "/en/practical-guides/web/request-structure",
+                                    },
+                                    {
                                         text: "Data Validation",
                                         link: "/en/practical-guides/web/data-validation",
                                     },
                                     {
-                                        text: "Request Handling",
-                                        link: "/en/practical-guides/web/request-handling/explanation",
-                                    },
-                                    {
-                                        text: "Request Structure",
-                                        link: "/en/practical-guides/web/request-handling/request-structure",
+                                        text: "Response Handling",
+                                        link: "/en/practical-guides/web/response-handling",
                                     },
                                     {
                                         text: "Error Handling",
-                                        link: "/en/practical-guides/web/request-handling/error-handling",
-                                    },
-                                    {
-                                        text: "Extending Request",
-                                        link: "/en/practical-guides/web/request-handling/extending-request",
-                                    },
-                                    {
-                                        text: "Response Handling",
-                                        link: "/en/practical-guides/web/response-handling",
+                                        link: "/en/practical-guides/web/error-handling",
                                     },
                                     {
                                         text: "Interceptors",
@@ -418,28 +414,24 @@ export default defineConfig({
                                 collapsed: true,
                                 items: [
                                     {
+                                        text: "El flujo de una petición",
+                                        link: "/es/practical-guides/web/request-flow",
+                                    },
+                                    {
+                                        text: "Estructura de Request",
+                                        link: "/es/practical-guides/web/request-structure",
+                                    },
+                                    {
                                         text: "Validación de Datos",
                                         link: "/es/practical-guides/web/data-validation",
                                     },
                                     {
-                                        text: "Manejo de Requests",
-                                        link: "/es/practical-guides/web/request-handling/explanation",
-                                    },
-                                    {
-                                        text: "Estructura de Request",
-                                        link: "/es/practical-guides/web/request-handling/request-structure",
+                                        text: "Manejo de Respuestas",
+                                        link: "/es/practical-guides/web/response-handling",
                                     },
                                     {
                                         text: "Manejo de Errores",
-                                        link: "/es/practical-guides/web/request-handling/error-handling",
-                                    },
-                                    {
-                                        text: "Extender Request",
-                                        link: "/es/practical-guides/web/request-handling/extending-request",
-                                    },
-                                    {
-                                        text: "Manejo de Respuestas",
-                                        link: "/es/practical-guides/web/response-handling",
+                                        link: "/es/practical-guides/web/error-handling",
                                     },
                                     {
                                         text: "Interceptors",

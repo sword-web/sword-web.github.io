@@ -1,5 +1,5 @@
 ---
-title: "Error Handling in `Request`"
+title: "Error Handling"
 description: "Many Request methods return Result because extraction and deserialization can fail."
 outline: [2, 3]
 ---
@@ -116,5 +116,5 @@ If you need a fully custom response in a specific case, you can avoid `?` and tr
 
 ## See also
 
-- [Request Reference](/en/practical-guides/web/request-handling/request-structure)
-- [Request Handling](/en/practical-guides/web/request-handling/explanation)
+- [Request Reference](/en/practical-guides/web/request-structure)
+- [Request Handling](/en/practical-guides/web/request-flow)

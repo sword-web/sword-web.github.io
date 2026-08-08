@@ -1,34 +1,35 @@
 ---
-title: "Data Validation"
-description: "Input data validation is a fundamental aspect of web applications. It ensures that data meets specific rules before being processed or stored."
+title: "Validación de Datos"
+description: "La validación de datos de entrada es un aspecto fundamental en aplicaciones web."
 outline: [2, 3]
 ---
-# Data Validation
 
-Input data validation is a fundamental aspect of web applications. It ensures that data meets specific rules before being processed or stored.
+# Validación de Datos
 
-Sword integrates support for the `validator` crate via the `validation-validator` feature.
+La validación de datos de entrada es un aspecto fundamental en aplicaciones web. Permite asegurar que los datos cumplen reglas específicas antes de ser procesados o almacenados.
 
-## Enabling `validator`
+Sword integra soporte con el crate `validator` mediante la feature `validation-validator`.
 
-To use validation based on the `validator` crate, add the dependencies and enable the corresponding feature:
+## Habilitar `validator`
+
+Para usar validación basada en el crate `validator`, agrega las dependencias y habilita la feature correspondiente:
 
 ```toml
 [dependencies]
 sword = { version = "x.y.z", features = ["validation-validator"] }
-serde = { features = ["derive"] }
-validator = { features = ["derive"] }
+serde = { version = "x.y.z", features = ["derive"] }
+validator = { version = "x.y.z", features = ["derive"] }
 ```
 
-With this enabled, you can use helpers such as:
+Con esto podrás usar métodos como:
 
-- `req.body_validator::<T>()`
-- `req.query_validator::<T>()`
-- `req.params_validator::<T>()`
+- `req.validated_body::<T>()`
+- `req.validated_query::<T>()`
+- `req.validated_params::<T>()`
 
-## Example
+## Ejemplo
 
-### Defining DTOs
+### Definición de DTOs
 
 ```rust
 use serde::Deserialize;
@@ -61,7 +62,7 @@ struct GetUsersQuery {
 }
 ```
 
-### Controller Implementation
+### Implementación del controlador
 
 ```rust
 use sword::prelude::*;
@@ -73,7 +74,7 @@ struct UsersController;
 impl UsersController {
     #[get("/")]
     async fn list(&self, req: Request) -> WebResult {
-        let query = req.query_validator::<GetUsersQuery>()?.unwrap_or_default();
+        let query = req.validated_query::<GetUsersQuery>()?.unwrap_or_default();
         println!("Listing users with query: {query:?}");
 
         Ok(JsonResponse::Ok().message("User list"))
@@ -81,7 +82,7 @@ impl UsersController {
 
     #[post("/")]
     async fn create(&self, req: Request) -> WebResult {
-        let data = req.body_validator::<CreateUserDto>()?;
+        let data = req.validated_body::<CreateUserDto>()?;
         println!("Creating user with data: {data:?}");
 
         Ok(JsonResponse::Created().message("User created"))
@@ -89,20 +90,20 @@ impl UsersController {
 }
 ```
 
-## Validation Error Response
+## Respuesta de error de validación
 
-Sword automatically handles validation errors and responds with an HTTP `400 Bad Request` status, including validation details in the response body.
+Sword maneja automáticamente los errores de validación y responde con un estado HTTP `400 Bad Request`, incluyendo detalles de validación en el cuerpo de la respuesta.
 
-### Request Body
+### Cuerpo de la solicitud
 
 ```json
 {
     "name": "",
-    "email": "not_a_valid_email"
+    "email": "not_an_valid_email"
 }
 ```
 
-### Error Response
+### Respuesta de error
 
 ```json
 {
@@ -127,6 +128,6 @@ Sword automatically handles validation errors and responds with an HTTP `400 Bad
 }
 ```
 
-## Final Note
+## Nota final
 
-This integration corresponds specifically to the `validation-validator` feature. If you decide to use another validation library, you will need to define your own validation logic and the error format you wish to expose.
+Esta integración corresponde específicamente a la feature `validation-validator`. Si decides usar otra librería de validación, tendrás que definir tu propia lógica de validación y el formato de error que quieras exponer.

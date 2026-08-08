@@ -1,5 +1,5 @@
 ---
-title: "Manejo de errores en `Request`"
+title: "Manejo de Errores"
 description: "Muchos metodos de Request retornan Result porque la extraccion o deserializacion puede fallar."
 outline: [2, 3]
 ---
@@ -116,5 +116,5 @@ Si quieres una respuesta totalmente custom para un caso puntual, puedes evitar `
 
 ## Ver tambien
 
-- [Referencia de Request](/es/practical-guides/web/request-handling/request-structure)
-- [Manejo de Requests](/es/practical-guides/web/request-handling/explanation)
+- [Referencia de Request](/es/practical-guides/web/request-structure)
+- [Manejo de Requests](/es/practical-guides/web/request-flow)

@@ -2,13 +2,6 @@
 title: "Request Reference"
 description: "API-style reference of Request in Sword for params, body, query, headers, cookies, and HTTP metadata."
 outline: false
-
-prev:
-  text: Request Handling
-  link: /en/practical-guides/web/request-handling/explanation
-next:
-  text: Error Handling
-  link: /en/practical-guides/web/request-handling/error-handling
 ---
 # The `Request` structure
 
@@ -282,39 +275,3 @@ pub async fn next(self) -> WebInterceptorResult
 
 - `ip()`, `ips()`, and `protocol()` depend on proxy headers (`X-Forwarded-For`, `X-Forwarded-Proto`).
 - `body::<T>()` requires JSON content type (`application/json` or `+json`).
-
-## Usage example
-
-```rust
-use serde::Deserialize;
-use sword::prelude::*;
-use sword::web::*;
-
-#[derive(Deserialize)]
-struct ListUsersQuery {
-    page: Option<u32>,
-}
-
-#[controller(kind = Controller::Web, path = "/users")]
-pub struct UsersController;
-
-impl UsersController {
-    #[get("/{id}")]
-    async fn get_user(&self, req: Request) -> WebResult {
-        let id = req.param::<u64>("id")?;
-        let query = req.query::<ListUsersQuery>()?.unwrap_or(ListUsersQuery { page: Some(1) });
-        let ua = req.user_agent().unwrap_or("unknown");
-
-        Ok(JsonResponse::Ok().data(format!(
-            "id={id}, page={:?}, ua={ua}",
-            query.page
-        )))
-    }
-}
-```
-
-## See also
-
-- [Request Handling](/en/practical-guides/web/request-handling/explanation)
-- [Error Handling](/en/practical-guides/web/request-handling/error-handling)
-- [HTTP Response Handling](/en/practical-guides/web/response-handling)
