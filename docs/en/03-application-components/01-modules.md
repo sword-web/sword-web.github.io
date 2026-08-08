@@ -1,6 +1,6 @@
 ---
 title: "Modules"
-description: "Organizing Sword applications using Module, controllers, components, and providers."
+description: "Organizing Sword applications using modules"
 outline: [2, 3]
 
 prev:
@@ -13,16 +13,7 @@ next:
 
 # Modules in Sword
 
-In Sword, a module groups related pieces of the same application capability, such as controllers, components, and providers.
-
-## What problem do they solve?
-
-As an application grows, registering everything directly in `main.rs` becomes unmaintainable. Modules allow you to:
-
-- Group related functionality.
-- Encapsulate dependency registration.
-- Separate concerns by domain.
-- Maintain a stable architecture as the app scales.
+In Sword, a module groups related pieces of the same application capability, such as controllers, components, providers, DTOs, and even other modules. Each module implements the `Module` trait and registers its pieces in the dependency container.
 
 ## The `Module` Trait
 
@@ -38,11 +29,11 @@ pub trait Module {
 
 All methods have an empty default implementation.
 
-## What each method registers
+## What does each method register?
 
-::: details `register_controllers(...)`
+::: info `register_controllers(...)`
 
-Registers external entry points: HTTP, Socket.IO, and other controller types supported by the framework.
+Registers external entry points: HTTP, Socket.IO, and other types of structs that implement `ControllerSpec`.
 
 ```rust
 fn register_controllers(controllers: &ControllerRegistry) {
@@ -69,7 +60,7 @@ fn register_components(components: &ComponentRegistry) {
 
 Registers `#[injectable(provider)]` structs, typically external connections or clients: databases, caches, or remote services.
 
-This method is `async`.
+This method is async by default, since initializing external resources may require async operations.
 
 ```rust
 async fn register_providers(config: &Config, providers: &ProviderRegistry) {
@@ -120,18 +111,6 @@ async fn main() {
 }
 ```
 
-## `with_module` Behavior
-
-Each call to `with_module::<M>()` executes the module registration in this order:
-
-1. `register_providers(...)`
-2. `register_components(...)`
-3. `register_controllers(...)`
-
-This order describes the module's internal registration, not the final dependency resolution.
-
-The actual construction of components and container resolution happen later, during `build()`, when Sword executes the global container construction process with all registered modules.
-
 ## Separation of Concerns
 
 ::: code-group
@@ -171,13 +150,6 @@ And in `mod.rs`:
 pub struct UsersModule;
 
 impl Module for UsersModule {
-    // register users domain
+    // register the module's elements
 }
 ```
-
-## See Also
-
-- [Controllers](/en/application-components/controllers/)
-- [Providers](/en/application-components/di/providers)
-- [Components](/en/application-components/di/components)
-- [Injecting Dependencies](/en/application-components/di/injecting)

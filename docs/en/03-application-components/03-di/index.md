@@ -30,12 +30,12 @@ The `DependencyContainer` struct is the core of the dependency injection pattern
 
 ### `Injectable`
 
-The term `Injectable` refers to any struct that can be used as a dependency. `Injectable` structs can be automatically injected by the dependency container when requested.
+The term "injectable" refers to any struct that can be used as a dependency. Injectable structs can be automatically injected by the dependency container when requested.
 
 ### `Provider`
 
-A `Provider` is a type of `Injectable` struct that must be manually instantiated and registered in the dependency container. Providers are typically responsible for providing connections to external services, such as databases or APIs.
+A `Provider` is a type of injectable struct that must be manually instantiated and registered in the dependency container. Providers are typically responsible for providing connections to external services, such as databases or APIs.
 
 ### `Component`
 
-A `Component` is an `Injectable` struct that is self-constructed based on dependencies already registered in the container. Components are ideal for representing modular parts of the application that depend on other services or configurations.
+A `Component` is an injectable struct that is self-constructed based on dependencies already registered in the container. Components are ideal for representing modular parts of the application that depend on other services or configurations.

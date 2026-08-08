@@ -15,7 +15,7 @@ keywords:
 ---
 # Defining and Registering `Providers`
 
-A `Provider` is a type of `Injectable` struct that must be manually instantiated and registered in the dependency container.
+A `Provider` is a type of injectable struct that must be manually instantiated and registered in the dependency container.
 
 This type of struct is responsible for providing connection logic to external services, such as databases or APIs.
 

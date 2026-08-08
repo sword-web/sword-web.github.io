@@ -10,9 +10,10 @@ next:
     text: Inyección de Dependencias
     link: /es/application-components/di/
 ---
+
 # Controladores gRPC
 
-En Sword, un controlador gRPC es un `struct` anotado con `#[controller(kind = Controller::Grpc, ...)]` que implementa el trait generado por `tonic`.
+En Sword, un controlador gRPC es una estructura que implementa un trait generada por `tonic` a partir de un archivo `.proto`. Este trait define los métodos gRPC que el controlador debe implementar.
 
 ## Definir un controlador
 
@@ -36,19 +37,26 @@ impl UserGrpcService for UsersController {
 }
 ```
 
-El trait (`UserGrpcService`) es generado por `tonic` a partir de un archivo `.proto` y debe ser importado para implementar el controlador.
+El trait `UserGrpcService` se genera a partir de un fichero `.proto` como el siguiente:
 
-## Registrar en un módulo
+```proto
+syntax = "proto3";
 
-```rust
-use sword::prelude::*;
+package users;
 
-pub struct UsersModule;
+service UserGrpcService {
+  rpc ListUsers (ListUsersRequest) returns (ListUsersReply);
+}
 
-impl Module for UsersModule {
-    fn register_controllers(controllers: &ControllerRegistry) {
-        controllers.register::<UsersController>();
-    }
+message ListUsersRequest {}
+
+message ListUsersReply {
+  repeated UserItem users = 1;
+}
+
+message UserItem {
+  string id = 1;
+  string username = 2;
 }
 ```
 

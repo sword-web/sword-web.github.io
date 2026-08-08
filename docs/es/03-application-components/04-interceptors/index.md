@@ -3,6 +3,7 @@ title: "¿Qué es un Interceptor?"
 description: "Un Interceptor es un componente que se interpone entre la solicitud/mensaje entrante y el Controller que corresponda."
 outline: [2, 3]
 ---
+
 # ¿Qué es un Interceptor?
 
 Un `Interceptor` es un componente que se interpone entre la solicitud/mensaje entrante y el `Controller` que corresponda. Permiten leer, modificar y procesar las solicitudes entrantes.

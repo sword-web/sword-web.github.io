@@ -370,11 +370,23 @@
  * Code blocks
  * -------------------------------------------------------------------------- */
 
-div[class*="language-"],
+div[class*="language-"] {
+    border-radius: var(--sw-radius-md);
+    box-shadow: var(--vp-shadow-1);
+    border: 1px solid var(--vp-c-divider);
+}
+
 .vp-code-group {
     border-radius: var(--sw-radius-md);
     box-shadow: var(--vp-shadow-1);
     border: 1px solid var(--vp-c-divider);
+    overflow: hidden;
+}
+
+.vp-code-group div[class*="language-"] {
+    border: none;
+    box-shadow: none;
+    margin-bottom: 0 !important;
 }
 
 .vp-doc pre,

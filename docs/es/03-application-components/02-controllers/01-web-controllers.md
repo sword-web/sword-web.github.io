@@ -3,10 +3,10 @@ title: "Definición de Controladores Web"
 description: "En Sword un controlador web es una estructura que actúa como un grupo de methods relacionados a una ruta base, y cada método representa un endpoint HTTP específico."
 outline: [2, 3]
 ---
+
 # Definición de Controladores Web
 
-En Sword un controlador web es una estructura que actúa como un grupo de methods relacionados a una ruta base, y cada método representa un endpoint HTTP específico. Se definen usando el atributo
-`#[controller(kind = Controller::Web, path = "...")]`.
+En Sword un controlador web es una estructura que actúa como un grupo de methods relacionados a una ruta base, y cada método representa un endpoint HTTP específico.
 
 Estos controladores están basado en los handlers de `axum`, pero añadiendo una capa de integración con el sistema de módulos, inyección de dependencias e interceptors del framework.
 
@@ -23,20 +23,6 @@ impl UsersController {
     #[get("/")]
     async fn list(&self) -> WebResult {
         Ok(JsonResponse::Ok().message("Users list"))
-    }
-}
-```
-
-## Registrar el controlador en un módulo
-
-```rust
-use sword::prelude::*;
-
-pub struct UsersModule;
-
-impl Module for UsersModule {
-    fn register_controllers(controllers: &ControllerRegistry) {
-        controllers.register::<UsersController>();
     }
 }
 ```
@@ -88,7 +74,7 @@ Ese flujo se explica en [Inyección de Dependencias](/es/application-components/
 
 ## Tipo de retorno
 
-Sword busca simplificar y estandarizar las respuestas HTTP hacia un formato JSON común, por lo que el tipo de retorno recomendado es `JsonResponse` o `WebResult`, un alias de `Result<JsonResponse, JsonResponse>`.
+Sword busca simplificar y estandarizar las respuestas HTTP hacia un formato JSON común, por lo que el tipo de retorno recomendado es `JsonResponse` o `WebResult` el cual es un alias de `Result<JsonResponse, JsonResponse>`.
 
 También puedes usar `WebResult<JsonResponse>` explícitamente para mayor claridad:
 

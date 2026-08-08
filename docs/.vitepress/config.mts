@@ -160,14 +160,6 @@ export default defineConfig({
                                         text: "Components",
                                         link: "/en/application-components/di/components",
                                     },
-                                    {
-                                        text: "Injecting dependencies",
-                                        link: "/en/application-components/di/injecting",
-                                    },
-                                    {
-                                        text: "Dependency Inversion",
-                                        link: "/en/application-components/di/contract",
-                                    },
                                 ],
                             },
                             {
@@ -416,14 +408,6 @@ export default defineConfig({
                                     {
                                         text: "Components",
                                         link: "/es/application-components/di/components",
-                                    },
-                                    {
-                                        text: "Inyectando dependencias",
-                                        link: "/es/application-components/di/injecting",
-                                    },
-                                    {
-                                        text: "Inversión de dependencias",
-                                        link: "/es/application-components/di/contract",
                                     },
                                 ],
                             },

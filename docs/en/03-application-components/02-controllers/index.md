@@ -14,12 +14,14 @@ next:
 
 In Sword, a controller is an entry point to your application.
 
-In practice, a `controller` receives external events or requests and transforms them into calls to your modules' internal logic.
+In practice, a `controller` receives internal/external events or requests and transforms them into calls to your modules' business logic.
 
 Some examples:
 
 - A web controller that receives an HTTP request.
 - A Socket.IO controller that listens for real-time events.
+- A gRPC controller that receives remote calls.
+- An internal/external event controller that is always listening.
 
 ## How are they registered?
 

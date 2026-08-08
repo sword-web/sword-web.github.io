@@ -5,7 +5,7 @@ outline: [2, 3]
 ---
 # Web Controller Definition
 
-In Sword, a web controller is a struct that acts as a group of methods under a base path, where each method represents a specific HTTP endpoint. Controllers are declared with `#[controller(kind = Controller::Web, path = "...")]`.
+In Sword, a web controller is a struct that acts as a group of methods under a base path, where each method represents a specific HTTP endpoint.
 
 These controllers are based on `axum` handlers but add an integration layer with the framework's module system, dependency injection, and interceptors.
 
@@ -22,20 +22,6 @@ impl UsersController {
     #[get("/")]
     async fn list(&self) -> WebResult {
         Ok(JsonResponse::Ok().message("Users list"))
-    }
-}
-```
-
-## Registering the Controller in a Module
-
-```rust
-use sword::prelude::*;
-
-pub struct UsersModule;
-
-impl Module for UsersModule {
-    fn register_controllers(controllers: &ControllerRegistry) {
-        controllers.register::<UsersController>();
     }
 }
 ```

@@ -14,6 +14,7 @@ keywords:
         "arquitectura modular",
     ]
 ---
+
 # Inyección de dependencias en Sword
 
 La inyección de dependencias es un patrón de diseño que permite a un objeto recibir sus dependencias de fuentes externas en lugar de crearlas por sí mismo.
@@ -30,12 +31,12 @@ La estructura `DependencyContainer` es el núcleo del patrón de inyección de d
 
 ### `Injectable`
 
-El termino `Injectable` se refiere a cualquier estructura que puede utilizarse como dependencia. Las estructuras `Injectable` pueden ser inyectadas automáticamente por el contenedor de dependencias cuando se solicitan.
+El termino "inyectable" se refiere a cualquier estructura que puede utilizarse como dependencia. Las estructuras inyectables pueden ser inyectadas automáticamente por el contenedor de dependencias cuando se solicitan.
 
 ### `Provider`
 
-Un `Provider` es un tipo de estructura `Injectable` que debe ser instanciada y registrada manualmente en el contenedor de dependencias. Los `Providers` son responsables de proveer la lógica de conexiones a servicios externos, como bases de datos o APIs.
+Un `Provider` es un tipo de estructura inyectable que debe ser instanciada y registrada manualmente en el contenedor de dependencias. Los `Providers` son responsables de proveer la lógica de conexiones a servicios externos, como bases de datos o APIs.
 
 ### `Component`
 
-Un `Component` es una estructura `Injectable` que se autoconstruye en base a dependencias ya registradas en el contenedor. Los `Components` son ideales para representar partes modulares de la aplicación que dependen de otros servicios o configuraciones.
+Un `Component` es una estructura inyectable que se autoconstruye en base a dependencias ya registradas en el contenedor. Los `Components` son ideales para representar partes modulares de la aplicación que dependen de otros servicios o configuraciones.

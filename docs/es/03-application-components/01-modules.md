@@ -1,6 +1,6 @@
 ---
 title: "Módulos"
-description: "Organización de aplicaciones Sword mediante Module, controllers, components y providers."
+description: "Organización de aplicaciones Sword mediante módulos"
 outline: [2, 3]
 
 prev:
@@ -13,16 +13,7 @@ next:
 
 # Módulos en Sword
 
-En Sword, un módulo agrupa piezas relacionadas de una misma capacidad de la aplicación, como controllers, components y providers.
-
-## Qué problema resuelven
-
-Cuando una aplicación crece, registrar todo directamente en `main.rs` deja de ser mantenible. Los módulos permiten:
-
-- agrupar funcionalidad relacionada
-- encapsular el registro de dependencias
-- separar responsabilidades por dominio
-- mantener una arquitectura estable a medida que la app crece
+En Sword, un módulo agrupa piezas relacionadas de una misma capacidad de la aplicación, como controllers, components, providers, dtos e incluso otros módulos. Cada módulo implementa el trait `Module` y registra sus piezas en el contenedor de dependencias.
 
 ## Trait `Module`
 
@@ -38,11 +29,11 @@ pub trait Module {
 
 Todos los métodos tienen implementación por defecto vacía.
 
-## Qué registra cada método
+## ¿Qué registra cada método?
 
-::: details `register_controllers(...)`
+::: info `register_controllers(...)`
 
-Registra puntos de entrada externos: HTTP, Socket.IO y otros tipos de controller soportados por el framework.
+Registra puntos de entrada externos: HTTP, Socket.IO y otros tipos de estructuras que implementan `ControllerSpec`.
 
 ```rust
 fn register_controllers(controllers: &ControllerRegistry) {
@@ -67,9 +58,7 @@ fn register_components(components: &ComponentRegistry) {
 
 ::: details `register_providers(...)`
 
-Registra estructuras `#[injectable(provider)]`, normalmente conexiones o clientes externos: base de datos, cache o servicios remotos.
-
-Este método es `async`.
+Registra estructuras `#[injectable(provider)]`, normalmente conexiones o clientes externos: base de datos, cache o servicios remotos. Este método es asíncrono por defecto, ya que la inicialización de recursos externos puede requerir operaciones async.
 
 ```rust
 async fn register_providers(config: &Config, providers: &ProviderRegistry) {
@@ -120,18 +109,6 @@ async fn main() {
 }
 ```
 
-## Comportamiento de `with_module`
-
-Cada llamada a `with_module::<M>()` ejecuta el registro del módulo en este orden:
-
-1. `register_providers(...)`
-2. `register_components(...)`
-3. `register_controllers(...)`
-
-Ese orden describe el registro interno del módulo, no la resolución final de dependencias.
-
-La construcción efectiva de components y la resolución del contenedor ocurren después, durante `build()`, cuando Sword ejecuta el proceso global de construcción del contenedor con todos los módulos ya registrados.
-
 ## Separación de responsabilidades
 
 ::: code-group
@@ -171,13 +148,6 @@ Y en `mod.rs`:
 pub struct UsersModule;
 
 impl Module for UsersModule {
-    // registro del dominio users
+    // registro de los elementos del módulo
 }
 ```
-
-## Ver también
-
-- [Controladores](/es/application-components/controllers/)
-- [Providers](/es/application-components/di/providers)
-- [Componentes](/es/application-components/di/components)
-- [Inyectando dependencias](/es/application-components/di/injecting)

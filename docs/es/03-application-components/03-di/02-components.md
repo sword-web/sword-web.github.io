@@ -13,9 +13,10 @@ keywords:
         "patrón repository",
     ]
 ---
+
 # Definición y Registro de `Components`
 
-Un `Component` es una estructura `Injectable` que se construye automáticamente basándose en las dependencias ya registradas en el contenedor.
+Un `Component` es una estructura inyectable que se construye automáticamente basándose en las dependencias ya registradas en el contenedor.
 
 Este tipo de estructura es ideal para representar partes modulares de la aplicación que dependen de otros servicios o configuraciones. Por ejemplo, repositorios de datos, servicios de negocio, etc.
 

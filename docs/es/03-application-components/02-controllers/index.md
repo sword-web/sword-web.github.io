@@ -4,22 +4,25 @@ description: "En Sword, un controlador es un punto de entrada a tu aplicación."
 outline: [2, 3]
 
 prev:
-  text: Módulos
-  link: /es/application-components/modules
+    text: Módulos
+    link: /es/application-components/modules
 next:
-  text: Controladores Web
-  link: /es/application-components/controllers/web-controllers
+    text: Controladores Web
+    link: /es/application-components/controllers/web-controllers
 ---
+
 # Controladores
 
 En Sword, un controlador es un punto de entrada a tu aplicación.
 
-En la práctica, un `controller` recibe eventos o solicitudes externas y los transforma en llamadas a la lógica interna de tus módulos.
+En la práctica, un `controller` recibe eventos o solicitudes internas/externas y los transforma en llamadas a la lógica de negocio de tus módulos.
 
 Algunos ejemplos:
 
 - Un controlador web que recibe una request HTTP.
 - Un controlador Socket.IO que escucha eventos en tiempo real.
+- Un controlador gRPC que recibe llamadas remotas.
+- Un controlador de eventos internos/externos que se encuentra siempre en "escucha".
 
 ## ¿Cómo se registran?
 

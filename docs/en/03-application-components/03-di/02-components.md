@@ -15,7 +15,7 @@ keywords:
 ---
 # Defining and Registering `Components`
 
-A `Component` is an `Injectable` struct that is automatically constructed based on dependencies already registered in the container.
+A `Component` is an injectable struct that is automatically constructed based on dependencies already registered in the container.
 
 This type of struct is ideal for representing modular parts of the application that depend on other services or configurations, such as data repositories, business services, and so on.
 

@@ -12,7 +12,9 @@ next:
 ---
 # Socket.IO Controllers
 
-In Sword, a Socket.IO controller is a `struct` annotated with `#[controller(kind = Controller::SocketIo, namespace = "...")]`, and its methods handle events declared with `#[on("...")]`.
+In Sword, a Socket.IO controller is a struct that defines a namespace and a set of events that can be handled by specific methods.
+
+These controllers let you handle real-time client connections, process messages, and emit events to connected clients. They are based on the `socketioxide` crate.
 
 ## Define a controller
 
@@ -43,44 +45,17 @@ impl ChatController {
 }
 ```
 
-## Reading Query Parameters
-
-The `socket.query::<T>()` method deserializes query parameters from the connection URL:
-
-```rust
-#[on("connection")]
-async fn on_connect(&self, socket: SocketContext) {
-    let query: Option<MyQuery> = socket.query().unwrap();
-}
-```
-
 ## Supported events
 
 ### Special events
 
-- `#[on("connection")]`
-- `#[on("disconnection")]`
-- `#[on("fallback")]`
+- `#[on("connection")]`: Runs when a client connects to the controller's namespace.
+- `#[on("disconnection")]`: Runs when a client disconnects from the controller's namespace.
+- `#[on("fallback")]`: Runs when an event has no handler defined in the controller.
 
 ### Custom events
 
-- `#[on("message")]`
-- `#[on("chat-message")]`
-- `#[on("room:join")]`
-
-## Register in a module
-
-```rust
-use sword::prelude::*;
-
-pub struct ChatModule;
-
-impl Module for ChatModule {
-    fn register_controllers(controllers: &ControllerRegistry) {
-        controllers.register::<ChatController>();
-    }
-}
-```
+You can define custom events using the `#[on("event_name")]` attribute, where `event_name` is the name of the event you want to handle.
 
 ## See also
 

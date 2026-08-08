@@ -13,9 +13,10 @@ keywords:
         "conexiones base de datos",
     ]
 ---
+
 # Definición y Registro de `Providers`
 
-Un `Provider` es un tipo de estructura `Injectable` que debe ser instanciada y registrada manualmente en el contenedor de dependencias.
+Un `Provider` es un tipo de estructura inyectable que debe ser instanciada y registrada manualmente en el contenedor de dependencias.
 
 Este tipo de estructura es responsable de proporcionar lógica de conexión a servicios externos, como bases de datos o APIs.
 
