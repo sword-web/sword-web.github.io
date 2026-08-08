@@ -3,6 +3,7 @@ title: "La función y macro `main`"
 description: "Como sabrás, en Rust la ejecución de un programa comienza en la función main."
 outline: [2, 3]
 ---
+
 # La función y macro `main`
 
 Como sabrás, en Rust la ejecución de un programa comienza en la función `main`.

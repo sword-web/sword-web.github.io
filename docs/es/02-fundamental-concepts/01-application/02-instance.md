@@ -11,6 +11,7 @@ keywords:
         "application configuration",
     ]
 ---
+
 # La estructura `Application`
 
 Una vez que hayas construido una instancia de `Application` utilizando el patrón builder, puedes ejecutarla con el método `run()`:

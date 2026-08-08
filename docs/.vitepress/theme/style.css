@@ -495,11 +495,13 @@ div[class*="language-"] .copy:hover {
  * -------------------------------------------------------------------------- */
 
 .vp-doc table {
-    border-radius: var(--sw-radius-md);
+    display: table;
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
     border: 1px solid var(--vp-c-divider);
+    border-radius: var(--sw-radius-md);
     overflow: hidden;
-    display: block;
-    border-collapse: collapse;
 }
 
 .vp-doc th {

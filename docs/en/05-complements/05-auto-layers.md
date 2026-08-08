@@ -17,7 +17,7 @@ keywords:
 
 # Auto-registered Layers & Services
 
-Sword can automatically register common Tower layers and services through configuration alone — no `.layer(...)` or `.nest_service(...)` calls needed.
+Sword can automatically register common Tower layers and services through configuration alone, via `toml`.
 
 ## Compression
 

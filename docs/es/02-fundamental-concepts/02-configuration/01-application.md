@@ -8,7 +8,7 @@ outline: [2, 3]
 
 Sword utiliza `thisconfig` para cargar uno o múltiples archivos TOML.
 
-Por defecto, `ApplicationBuilder` carga `config/config.toml` durante la inicialización. Si el archivo no existe o contiene TOML inválido, la aplicación falla durante la construcción.
+Por defecto el patrón builder carga `config/config.toml` durante la inicialización. Si el archivo no existe o contiene TOML inválido, la aplicación falla durante la construcción.
 
 Si necesitas otra ruta, puedes construir la aplicación con:
 
@@ -42,7 +42,7 @@ Como habrás visto en la sección de [Tipos de aplicación](/es/fundamental-conc
 
 ### Configuración `[web]`
 
-Esta configuración aplica a aplicaciones web y sus extensiones, como `socketio`.
+Esta configuración aplica a aplicaciones `web` y `socketio`.
 
 | Key               | Tipo                           | Default     | Descripción                                                               |
 | ----------------- | ------------------------------ | ----------- | ------------------------------------------------------------------------- |
@@ -67,7 +67,7 @@ request-timeout = { enabled = true, timeout = "30s" }
 
 ### Configuración `[socketio]`
 
-En Sword, `socketio` es una extensión de aplicación web. Por lo tanto, al usarla, debes configurar la aplicación como web, y luego agregar la sección propia para configurar el servidor Socket.IO.
+En Sword, `socketio` depende de la feature `web`. Por lo tanto, al usarla, debes configurar la aplicación como web, y luego agregar la sección propia para configurar el servidor Socket.IO.
 
 | Key                   | Tipo                    | Default                    | Descripción                                   |
 | --------------------- | ----------------------- | -------------------------- | --------------------------------------------- |

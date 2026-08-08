@@ -1,11 +1,11 @@
 ---
-title: "The `ApplicationBuilder` struct"
-description: "Sword uses a **Builder** pattern to construct web applications."
+title: "Building an Application"
+description: "Sword uses a **Builder** pattern to construct applications."
 outline: [2, 3]
 ---
-# The `ApplicationBuilder` struct
+# Building an Application
 
-Sword uses a **Builder** pattern to construct web applications. This pattern is implemented in the `ApplicationBuilder` struct, which allows you to configure various aspects of your application in a fluid way before finally building the `Application` instance.
+Sword uses a **Builder** pattern to construct web applications. This pattern is implemented in the `ApplicationBuilder` struct, which allows configuring various aspects of your application in a fluid way before finally building the `Application` instance.
 
 ## Application Construction
 
@@ -31,7 +31,7 @@ The struct has key fields and methods that allow you to customize your applicati
 
 #### `config` Attribute
 
-A public attribute that allows access to the application configuration loaded from the configuration file.
+A public attribute that allows access to the application configuration loaded from the configuration file. For more details on the configuration, check the [Configuration](../configuration/application) section.
 
 <hr/>
 

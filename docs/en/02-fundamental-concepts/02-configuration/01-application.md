@@ -7,7 +7,7 @@ outline: [2, 3]
 
 Sword uses `thisconfig` to load one or more TOML files.
 
-By default, `ApplicationBuilder` loads `config/config.toml` during initialization. If the file is missing or contains invalid TOML, application build fails.
+By default, the builder pattern loads `config/config.toml` during initialization. If the file is missing or contains invalid TOML, application build fails.
 
 If you need a different path, you can build the application with:
 
@@ -41,7 +41,7 @@ As shown in [Application Types](/en/fundamental-concepts/application/application
 
 ### `[web]` configuration
 
-This applies to web applications and web extensions such as `socketio`.
+This configuration applies to `web` and `socketio`.
 
 | Key               | Type                           | Default     | Description                                                             |
 | ----------------- | ------------------------------ | ----------- | ----------------------------------------------------------------------- |
@@ -66,7 +66,7 @@ request-timeout = { enabled = true, timeout = "30s" }
 
 ### `[socketio]` configuration
 
-In Sword, `socketio` is a web extension. So when you use it, you configure the web runtime first and then add the dedicated Socket.IO section.
+In Sword, `socketio` depends on the `web` feature. So when you use it, you configure the web runtime first and then add the dedicated Socket.IO section.
 
 | Key                   | Type                    | Default                    | Description                                   |
 | --------------------- | ----------------------- | -------------------------- | --------------------------------------------- |

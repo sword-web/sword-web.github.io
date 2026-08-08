@@ -7,7 +7,7 @@ outline: [2, 3]
 
 Sword distinguishes between two types of applications to suit your needs.
 
-## Web App
+## Web Application
 
 The Web App is based on Axum and is built using these feature flags:
 
@@ -16,28 +16,25 @@ The Web App is based on Axum and is built using these feature flags:
 
 You can choose one or both, depending on whether you want to build a traditional web application or a real-time application with Socket.IO.
 
-## gRPC App
+:::info
+Since `socketioxide` is a complement of `axum`, the `web` feature flag is automatically enabled when `socketio` is enabled.
+:::
 
-The gRPC App corresponds to:
+### Complements
+
+A web application can be complemented with these feature flags:
+
+- `multipart`: Enables support for `multipart/form-data` in HTTP controllers.
+- `validation-validator`: Enables validation of input data in web and socketio controllers.
+
+## gRPC Application
+
+The gRPC application is based on tonic and is built using these feature flags:
 
 - `grpc`: Enables gRPC controllers based on `tonic`. Requires importing `sword::grpc::*`.
 
-Sword uses `tonic` as its gRPC runtime and integrates:
+### Complements
 
-- Module-based controller registration.
-- Async interceptors (`OnRequest`, `OnRequestWithConfig`).
-- Health service (`grpc.health.v1.Health`) enabled by default.
-- Optional reflection via `enable-tonic-reflection`.
-- Message limits via `[grpc.body-limit]`.
+A gRPC application can be complemented with these feature flags:
 
-## Complementary Feature Flags
-
-The following flags do not define an application type but provide additional functionality:
-
-- `multipart`
-- `validation-validator`
-- `hot-reload`
-
-## Configuration
-
-The [Application Configuration](/en/fundamental-concepts/configuration/application) page documents the `[application]` section for both runtimes (Web and gRPC).
+- `grpc-reflection` (Optional): Enables gRPC reflection. (Enable gRPC service introspection for clients like grpcurl).

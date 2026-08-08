@@ -6,7 +6,7 @@ outline: [2, 3]
 
 # Configuración de Tracing
 
-Sword puede configurar un subscriber global de `tracing` para capturar eventos de log en toda la aplicación.
+Sword puede configurar un subscriber global de `tracing` para capturar trazas en toda la aplicación.
 
 La configuración se carga desde la sección `[tracing]` del archivo TOML.
 

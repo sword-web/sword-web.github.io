@@ -3,11 +3,12 @@ title: "Tipos de aplicación"
 description: "Sword distingue dos tipos de aplicación que se pueden ajustar a tus necesidades."
 outline: [2, 3]
 ---
+
 # Tipos de aplicación
 
 Sword distingue dos tipos de aplicación que se pueden ajustar a tus necesidades.
 
-## Web app
+## Aplicación web
 
 La web app se basa en axum y se construye a partir de estas feature flags:
 
@@ -16,28 +17,25 @@ La web app se basa en axum y se construye a partir de estas feature flags:
 
 Puedes elegir una o ambas, dependiendo de si quieres construir una aplicación web tradicional o una aplicación en tiempo real con Socket.IO.
 
-## gRPC app
+:::info
+Dado que `socketioxide` es un complemento de `axum`, la feature flag `web` se habilita automáticamente al habilitar `socketio`.
+:::
 
-La grpc app corresponde a:
+### Complementos
+
+Una aplicación web puede ser complementada con estas feature flags:
+
+- `multipart`: Habilita soporte para `multipart/form-data` en controladores HTTP.
+- `validation-validator`: Habilita validación de datos de entrada en controladores web y socketio.
+
+## Aplicación gRPC
+
+La aplicación gRPC se basa en tonic y se construye a partir de estas feature flags:
 
 - `grpc`: Habilita controladores gRPC basados en `tonic`. Requiere importar `sword::grpc::*`.
 
-Sword usa `tonic` como runtime gRPC e integra:
+### Complementos
 
-- registro de controladores por módulos,
-- interceptores async (`OnRequest`, `OnRequestWithConfig`),
-- health service (`grpc.health.v1.Health`) habilitado por defecto,
-- reflection opcional con `enable-tonic-reflection`,
-- límites de mensaje via `[grpc.body-limit]`.
+Una aplicación gRPC puede ser complementada con estas feature flags:
 
-## Feature flags complementarias
-
-Estas flags no definen un tipo de aplicación:
-
-- `multipart`
-- `validation-validator`
-- `hot-reload`
-
-## Configuración
-
-La página [Configuración de la Aplicación](/es/fundamental-concepts/configuration/application) documenta la sección `[application]` para ambos runtimes (web y gRPC).
+- `grpc-reflection` (Opcional): Habilita la reflexión gRPC. (Habilitar introspección de servicios gRPC para clientes como grpcurl).

@@ -1,11 +1,12 @@
 ---
-title: "La estructura `ApplicationBuilder`"
-description: "Sword usa un patrón **Builder** para construir aplicaciones web."
+title: "Construyendo una aplicación"
+description: "Sword usa un patrón **Builder** para construir aplicaciones."
 outline: [2, 3]
 ---
-# La estructura `ApplicationBuilder`
 
-Sword usa un patrón **Builder** para construir aplicaciones web. Este patrón se implementa en la estructura `ApplicationBuilder`, que te permite configurar varios aspectos de tu aplicación de manera fluida antes de construir finalmente la instancia de `Application`.
+# Contruyendo una aplicación
+
+Sword usa un patrón **Builder** para construir aplicaciones web. Este patrón se implementa en la estructura `ApplicationBuilder`, que permite configurar varios aspectos de tu aplicación de manera fluida antes de construir finalmente la instancia de `Application`.
 
 ## Construcción de la Aplicación
 
@@ -31,7 +32,7 @@ La estructura tiene campos y metodos clave que te permiten personalizar tu aplic
 
 #### Atributo `config`
 
-Atributo público que permite acceder a la configuración de la aplicación cargada desde el fichero de configuración.
+Atributo público que permite acceder a la configuración de la aplicación cargada desde el fichero de configuración. Para más detalles sobre la configuración, revisa la sección de [Configuración](../configuration/application)
 
 <hr/>
 

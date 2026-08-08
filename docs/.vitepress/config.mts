@@ -86,24 +86,38 @@ export default defineConfig({
                                 collapsed: true,
                                 items: [
                                     {
-                                        text: "Application Configuration",
+                                        text: "Base configuration",
                                         link: "/en/fundamental-concepts/configuration/application",
                                     },
                                     {
-                                        text: "Custom Configuration",
+                                        text: "Custom",
                                         link: "/en/fundamental-concepts/configuration/custom",
                                     },
                                     {
-                                        text: "Struct Extraction",
+                                        text: "Extraction",
                                         link: "/en/fundamental-concepts/configuration/extract",
                                     },
+                                ],
+                            },
+                            {
+                                text: "Complements",
+                                collapsed: true,
+                                items: [
                                     {
                                         text: "Tracing & Logging",
-                                        link: "/en/fundamental-concepts/configuration/tracing",
+                                        link: "/en/complements/tracing",
                                     },
                                     {
                                         text: "Auto-registered Layers & Services",
-                                        link: "/en/fundamental-concepts/configuration/auto-layers",
+                                        link: "/en/complements/auto-layers",
+                                    },
+                                    {
+                                        text: "Watch Mode & Hot Reload",
+                                        link: "/en/complements/hot-reload",
+                                    },
+                                    {
+                                        text: "Sword CLI",
+                                        link: "/en/complements/sword-cli",
                                     },
                                 ],
                             },
@@ -268,19 +282,6 @@ export default defineConfig({
                             },
                         ],
                     },
-                    {
-                        text: "Tooling",
-                        items: [
-                            {
-                                text: "Watch Mode & Hot Reload",
-                                link: "/en/tooling/hot-reload",
-                            },
-                            {
-                                text: "Sword CLI",
-                                link: "/en/tooling/sword-cli",
-                            },
-                        ],
-                    },
                 ],
             },
         },
@@ -342,24 +343,38 @@ export default defineConfig({
                                 collapsed: true,
                                 items: [
                                     {
-                                        text: "Configuración de Aplicación",
+                                        text: "Configuración base",
                                         link: "/es/fundamental-concepts/configuration/application",
                                     },
                                     {
-                                        text: "Configuración Personalizada",
+                                        text: "Personalizada",
                                         link: "/es/fundamental-concepts/configuration/custom",
                                     },
                                     {
-                                        text: "Extracción de estructuras",
+                                        text: "Extracción",
                                         link: "/es/fundamental-concepts/configuration/extract",
                                     },
+                                ],
+                            },
+                            {
+                                text: "Complementos",
+                                collapsed: true,
+                                items: [
                                     {
                                         text: "Tracing y Logging",
-                                        link: "/es/fundamental-concepts/configuration/tracing",
+                                        link: "/es/complements/tracing",
                                     },
                                     {
-                                        text: "Layers y Servicios Auto-registrados",
-                                        link: "/es/fundamental-concepts/configuration/auto-layers",
+                                        text: "Tower Layers Built-in",
+                                        link: "/es/complements/auto-layers",
+                                    },
+                                    {
+                                        text: "Modo Watch y Hot Reload",
+                                        link: "/es/complements/hot-reload",
+                                    },
+                                    {
+                                        text: "CLI",
+                                        link: "/es/complements/sword-cli",
                                     },
                                 ],
                             },
@@ -521,19 +536,6 @@ export default defineConfig({
                             {
                                 text: "Testing",
                                 link: "/es/practical-guides/testing",
-                            },
-                        ],
-                    },
-                    {
-                        text: "Tooling",
-                        items: [
-                            {
-                                text: "Modo Watch y Hot Reload",
-                                link: "/es/tooling/hot-reload",
-                            },
-                            {
-                                text: "Sword CLI",
-                                link: "/es/tooling/sword-cli",
                             },
                         ],
                     },

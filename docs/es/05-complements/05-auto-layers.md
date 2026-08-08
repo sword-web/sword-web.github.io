@@ -17,9 +17,9 @@ keywords:
 
 # Layers y Servicios Auto-registrados
 
-Sword puede registrar automáticamente layers y servicios comunes de Tower solo con configuración — sin necesidad de llamar a `.layer(...)` o `.nest_service(...)`.
+Sword puede registrar automáticamente layers y servicios comunes de Tower solo con configuración via `toml`.
 
-## Compression
+## Compresión
 
 Habilita compresión de respuestas mediante la sección `[compression]`:
 
@@ -30,12 +30,12 @@ algorithms = ["gzip", "br"]
 
 ### Algoritmos Soportados
 
-| Algoritmo | Nota |
-|---|---|
-| `gzip` | Ampliamente soportado |
-| `br` | Brotli, mejor ratio de compresión |
-| `deflate` | Algoritmo legacy |
-| `zstd` | Algoritmo rápido y moderno |
+| Algoritmo | Nota                              |
+| --------- | --------------------------------- |
+| `gzip`    | Ampliamente soportado             |
+| `br`      | Brotli, mejor ratio de compresión |
+| `deflate` | Algoritmo legacy                  |
+| `zstd`    | Algoritmo rápido y moderno        |
 
 ## CORS
 
@@ -67,13 +67,13 @@ router-path = "/static"
 
 ### Opciones
 
-| Clave | Descripción | Por Defecto |
-|---|---|---|
-| `static-dir` | Directorio a servir | `"public"` |
-| `router-path` | Prefijo de ruta URL | `"/static"` |
-| `compression` | Soporte de archivos pre-comprimidos | `true` |
-| `chunk-size` | Tamaño de chunk en bytes | `65536` |
-| `not-found` | Ruta 404 personalizada | — |
+| Clave         | Descripción                         | Por Defecto |
+| ------------- | ----------------------------------- | ----------- |
+| `static-dir`  | Directorio a servir                 | `"public"`  |
+| `router-path` | Prefijo de ruta URL                 | `"/static"` |
+| `compression` | Soporte de archivos pre-comprimidos | `true`      |
+| `chunk-size`  | Tamaño de chunk en bytes            | `65536`     |
+| `not-found`   | Ruta 404 personalizada              | —           |
 
 ## Cómo Funciona
 

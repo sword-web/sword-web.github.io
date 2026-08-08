@@ -5,7 +5,7 @@ outline: [2, 3]
 ---
 # Tracing Configuration
 
-Sword can configure a global `tracing` subscriber to capture log events across the entire application.
+Sword can configure a global `tracing` subscriber to capture traces across the entire application.
 
 Configuration is loaded from the `[tracing]` section in TOML.
 
