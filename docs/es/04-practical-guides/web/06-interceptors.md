@@ -88,7 +88,7 @@ impl ApiController {
 
 ## Layers de Tower
 
-En controladores web, `#[interceptor(...)]` también acepta expresiones. Esto permite aplicar una layer de Tower directamente sobre un controller o sobre una ruta concreta. La expresión no implementa un trait de Sword como `OnRequest`, sino que se aplica directamente como una layer del ecosistema Tower/Axum.
+En controladores web es posible aplicar una layer de Tower directamente sobre un controller o sobre una ruta concreta, esto siempre y cuando sea una expresión que implemente `tower::Layer` o algún derivado compatible.
 
 ### Layer local en una ruta
 

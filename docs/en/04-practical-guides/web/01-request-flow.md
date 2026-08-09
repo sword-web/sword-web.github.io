@@ -43,6 +43,79 @@ Focused extractors have advantages, especially when you only want to retrieve th
 
 Sword tries to simplify that experience by grouping access through `Request`.
 
+### Comparison: custom extractor
+
+To see the difference in practice, compare how you would implement a custom extractor that validates the request body in Axum, versus how Sword does it with the built-in validation of `Request`:
+
+::: code-group
+
+```rust [Axum]
+use axum::{
+    extract::{FromRequest, Json},
+    http::StatusCode,
+    response::{IntoResponse, Response},
+};
+use serde::de::DeserializeOwned;
+use validator::Validate;
+
+// Custom extractor that validates the body before using it
+pub struct ValidatedBody<T>(pub T);
+
+impl<T, S> FromRequest<S> for ValidatedBody<T>
+where
+    T: DeserializeOwned + Validate,
+    S: Send + Sync,
+{
+    type Rejection = Response;
+
+    async fn from_request(
+        req: axum::extract::Request,
+        state: &S,
+    ) -> Result<Self, Self::Rejection> {
+        let Json(payload) = Json::<T>::from_request(req, state)
+            .await
+            .map_err(|err| err.into_response())?;
+
+        payload
+            .validate()
+            .map_err(|err| (StatusCode::UNPROCESSABLE_ENTITY, err.to_string()).into_response())?;
+
+        Ok(ValidatedBody(payload))
+    }
+}
+
+// Usage in the handler: the body arrives already validated
+async fn create_user(ValidatedBody(body): ValidatedBody<CreateUserDto>) -> impl IntoResponse {
+    Json(body)
+}
+```
+
+```rust [Sword]
+use sword::prelude::*;
+use sword::web::*;
+
+#[derive(Debug, Deserialize, Validate)]
+struct CreateUserDto {
+    #[validate(email(message = "Invalid email format"))]
+    pub email: String,
+}
+
+#[controller(kind = Controller::Web, path = "/users")]
+struct UsersController;
+
+impl UsersController {
+    #[post("/")]
+    async fn create(&self, req: Request) -> WebResult {
+        let data = req.validated_body::<CreateUserDto>()?;
+        println!("Creating user with data: {data:?}");
+
+        Ok(JsonResponse::Created().message("User created"))
+    }
+}
+```
+
+:::
+
 ## Extending `Request`
 
 Since `Request` is the central access point for the request, you can also extend it with your own traits to add application-specific helpers.

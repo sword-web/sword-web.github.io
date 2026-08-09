@@ -43,6 +43,77 @@ Los extractores focalizados tienen ventajas, especialmente cuando quieres obtene
 
 Sword intenta simplificar esa experiencia agrupando el acceso mediante `Request`.
 
+::: details Comparación de extractores en Axum y Sword
+
+::: code-group
+
+```rust [Axum]
+use axum::{
+    extract::{FromRequest, Json},
+    http::StatusCode,
+    response::{IntoResponse, Response},
+};
+use serde::de::DeserializeOwned;
+use validator::Validate;
+
+// Extractor personalizado que valida el body antes de usarlo
+pub struct ValidatedBody<T>(pub T);
+
+impl<T, S> FromRequest<S> for ValidatedBody<T>
+where
+    T: DeserializeOwned + Validate,
+    S: Send + Sync,
+{
+    type Rejection = Response;
+
+    async fn from_request(
+        req: axum::extract::Request,
+        state: &S,
+    ) -> Result<Self, Self::Rejection> {
+        let Json(payload) = Json::<T>::from_request(req, state)
+            .await
+            .map_err(|err| err.into_response())?;
+
+        payload
+            .validate()
+            .map_err(|err| (StatusCode::UNPROCESSABLE_ENTITY, err.to_string()).into_response())?;
+
+        Ok(ValidatedBody(payload))
+    }
+}
+
+// Uso en el handler: el body llega ya validado
+async fn create_user(ValidatedBody(body): ValidatedBody<CreateUserDto>) -> impl IntoResponse {
+    Json(body)
+}
+```
+
+```rust [Sword]
+use sword::prelude::*;
+use sword::web::*;
+
+#[derive(Debug, Deserialize, Validate)]
+struct CreateUserDto {
+    #[validate(email(message = "Invalid email format"))]
+    pub email: String,
+}
+
+#[controller(kind = Controller::Web, path = "/users")]
+struct UsersController;
+
+impl UsersController {
+    #[post("/")]
+    async fn create(&self, req: Request) -> WebResult {
+        let data = req.validated_body::<CreateUserDto>()?;
+        println!("Creating user with data: {data:?}");
+
+        Ok(JsonResponse::Created().message("User created"))
+    }
+}
+```
+
+:::
+
 ## Extender `Request`
 
 Como `Request` es el punto central de acceso a la solicitud, también puedes extenderlo con traits propios para añadir helpers específicos de tu aplicación.

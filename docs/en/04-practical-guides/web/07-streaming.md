@@ -57,15 +57,15 @@ impl OnRequestStreamWithConfig<&'static str> for StreamConfigInterceptor {
 }
 ```
 
-To apply either of these interceptors to a route, use the `#[interceptor(...)]` attribute directly on the route.
+:::info Important Note on `StreamRequest`
 
-#### Important Note on `StreamRequest`
+Routes using `StreamRequest` cannot be combined with Sword interceptors defined at the controller level. In that case, apply the interceptor directly to the route.
 
-Routes using `StreamRequest` cannot be combined with Sword interceptors defined at the controller level. In that case, apply the interceptor directly to the route. See [Interceptors in Web Controllers](./interceptors) for more details.
+:::
 
 ## Server-Sent Events (SSE)
 
-Server-Sent Events (SSE) is a server push technology that lets a client receive automatic updates from the server over an HTTP connection. Unlike `StreamRequest`, which covers inbound streaming, SSE works in the opposite direction: the server sends data to the client incrementally over the open connection.
+Server-Sent Events (SSE) is a server push technology that lets a client receive automatic updates from the server over an HTTP connection.
 
 In Sword it is declared with the `#[sse]` attribute. The handler returns an `Sse` wrapping a stream of events, and the route is served over `GET` with a `text/event-stream` content type.
 
@@ -97,8 +97,14 @@ impl SseController {
 }
 ```
 
-The stream is built with the `stream!` macro: each `yield` produces an event that is sent to the client. `Event::default()` creates an event, `.event(name)` defines its type and `.data(value)` its content. The `Sse<impl EventStream + use<>>` type avoids having to name the concrete stream type.
+The stream is built with the `stream!` macro: each `yield` produces an event that is sent to the client. `Event::default()` creates an event, `.event(name)` defines its type and `.data(value)` its content.
+
+The return type **MUST** be `Sse<impl EventStream + use<>>`, which avoids having to name the concrete stream type.
 
 On long-lived connections, `.keep_alive(KeepAlive::default())` keeps the connection alive by sending periodic comments.
 
-Note: SSE connections are long-lived. If `request-timeout` is enabled in the configuration, the global timeout layer will terminate the stream.
+:::warning Note on `request-timeout`
+
+SSE connections are long-lived. If `request-timeout` is enabled in the configuration, the global timeout layer will terminate the stream.
+
+:::
