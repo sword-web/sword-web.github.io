@@ -16,7 +16,7 @@ keywords:
 layout: home
 
 hero:
-    text: "Server Application Framework"
+    text: "Server-side Application\nFramework"
     tagline: Progressive, modular, and opinionated
     image:
         light:

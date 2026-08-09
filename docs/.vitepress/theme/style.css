@@ -266,6 +266,20 @@
 
 .VPHero .text {
     font-family: var(--vp-font-family-heading);
+    font-size: 38px;
+    line-height: 1.15;
+}
+
+@media (min-width: 640px) {
+    .VPHero .text {
+        font-size: 46px;
+    }
+}
+
+@media (min-width: 960px) {
+    .VPHero .text {
+        font-size: 50px;
+    }
 }
 
 .VPHero .tagline {
