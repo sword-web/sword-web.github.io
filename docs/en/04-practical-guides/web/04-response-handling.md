@@ -136,11 +136,11 @@ JsonResponse::BadRequest()
 
 :::
 
-## Automatic errors from `Request`
+### Automatic errors from `Request`
 
 Many `Request` methods return a `RequestError`; if you use `?` in the controller method, the error will be automatically converted into a `JsonResponse` with the corresponding status code.
 
-### Example
+#### Example
 
 ::: code-group
 
@@ -176,13 +176,13 @@ async fn create_user(&self, req: Request) -> WebResult {
 
 :::
 
-## Automatic response conversion with `WebResult<T>`
+### Automatic response conversion with `WebResult<T>`
 
 Route macros (`#[get]`, `#[post]`, etc.) detect the generic type `T` of `WebResult<T>` and wrap it automatically in a `JsonResponse`.
 
 The status code is chosen according to the route's HTTP method: `POST` responds with `201 Created`, while the rest of the methods respond with `200 OK`.
 
-### GET example (200)
+#### GET example (200)
 
 ::: code-group
 
@@ -219,7 +219,7 @@ async fn get_user(&self, req: Request) -> WebResult<User> {
 
 In this case, the value of `Ok(...)` is automatically placed in `data`. If you don't want to return data, you can use `()` and the response will only carry the status code and its message.
 
-### POST example (201)
+#### POST example (201)
 
 ::: code-group
 
@@ -248,3 +248,69 @@ async fn create_user(&self) -> WebResult<CreateUserResponse> {
 ```
 
 :::
+
+## `File` — downloads and inline content
+
+`JsonResponse` covers JSON responses, but sometimes you need to return files. For that, Sword exposes `File`, a builder that constructs download or inline display responses depending on the `ContentDisposition` you use. By default, `File` behaves as a download (`ContentDisposition::Attachment`) with a `Content-Type` of `application/octet-stream`.
+
+A typical download endpoint looks like this:
+
+```rust
+use sword::prelude::*;
+
+#[get("/reports/{name}")]
+async fn download_report(&self) -> File {
+    let data = std::fs::read("report.pdf").unwrap();
+
+    File::new()
+        .bytes(&data)
+        .content_type("application/pdf")
+        .filename("report.pdf")
+        .attachment()
+}
+```
+
+The `bytes()` method takes the file content, `content_type()` sets its `Content-Type`, and `filename()` the name used in the `Content-Disposition` header.
+
+If instead of downloading you want the browser to display the file directly (for example, a PDF or an image), use `inline()`:
+
+```rust
+File::new()
+    .bytes(&data)
+    .content_type("image/png")
+    .filename("logo.png")
+    .inline()
+```
+
+You can also add custom headers with `header(...)`. And since `File` implements `IntoResponse`, you can return it directly or inside a `WebResult<File>`.
+
+## `Redirect` — HTTP redirects
+
+When an endpoint needs to redirect to another URL, Sword exposes `Redirect`. Each constructor covers one of the most common 3xx codes:
+
+- `Redirect::permanent(url)` — `301 Moved Permanently`
+- `Redirect::found(url)` — `302 Found`
+- `Redirect::see_other(url)` — `303 See Other`
+- `Redirect::temporary(url)` — `307 Temporary Redirect`
+- `Redirect::permanent_redirect(url)` — `308 Permanent Redirect`
+- `Redirect::status(code, url)` — a custom code
+
+For example, after a successful login you can redirect with `see_other`, which forces a `GET` request to the new location:
+
+```rust
+use sword::prelude::*;
+
+#[post("/login")]
+async fn login(&self) -> Redirect {
+    Redirect::see_other("/dashboard")
+}
+```
+
+The redirect adds the `Location` header with the destination URL and the corresponding status code. You can add extra headers with `header(...)`:
+
+```rust
+Redirect::temporary("/maintenance")
+    .header("X-Redirect-Reason", "maintenance")
+```
+
+Like `File`, `Redirect` implements `IntoResponse`, so it can also be returned inside a `WebResult<Redirect>`.

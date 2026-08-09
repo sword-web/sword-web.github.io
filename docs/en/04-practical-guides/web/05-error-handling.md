@@ -1,99 +1,142 @@
 ---
 title: "Error Handling"
-description: "Many Request methods return Result because extraction and deserialization can fail."
+description: "Many Request methods return Result because extraction or deserialization can fail."
 outline: [2, 3]
 ---
-# Error Handling in `Request`
 
-Many `Request` methods return `Result` because extraction and deserialization can fail.
+# Error Handling in a Web Application
 
-Common examples:
+Usually the methods of each controller return HTTP errors; however, services, repositories, and other components tend to return domain errors specific to a module.
 
-- `req.param::<T>(...)`
-- `req.body::<T>()`
-- `req.query::<T>()`
+That is why Sword provides `HttpError`, a macro for error enums. This macro generates the corresponding conversions of each error to `JsonResponse` based on the attributes defined on each variant.
 
-## Automatic error conversion
-
-When a handler returns `WebResult`, Sword automatically converts many `RequestError` values into `JsonResponse` when you propagate with `?`.
-
-## Structured handling with `#[derive(HttpError)]`
-
-`HttpError` is a derive macro for HTTP error enums. It generates:
-
-- `From<Self> for JsonResponse`
-- `IntoResponse`
-
-This lets you return domain errors directly from web handlers.
-
-## Supported attributes
-
-According to the macro rustdoc:
-
-- `#[http_error(...)]`: enum-level defaults.
-- `#[http(...)]`: per-variant override.
-
-Supported keys:
-
-- `code = <u16>`
-- `message = "text"`
-- `message = field_name`
-- `error = field_name` (named-field variants only)
-- `errors = field_name` (named-field variants only)
-- `transparent` (variant-only, delegates to another `HttpError` type)
-- `tracing = <level>` in `http_error/http`
-- `#[tracing(level)]` as backward-compatible shorthand
-
-Valid tracing levels: `trace`, `debug`, `info`, `warn`, `error`.
-
-## Message Interpolation
-
-In `#[http(message = "...")]` you can reference variant fields with `{field_name}` syntax. The macro generates `format!(...)` automatically:
+## Defining Domain Errors
 
 ```rust
-#[derive(Debug, Error, HttpError)]
-pub enum AppError {
-    #[http(code = 409, message = "Conflict on {field}: {value}")]
-    UserConflictError {
-        field: String,
-        value: String,
-    },
-}
-// Generates: JsonResponse::status(409).message(format!("Conflict on {}: {}", field, value))
-```
-
-The compiler validates that the referenced fields exist on the variant. This feature is not supported on tuple or unit variants.
-
-## Full example
-
-```rust
-use serde_json::Value;
 use sword::prelude::*;
 use sword::web::*;
 use thiserror::Error;
 
 #[derive(Debug, Error, HttpError)]
-#[http_error(code = 500, tracing = error, message = "Internal server error")]
-pub enum ApiError {
-    #[error("Not found")]
-    #[http(code = 404, message = "Resource missing", tracing = info)]
+pub enum UserError {
+    #[error("User not found")]
+    #[http(code = 404, message = "User not found")]
     NotFound,
 
-    #[error("Conflict: {field}")]
-    #[http(code = 409, message = client_message, error = detail)]
-    Conflict {
-        client_message: String,
-        field: String,
-        detail: Value,
-    },
+    #[error("User already exists")]
+    #[http(code = 409, message = "User already exists")]
+    AlreadyExists,
+}
+```
 
+As you've seen, it is necessary to implement `thiserror::Error` for the `HttpError` macro to work correctly. This lets the error be propagated and transformed more easily between different variants.
+
+## Available Attributes
+
+- `code`: HTTP status code `u16` to return. Required.
+- `message`: Message to return in the response. It can be a literal or a variant field.
+- `error` and `errors`: Variant field that will be serialized and returned in the response. Only for variants with named fields.
+- `transparent`: only on variants without fields, delegates to another `HttpError` type.
+
+## Tracing
+
+Another interesting aspect of `HttpError` is that it lets you enable `tracing` for each variant through the `#[tracing(level)]` attribute. This generates structured logs with the error information and the variant fields.
+
+Valid levels: `trace`, `debug`, `info`, `warn`, `error`.
+
+For example, for `UserError::Conflict` with `#[tracing(error)]`:
+
+```rust
+#[error("Conflict on {field}: {value}")]
+#[http(code = 409, message = "Conflict on {field}: {value}")]
+#[tracing(error)]
+Conflict {
+    field: String,
+    value: String,
+},
+```
+
+The console output would look like this:
+
+```text
+ERROR HTTP error response error="Conflict on username: Alice" error_type="Conflict" status_code=409 field="username" value="Alice"
+```
+
+## Message Interpolation
+
+In the `message` attribute you can reference variant fields with `{field}` syntax. For example, in `UserError`:
+
+```rust
+#[derive(Debug, Error, HttpError)]
+pub enum UserError {
+    // ...
+
+    #[error("Conflict on {field}: {value}")]
+    #[http(code = 409, message = "Conflict on {field}: {value}")]
+    Conflict {
+        field: String,
+        value: String,
+    },
+}
+```
+
+The compiler validates that the referenced fields exist on the variant. Not supported on tuple or unit variants.
+
+## Complete Example
+
+::: code-group
+
+```rust [shared/errors.rs]
+use crate::auth::AuthError;
+use crate::users::UserError;
+
+use sword::prelude::*;
+use thiserror::Error;
+
+#[derive(Debug, Error, HttpError)]
+pub enum AppError {
     #[error("Auth error: {0}")]
     #[http(transparent)]
     Auth(#[from] AuthError),
+
+    #[error("User error: {0}")]
+    #[http(transparent)]
+    User(#[from] UserError),
+
+    #[error("Internal server error")]
+    #[http(code = 500, message = "Internal server error")]
+    Internal,
 }
+```
+
+```rust [users/errors.rs]
+use sword::prelude::*;
+use thiserror::Error;
 
 #[derive(Debug, Error, HttpError)]
-#[http_error(code = 401, message = "Unauthorized")]
+pub enum UserError {
+    #[error("User not found")]
+    #[http(code = 404, message = "User not found")]
+    NotFound,
+
+    #[error("User already exists")]
+    #[http(code = 409, message = "User already exists")]
+    AlreadyExists,
+
+    #[error("Conflict on {field}: {value}")]
+    #[http(code = 409, message = "Conflict on {field}: {value}")]
+    Conflict {
+        field: String,
+        value: String,
+    },
+}
+```
+
+```rust [auth/errors.rs]
+use sword::prelude::*;
+use thiserror::Error;
+
+#[derive(Debug, Error, HttpError)]
 pub enum AuthError {
     #[error("Invalid token")]
     #[http(code = 401, message = "Invalid token")]
@@ -101,20 +144,46 @@ pub enum AuthError {
 }
 ```
 
-## Tracing note
+```jsonc [Responses]
+// AuthError::InvalidToken
+{
+    "code": 401,
+    "message": "Invalid token",
+    "success": false,
+    "timestamp": "2024-06-01T12:00:00Z"
+}
 
-When `tracing` is enabled in the macro, generated code emits structured logs with fields such as:
+// UserError::NotFound
+{
+    "code": 404,
+    "message": "User not found",
+    "success": false,
+    "timestamp": "2024-06-01T12:00:00Z"
+}
 
-- `error`
-- `error_type`
-- `status_code`
-- variant fields when available
+// UserError::AlreadyExists
+{
+    "code": 409,
+    "message": "User already exists",
+    "success": false,
+    "timestamp": "2024-06-01T12:00:00Z"
+}
 
-## When to handle manually
+// UserError::Conflict
+{
+    "code": 409,
+    "message": "Conflict on {field}: {value}",
+    "success": false,
+    "timestamp": "2024-06-01T12:00:00Z"
+}
 
-If you need a fully custom response in a specific case, you can avoid `?` and transform errors manually with `match` or `map_err`.
+// AppError::Internal
+{
+    "code": 500,
+    "message": "Internal server error",
+    "success": false,
+    "timestamp": "2024-06-01T12:00:00Z"
+}
+```
 
-## See also
-
-- [Request Reference](/en/practical-guides/web/request-structure)
-- [Request Handling](/en/practical-guides/web/request-flow)
+:::
