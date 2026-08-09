@@ -46,64 +46,6 @@ impl ApiController {
 }
 ```
 
-### The `OnRequestStream` Trait
-
-When the handler receives a `StreamRequest` instead of a `Request`, the web interceptor must implement `OnRequestStream`.
-
-This case is useful when you don't want to buffer the entire body in memory and need to work with the raw request stream.
-
-```rust
-use sword::prelude::*;
-use sword::web::*;
-
-#[derive(Interceptor)]
-struct StreamTagInterceptor;
-
-impl OnRequestStream for StreamTagInterceptor {
-    async fn on_request(&self, mut req: StreamRequest) -> WebInterceptorResult {
-        req.extensions.insert("stream-ok".to_string());
-        req.next().await
-    }
-}
-```
-
-And you can apply it to a route that receives `StreamRequest`:
-
-```rust
-use axum::body::to_bytes;
-use sword::prelude::*;
-
-#[controller(kind = Controller::Web, path = "/stream")]
-struct StreamController;
-
-impl StreamController {
-    #[post("/echo")]
-    #[interceptor(StreamTagInterceptor)]
-    async fn echo(&self, req: StreamRequest) -> WebResult {
-        let tag = req.extensions.get::<String>().cloned().unwrap_or_default();
-        let body_limit = req.body_limit();
-
-        let body = to_bytes(req.into_body(), body_limit).await.map_err(|_| {
-            JsonResponse::InternalServerError().message("Failed to read stream body")
-        })?;
-
-        Ok(JsonResponse::Ok().data(serde_json::json!({
-            "len": body.len(),
-            "tag": tag,
-        })))
-    }
-}
-```
-
-#### Difference between `Request` and `StreamRequest`
-
-- Use `Request` when you want ergonomic access to the body, query, params, cookies, and extraction helpers.
-- Use `StreamRequest` when you need to work with the body as a stream to avoid loading it entirely into memory.
-
-#### Important Note on `StreamRequest`
-
-Routes using `StreamRequest` cannot be combined with Sword interceptors defined at the controller level. In this case, apply the interceptor directly to the route or use expression-based Tower layers.
-
 ## Interceptors with configuration
 
 ### The `OnRequestWithConfig` Trait
@@ -141,66 +83,6 @@ impl ApiController {
     }
 }
 ```
-
-### The `OnRequestStreamWithConfig` Trait
-
-If the route receives a `StreamRequest`, the configured variant must be implemented with `OnRequestStreamWithConfig<T>`.
-
-```rust
-use sword::prelude::*;
-use sword::web::*;
-
-#[derive(Interceptor)]
-struct StreamConfigInterceptor;
-
-impl OnRequestStreamWithConfig<&'static str> for StreamConfigInterceptor {
-    async fn on_request(
-        &self,
-        config: &'static str,
-        mut req: StreamRequest,
-    ) -> WebInterceptorResult {
-        req.extensions.insert(config.to_string());
-        req.next().await
-    }
-}
-```
-
-Applied to a route with `StreamRequest`:
-
-```rust
-use axum::body::to_bytes;
-use sword::prelude::*;
-
-#[controller(kind = Controller::Web, path = "/stream")]
-struct StreamController;
-
-impl StreamController {
-    #[post("/echo-with-config")]
-    #[interceptor(StreamConfigInterceptor, config = "stream-config")]
-    async fn echo_with_config(&self, req: StreamRequest) -> WebResult {
-        let tag = req.extensions.get::<String>().cloned().unwrap_or_default();
-        let body_limit = req.body_limit();
-
-        let body = to_bytes(req.into_body(), body_limit).await.map_err(|_| {
-            JsonResponse::InternalServerError().message("Failed to read stream body")
-        })?;
-
-        Ok(JsonResponse::Ok().data(serde_json::json!({
-            "len": body.len(),
-            "tag": tag,
-        })))
-    }
-}
-```
-
-#### How to Choose Between `OnRequestWithConfig` and `OnRequestStreamWithConfig`
-
-- If the handler receives `Request`, implement `OnRequestWithConfig<T>`.
-- If the handler receives `StreamRequest`, implement `OnRequestStreamWithConfig<T>`.
-
-#### Important Note on `StreamRequest`
-
-As in the traditional variant, routes using `StreamRequest` cannot be combined with Sword interceptors defined at the controller level. You must apply them directly to the route.
 
 ## Tower layers with `#[interceptor(expr)]`
 
@@ -242,6 +124,10 @@ impl ApiController {
     }
 }
 ```
+
+## Interceptors for `StreamRequest`
+
+If the route receives a `StreamRequest` instead of a `Request`, web interceptors must implement the `OnRequestStream` and `OnRequestStreamWithConfig` traits. See [Streaming](./streaming) for the full reference and examples.
 
 ## Extensions
 
@@ -311,7 +197,3 @@ async fn on_request(&self, mut req: Request) -> WebInterceptorResult
 ```
 
 If you only need to read extensions inside the controller, the request does not need to be mutable.
-
-### `Request` and `StreamRequest`
-
-Both `Request` and `StreamRequest` expose extensions. This lets you reuse the same pattern in streaming routes too.

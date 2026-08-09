@@ -200,6 +200,10 @@ export default defineConfig({
                                         link: "/en/practical-guides/web/interceptors",
                                     },
                                     {
+                                        text: "Streaming",
+                                        link: "/en/practical-guides/web/streaming",
+                                    },
+                                    {
                                         text: "OpenAPI & Swagger UI",
                                         link: "/en/practical-guides/web/openapi",
                                     },
@@ -434,8 +438,12 @@ export default defineConfig({
                                         link: "/es/practical-guides/web/error-handling",
                                     },
                                     {
-                                        text: "Interceptors",
+                                        text: "Interceptores",
                                         link: "/es/practical-guides/web/interceptors",
+                                    },
+                                    {
+                                        text: "Streaming",
+                                        link: "/es/practical-guides/web/streaming",
                                     },
                                     {
                                         text: "OpenAPI y Swagger UI",
