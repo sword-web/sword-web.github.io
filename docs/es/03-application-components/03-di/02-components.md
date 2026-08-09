@@ -1,6 +1,6 @@
 ---
-title: "Definición de Components - Framework Sword"
-description: "Aprende a definir Components en Sword usando la macro #[injectable]. Comprende la resolución de dependencias y patrones de inyección múltiple."
+title: "Definición de Componentes - Framework Sword"
+description: "Aprende a definir componentes en Sword usando la macro #[injectable]. Comprende la resolución de dependencias y patrones de inyección múltiple."
 outline: [2, 3]
 
 keywords:
@@ -14,17 +14,21 @@ keywords:
     ]
 ---
 
-# Definición y Registro de `Components`
+# Definición y Registro de Componentes
 
-Un `Component` es una estructura inyectable que se construye automáticamente basándose en las dependencias ya registradas en el contenedor.
+Un **componente** (`Component`) es una estructura inyectable que se construye automáticamente basándose en las dependencias ya registradas en el contenedor.
 
 Este tipo de estructura es ideal para representar partes modulares de la aplicación que dependen de otros servicios o configuraciones. Por ejemplo, repositorios de datos, servicios de negocio, etc.
 
-## Definir un `Component`
+## Definir un Componente
 
-Para definir un `Component` debes usar el atributo `#[injectable(component)]` en la definición de la estructura.
+Para definir un componente debes usar el atributo `#[injectable]` en la definición de la estructura.
 
-Sin embargo, dado que es más frecuente definir components, el atributo `component` es el valor por defecto de la macro `#[injectable]`.
+:::info Consejo
+La sintaxis `#[injectable(component)]` también es válida, pero no es necesaria. Úsala solo si quieres ser explícito sobre tu intención de definir un componente.
+:::
+
+### Ejemplo
 
 ```rust
 #[injectable]
@@ -51,16 +55,15 @@ impl TaskRepository {
 }
 ```
 
-En este ejemplo, `TaskRepository` no requiere un constructor especifico, ya que, el sistema de inyección de dependencias se encargará de resolver cada campo del `Component` y lo construirá automáticamente.
+En este ejemplo, `TaskRepository` no requiere un constructor específico, ya que el sistema de inyección de dependencias se encargará de resolver cada campo del componente y lo construirá automáticamente.
 
-Probablemente te diste cuenta que `Database` está envuelto en un puntero `Arc`. Esto no es obligatorio, pero puede ser útil para clonar sin mucho costo, de esta forma puedes compartir referencias de un mismo `Component` o `Provider` en diferentes lugares sin generar clones innecesarios.
+Probablemente te diste cuenta que `Database` está envuelto en un puntero `Arc`. Esto no es obligatorio, pero puede ser útil para compartir referencias de un mismo componente o proveedor en diferentes lugares sin generar clones innecesarios.
 
 ### Inyección múltiple
 
-Un `Component` puede depender de múltiples `Provider`, `Component` y estructuras marcadas con el atributo `#[config]`, aunque en el caso de estas últimas no es necesario envolverlas en un puntero `Arc`.
+Un componente puede depender de múltiples proveedores, componentes y estructuras marcadas con el atributo `#[config]`, aunque en el caso de estas últimas no es necesario envolverlas en un puntero `Arc`.
 
 ```rust
-
 #[config(key = "task")]
 #[derive(Clone, Deserialize)]
 pub struct TaskConfig {

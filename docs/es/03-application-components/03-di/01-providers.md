@@ -1,6 +1,6 @@
 ---
-title: "Definición de Providers - Framework Sword"
-description: "Aprende a definir Providers en Sword usando la macro #[injectable(provider)]. Comprende el registro manual y conexiones a servicios externos."
+title: "Definición de Proveedores - Framework Sword"
+description: "Aprende a definir proveedores en Sword usando la macro #[injectable(provider)]. Comprende el registro manual y conexiones a servicios externos."
 outline: [2, 3]
 
 keywords:
@@ -14,15 +14,15 @@ keywords:
     ]
 ---
 
-# Definición y Registro de `Providers`
+# Definición y Registro de Proveedores
 
-Un `Provider` es un tipo de estructura inyectable que debe ser instanciada y registrada manualmente en el contenedor de dependencias.
+Un **proveedor** (`Provider`) es un tipo de estructura inyectable que debe ser instanciado y registrado manualmente en el contenedor de dependencias.
 
 Este tipo de estructura es responsable de proporcionar lógica de conexión a servicios externos, como bases de datos o APIs.
 
-## Definir un `Provider`
+## Definir un Proveedor
 
-Para definir un `Provider` debes usar el atributo `#[injectable(provider)]` en la definición de la estructura.
+Para definir un proveedor debes usar el atributo `#[injectable(provider)]` en la definición de la estructura.
 
 ```rust
 #[injectable(provider)]
@@ -41,21 +41,26 @@ impl Database {
         }
     }
 
-    pub fn get_pool(&self) -> PgPool {
+    pub fn get_pool(&self) -> &PgPool {
         &self.pool
     }
 }
 ```
 
-Luego, puedes registrar una instancea de este `Provider` en el contenedor de dependencias en un módulo o bien de forma global.
+Luego, puedes registrar una instancia de este proveedor en el contenedor de dependencias, ya sea dentro de un módulo o de forma global.
 
-## Registrando un `Provider`
+## Registrando un Proveedor
 
-### Registro en un `Module`
+### Registro en un Módulo
 
 ```rust
+struct SomeModule;
+
 impl Module for SomeModule {
-    async fn register_providers(config: &Config, providers: &ProviderRegistry) {
+    async fn register_providers(
+        config: &Config,
+        providers: &ProviderRegistry
+    ) {
         let db_config = config.expect::<DatabaseConfig>();
         let database = Database::new(db_config)
             .await
@@ -68,7 +73,7 @@ impl Module for SomeModule {
 
 ### Registro Global
 
-Si un `Provider` no pertenece a un módulo o en especifico, o por alguna otra razón quieres mantenerlo separado, puedes registrarlo directamente en el `ApplicationBuilder`.
+Si un proveedor no pertenece a un módulo en específico, o por alguna otra razón quieres mantenerlo separado, puedes registrarlo directamente en el `ApplicationBuilder`.
 
 ```rust
 let db_provider = Database::new(db_conf)

@@ -21,9 +21,13 @@ This type of struct is ideal for representing modular parts of the application t
 
 ## Defining a `Component`
 
-To define a `Component`, use the `#[injectable(component)]` attribute on the struct definition.
+To define a `Component`, use the `#[injectable]` attribute on the struct definition.
 
-However, since defining components is very common, `component` is the default value for the `#[injectable]` macro.
+:::info Tip
+The `#[injectable(component)]` syntax is also valid, but not necessary. Use it only if you want to be explicit about your intention to define a component.
+:::
+
+### Example
 
 ```rust
 #[injectable]

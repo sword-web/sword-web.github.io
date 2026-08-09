@@ -53,8 +53,13 @@ Then, you can register an instance of this `Provider` in the dependency containe
 ### Registration in a `Module`
 
 ```rust
+struct SomeModule;
+
 impl Module for SomeModule {
-    async fn register_providers(config: &Config, providers: &ProviderRegistry) {
+    async fn register_providers(
+        config: &Config,
+        providers: &ProviderRegistry
+    ) {
         let db_config = config.expect::<DatabaseConfig>();
         let database = Database::new(db_config)
             .await

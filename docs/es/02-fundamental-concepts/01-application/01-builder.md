@@ -1,12 +1,12 @@
 ---
 title: "Construyendo una aplicación"
-description: "Sword usa un patrón **Builder** para construir aplicaciones."
+description: "Sword usa un patrón **constructor** para construir aplicaciones."
 outline: [2, 3]
 ---
 
-# Contruyendo una aplicación
+# Construyendo una aplicación
 
-Sword usa un patrón **Builder** para construir aplicaciones web. Este patrón se implementa en la estructura `ApplicationBuilder`, que permite configurar varios aspectos de tu aplicación de manera fluida antes de construir finalmente la instancia de `Application`.
+Sword usa un patrón **constructor** para construir aplicaciones web. Este patrón se implementa en la estructura `ApplicationBuilder`, que permite configurar varios aspectos de tu aplicación de manera fluida antes de construir finalmente la instancia de `Application`.
 
 ## Construcción de la Aplicación
 
@@ -18,7 +18,7 @@ let app = Application::builder()
     .build();
 ```
 
-### ¿Cómo funciona el patrón Builder?
+### ¿Cómo funciona el patrón constructor?
 
 **Application::builder()**: Crea un nuevo `ApplicationBuilder` que inicializa:
 
@@ -28,7 +28,7 @@ let app = Application::builder()
 
 ### Métodos y atributos de la estructura
 
-La estructura tiene campos y metodos clave que te permiten personalizar tu aplicación:
+La estructura tiene campos y métodos clave que te permiten personalizar tu aplicación:
 
 #### Atributo `config`
 
@@ -44,7 +44,7 @@ Método que registra un módulo que implementa el trait `Module`. Los módulos d
 
 - `M`: Un tipo que implementa el trait `Module`.
 
-Learn more about modules in the [Modules](../../application-components/modules) section.
+Aprende más sobre los módulos en la sección [Módulos](../../application-components/modules).
 
 <hr/>
 

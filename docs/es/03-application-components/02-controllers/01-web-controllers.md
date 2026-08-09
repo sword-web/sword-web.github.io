@@ -1,14 +1,14 @@
 ---
 title: "Definición de Controladores Web"
-description: "En Sword un controlador web es una estructura que actúa como un grupo de methods relacionados a una ruta base, y cada método representa un endpoint HTTP específico."
+description: "En Sword un controlador web es una estructura que actúa como un grupo de métodos relacionados a una ruta base, y cada método representa un endpoint HTTP específico."
 outline: [2, 3]
 ---
 
 # Definición de Controladores Web
 
-En Sword un controlador web es una estructura que actúa como un grupo de methods relacionados a una ruta base, y cada método representa un endpoint HTTP específico.
+En Sword un controlador web es una estructura que actúa como un grupo de métodos relacionados a una ruta base, y cada método representa un endpoint HTTP específico.
 
-Estos controladores están basado en los handlers de `axum`, pero añadiendo una capa de integración con el sistema de módulos, inyección de dependencias e interceptors del framework.
+Estos controladores están basados en los handlers de `axum`, pero añadiendo una capa de integración con el sistema de módulos, inyección de dependencias e interceptores del framework.
 
 ## Definir un controlador web
 
@@ -27,7 +27,7 @@ impl UsersController {
 }
 ```
 
-## Acceder a la request
+## Acceder a la solicitud
 
 Puedes recibir `req: Request` como parámetro y extraer params, body, query, headers, cookies y otros datos relacionados con la solicitud HTTP.
 
@@ -48,7 +48,7 @@ impl UsersController {
 }
 ```
 
-Para más detalles sobre extracción, revisa [Manejo de Requests](/es/practical-guides/web/request-flow).
+Para más detalles sobre extracción, revisa [Manejo de Solicitudes](/es/practical-guides/web/request-flow).
 
 ## Métodos HTTP soportados
 

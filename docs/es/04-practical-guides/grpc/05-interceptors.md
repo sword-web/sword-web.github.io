@@ -1,18 +1,18 @@
 ---
 title: "Interceptores en Controladores gRPC"
-description: "Cómo aplicar interceptors a controladores gRPC en Sword: OnRequest y OnRequestWithConfig."
+description: "Cómo aplicar interceptores a controladores gRPC en Sword: OnRequest y OnRequestWithConfig."
 outline: [2, 3]
 ---
 
 # Interceptores en Controladores gRPC
 
-Sword permite aplicar interceptors a controladores gRPC para validar o transformar la metadata de entrada de las llamadas remotas.
+Sword permite aplicar interceptores a controladores gRPC para validar o transformar la metadata de entrada de las llamadas remotas.
 
-## Interceptors tradicionales
+## Interceptores tradicionales
 
 ### El Trait `OnRequest`
 
-En gRPC, `OnRequest` permite interceptar la request antes de que llegue al método del servicio.
+En gRPC, `OnRequest` permite interceptar la solicitud antes de que llegue al método del servicio.
 
 ```rust
 use sword::grpc::*;
@@ -43,7 +43,7 @@ struct UsersController;
 
 En esta variante no existe `next()`: el interceptor valida/transforma metadata de entrada y retorna `Ok(req)` o un `Status` de error.
 
-## Interceptors con configuración
+## Interceptores con configuración
 
 ### El Trait `OnRequestWithConfig`
 

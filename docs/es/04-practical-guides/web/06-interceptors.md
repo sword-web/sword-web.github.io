@@ -1,6 +1,6 @@
 ---
 title: "Interceptores en Controladores Web"
-description: "Cómo aplicar interceptors a controladores web en Sword: tradicionales, con configuración y layers de Tower locales."
+description: "Cómo aplicar interceptores a controladores web en Sword: tradicionales, con configuración y layers de Tower locales."
 outline: [2, 3]
 ---
 
@@ -8,7 +8,7 @@ outline: [2, 3]
 
 Sword permite aplicar interceptores a controladores y rutas web.
 
-Existen tres mecanismos: interceptors tradicionales, interceptors con configuración y layers de Tower.
+Existen tres mecanismos: interceptores tradicionales, interceptores con configuración y layers de Tower.
 
 ## Interceptores tradicionales
 
@@ -48,7 +48,7 @@ impl ApiController {
 }
 ```
 
-## Interceptors con configuración
+## Interceptores con configuración
 
 ### El Trait `OnRequestWithConfig`
 
@@ -88,7 +88,7 @@ impl ApiController {
 
 ## Layers de Tower
 
-En controladores web es posible aplicar una layer de Tower directamente sobre un controller o sobre una ruta concreta, esto siempre y cuando sea una expresión que implemente `tower::Layer` o algún derivado compatible.
+En controladores web es posible aplicar una layer de Tower directamente sobre un controlador o sobre una ruta concreta, esto siempre y cuando sea una expresión que implemente `tower::Layer` o algún derivado compatible.
 
 ### Layer local en una ruta
 
@@ -108,9 +108,9 @@ impl TestController {
 }
 ```
 
-## Interceptor a nivel de controller
+## Interceptor a nivel de controlador
 
-Tambien puedes aplicar cualquier tipo de interceptor a nivel de controller, lo que afectará a todas las rutas definidas en el mismo.
+También puedes aplicar cualquier tipo de interceptor a nivel de controlador, lo que afectará a todas las rutas definidas en el mismo.
 
 ```rust
 use std::time::Duration;

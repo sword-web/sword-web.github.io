@@ -1,6 +1,6 @@
 ---
-title: "Referencia de Request"
-description: "Referencia de la estructura Request en Sword para parámetros, body, query, headers, cookies y metadata HTTP."
+title: "Referencia de `Request`"
+description: "Referencia de la estructura `Request` en Sword para parámetros, body, query, headers, cookies y metadata HTTP."
 outline: false
 ---
 
@@ -16,7 +16,7 @@ pub extensions: Extensions
 
 **Retorna**
 
-- Extensiones de Axum asociadas a la request actual.
+- Extensiones de Axum asociadas a la solicitud actual.
 
 **Cuándo usarlo**
 

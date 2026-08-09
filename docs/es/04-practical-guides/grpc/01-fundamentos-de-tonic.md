@@ -13,7 +13,7 @@ Al compilar tu `.proto`, tonic genera:
 
 - un trait del servicio (por ejemplo `UserGrpcService`),
 - un servidor para registrar el servicio (por ejemplo `UserGrpcServiceServer<T>`),
-- tipos de request/response y enums definidos en el contrato.
+- tipos de solicitud/respuesta y enums definidos en el contrato.
 
 ## ¿Qué implementas en Sword?
 
@@ -46,7 +46,7 @@ Para métodos unary, la forma general es:
 
 Esto permite:
 
-- acceder a metadata de request,
+- acceder a metadata de la solicitud,
 - devolver respuestas tipadas,
 - retornar errores gRPC con `Status`.
 

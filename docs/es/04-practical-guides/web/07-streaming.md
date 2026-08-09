@@ -59,7 +59,7 @@ impl OnRequestStreamWithConfig<&'static str> for StreamConfigInterceptor {
 
 :::info Nota importante sobre `StreamRequest`
 
-Las rutas que usan `StreamRequest` no pueden combinarse con interceptors Sword definidos a nivel de controller. En ese caso, aplica el interceptor directamente sobre la ruta.
+Las rutas que usan `StreamRequest` no pueden combinarse con interceptores Sword definidos a nivel de controlador. En ese caso, aplica el interceptor directamente sobre la ruta.
 
 :::
 
@@ -67,7 +67,7 @@ Las rutas que usan `StreamRequest` no pueden combinarse con interceptors Sword d
 
 Server-Sent Events (SSE) es una tecnología de push del servidor que permite a un cliente recibir actualizaciones automáticas desde el servidor a través de una conexión HTTP.
 
-En Sword se declara con el atributo `#[sse]`. El handler devuelve un `Sse` que envuelve un stream de eventos, y la ruta se sirve por `GET` con content-type `text/event-stream`.
+En Sword se declara con el atributo `#[sse]`. El handler devuelve un `Sse` que envuelve un flujo de eventos, y la ruta se sirve por `GET` con content-type `text/event-stream`.
 
 ```rust
 use async_stream::stream;
@@ -97,14 +97,14 @@ impl SseController {
 }
 ```
 
-El stream se construye con el macro `stream!`: cada `yield` produce un evento que se envía al cliente. `Event::default()` crea un evento, `.event(name)` define su tipo y `.data(value)` su contenido.
+El flujo se construye con el macro `stream!`: cada `yield` produce un evento que se envía al cliente. `Event::default()` crea un evento, `.event(name)` define su tipo y `.data(value)` su contenido.
 
-El tipo de retorno **DEBE** ser `Sse<impl EventStream + use<>>` el cual evita tener que nombrar el tipo concreto del stream.
+El tipo de retorno **DEBE** ser `Sse<impl EventStream + use<>>` el cual evita tener que nombrar el tipo concreto del flujo.
 
 En conexiones de larga duración, `.keep_alive(KeepAlive::default())` mantiene viva la conexión enviando comentarios periódicos.
 
 :::warning Nota sobre `request-timeout`
 
-Las conexiones SSE son long-lived. Si `request-timeout` está habilitado en la configuración, la layer de timeout global terminará el stream.
+Las conexiones SSE son long-lived. Si `request-timeout` está habilitado en la configuración, la layer de timeout global terminará el flujo.
 
 :::

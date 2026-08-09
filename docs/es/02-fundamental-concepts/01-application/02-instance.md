@@ -1,6 +1,6 @@
 ---
-title: "Application Structure - Sword Framework"
-description: "Learn about Sword's Application and ApplicationBuilder structures. Master the Builder pattern for configuring web applications in Rust."
+title: "Estructura de `Application` - Sword Framework"
+description: "Aprende sobre las estructuras `Application` y `ApplicationBuilder` de Sword. Domina el patrón constructor para configurar aplicaciones web en Rust."
 
 keywords:
     [
@@ -14,7 +14,7 @@ keywords:
 
 # La estructura `Application`
 
-Una vez que hayas construido una instancia de `Application` utilizando el patrón builder, puedes ejecutarla con el método `run()`:
+Una vez que hayas construido una instancia de `Application` utilizando el patrón constructor, puedes ejecutarla con el método `run()`:
 
 ```rust
 #[sword::main]
@@ -39,7 +39,7 @@ Atributo público que permite acceder a la configuración de la aplicación carg
 
 #### Método `router()`
 
-Retorna una clon del router (`axum::Router`) interno de la aplicación. Esto es útil si necesitas acceder al enrutador para operaciones avanzadas o para inspeccionar la configuración de rutas.
+Retorna un clon del router (`axum::Router`) interno de la aplicación. Esto es útil si necesitas acceder al enrutador para operaciones avanzadas o para inspeccionar la configuración de rutas.
 
 ::: info
 Solo disponible si has habilitado los features `web` o `socketio` en tu proyecto.

@@ -28,9 +28,9 @@ Es el ejemplo más directo para entender el flujo base de una aplicación REST b
 
 Ejemplo centrado en la integración Socket.IO con Sword, tomando como base el crate `socketioxide`.
 
-### Ejemplo `interceptors`
+### Ejemplo: interceptores
 
-Ejemplo centrado en interceptors aplicados a controladores web y Socket.IO.
+Ejemplo centrado en interceptores aplicados a controladores web y Socket.IO.
 
 ### Ejemplo `grpc`
 

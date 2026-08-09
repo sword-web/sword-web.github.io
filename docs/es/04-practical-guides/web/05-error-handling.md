@@ -1,6 +1,6 @@
 ---
 title: "Manejo de Errores"
-description: "Muchos metodos de Request retornan Result porque la extraccion o deserializacion puede fallar."
+description: "Muchos métodos de `Request` retornan `Result` porque la extracción o deserialización puede fallar."
 outline: [2, 3]
 ---
 

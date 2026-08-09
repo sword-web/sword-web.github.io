@@ -13,7 +13,7 @@ next:
 
 # Módulos en Sword
 
-En Sword, un módulo agrupa piezas relacionadas de una misma capacidad de la aplicación, como controllers, components, providers, dtos e incluso otros módulos. Cada módulo implementa el trait `Module` y registra sus piezas en el contenedor de dependencias.
+En Sword, un módulo agrupa piezas relacionadas de una misma capacidad de la aplicación, como controladores, componentes, proveedores, DTOs e incluso otros módulos. Cada módulo implementa el trait `Module` y registra sus piezas en el contenedor de dependencias.
 
 ## Trait `Module`
 

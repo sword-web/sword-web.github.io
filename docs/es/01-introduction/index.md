@@ -26,7 +26,7 @@ La idea principal de Sword es establecer una estructura de desarrollo basada en 
 
 - Manejo de configuración y variables de entorno via `toml`
 - Formato estandarizado de respuestas HTTP en formato JSON
-- Middlewares esenciales incorporados por defecto (Interceptors)
+- Middlewares esenciales incorporados por defecto (interceptores)
 - Inyección de dependencias (Construcción automática de componentes)
 - Manejo de errores sencillo e idiomatico
 - Soporte para aplicaciones REST y gRPC

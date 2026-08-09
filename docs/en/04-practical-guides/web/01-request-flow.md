@@ -43,9 +43,7 @@ Focused extractors have advantages, especially when you only want to retrieve th
 
 Sword tries to simplify that experience by grouping access through `Request`.
 
-### Comparison: custom extractor
-
-To see the difference in practice, compare how you would implement a custom extractor that validates the request body in Axum, versus how Sword does it with the built-in validation of `Request`:
+::: details Comparison of extractors in Axum and Sword
 
 ::: code-group
 

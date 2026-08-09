@@ -1,6 +1,6 @@
 ---
 title: "Pruebas - Framework Sword"
-description: "Aprende a probar controladores web en Sword usando axum-test y el builder actual de la aplicación."
+description: "Aprende a probar controladores web en Sword usando axum-test y el constructor actual de la aplicación."
 outline: [2, 3]
 
 keywords: ["testing", "axum-test", "sword", "pruebas web", "rust"]
@@ -81,7 +81,7 @@ Este enfoque es útil para:
 
 - probar rutas HTTP completas
 - verificar el payload JSON de respuesta
-- validar interceptors, layers e integración HTTP del framework
+- validar interceptores, layers e integración HTTP del framework
 - comprobar códigos de estado y estructura estándar de respuesta
 
 ## `JsonResponseBody`

@@ -106,7 +106,7 @@ impl TestController {
 }
 ```
 
-### Local layer at the controller level
+## Local layer at the controller level
 
 ```rust
 use std::time::Duration;
@@ -124,76 +124,3 @@ impl ApiController {
     }
 }
 ```
-
-## Interceptors for `StreamRequest`
-
-If the route receives a `StreamRequest` instead of a `Request`, web interceptors must implement the `OnRequestStream` and `OnRequestStreamWithConfig` traits. See [Streaming](./streaming) for the full reference and examples.
-
-## Extensions
-
-Extensions, as in Axum, let you store and share data throughout the lifecycle of an HTTP request. In Sword they are especially useful for sharing information between web interceptors and controllers.
-
-### Inserting data from an interceptor
-
-A web interceptor can insert values into `req.extensions` before delegating execution to the next step of the pipeline.
-
-```rust
-use sword::prelude::*;
-use sword::web::*;
-use uuid::Uuid;
-
-#[derive(Interceptor)]
-struct RequestIdInterceptor;
-
-impl OnRequest for RequestIdInterceptor {
-    async fn on_request(&self, mut req: Request) -> WebInterceptorResult {
-        let request_id = Uuid::new_v4();
-
-        req.extensions.insert::<Uuid>(request_id);
-
-        req.next().await
-    }
-}
-```
-
-### Reading extensions from a controller
-
-Then, a web controller can read that value from the same request:
-
-```rust
-use sword::prelude::*;
-use sword::web::*;
-use uuid::Uuid;
-
-#[controller(kind = Controller::Web, path = "/api")]
-#[interceptor(RequestIdInterceptor)]
-struct ApiController;
-
-impl ApiController {
-    #[get("/data")]
-    async fn get_data(&self, req: Request) -> JsonResponse {
-        let request_id = req.extensions.get::<Uuid>().cloned();
-
-        JsonResponse::Ok().data(serde_json::json!({
-            "request_id": request_id,
-        }))
-    }
-}
-```
-
-This pattern is useful for sharing:
-
-- request ids
-- authentication information
-- flags computed by interceptors or layers
-- traceability context
-
-### Request mutability
-
-If you need to insert or modify extensions inside an interceptor, you must receive the request as mutable:
-
-```rust
-async fn on_request(&self, mut req: Request) -> WebInterceptorResult
-```
-
-If you only need to read extensions inside the controller, the request does not need to be mutable.

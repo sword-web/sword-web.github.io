@@ -142,4 +142,4 @@ impl RequestExt for Request {
 }
 ```
 
-Con este `trait`, puedes acceder fácilmente a información almacenada en las extenciones de la solicitud. No obstante podrías añadir lógica adicional, como validaciones o transformaciones, para mejorar la funcionalidad de la `Request` base.
+Con este trait, puedes acceder fácilmente a información almacenada en las extensiones de la solicitud. No obstante podrías añadir lógica adicional, como validaciones o transformaciones, para mejorar la funcionalidad de la `Request` base.
