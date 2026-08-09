@@ -222,12 +222,8 @@ export default defineConfig({
                                         link: "/en/practical-guides/socketio/data-validation",
                                     },
                                     {
-                                        text: "ACKs",
+                                        text: "Acknowledgements",
                                         link: "/en/practical-guides/socketio/acknowledgements",
-                                    },
-                                    {
-                                        text: "Context & Extensions",
-                                        link: "/en/practical-guides/socketio/context-and-extensions",
                                     },
                                     {
                                         text: "Interceptors",
@@ -464,12 +460,8 @@ export default defineConfig({
                                         link: "/es/practical-guides/socketio/data-validation",
                                     },
                                     {
-                                        text: "ACKs",
+                                        text: "Acknowledgements",
                                         link: "/es/practical-guides/socketio/acknowledgements",
-                                    },
-                                    {
-                                        text: "Contexto y extensiones",
-                                        link: "/es/practical-guides/socketio/context-and-extensions",
                                     },
                                     {
                                         text: "Interceptors",

@@ -3,15 +3,14 @@ title: "ACKs"
 description: "Cuando un cliente envía un evento Socket.IO con callback, el servidor puede responder usando un ACK."
 outline: [2, 3]
 ---
-# ACKs
 
-Cuando un cliente envía un evento Socket.IO con callback, el servidor puede responder usando un ACK.
+# Acknowledgements (ACKs)
 
-En Sword esto se maneja desde `SocketContext`.
+Cuando un cliente envía un evento con un callback, el servidor puede responder usando un acknowledgement (reconocimiento).
 
-Si necesitas la firma exacta de `has_ack()` y `ack(...)`, revisa la [referencia de SocketContext](/es/practical-guides/socketio/event-handling).
+Puedes encontrar la referencia de los métodos `has_ack()` y `ack(...)`, en la [referencia de SocketContext](/es/practical-guides/socketio/event-handling).
 
-## Detectar si el evento espera ACK
+## Detectar si el evento espera acknowledgement
 
 ```rust
 if ctx.has_ack() {
@@ -44,6 +43,6 @@ impl ChatController {
 }
 ```
 
-## Cuándo usar ACKs
+## Cuándo usar este mecanismo
 
 Los ACKs son útiles cuando el cliente necesita una confirmación explícita de que el servidor procesó el evento correctamente o quiere recibir un resultado inmediato de la operación.

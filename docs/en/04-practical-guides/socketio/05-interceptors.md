@@ -137,4 +137,57 @@ With Socket.IO there is a related but different concept from web extensions:
 - `ctx.extensions()` gives access to the socket's extensions.
 - `ctx.http_extensions()` gives access to the HTTP extensions associated with the initial request.
 
-This is useful when you need to share information between the HTTP handshake and the subsequent real-time event phase. For more details, check [Context and extensions](/en/practical-guides/socketio/context-and-extensions).
+### Example of using extensions
+
+The interceptor can read information from the handshake and leave it ready for handlers in later events:
+
+::: code-group
+
+```rust [interceptor.rs]
+use sword::prelude::*;
+use sword::socketio::*;
+use sword_layers::request_id::RequestId;
+
+#[derive(Interceptor)]
+struct UserInterceptor;
+
+impl OnConnect for UserInterceptor {
+    type Error = String;
+
+    async fn on_connect(&self, ctx: SocketContext) -> Result<(), Self::Error> {
+        let request_id = ctx
+            .http_extensions()
+            .get::<RequestId>()
+            .map(|r| r.to_string())
+            .unwrap_or_default();
+
+        ctx.extensions().insert(request_id);
+
+        Ok(())
+    }
+}
+```
+
+```rust [controller.rs]
+use sword::prelude::*;
+use sword::socketio::*;
+
+#[controller(kind = Controller::SocketIo, namespace = "/events")]
+#[interceptor(UserInterceptor)]
+struct EventController;
+
+impl EventController {
+    #[on("message")]
+    async fn handle_message(&self, ctx: SocketContext) {
+        let request_id = ctx.extensions().get::<String>();
+        // ... use the stored request id
+    }
+}
+```
+
+:::
+
+### Difference between `extensions()` and `http_extensions()`
+
+- `ctx.extensions()` gives access to the socket's data. It lives for the whole connection — from `connection` to `disconnection` — and is shared across all events of the socket. It is the place for the interceptor to write and for handlers to read.
+- `ctx.http_extensions()` gives access to the extensions of the handshake HTTP request that established the connection. It is a snapshot of the moment the client connected: it contains what web layers or interceptors left in the initial request, such as the `RequestId` from `RequestIdLayer` or cookies if `CookieManagerLayer` is present. It is read-only.

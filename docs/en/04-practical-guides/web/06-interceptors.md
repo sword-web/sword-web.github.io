@@ -124,3 +124,51 @@ impl ApiController {
     }
 }
 ```
+
+## Extensions
+
+Extensions let you store and share data throughout the lifecycle of an HTTP request. They are especially useful for an interceptor to leave information that the handler will consume later.
+
+An interceptor can insert values into `req.extensions` before delegating execution to the next step of the pipeline:
+
+```rust
+use sword::prelude::*;
+use sword::web::*;
+
+#[derive(Interceptor)]
+struct RequestIdInterceptor;
+
+impl OnRequest for RequestIdInterceptor {
+    async fn on_request(&self, mut req: Request) -> WebInterceptorResult {
+        req.extensions.insert("request-123".to_string());
+
+        req.next().await
+    }
+}
+```
+
+Then, the handler reads that value by type from the same request:
+
+```rust
+use sword::prelude::*;
+use sword::web::*;
+
+#[controller(kind = Controller::Web, path = "/api")]
+#[interceptor(RequestIdInterceptor)]
+struct ApiController;
+
+impl ApiController {
+    #[get("/data")]
+    async fn get_data(&self, req: Request) -> JsonResponse {
+        let request_id = req.extensions.get::<String>().cloned();
+
+        JsonResponse::Ok().data(serde_json::json!({
+            "request_id": request_id,
+        }))
+    }
+}
+```
+
+This pattern is useful for sharing request ids, authentication information, flags computed by interceptors, or traceability context.
+
+To insert or modify extensions, the interceptor must receive the request as mutable (`mut req`). If you only need to read extensions inside the handler, the request does not need to be mutable.

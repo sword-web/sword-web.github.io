@@ -61,6 +61,5 @@ Puedes definir eventos personalizados usando el atributo `#[on("event_name")]`, 
 ## Ver también
 
 - [Manejo de eventos](/es/practical-guides/socketio/event-handling)
-- [ACKs](/es/practical-guides/socketio/acknowledgements)
-- [Contexto y extensiones](/es/practical-guides/socketio/context-and-extensions)
+- [Acknowledgements](/es/practical-guides/socketio/acknowledgements)
 - [Interceptores en Controladores Socket.IO](/es/practical-guides/socketio/interceptors)

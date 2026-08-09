@@ -1,27 +1,14 @@
 ---
 title: "Event Handling and SocketContext Reference"
-description: "In Sword, Socket.IO controllers work with events (#[on(\"...\")]) and receive a SocketContext."
+description: 'In Sword, Socket.IO controllers work with events (#[on("...")]) and receive a SocketContext.'
 outline: [2, 3]
 ---
 
 # Event Handling and SocketContext Reference
 
-In Sword, Socket.IO controllers work with events (`#[on("...")]`) and receive a `SocketContext`.
-This page combines event flow guidance with a reference for the public `SocketContext` API.
+Just like web controllers, Socket.IO controllers work with methods on the struct, and each of them can use a general context extractor.
 
-## Event types
-
-The most common handlers are:
-
-- `connection`
-- `disconnection`
-- custom events such as `message`, `chat-message`, or `room:join`
-
-## Behavior by handler type
-
-- In `connection`, `event()` returns `None`; `try_data::<T>()` tries to read handshake `auth`.
-- In `message`, `event()` returns `Some(event_name)` and `try_data::<T>()` reads event payload.
-- In `disconnection`, `disconnect_reason()` can return the disconnect reason.
+This structure, called `SocketContext`, encapsulates relevant information about the connection, the event, and the socket state.
 
 ## SocketContext reference
 
@@ -33,11 +20,13 @@ pub fn id(&self) -> &Sid
 
 **Returns**
 
-- Socket identifier (`socketioxide::Sid`).
+- The socket identifier (`socketioxide::Sid`).
 
 **When to use it**
 
-- Logging, traceability, and associating events with a specific connection.
+- Logging, traceability, associating events with a specific connection.
+
+<hr/>
 
 ### Method `connected()`
 
@@ -51,7 +40,9 @@ pub fn connected(&self) -> bool
 
 **When to use it**
 
-- Checking if the socket is still active before performing operations.
+- To check whether the socket is still active before performing operations.
+
+<hr/>
 
 ### Method `ns()`
 
@@ -61,7 +52,9 @@ pub fn ns(&self) -> &str
 
 **Returns**
 
-- The current namespace path for this socket.
+- The current namespace path of this socket.
+
+<hr/>
 
 ### Method `rooms()`
 
@@ -73,6 +66,8 @@ pub fn rooms(&self) -> Vec<Room>
 
 - All room names this socket is connected to.
 
+<hr/>
+
 ### Method `event()`
 
 ```rust
@@ -82,11 +77,16 @@ pub fn event(&self) -> Option<&str>
 **Returns**
 
 - `Some(event_name)` in message handlers.
-- `None` in `connection` and `disconnection`.
 
 **When to use it**
 
-- Routing logic by event name or tracking per-event metrics.
+- To route logic by event name or record per-event metrics.
+
+:::info
+Using this method in the `connection` or `disconnection` event returns `None`.
+:::
+
+<hr/>
 
 ### Method `disconnect_reason()`
 
@@ -96,12 +96,14 @@ pub fn disconnect_reason(&self) -> Option<&DisconnectReason>
 
 **Returns**
 
-- `Some(reason)` in disconnect handlers.
-- `None` in connect/message handlers.
+- `Some(reason)` in disconnection handlers.
+- `None` in `connect`/`message`.
 
 **When to use it**
 
-- Auditing why a connection closed.
+- To audit why a connection is closed.
+
+<hr/>
 
 ### Method `protocol_version()`
 
@@ -111,11 +113,13 @@ pub fn protocol_version(&self) -> ProtocolVersion
 
 **Returns**
 
-- Negotiated Socket.IO protocol version.
+- The negotiated Socket.IO protocol version.
 
 **When to use it**
 
-- Client compatibility checks and diagnostics.
+- Diagnostics and client compatibility.
+
+<hr/>
 
 ### Method `transport_type()`
 
@@ -125,11 +129,13 @@ pub fn transport_type(&self) -> TransportType
 
 **Returns**
 
-- Active transport (`websocket` or `polling`).
+- The active transport (`websocket` or `polling`).
 
 **When to use it**
 
-- Telemetry, transport-specific behavior, and handshake debugging.
+- Telemetry, transport-based rules, handshake debugging.
+
+<hr/>
 
 ### Method `try_data::<T>()`
 
@@ -139,20 +145,22 @@ pub fn try_data<T: DeserializeOwned>(&self) -> Result<T, SocketError>
 
 **Returns**
 
-- `Ok(T)` when payload deserialization succeeds.
-- `Err(SocketError)` when payload is missing or parsing fails.
+- `Ok(T)` if the payload could be deserialized.
+- `Err(SocketError)` if no payload is available or parsing fails.
 
 **When to use it**
 
-- Deserializing payload (or connect `auth`) without validator-based validation.
+- When you need to deserialize the payload without schema validation.
 
-**When not to use it**
+:::info
+In the `connection` event, this method tries to read the handshake `auth` payload.
+:::
 
-- When you need declarative validation rules. In that case, use `try_validated_data::<T>()`.
+:::warning
+This method consumes the internal payload. A second call in the same handler fails.
+:::
 
-**Notes**
-
-- This method consumes internal payload. A second call in the same handler fails.
+<hr/>
 
 ### Method `try_validated_data::<T>()`
 
@@ -164,20 +172,22 @@ where
 
 **Returns**
 
-- `Ok(T)` when deserialization and validation both succeed.
-- `Err(SocketError)` when parsing fails, payload is missing, or validation fails.
+- `Ok(T)` if it deserializes and validates correctly.
+- `Err(SocketError)` if parsing fails, there is no payload, or validation fails.
 
 **When to use it**
 
-- When payload must satisfy `validator` rules.
+- When the payload must comply with schema validation rules.
 
-**When not to use it**
+:::info
+In the `connection` event, this method tries to read the handshake `auth` payload.
+:::
 
-- If you have not enabled the `validation-validator` feature.
+:::warning
+This method consumes the internal payload. A second call in the same handler fails.
+:::
 
-**Notes**
-
-- Internally, this method uses `try_data()`, so it also consumes payload.
+<hr/>
 
 ### Method `has_data()`
 
@@ -187,11 +197,13 @@ pub fn has_data(&self) -> bool
 
 **Returns**
 
-- `true` if payload has not been consumed yet.
+- `true` if the payload has not been consumed yet.
 
 **When to use it**
 
-- To avoid parsing payload twice.
+- To avoid trying to parse twice.
+
+<hr/>
 
 ### Method `query::<T>()`
 
@@ -201,13 +213,15 @@ pub fn query<T: DeserializeOwned>(&self) -> Result<Option<T>, SocketError>
 
 **Returns**
 
-- `Ok(Some(T))` if query string exists and is valid.
-- `Ok(None)` if no query string is present.
-- `Err(SocketError)` if query exists but cannot be deserialized.
+- `Ok(Some(T))` if the query string exists and is valid.
+- `Ok(None)` if there is no query string.
+- `Err(SocketError)` if the query exists but does not deserialize.
 
 **When to use it**
 
-- Reading URL query parameters during connection.
+- To read URL query parameters during the connection.
+
+<hr/>
 
 ### Method `emit()`
 
@@ -219,12 +233,14 @@ where
 
 **Returns**
 
-- `Ok(())` when the event is sent.
+- `Ok(())` if the event is sent.
 - `Err(SocketError)` if sending fails.
 
 **When to use it**
 
-- Sending events to the connected client.
+- To send events to the connected client.
+
+<hr/>
 
 ### Method `emit_with_ack()`
 
@@ -244,6 +260,8 @@ pub fn emit_with_ack<T: ?Sized + Serialize, V>(
 
 - When you need confirmation from the client that the event was received.
 
+<hr/>
+
 ### Method `broadcast()`
 
 ```rust
@@ -256,7 +274,9 @@ pub fn broadcast(&self) -> BroadcastOperators<A>
 
 **When to use it**
 
-- Broadcasting a message to every connected client.
+- To transmit a message to every connected client.
+
+<hr/>
 
 ### Method `local()`
 
@@ -266,11 +286,13 @@ pub fn local(&self) -> BroadcastOperators<A>
 
 **Returns**
 
-- A broadcast operator that sends only to clients connected to this node.
+- A broadcast operator that sends only to clients of this node.
 
 **When to use it**
 
-- Broadcasting only to the current server instance (multi-node deployments).
+- Broadcast only to the current server instance (multi-node deployments).
+
+<hr/>
 
 ### Method `to()`
 
@@ -280,11 +302,13 @@ pub fn to(&self, rooms: impl RoomParam) -> BroadcastOperators<A>
 
 **Returns**
 
-- A broadcast operator scoped to the specified rooms.
+- A broadcast operator limited to the specified rooms.
 
 **When to use it**
 
-- Sending to specific rooms that the socket belongs to.
+- To send to specific rooms the socket belongs to.
+
+<hr/>
 
 ### Method `within()`
 
@@ -294,7 +318,9 @@ pub fn within(&self, rooms: impl RoomParam) -> BroadcastOperators<A>
 
 **Returns**
 
-- A broadcast operator scoped to the specified rooms (alias for `to()`).
+- A broadcast operator limited to the specified rooms (alias of `to()`).
+
+<hr/>
 
 ### Method `except()`
 
@@ -308,7 +334,9 @@ pub fn except(&self, rooms: impl RoomParam) -> BroadcastOperators<A>
 
 **When to use it**
 
-- Broadcasting to all except certain rooms.
+- Broadcast to everyone except certain rooms.
+
+<hr/>
 
 ### Method `timeout()`
 
@@ -318,11 +346,13 @@ pub fn timeout(&self, timeout: Duration) -> ConfOperators<'_, A>
 
 **Returns**
 
-- A configuration operator with a custom timeout for acknowledgement.
+- A configuration operator with a custom timeout for the acknowledgement.
 
 **When to use it**
 
-- Setting a custom timeout when sending a message with an acknowledgement.
+- To set a timeout when sending a message with acknowledgement.
+
+<hr/>
 
 ### Method `join()`
 
@@ -332,7 +362,9 @@ pub fn join(&self, rooms: impl RoomParam)
 
 **When to use it**
 
-- Adding the current socket to one or more rooms.
+- To add the current socket to one or more rooms.
+
+<hr/>
 
 ### Method `leave()`
 
@@ -342,7 +374,9 @@ pub fn leave(&self, rooms: impl RoomParam)
 
 **When to use it**
 
-- Removing the current socket from one or more rooms.
+- To remove the current socket from one or more rooms.
+
+<hr/>
 
 ### Method `leave_all()`
 
@@ -352,7 +386,9 @@ pub fn leave_all(&self)
 
 **When to use it**
 
-- Removing the current socket from all its rooms.
+- To remove the current socket from all its rooms.
+
+<hr/>
 
 ### Method `has_ack()`
 
@@ -368,6 +404,8 @@ pub fn has_ack(&self) -> bool
 
 - Before calling `ack(...)` in message handlers.
 
+<hr/>
+
 ### Method `ack()`
 
 ```rust
@@ -378,20 +416,22 @@ where
 
 **Returns**
 
-- `Ok(())` when ACK is sent.
-- `Err(SendError)` if ACK is unavailable or sending fails.
+- `Ok(())` if the ACK is sent.
+- `Err(SendError)` if no ACK is available or sending fails.
 
 **When to use it**
 
-- To answer client callbacks when `has_ack()` is `true`.
+- To respond to client callbacks when `has_ack()` is `true`.
 
 **When not to use it**
 
-- In handlers without ACK support.
+- In handlers without an associated ACK.
 
-**Notes**
+::: warning
+It consumes `self`, meaning you cannot reuse the context after calling it.
+:::
 
-- Consumes `self`; you cannot keep using the same `SocketContext` after calling `ack(...)`.
+<hr/>
 
 ### Method `req_parts()`
 
@@ -401,11 +441,13 @@ pub fn req_parts(&self) -> &Parts
 
 **Returns**
 
-- The HTTP request parts from the initial handshake.
+- The parts of the initial handshake HTTP request.
 
 **When to use it**
 
-- Accessing raw HTTP request data (method, URI, etc.).
+- To access raw HTTP data (method, URI, etc.).
+
+<hr/>
 
 ### Method `headers()`
 
@@ -415,11 +457,13 @@ pub fn headers(&self) -> &HeaderMap
 
 **Returns**
 
-- A reference to the socket's request headers.
+- A reference to the socket request headers.
 
 **When to use it**
 
-- Reading HTTP headers from the initial handshake request.
+- To read HTTP headers from the initial handshake.
+
+<hr/>
 
 ### Method `authorization()`
 
@@ -433,7 +477,9 @@ pub fn authorization(&self) -> Option<&str>
 
 **When to use it**
 
-- Extracting bearer tokens or other auth data from the handshake.
+- To extract Bearer tokens or other authentication data from the handshake.
+
+<hr/>
 
 ### Method `extensions()`
 
@@ -443,11 +489,13 @@ pub fn extensions(&self) -> &Extensions
 
 **Returns**
 
-- Socket extension storage.
+- The extension store associated with the socket.
 
 **When to use it**
 
-- Sharing state across the lifetime of a connection.
+- To share state for the lifetime of the connection.
+
+<hr/>
 
 ### Method `http_extensions()`
 
@@ -457,11 +505,13 @@ pub fn http_extensions(&self) -> &HttpExtensions
 
 **Returns**
 
-- HTTP extensions from the initial handshake request.
+- The HTTP extensions of the initial handshake.
 
 **When to use it**
 
-- Reusing values written by HTTP layers/interceptors during handshake.
+- To reuse data written by HTTP interceptors/layers during the handshake.
+
+<hr/>
 
 ### Method `disconnect()`
 
@@ -471,16 +521,16 @@ pub fn disconnect(self) -> Result<(), SocketError>
 
 **Returns**
 
-- `Ok(())` when disconnect succeeds.
-- `Err(SocketError)` if the connection cannot be closed cleanly.
+- `Ok(())` if the disconnection is performed.
+- `Err(SocketError)` if closing the connection fails.
 
 **When to use it**
 
-- When the server needs to close a connection explicitly.
+- When the server decides to actively terminate the connection.
 
-**Notes**
-
-- Consumes `self`; after calling it, you cannot reuse the same context.
+::: warning
+It consumes `self`, meaning you cannot reuse the context after calling it.
+:::
 
 ## Base example
 
@@ -519,9 +569,3 @@ impl ChatController {
     }
 }
 ```
-
-## See also
-
-- [Data validation](/en/practical-guides/socketio/data-validation)
-- [ACKs](/en/practical-guides/socketio/acknowledgements)
-- [Context and extensions](/en/practical-guides/socketio/context-and-extensions)

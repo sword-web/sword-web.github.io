@@ -3,9 +3,10 @@ title: "Validación de datos"
 description: "Sword permite validar datos entrantes en eventos Socket.IO usando el crate validator, de forma similar a la validación en controladores web."
 outline: [2, 3]
 ---
+
 # Validación de datos
 
-Sword permite validar datos entrantes en eventos Socket.IO usando el crate `validator`, de forma similar a la validación en controladores web.
+Al igual que en controladores web, es posible validar datos entrantes en eventos Socket.IO usando el crate `validator`.
 
 Para la referencia completa de `try_data` y `try_validated_data`, revisa [Manejo de eventos y referencia de SocketContext](/es/practical-guides/socketio/event-handling).
 
@@ -15,27 +16,27 @@ Para usar validación en `SocketContext`, debes habilitar la feature `validation
 
 ```toml
 [dependencies]
-validator = { features = ["derive"] }
 sword = { version = "x.y.z", features = ["validation-validator"] }
-serde = { features = ["derive"] }
+serde = { version = "x.y.z", features = ["derive"] }
+validator = { version = "x.y.z", features = ["derive"] }
 ```
 
-## DTO validable
+## Ejemplo de uso
 
-```rust
+::: code-group
+
+```rust [dtos.rs]
 use serde::Deserialize;
 use validator::Validate;
 
 #[derive(Debug, Deserialize, Validate)]
-struct IncomingMessageDto {
+struct IncomingDataDto {
     #[validate(length(min = 1, max = 200))]
     pub content: String,
 }
 ```
 
-## Usar `try_validated_data`
-
-```rust
+```rust [controller.rs]
 use sword::prelude::*;
 use sword::socketio::*;
 
@@ -45,7 +46,7 @@ pub struct ChatController;
 impl ChatController {
     #[on("message")]
     async fn handle_message(&self, socket: SocketContext) {
-        let Ok(data) = socket.try_validated_data::<IncomingMessageDto>() else {
+        let Ok(data) = socket.try_validated_data::<IncomingDataDto>() else {
             eprintln!("Failed to validate message data");
             return;
         };
@@ -54,6 +55,8 @@ impl ChatController {
     }
 }
 ```
+
+:::
 
 ## Diferencia con `try_data`
 

@@ -1,27 +1,14 @@
 ---
 title: "Manejo de eventos y referencia de SocketContext"
-description: "En Sword, los controladores Socket.IO trabajan con eventos (#[on(\"...\")]) y reciben un SocketContext."
+description: 'En Sword, los controladores Socket.IO trabajan con eventos (#[on("...")]) y reciben un SocketContext.'
 outline: [2, 3]
 ---
 
 # Manejo de eventos y referencia de SocketContext
 
-En Sword, los controladores Socket.IO trabajan con eventos (`#[on("...")]`) y reciben un `SocketContext`.
-Esta página unifica el flujo de eventos con la referencia de la API pública de `SocketContext`.
+Al igual que en los controladores web, los controladores Socket.IO trabajan con métodos de la estructura, cada uno de ellos tiene la capacidad de utilizar un extractor general del contexto.
 
-## Tipos de eventos
-
-Los handlers más comunes son:
-
-- `connection`
-- `disconnection`
-- eventos personalizados como `message`, `chat-message` o `room:join`
-
-## Comportamiento por tipo de handler
-
-- En `connection`, `event()` retorna `None`; `try_data::<T>()` intenta leer `auth` del handshake.
-- En `message`, `event()` retorna `Some(nombre_evento)` y `try_data::<T>()` lee el payload del evento.
-- En `disconnection`, `disconnect_reason()` puede retornar el motivo de desconexión.
+Esta estructura, llamada `SocketContext`, encapsula información relevante sobre la conexión, el evento y el estado del socket.
 
 ## Referencia de SocketContext
 
@@ -39,6 +26,8 @@ pub fn id(&self) -> &Sid
 
 - Logging, trazabilidad, asociar eventos a una conexión específica.
 
+<hr/>
+
 ### Método `connected()`
 
 ```rust
@@ -53,6 +42,8 @@ pub fn connected(&self) -> bool
 
 - Verificar si el socket sigue activo antes de realizar operaciones.
 
+<hr/>
+
 ### Método `ns()`
 
 ```rust
@@ -62,6 +53,8 @@ pub fn ns(&self) -> &str
 **Retorna**
 
 - La ruta del namespace actual de este socket.
+
+<hr/>
 
 ### Método `rooms()`
 
@@ -73,6 +66,8 @@ pub fn rooms(&self) -> Vec<Room>
 
 - Todos los nombres de salas a las que este socket está conectado.
 
+<hr/>
+
 ### Método `event()`
 
 ```rust
@@ -82,11 +77,16 @@ pub fn event(&self) -> Option<&str>
 **Retorna**
 
 - `Some(nombre_evento)` en handlers de mensaje.
-- `None` en `connection` y `disconnection`.
 
 **Cuando usarlo**
 
 - Para enrutar lógica por nombre de evento o registrar métricas por evento.
+
+:::info
+Al usar este método en el evento `connection` o `disconnection` retornará `None`.
+:::
+
+<hr/>
 
 ### Método `disconnect_reason()`
 
@@ -103,6 +103,8 @@ pub fn disconnect_reason(&self) -> Option<&DisconnectReason>
 
 - Auditar por qué se cierra una conexión.
 
+<hr/>
+
 ### Método `protocol_version()`
 
 ```rust
@@ -116,6 +118,8 @@ pub fn protocol_version(&self) -> ProtocolVersion
 **Cuando usarlo**
 
 - Diagnostico y compatibilidad de clientes.
+
+<hr/>
 
 ### Método `transport_type()`
 
@@ -131,6 +135,8 @@ pub fn transport_type(&self) -> TransportType
 
 - Telemetría, reglas por tipo de transporte, depuración de handshake.
 
+<hr/>
+
 ### Método `try_data::<T>()`
 
 ```rust
@@ -144,15 +150,17 @@ pub fn try_data<T: DeserializeOwned>(&self) -> Result<T, SocketError>
 
 **Cuando usarlo**
 
-- Cuando necesitas deserializar payload (o `auth` en `connection`) sin validación de `validator`.
+- Cuando necesitas deserializar payload sin validación de esquema.
 
-**Cuando no usarlo**
+:::info
+En el evento `connection`, este método intenta leer el payload de `auth` del handshake.
+:::
 
-- Si necesitas reglas declarativas de validación; en ese caso usa `try_validated_data::<T>()`.
+:::warning
+Este método consume el payload interno. Una segunda llamada en el mismo handler falla.
+:::
 
-**Notas**
-
-- Este método consume el payload interno. Una segunda llamada en el mismo handler falla.
+<hr/>
 
 ### Método `try_validated_data::<T>()`
 
@@ -169,15 +177,17 @@ where
 
 **Cuando usarlo**
 
-- Cuando el payload debe cumplir reglas de `validator`.
+- Cuando el payload debe cumplir reglas de validación de esquemas.
 
-**Cuando no usarlo**
+:::info
+En el evento `connection`, este método intenta leer el payload de `auth` del handshake.
+:::
 
-- Si no habilitaste la feature `validation-validator`.
+:::warning
+Este método consume el payload interno. Una segunda llamada en el mismo handler falla.
+:::
 
-**Notas**
-
-- Internamente usa `try_data()`, por lo que también consume el payload.
+<hr/>
 
 ### Método `has_data()`
 
@@ -192,6 +202,8 @@ pub fn has_data(&self) -> bool
 **Cuando usarlo**
 
 - Para evitar intentar parsear dos veces.
+
+<hr/>
 
 ### Método `query::<T>()`
 
@@ -209,6 +221,8 @@ pub fn query<T: DeserializeOwned>(&self) -> Result<Option<T>, SocketError>
 
 - Para leer parámetros de query de la URL durante la conexión.
 
+<hr/>
+
 ### Método `emit()`
 
 ```rust
@@ -225,6 +239,8 @@ where
 **Cuando usarlo**
 
 - Enviar eventos al cliente conectado.
+
+<hr/>
 
 ### Método `emit_with_ack()`
 
@@ -244,6 +260,8 @@ pub fn emit_with_ack<T: ?Sized + Serialize, V>(
 
 - Cuando necesitas confirmación del cliente de que el evento fue recibido.
 
+<hr/>
+
 ### Método `broadcast()`
 
 ```rust
@@ -257,6 +275,8 @@ pub fn broadcast(&self) -> BroadcastOperators<A>
 **Cuando usarlo**
 
 - Transmitir un mensaje a cada cliente conectado.
+
+<hr/>
 
 ### Método `local()`
 
@@ -272,6 +292,8 @@ pub fn local(&self) -> BroadcastOperators<A>
 
 - Broadcast solo a la instancia actual del servidor (despliegues multi-nodo).
 
+<hr/>
+
 ### Método `to()`
 
 ```rust
@@ -286,6 +308,8 @@ pub fn to(&self, rooms: impl RoomParam) -> BroadcastOperators<A>
 
 - Enviar a salas específicas a las que el socket pertenece.
 
+<hr/>
+
 ### Método `within()`
 
 ```rust
@@ -295,6 +319,8 @@ pub fn within(&self, rooms: impl RoomParam) -> BroadcastOperators<A>
 **Retorna**
 
 - Un operador de difusión limitado a las salas especificadas (alias de `to()`).
+
+<hr/>
 
 ### Método `except()`
 
@@ -310,6 +336,8 @@ pub fn except(&self, rooms: impl RoomParam) -> BroadcastOperators<A>
 
 - Broadcast a todos excepto ciertas salas.
 
+<hr/>
+
 ### Método `timeout()`
 
 ```rust
@@ -324,6 +352,8 @@ pub fn timeout(&self, timeout: Duration) -> ConfOperators<'_, A>
 
 - Establecer un tiempo de espera al enviar un mensaje con confirmación.
 
+<hr/>
+
 ### Método `join()`
 
 ```rust
@@ -333,6 +363,8 @@ pub fn join(&self, rooms: impl RoomParam)
 **Cuando usarlo**
 
 - Agregar el socket actual a una o más salas.
+
+<hr/>
 
 ### Método `leave()`
 
@@ -344,6 +376,8 @@ pub fn leave(&self, rooms: impl RoomParam)
 
 - Remover el socket actual de una o más salas.
 
+<hr/>
+
 ### Método `leave_all()`
 
 ```rust
@@ -353,6 +387,8 @@ pub fn leave_all(&self)
 **Cuando usarlo**
 
 - Remover el socket actual de todas sus salas.
+
+<hr/>
 
 ### Método `has_ack()`
 
@@ -367,6 +403,8 @@ pub fn has_ack(&self) -> bool
 **Cuando usarlo**
 
 - Antes de llamar `ack(...)` en handlers de mensaje.
+
+<hr/>
 
 ### Método `ack()`
 
@@ -389,9 +427,11 @@ where
 
 - En handlers sin ACK asociado.
 
-**Notas**
+::: warning
+Consume `self`, es decir, después de invocarlo no puedes reutilizar el contexto.
+:::
 
-- Consume `self`; después de `ack(...)` no puedes seguir usando ese `SocketContext`.
+<hr/>
 
 ### Método `req_parts()`
 
@@ -407,6 +447,8 @@ pub fn req_parts(&self) -> &Parts
 
 - Acceder a datos HTTP crudos (método, URI, etc.).
 
+<hr/>
+
 ### Método `headers()`
 
 ```rust
@@ -420,6 +462,8 @@ pub fn headers(&self) -> &HeaderMap
 **Cuando usarlo**
 
 - Leer headers HTTP del handshake inicial.
+
+<hr/>
 
 ### Método `authorization()`
 
@@ -435,6 +479,8 @@ pub fn authorization(&self) -> Option<&str>
 
 - Extraer tokens Bearer u otros datos de autenticación del handshake.
 
+<hr/>
+
 ### Método `extensions()`
 
 ```rust
@@ -449,6 +495,8 @@ pub fn extensions(&self) -> &Extensions
 
 - Compartir estado durante la vida de la conexión.
 
+<hr/>
+
 ### Método `http_extensions()`
 
 ```rust
@@ -462,6 +510,8 @@ pub fn http_extensions(&self) -> &HttpExtensions
 **Cuando usarlo**
 
 - Reutilizar datos escritos en interceptores/layers HTTP durante el handshake.
+
+<hr/>
 
 ### Método `disconnect()`
 
@@ -478,9 +528,9 @@ pub fn disconnect(self) -> Result<(), SocketError>
 
 - Cuando el servidor decide cortar la conexión activamente.
 
-**Notas**
-
-- Consume `self`; después de llamarlo no puedes reutilizar el contexto.
+::: warning
+Consume `self`, es decir, después de invocarlo no puedes reutilizar el contexto.
+:::
 
 ## Ejemplo base
 
@@ -519,9 +569,3 @@ impl ChatController {
     }
 }
 ```
-
-## Ver también
-
-- [Validación de datos](/es/practical-guides/socketio/data-validation)
-- [ACKs](/es/practical-guides/socketio/acknowledgements)
-- [Contexto y extensiones](/es/practical-guides/socketio/context-and-extensions)
