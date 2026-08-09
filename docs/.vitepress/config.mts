@@ -236,16 +236,20 @@ export default defineConfig({
                                 collapsed: true,
                                 items: [
                                     {
-                                        text: ".proto files",
-                                        link: "/en/practical-guides/grpc/ficheros-proto",
-                                    },
-                                    {
                                         text: "Tonic Fundamentals",
                                         link: "/en/practical-guides/grpc/fundamentos-de-tonic",
                                     },
                                     {
-                                        text: "Service Inspection with grpcurl",
-                                        link: "/en/practical-guides/grpc/inspeccion-de-servicios-con-grpcurl",
+                                        text: "gRPC API Reference",
+                                        link: "/en/practical-guides/grpc/api-reference-grpc",
+                                    },
+                                    {
+                                        text: ".proto files",
+                                        link: "/en/practical-guides/grpc/ficheros-proto",
+                                    },
+                                    {
+                                        text: "Compiling Protos",
+                                        link: "/en/practical-guides/grpc/compilando-proto",
                                     },
                                     {
                                         text: "gRPC Errors",
@@ -255,11 +259,11 @@ export default defineConfig({
                                         text: "Interceptors",
                                         link: "/en/practical-guides/grpc/interceptors",
                                     },
+                                    {
+                                        text: "Service Inspection with grpcurl",
+                                        link: "/en/practical-guides/grpc/inspeccion-de-servicios-con-grpcurl",
+                                    },
                                 ],
-                            },
-                            {
-                                text: "Testing",
-                                link: "/en/practical-guides/testing",
                             },
                         ],
                     },
@@ -474,16 +478,20 @@ export default defineConfig({
                                 collapsed: true,
                                 items: [
                                     {
-                                        text: "Ficheros .proto",
-                                        link: "/es/practical-guides/grpc/ficheros-proto",
-                                    },
-                                    {
                                         text: "Fundamentos de tonic",
                                         link: "/es/practical-guides/grpc/fundamentos-de-tonic",
                                     },
                                     {
-                                        text: "Inspección con grpcurl",
-                                        link: "/es/practical-guides/grpc/inspeccion-de-servicios-con-grpcurl",
+                                        text: "API Reference gRPC",
+                                        link: "/es/practical-guides/grpc/api-reference-grpc",
+                                    },
+                                    {
+                                        text: "Ficheros .proto",
+                                        link: "/es/practical-guides/grpc/ficheros-proto",
+                                    },
+                                    {
+                                        text: "Compilando protos",
+                                        link: "/es/practical-guides/grpc/compilando-proto",
                                     },
                                     {
                                         text: "Errores gRPC",
@@ -493,11 +501,11 @@ export default defineConfig({
                                         text: "Interceptors",
                                         link: "/es/practical-guides/grpc/interceptors",
                                     },
+                                    {
+                                        text: "Inspección con grpcurl",
+                                        link: "/es/practical-guides/grpc/inspeccion-de-servicios-con-grpcurl",
+                                    },
                                 ],
-                            },
-                            {
-                                text: "Testing",
-                                link: "/es/practical-guides/testing",
                             },
                         ],
                     },

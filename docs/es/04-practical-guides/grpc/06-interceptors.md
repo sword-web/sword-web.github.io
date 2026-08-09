@@ -1,20 +1,22 @@
 ---
-title: "Interceptors in gRPC Controllers"
-description: "How to apply interceptors to gRPC controllers in Sword: OnRequest and OnRequestWithConfig."
+title: "Interceptores en Controladores gRPC"
+description: "Cómo aplicar interceptores a controladores gRPC en Sword: OnRequest y OnRequestWithConfig."
 outline: [2, 3]
 ---
 
-# Interceptors in gRPC Controllers
+# Interceptores en Controladores gRPC
 
-Sword lets you apply interceptors to gRPC controllers to validate or transform the incoming metadata of remote calls.
+Sword permite aplicar interceptores a controladores gRPC para validar o transformar la metadata de entrada de las llamadas remotas.
 
-## Traditional interceptors
+## Interceptores tradicionales
 
-### The `OnRequest` Trait
+### El Trait `OnRequest`
 
-In gRPC, `OnRequest` allows you to intercept a request before it reaches the service method.
+En gRPC, `OnRequest` permite interceptar la solicitud antes de que llegue al método del servicio.
 
-```rust
+::: code-group
+
+```rust [interceptor.rs]
 use sword::grpc::*;
 use sword::prelude::*;
 
@@ -33,23 +35,29 @@ impl OnRequest for AuthInterceptor {
 }
 ```
 
-Applying it to a gRPC controller:
+```rust [controller.rs]
+use sword::prelude::*;
 
-```rust
 #[controller(kind = Controller::Grpc, service = proto::user_service_server::UserServiceServer)]
 #[interceptor(AuthInterceptor)]
 struct UsersController;
 ```
 
-In this variant, there is no `next()`: the interceptor validates/transforms incoming metadata and returns `Ok(req)` or an error `Status`.
+:::
 
-## Interceptors with configuration
+::: info Sin `next()`
+A diferencia de los interceptores web, en esta variante no existe `next()`: el interceptor valida/transforma metadata de entrada y retorna `Ok(req)` o un `Status` de error.
+:::
 
-### The `OnRequestWithConfig` Trait
+## Interceptores con configuración
 
-In gRPC you can use `OnRequestWithConfig<T>` to inject configuration parameters into the validation/interception.
+### El Trait `OnRequestWithConfig`
 
-```rust
+En gRPC puedes usar `OnRequestWithConfig<T>` para inyectar parámetros de configuración en la validación/intercepción.
+
+::: code-group
+
+```rust [interceptor.rs]
 use sword::grpc::*;
 use sword::prelude::*;
 
@@ -80,10 +88,12 @@ impl OnRequestWithConfig<&'static str> for ApiKeyInterceptor {
 }
 ```
 
-Applying it to a gRPC controller:
+```rust [controller.rs]
+use sword::prelude::*;
 
-```rust
 #[controller(kind = Controller::Grpc, service = proto::user_service_server::UserServiceServer)]
 #[interceptor(ApiKeyInterceptor, config = "dev-key")]
 struct UsersController;
 ```
+
+:::

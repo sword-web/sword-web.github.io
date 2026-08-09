@@ -63,4 +63,5 @@ message UserItem {
 
 - [.proto files](/en/practical-guides/grpc/ficheros-proto)
 - [Tonic Fundamentals](/en/practical-guides/grpc/fundamentos-de-tonic)
+- [gRPC API Reference](/en/practical-guides/grpc/api-reference-grpc)
 - [Service Inspection with grpcurl](/en/practical-guides/grpc/inspeccion-de-servicios-con-grpcurl)

@@ -1,5 +1,5 @@
 ---
-title: "Sword - Web Framework for Rust"
+title: "Sword - Server Application Framework"
 description: "Sword is an asynchronous and modular web framework for Rust built on top of Axum and Tokio. Ready to scale with dependency injection, interceptors, and reusable layers."
 
 keywords:
@@ -16,9 +16,8 @@ keywords:
 layout: home
 
 hero:
-    name: "Sword"
-    text: "Rust Web Framework"
-    tagline: Asynchronous, modular, and opinionated
+    text: "Server Application Framework"
+    tagline: Progressive, modular, and opinionated
     image:
         light:
             src: /logo-new-dark.png
@@ -36,22 +35,14 @@ hero:
         - theme: alt
           text: GitHub
           link: "https://github.com/sword-web/"
-
-features:
-    - title: Async by default
-      icon: "⚡"
-      details:
-          Built on top of Tokio, Sword is an asynchronous framework that leverages the
-          well-known Tokio runtime to handle multiple concurrent connections efficiently.
-
-    - title: Module-based architecture
-      icon: "🧩"
-      details: Build server-side applications with a modular architecture, layer separation, and dependency injection.
-
-    - title: Interceptors
-      icon: "🛡️"
-      details: Includes typed and trait-based interceptors to handle cross-cutting concerns like authentication, authorization, logging, and more.
 ---
+
+## Why Sword?
+
+- **Async by default** — built on the Tokio ecosystem.
+- **Modular** — modules and dependency injection as first-class citizens.
+- **Web, Socket.IO, and gRPC** — one framework for all your APIs.
+- **Batteries included** — built-in support for validation, standardized error handling, TOML-based configuration, and more.
 
 ## Quick start
 
@@ -64,13 +55,6 @@ cargo run
 ```
 
 Then open `http://localhost:3000` in your browser.
-
-## Why Sword?
-
-- **Async by default** — built on Tokio and Axum for high concurrency.
-- **Modular and testable** — modules, dependency injection and interceptors as first-class citizens.
-- **Web, Socket.IO and gRPC** — one framework for all your APIs.
-- **OpenAPI ready** — generate docs from your controllers out of the box.
 
 <div class="sword-cta">
 <h2>Ready to build with Sword?</h2>

@@ -6,17 +6,19 @@ outline: [2, 3]
 
 # Interceptors in Socket.IO Controllers
 
-Sword lets you apply interceptors to Socket.IO controllers to handle client connections to a `namespace`.
+In Socket.IO controllers, interceptors work differently from web controller interceptors. This is because the nature of real-time connections and the event flow differs from the traditional HTTP request flow.
+
+Unlike web controller interceptors, the interceptor runs only during the initial handshake (the `connection` event). After that, each event under the namespace will not execute the interceptor.
 
 ## Traditional interceptors
 
 ### The `OnConnect` Trait
 
-This trait allows you to define custom logic that runs before a client connects to a specific `namespace`.
+This trait lets you define custom logic that runs before a client connects to a specific namespace.
 
-Unlike web controller interceptors, the `OnConnect` interceptor runs only during the initial handshake (the `#[on("connection")]` event). Subsequent events within the `namespace` will not trigger the interceptor.
+::: code-group
 
-```rust
+```rust [interceptor.rs]
 use sword::prelude::*;
 use sword::socketio::*;
 
@@ -27,18 +29,14 @@ impl OnConnect for EventLogger {
     type Error = String;
 
     async fn on_connect(&self, ctx: SocketContext) -> Result<(), Self::Error> {
-        println!("[Socket.IO] - New connection - Socket ID: {}", ctx.id());
+        println!("New connection - Socket ID: {}", ctx.id());
 
         Ok(())
     }
 }
 ```
 
-As you may have noticed, it is necessary to define an associated error type. This can have any structure or format you find appropriate, but it must implement the `Display` trait.
-
-Next, you can apply this interceptor to a Socket.IO controller:
-
-```rust
+```rust [controller.rs]
 use sword::prelude::*;
 use sword::socketio::*;
 
@@ -54,22 +52,27 @@ impl EventController {
 
     #[on("event")]
     async fn handle_message_event(&self, ctx: SocketContext) {
-        let payload: Event = ctx.try_data().expect("Failed to parse event data");
-
-        println!("Received 'event' from {}: {payload:?}", ctx.id());
+        // ... do something with the event
     }
 }
 ```
 
-In this example, the interceptor runs before the `#[on("connection")]` event. Any interaction in other events associated with the controller will not pass through the applied interceptor.
+:::
+
+:::info
+As you may have noticed, you must define an associated error type. It can have whatever structure or format you see fit, but it must implement the `Display` trait.
+
+:::
 
 ## Interceptors with configuration
 
 ### The `OnConnectWithConfig` Trait
 
-Like `OnConnect`, this trait lets you define custom logic that runs before a client connects to a specific `namespace`, but it also accepts an extra `T` parameter that gives you an additional level of configuration.
+Like `OnConnect`, this trait lets you define custom logic that runs before a client connects to a specific namespace, but it also accepts an extra `T` parameter that gives you an additional level of configuration.
 
-```rust
+::: code-group
+
+```rust [interceptor.rs]
 use sword::prelude::*;
 use sword::socketio::*;
 
@@ -92,11 +95,7 @@ impl OnConnectWithConfig<&str> for EventLogger {
 }
 ```
 
-As you may have noticed, it is necessary to define an associated error type. This can have any structure or format you find appropriate, but it must implement the `Display` trait.
-
-Next, you can apply this interceptor to a Socket.IO controller:
-
-```rust
+```rust [controller.rs]
 use sword::prelude::*;
 use sword::socketio::*;
 
@@ -112,14 +111,12 @@ impl EventController {
 
     #[on("event")]
     async fn handle_message_event(&self, ctx: SocketContext) {
-        let payload: Event = ctx.try_data().expect("Failed to parse event data");
-
-        println!("Received 'event' from {}: {payload:?}", ctx.id());
+        // ... do something with the event
     }
 }
 ```
 
-In this example, the interceptor runs before the `#[on("connection")]` event. Any interaction in other events associated with the controller will not pass through the applied interceptor.
+:::
 
 ## Tower and Socket.IO
 

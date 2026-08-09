@@ -1,63 +1,77 @@
 ---
 title: "Fundamentos de tonic"
-description: "Conceptos base de tonic necesarios para implementar controladores gRPC en Sword."
+description: "Conceptos base de tonic: qué genera un .proto, tipos de RPC y dependencias de build para implementar controladores gRPC en Sword."
 outline: [2, 3]
 ---
+
 # Fundamentos de tonic
 
-Sword usa `tonic` como base para gRPC. Esta guía resume lo necesario para entender qué implementas cuando creas controladores gRPC en Sword.
+Sword usa `tonic` como base para los controladores gRPC. Esta guía cubre los conceptos de `tonic` que necesitas entender antes de escribir código con Sword: qué produce la compilación de un `.proto`, qué tipos de RPC existen y qué dependencias requiere el build.
 
-## ¿Qué genera tonic desde un `.proto`?
+## ¿Qué genera la compilación de un `.proto`?
 
-Al compilar tu `.proto`, tonic genera:
+Al compilar un fichero `.proto` con `tonic-prost-build`, se genera:
 
-- un trait del servicio (por ejemplo `UserGrpcService`),
-- un servidor para registrar el servicio (por ejemplo `UserGrpcServiceServer<T>`),
-- tipos de solicitud/respuesta y enums definidos en el contrato.
+- Un trait del servicio definido (por ejemplo `UserGrpcService`),
+- Un servidor para registrar el servicio (por ejemplo `UserGrpcServiceServer<T>`),
+- Un cliente para invocar el servicio (por ejemplo `UserGrpcServiceClient<T>`),
+- Tipos de solicitud/respuesta y enums definidos en el contrato.
 
-## ¿Qué implementas en Sword?
+La compilación se configura en `build.rs`; ver [Compilando protos](/es/practical-guides/grpc/compilando-proto).
 
-En Sword implementas el trait generado por tonic dentro de un controlador anotado con `#[controller(kind = Controller::Grpc, ...)]`.
+## Tipos de RPC
 
-```rust
-use sword::grpc::*;
-use sword::prelude::*;
+Un servicio definido en `.proto` puede exponer varios tipos de RPC, según la forma de las peticiones y respuestas:
 
-#[controller(kind = Controller::Grpc, service = UserGrpcServiceServer)]
-pub struct UsersController;
+- **Unary**: una petición → una respuesta. Es el tipo más común.
+- **Server streaming**: el cliente envía una petición y el servidor responde con un stream de mensajes.
+- **Client streaming**: el cliente envía un stream de peticiones y el servidor responde con un único mensaje.
+- **Bidirectional streaming**: ambos lados envían y reciben streams de forma concurrente.
 
-#[sword::grpc::async_trait]
-impl UserGrpcService for UsersController {
-    async fn get_user(
-        &self,
-        _: Request<GetUserRequest>,
-    ) -> GrpcResult<GetUserResponse> {
-        Ok(Response::new(GetUserResponse { user: None }))
-    }
+En el contrato se declaran así:
+
+```proto
+syntax = "proto3";
+
+package users;
+
+service UserGrpcService {
+  rpc GetUser (GetUserRequest) returns (GetUserResponse);          // unary
+  rpc StreamUsers (StreamUsersRequest) returns (stream UserItem);  // server streaming
+  rpc UploadUsers (stream UserItem) returns (UploadReply);          // client streaming
+  rpc Chat (stream ChatMessage) returns (stream ChatReply);         // bidi streaming
 }
 ```
 
-## Tipos base en métodos gRPC
+## Dependencias de build
 
-Para métodos unary, la forma general es:
+Para compilar los `.proto` necesitas `tonic-prost-build` como dependencia de build, y en runtime `prost` (serialización) y `tonic-prost` (codec).
 
-- entrada: `Request<T>`
-- salida: `GrpcResult<U>` (`Result<Response<U>, Status>`)
+::: details Dependencias mínimas
 
-Esto permite:
+```toml
+[dependencies]
+sword = { version = "x.y.z", features = ["grpc", "grpc-reflection"] }
+tonic = "x.y.z"
+prost = "x.y.z"
+tonic-prost = "x.y.z"
 
-- acceder a metadata de la solicitud,
-- devolver respuestas tipadas,
-- retornar errores gRPC con `Status`.
+[build-dependencies]
+tonic-prost-build = "x.y.z"
+```
 
-## Manejo de errores
+:::
 
-La documentacion de `#[derive(GrpcError)]`, atributos soportados (`grpc_error`, `grpc`, `tracing`) y ejemplos de uso se encuentra en la guia dedicada:
+::: tip ¿Por qué no basta con `sword` y su feature `grpc`?
+Cuando los ficheros `.proto` se compilan dependen directamente de `prost` y `tonic-prost` en el cliente final, es decir, con estos crates en el `Cargo.toml` del proyecto, no basta con que `sword` los reexporte.
+:::
 
-- [Errores gRPC con GrpcError](/es/practical-guides/grpc/errores-grpc)
+::: info Feature `grpc-reflection`
+Si además quieres exponer reflection (necesario para inspeccionar y probar servicios con `grpcurl`), incluye la feature `grpc-reflection`. Sin ella, el descriptor generado en `build.rs` no se registra.
+:::
 
-## Ver también
+## Siguiente paso
 
-- [Ficheros .proto](/es/practical-guides/grpc/ficheros-proto)
-- [Errores gRPC con GrpcError](/es/practical-guides/grpc/errores-grpc)
-- [Inspección de servicios gRPC con grpcurl](/es/practical-guides/grpc/inspeccion-de-servicios-con-grpcurl)
+Con los conceptos de tonic claros, el siguiente paso es conocer cómo Sword define e implementa los controladores gRPC:
+
+- [API Reference gRPC](/es/practical-guides/grpc/api-reference-grpc)
