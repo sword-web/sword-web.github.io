@@ -1,20 +1,20 @@
 ---
 title: "Interceptores en Controladores Socket.IO"
-description: "Cómo aplicar interceptors a controladores Socket.IO en Sword: OnConnect, OnConnectWithConfig y el rol de Tower."
+description: "Cómo aplicar interceptores a controladores Socket.IO en Sword: OnConnect, OnConnectWithConfig y el rol de Tower."
 outline: [2, 3]
 ---
 
 # Interceptores en Controladores Socket.IO
 
-Sword permite aplicar interceptors a controladores Socket.IO para manejar la conexión de clientes a un `namespace`.
+Sword permite aplicar interceptores a controladores Socket.IO para manejar la conexión de clientes a un namespace.
 
-## Interceptors tradicionales
+## Interceptores tradicionales
 
 ### El Trait `OnConnect`
 
-Este trait permite definir lógica personalizada que se ejecuta antes de que un cliente se conecte a un `namespace` en concreto.
+Este trait permite definir lógica personalizada que se ejecuta antes de que un cliente se conecte a un namespace en concreto.
 
-A diferencia de los interceptors de controladores web, el interceptor `OnConnect` se ejecuta solo en el handshake inicial (evento `#[on("connection")]`). Luego, cada evento bajo el `namespace` no ejecutará el interceptor.
+A diferencia de los interceptores de controladores web, el interceptor `OnConnect` se ejecuta solo en el handshake inicial (evento `#[on("connection")]`). Luego, cada evento bajo el namespace no ejecutará el interceptor.
 
 ```rust
 use sword::prelude::*;
@@ -63,11 +63,11 @@ impl EventController {
 
 En este ejemplo, el interceptor se aplica antes del evento `#[on("connection")]`. Cualquier interacción en otros eventos asociados al controlador no pasará por el interceptor aplicado.
 
-## Interceptors con configuración
+## Interceptores con configuración
 
 ### El Trait `OnConnectWithConfig`
 
-Al igual que `OnConnect`, este trait permite definir lógica personalizada que se ejecuta antes de que un cliente se conecte a un `namespace` en concreto, pero permite recibir un parámetro de tipo `T` extra con el que podremos tener un nivel adicional de configuración.
+Al igual que `OnConnect`, este trait permite definir lógica personalizada que se ejecuta antes de que un cliente se conecte a un namespace en concreto, pero permite recibir un parámetro de tipo `T` extra con el que podremos tener un nivel adicional de configuración.
 
 ```rust
 use sword::prelude::*;
@@ -125,7 +125,7 @@ En este ejemplo, el interceptor se aplica antes del evento `#[on("connection")]`
 
 En Socket.IO conviene distinguir dos cosas:
 
-- **Layers globales**: sí aplican, porque Socket.IO se monta sobre el runtime web de la aplicación. Por ejemplo, una layer global de CORS puede influir en el handshake inicial y en la request HTTP asociada al transporte `polling` o `websocket`.
+- **Layers globales**: sí aplican, porque Socket.IO se monta sobre el runtime web de la aplicación. Por ejemplo, una layer global de CORS puede influir en el handshake inicial y en la solicitud HTTP asociada al transporte `polling` o `websocket`.
 - **Layers locales vía `#[interceptor(expr)]`**: no se soportan para lógica de conexión.
 
 Si necesitas lógica específica de conexión en Socket.IO, la forma correcta es mediante `OnConnect` u `OnConnectWithConfig`.
@@ -135,6 +135,6 @@ Si necesitas lógica específica de conexión en Socket.IO, la forma correcta es
 En Socket.IO existe un concepto relacionado, pero distinto al de las extensiones web:
 
 - `ctx.extensions()` da acceso a las extensiones del socket.
-- `ctx.http_extensions()` da acceso a las extensiones HTTP asociadas a la request inicial.
+- `ctx.http_extensions()` da acceso a las extensiones HTTP asociadas a la solicitud inicial.
 
 Esto resulta útil cuando necesitas compartir información entre el handshake HTTP y la fase posterior de eventos en tiempo real. Para más detalles, revisa [Contexto y extensiones](/es/practical-guides/socketio/context-and-extensions).

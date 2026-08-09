@@ -57,7 +57,7 @@ impl ChatController {
 
 ## Diferencia con `try_data`
 
-- `try_data::<T>()` solo deserializa el payload
-- `try_validated_data::<T>()` deserializa y luego ejecuta `Validate`
+- `try_data::<T>()` solo deserializa el payload.
+- `try_validated_data::<T>()` deserializa y luego ejecuta `Validate`.
 
-Si la validación falla, el método retorna error y puedes decidir cómo manejarlo dentro del handler.
+Si la validación falla, el método retorna un error y puedes decidir cómo manejarlo dentro del handler.

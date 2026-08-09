@@ -7,11 +7,11 @@ outline: [2, 3]
 # Manejo de eventos y referencia de SocketContext
 
 En Sword, los controladores Socket.IO trabajan con eventos (`#[on("...")]`) y reciben un `SocketContext`.
-Esta pagina unifica el flujo de eventos con la referencia de la API publica de `SocketContext`.
+Esta página unifica el flujo de eventos con la referencia de la API pública de `SocketContext`.
 
 ## Tipos de eventos
 
-Los handlers mas comunes son:
+Los handlers más comunes son:
 
 - `connection`
 - `disconnection`
@@ -21,7 +21,7 @@ Los handlers mas comunes son:
 
 - En `connection`, `event()` retorna `None`; `try_data::<T>()` intenta leer `auth` del handshake.
 - En `message`, `event()` retorna `Some(nombre_evento)` y `try_data::<T>()` lee el payload del evento.
-- En `disconnection`, `disconnect_reason()` puede retornar el motivo de desconexion.
+- En `disconnection`, `disconnect_reason()` puede retornar el motivo de desconexión.
 
 ## Referencia de SocketContext
 
@@ -37,7 +37,7 @@ pub fn id(&self) -> &Sid
 
 **Cuando usarlo**
 
-- Logging, trazabilidad, asociar eventos a una conexion especifica.
+- Logging, trazabilidad, asociar eventos a una conexión específica.
 
 ### Método `connected()`
 
@@ -86,7 +86,7 @@ pub fn event(&self) -> Option<&str>
 
 **Cuando usarlo**
 
-- Para enrutar logica por nombre de evento o registrar metricas por evento.
+- Para enrutar lógica por nombre de evento o registrar métricas por evento.
 
 ### Método `disconnect_reason()`
 
@@ -96,12 +96,12 @@ pub fn disconnect_reason(&self) -> Option<&DisconnectReason>
 
 **Retorna**
 
-- `Some(reason)` en handlers de desconexion.
-- `None` en connect/message.
+- `Some(reason)` en handlers de desconexión.
+- `None` en `connect`/`message`.
 
 **Cuando usarlo**
 
-- Auditar porque se cierra una conexion.
+- Auditar por qué se cierra una conexión.
 
 ### Método `protocol_version()`
 
@@ -111,7 +111,7 @@ pub fn protocol_version(&self) -> ProtocolVersion
 
 **Retorna**
 
-- Version de protocolo Socket.IO negociada.
+- Versión de protocolo Socket.IO negociada.
 
 **Cuando usarlo**
 
@@ -129,7 +129,7 @@ pub fn transport_type(&self) -> TransportType
 
 **Cuando usarlo**
 
-- Telemetria, reglas por tipo de transporte, debugging de handshake.
+- Telemetría, reglas por tipo de transporte, depuración de handshake.
 
 ### Método `try_data::<T>()`
 
@@ -144,15 +144,15 @@ pub fn try_data<T: DeserializeOwned>(&self) -> Result<T, SocketError>
 
 **Cuando usarlo**
 
-- Cuando necesitas deserializar payload (o `auth` en `connection`) sin validacion de `validator`.
+- Cuando necesitas deserializar payload (o `auth` en `connection`) sin validación de `validator`.
 
 **Cuando no usarlo**
 
-- Si necesitas reglas declarativas de validacion; en ese caso usa `try_validated_data::<T>()`.
+- Si necesitas reglas declarativas de validación; en ese caso usa `try_validated_data::<T>()`.
 
 **Notas**
 
-- Este metodo consume el payload interno. Una segunda llamada en el mismo handler falla.
+- Este método consume el payload interno. Una segunda llamada en el mismo handler falla.
 
 ### Método `try_validated_data::<T>()`
 
@@ -165,7 +165,7 @@ where
 **Retorna**
 
 - `Ok(T)` si deserializa y valida correctamente.
-- `Err(SocketError)` si falla parseo, no hay payload o falla validacion.
+- `Err(SocketError)` si falla parseo, no hay payload o falla validación.
 
 **Cuando usarlo**
 
@@ -177,7 +177,7 @@ where
 
 **Notas**
 
-- Internamente usa `try_data()`, por lo que tambien consume el payload.
+- Internamente usa `try_data()`, por lo que también consume el payload.
 
 ### Método `has_data()`
 
@@ -252,7 +252,7 @@ pub fn broadcast(&self) -> BroadcastOperators<A>
 
 **Retorna**
 
-- Un operador de broadcast que envía a todos los clientes conectados (excepto el emisor).
+- Un operador de difusión que envía a todos los clientes conectados (excepto el emisor).
 
 **Cuando usarlo**
 
@@ -266,7 +266,7 @@ pub fn local(&self) -> BroadcastOperators<A>
 
 **Retorna**
 
-- Un operador de broadcast que envía solo a los clientes de este nodo.
+- Un operador de difusión que envía solo a los clientes de este nodo.
 
 **Cuando usarlo**
 
@@ -280,7 +280,7 @@ pub fn to(&self, rooms: impl RoomParam) -> BroadcastOperators<A>
 
 **Retorna**
 
-- Un operador de broadcast limitado a las salas especificadas.
+- Un operador de difusión limitado a las salas especificadas.
 
 **Cuando usarlo**
 
@@ -294,7 +294,7 @@ pub fn within(&self, rooms: impl RoomParam) -> BroadcastOperators<A>
 
 **Retorna**
 
-- Un operador de broadcast limitado a las salas especificadas (alias de `to()`).
+- Un operador de difusión limitado a las salas especificadas (alias de `to()`).
 
 ### Método `except()`
 
@@ -304,7 +304,7 @@ pub fn except(&self, rooms: impl RoomParam) -> BroadcastOperators<A>
 
 **Retorna**
 
-- Un operador de broadcast que excluye las salas especificadas.
+- Un operador de difusión que excluye las salas especificadas.
 
 **Cuando usarlo**
 
@@ -318,11 +318,11 @@ pub fn timeout(&self, timeout: Duration) -> ConfOperators<'_, A>
 
 **Retorna**
 
-- Un operador de configuración con timeout personalizado para acknowledgement.
+- Un operador de configuración con tiempo de espera personalizado para la confirmación.
 
 **Cuando usarlo**
 
-- Establecer un timeout al enviar un mensaje con acknowledgement.
+- Establecer un tiempo de espera al enviar un mensaje con confirmación.
 
 ### Método `join()`
 
@@ -378,8 +378,8 @@ where
 
 **Retorna**
 
-- `Ok(())` si el ACK se envia.
-- `Err(SendError)` si no hay ACK disponible o falla el envio.
+- `Ok(())` si el ACK se envía.
+- `Err(SendError)` si no hay ACK disponible o falla el envío.
 
 **Cuando usarlo**
 
@@ -391,7 +391,7 @@ where
 
 **Notas**
 
-- Consume `self`; despues de `ack(...)` no puedes seguir usando ese `SocketContext`.
+- Consume `self`; después de `ack(...)` no puedes seguir usando ese `SocketContext`.
 
 ### Método `req_parts()`
 
@@ -401,11 +401,11 @@ pub fn req_parts(&self) -> &Parts
 
 **Retorna**
 
-- Las partes del request HTTP del handshake inicial.
+- Las partes de la solicitud HTTP del handshake inicial.
 
 **Cuando usarlo**
 
-- Acceder a datos HTTP crudos (method, URI, etc.).
+- Acceder a datos HTTP crudos (método, URI, etc.).
 
 ### Método `headers()`
 
@@ -415,7 +415,7 @@ pub fn headers(&self) -> &HeaderMap
 
 **Retorna**
 
-- Una referencia a los headers del request del socket.
+- Una referencia a los headers de la solicitud del socket.
 
 **Cuando usarlo**
 
@@ -433,7 +433,7 @@ pub fn authorization(&self) -> Option<&str>
 
 **Cuando usarlo**
 
-- Extraer tokens bearer u otros datos de autenticación del handshake.
+- Extraer tokens Bearer u otros datos de autenticación del handshake.
 
 ### Método `extensions()`
 
@@ -443,11 +443,11 @@ pub fn extensions(&self) -> &Extensions
 
 **Retorna**
 
-- Almacen de extensiones asociado al socket.
+- Almacén de extensiones asociado al socket.
 
 **Cuando usarlo**
 
-- Compartir estado durante la vida de la conexion.
+- Compartir estado durante la vida de la conexión.
 
 ### Método `http_extensions()`
 
@@ -461,7 +461,7 @@ pub fn http_extensions(&self) -> &HttpExtensions
 
 **Cuando usarlo**
 
-- Reutilizar datos escritos en interceptors/layers HTTP durante el handshake.
+- Reutilizar datos escritos en interceptores/layers HTTP durante el handshake.
 
 ### Método `disconnect()`
 
@@ -471,16 +471,16 @@ pub fn disconnect(self) -> Result<(), SocketError>
 
 **Retorna**
 
-- `Ok(())` si la desconexion se ejecuta.
-- `Err(SocketError)` si falla el cierre de conexion.
+- `Ok(())` si la desconexión se ejecuta.
+- `Err(SocketError)` si falla el cierre de conexión.
 
 **Cuando usarlo**
 
-- Cuando el servidor decide cortar la conexion activamente.
+- Cuando el servidor decide cortar la conexión activamente.
 
 **Notas**
 
-- Consume `self`; despues de llamarlo no puedes reutilizar el contexto.
+- Consume `self`; después de llamarlo no puedes reutilizar el contexto.
 
 ## Ejemplo base
 
@@ -520,8 +520,8 @@ impl ChatController {
 }
 ```
 
-## Ver tambien
+## Ver también
 
-- [Validacion de datos](/es/practical-guides/socketio/data-validation)
+- [Validación de datos](/es/practical-guides/socketio/data-validation)
 - [ACKs](/es/practical-guides/socketio/acknowledgements)
 - [Contexto y extensiones](/es/practical-guides/socketio/context-and-extensions)
