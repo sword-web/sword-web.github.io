@@ -276,10 +276,19 @@
     filter: drop-shadow(0 0 40px rgba(74, 125, 217, 0.35));
 }
 
-.VPImage.image-src {
-    margin-top: 4.2rem;
-    margin-left: 10rem;
-    scale: 1.5;
+@media (max-width: 959.98px) {
+    .VPImage.image-src {
+        max-width: 400px;
+        max-height: 320px;
+    }
+}
+
+@media (min-width: 960px) {
+    .VPImage.image-src {
+        margin-top: 4.2rem;
+        margin-left: 10rem;
+        scale: 1.5;
+    }
 }
 
 /* ----------------------------------------------------------------------------
@@ -345,7 +354,11 @@
 
 .VPFeature:hover {
     background-color: var(--vp-c-bg-soft);
-    border-color: color-mix(in srgb, var(--vp-c-brand-2) 55%, var(--vp-c-divider));
+    border-color: color-mix(
+        in srgb,
+        var(--vp-c-brand-2) 55%,
+        var(--vp-c-divider)
+    );
     box-shadow: 0 12px 32px rgba(74, 125, 217, 0.14);
     transform: translateY(-4px);
 }
@@ -561,7 +574,8 @@ div[class*="language-"] .copy:hover {
     padding: 2.5rem;
     text-align: center;
     border-radius: var(--sw-radius-lg);
-    border: 1px solid color-mix(in srgb, var(--vp-c-brand-2) 35%, var(--vp-c-divider));
+    border: 1px solid
+        color-mix(in srgb, var(--vp-c-brand-2) 35%, var(--vp-c-divider));
     background:
         radial-gradient(
             circle at 50% -40%,

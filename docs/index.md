@@ -15,9 +15,8 @@ keywords:
 layout: home
 
 hero:
-    name: "Sword"
-    text: "Rust Web Framework"
-    tagline: Asynchronous, modular and opinionated
+    text: "Server-side Application Framework"
+    tagline: Progressive, modular and opinionated
     image:
         light:
             src: /logo-new-dark.png
@@ -36,22 +35,14 @@ hero:
         - theme: alt
           text: GitHub
           link: "https://github.com/sword-web/"
-
-features:
-    - title: Asynchronous by default
-      icon: "⚡"
-      details:
-          Built on Tokio, Sword is an asynchronous framework that relies on the
-          well-known Tokio runtime to handle multiple concurrent connections efficiently.
-
-    - title: Module-based architecture
-      icon: "🧩"
-      details: Build server-side applications with a modular architecture, layer separation, and dependency injection.
-
-    - title: Integrated interceptors and layers
-      icon: "🛡️"
-      details: Includes typed interceptors and reusable Tower layers for CORS, request timeout, security headers, and more.
 ---
+
+## Why Sword?
+
+- **Async by default** — built on top of Tokio ecosystem.
+- **Modular** — modules and dependency injection as first-class citizens.
+- **Web, Socket.IO and gRPC** — one framework for all your APIs.
+- **Bateries included** — built-in support for validation, standardized error handling, TOML based configuration, and more.
 
 ## Quick start
 
@@ -64,13 +55,6 @@ cargo run
 ```
 
 Then open `http://localhost:3000` in your browser.
-
-## Why Sword?
-
-- **Async by default** — built on Tokio and Axum for high concurrency.
-- **Modular and testable** — modules, dependency injection and interceptors as first-class citizens.
-- **Web, Socket.IO and gRPC** — one framework for all your APIs.
-- **OpenAPI ready** — generate docs from your controllers out of the box.
 
 <div class="sword-cta">
 <h2>Ready to build with Sword?</h2>

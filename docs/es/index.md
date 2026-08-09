@@ -16,9 +16,8 @@ keywords:
 layout: home
 
 hero:
-    name: "Sword"
-    text: "Framework Web en Rust"
-    tagline: Asíncrono, modular y con opiniones
+    text: "Framework de Aplicaciones de Servidor"
+    tagline: Progresivo, modular y con opiniones
     image:
         light:
             src: /logo-new-dark.png
@@ -36,22 +35,14 @@ hero:
         - theme: alt
           text: GitHub
           link: "https://github.com/sword-web/"
-
-features:
-    - title: Asíncrono por defecto
-      icon: "⚡"
-      details:
-          Construido sobre Tokio, Sword es un framework asíncrono que aprovecha
-          el conocido runtime de Tokio para manejar múltiples conexiones concurrentes de forma eficiente.
-
-    - title: Arquitectura por módulos
-      icon: "🧩"
-      details: Construye aplicaciones de servidor con arquitectura modular, separación de capas e inyección de dependencias.
-
-    - title: Interceptores
-      icon: "🛡️"
-      details: Incluye interceptores tipados y basados en traits para manejar preocupaciones transversales como autenticación, autorización, logging y más.
 ---
+
+## ¿Por qué Sword?
+
+- **Asíncrono por defecto** — construido sobre el ecosistema de Tokio.
+- **Modular** — módulos e inyección de dependencias como ciudadanos de primera clase.
+- **Web, Socket.IO y gRPC** — un solo framework para todas tus APIs.
+- **Baterías incluidas** — soporte integrado para validación, manejo de errores estandarizado, configuración basada en TOML y más.
 
 ## Inicio rápido
 
@@ -64,13 +55,6 @@ cargo run
 ```
 
 Luego abre `http://localhost:3000` en tu navegador.
-
-## ¿Por qué Sword?
-
-- **Asíncrono por defecto** — construido sobre Tokio y Axum para alta concurrencia.
-- **Modular y testeable** — módulos, inyección de dependencias e interceptores como ciudadanos de primera clase.
-- **Web, Socket.IO y gRPC** — un solo framework para todas tus APIs.
-- **Listo para OpenAPI** — genera documentación desde tus controladores sin configuración extra.
 
 <div class="sword-cta">
 <h2>¿Listo para construir con Sword?</h2>
