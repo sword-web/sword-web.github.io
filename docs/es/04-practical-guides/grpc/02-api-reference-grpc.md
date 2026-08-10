@@ -95,6 +95,29 @@ pub use tonic::Status;
 
 - Para construir errores directamente o convertir errores de dominio con `#[derive(GrpcError)]`. Ver [Errores gRPC con GrpcError](/es/practical-guides/grpc/errores-grpc).
 
+### Tipo `GrpcStatus`
+
+```rust
+GrpcStatus::InvalidArgument()
+    .message("invalid request")
+    .bad_request("username", "username cannot be empty")
+    .into() // -> tonic::Status
+```
+
+**Retorna**
+
+- Un builder de `tonic::Status` que implementa el Richer Error Model, con un constructor por código de estado (`InvalidArgument()`, `NotFound()`, ...) y builders encadenables para detalles estandarizados.
+
+**Cuándo usarlo**
+
+- Cuando necesitas devolver una respuesta de error con detalles estructurados (`bad_request`, `localized_message`, `error_info`, `retry_after`, `help`, `debug_info`, `precondition_failure`, `quota_failure`, `request_info`, `resource_info`).
+
+**Notas**
+
+- Requiere la feature `grpc-error-details`.
+- Se convierte a `tonic::Status` con `.into()` o `.build()`.
+- En el cliente, `GrpcStatus::from_status(&status)` reconstruye el status y lee los detalles con `StatusExt`. Ver [Errores enriquecidos con `GrpcStatus`](/es/practical-guides/grpc/errores-grpc).
+
 ## Referencia de métodos
 
 ### Método `GrpcResponse::message()`

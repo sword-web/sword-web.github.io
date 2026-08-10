@@ -62,6 +62,59 @@ The values accepted by `code` are:
 - `data_loss`
 - `unauthenticated`
 
+## Rich errors with `GrpcStatus`
+
+`GrpcError` covers propagating domain errors with `?`, but sometimes you need an error response with more information: the [gRPC Richer Error Model](https://grpc.io/docs/guides/error/) standard defines structured details clients can read (field violations, localized messages, retry hints, etc.). For that, Sword exposes `GrpcStatus`, a status builder with chainable details.
+
+Enable the `grpc-error-details` feature:
+
+```toml
+[dependencies]
+sword = { version = "x.y.z", features = ["grpc", "grpc-error-details"] }
+```
+
+`GrpcStatus` provides one constructor per status code (`GrpcStatus::InvalidArgument()`, `GrpcStatus::NotFound()`, ...) and chainable builders for the details. It converts to `tonic::Status` with `.into()` or `.build()`:
+
+```rust
+use sword::grpc::*;
+
+// ... asuming a request handler ...
+
+Err(GrpcStatus::InvalidArgument()
+    .message("invalid request")
+    .bad_request("username", "username cannot be empty"))?
+```
+
+Available detail builders:
+
+- `bad_request(field, description)` — a field violation for `BadRequest`.
+- `localized_message(locale, message)` — a localized message.
+- `error_info(domain, reason, metadata)` — error information (`ErrorInfo`).
+- `retry_after(delay)` — advises the client to retry after a delay (`RetryInfo`).
+- `help(description, url)` — a help link (`Help`).
+- `debug_info(stack_entries, detail)` — debug information (`DebugInfo`).
+- `precondition_failure(violation_type, subject, description)` — a precondition violation.
+- `quota_failure(subject, description)` — a quota violation.
+- `request_info(request_id, serving_data)` — request information (`RequestInfo`).
+- `resource_info(resource_type, resource_name, owner, description)` — resource information (`ResourceInfo`).
+
+On the client side, you can rebuild the `GrpcStatus` from the received `tonic::Status` with `GrpcStatus::from_status(&status)` and read the details with `StatusExt::get_error_details()`:
+
+```rust
+use sword::grpc::*;
+
+let grpc_status = GrpcStatus::from_status(&status);
+let details = status.get_error_details();
+
+if let Some(bad_request) = details.bad_request() {
+    // ... inspect field_violations
+}
+```
+
+::: tip `GrpcError` or `GrpcStatus`?
+`GrpcError` converts domain errors to `Status` to propagate them with `?` in any method. `GrpcStatus` directly builds a rich error response with structured details. Both coexist: use `GrpcError` for the normal error flow and `GrpcStatus` when you need to attach standardized details.
+:::
+
 ## Tracing
 
 Another interesting aspect of `GrpcError` is that it lets you enable `tracing` for each variant through the `tracing = <level>` attribute (or the compatible shorthand `#[tracing(level)]`). This generates structured logs with the error information and the variant fields.

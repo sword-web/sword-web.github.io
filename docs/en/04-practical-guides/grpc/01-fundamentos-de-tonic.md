@@ -54,6 +54,7 @@ To compile the `.proto` files you need `tonic-prost-build` as a build dependency
 sword = { version = "x.y.z", features = ["grpc", "grpc-reflection"] }
 tonic = "x.y.z"
 prost = "x.y.z"
+prost-types = "x.y.z"
 tonic-prost = "x.y.z"
 
 [build-dependencies]
@@ -64,6 +65,29 @@ tonic-prost-build = "x.y.z"
 
 ::: tip Why is `sword` with its `grpc` feature not enough?
 When `.proto` files are compiled, they depend directly on `prost` and `tonic-prost` in the final client, meaning these crates need to be in the project's `Cargo.toml`; it is not enough for `sword` to re-export them.
+:::
+
+::: info Advanced types with `prost-types`
+If your contract uses protobuf well-known types (`google.protobuf.Timestamp`, `Duration`, `Any`, etc.), you also need the `prost-types` crate in the project. These types compile to their `prost-types` equivalents in Rust.
+
+```proto
+import "google/protobuf/timestamp.proto";
+
+message UserItem {
+  string id = 1;
+  string username = 2;
+  google.protobuf.Timestamp created_at = 3;
+}
+```
+
+```rust
+pub struct User {
+    pub id: String,
+    pub username: String,
+    pub created_at: prost_types::Timestamp,
+}
+```
+
 :::
 
 ::: info `grpc-reflection` feature

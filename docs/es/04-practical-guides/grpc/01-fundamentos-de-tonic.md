@@ -54,6 +54,7 @@ Para compilar los `.proto` necesitas `tonic-prost-build` como dependencia de bui
 sword = { version = "x.y.z", features = ["grpc", "grpc-reflection"] }
 tonic = "x.y.z"
 prost = "x.y.z"
+prost-types = "x.y.z"
 tonic-prost = "x.y.z"
 
 [build-dependencies]
@@ -64,6 +65,29 @@ tonic-prost-build = "x.y.z"
 
 ::: tip ¿Por qué no basta con `sword` y su feature `grpc`?
 Cuando los ficheros `.proto` se compilan dependen directamente de `prost` y `tonic-prost` en el cliente final, es decir, con estos crates en el `Cargo.toml` del proyecto, no basta con que `sword` los reexporte.
+:::
+
+::: info Tipos avanzados con `prost-types`
+Si tu contrato usa tipos well-known de protobuf (`google.protobuf.Timestamp`, `Duration`, `Any`, etc.), también necesitas el crate `prost-types` en el proyecto. Estos tipos se compilan a sus equivalentes de `prost-types` en Rust.
+
+```proto
+import "google/protobuf/timestamp.proto";
+
+message UserItem {
+  string id = 1;
+  string username = 2;
+  google.protobuf.Timestamp created_at = 3;
+}
+```
+
+```rust
+pub struct User {
+    pub id: String,
+    pub username: String,
+    pub created_at: prost_types::Timestamp,
+}
+```
+
 :::
 
 ::: info Feature `grpc-reflection`
