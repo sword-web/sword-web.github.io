@@ -1,6 +1,6 @@
 ---
 title: "Manejo de Errores"
-description: "Muchos métodos de `Request` retornan `Result` porque la extracción o deserialización puede fallar."
+description: "Modela errores de dominio y conviértelos a JsonResponse con la macro #[derive(HttpError)] en controladores web de Sword."
 outline: [2, 3]
 ---
 
@@ -61,6 +61,24 @@ La salida en consola se vería así:
 ```text
 ERROR HTTP error response error="Conflicto en username: Alice" error_type="Conflict" status_code=409 field="username" value="Alice"
 ```
+
+### Nivel por defecto
+
+Cuando no se especifica `tracing`, el nivel se deriva del status HTTP, siguiendo la política `auto` del [access logger](/es/practical-guides/web/access-logger#niveles):
+
+| Status | Nivel |
+| ------ | ----- |
+| `2xx` / `3xx` | `info` |
+| `4xx` | `warn` |
+| `5xx` | `error` |
+
+```rust
+#[error("Error interno del servidor")]
+#[http(code = 500, message = "Error interno del servidor")]
+Internal, // loguea en ERROR sin un #[tracing(...)] explícito
+```
+
+Un `#[tracing(nivel)]` explícito siempre tiene prioridad sobre el nivel derivado por defecto.
 
 ## Interpolación de Mensajes
 

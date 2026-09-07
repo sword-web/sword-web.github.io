@@ -1,6 +1,6 @@
 ---
 title: "Layers y Servicios Auto-registrados"
-description: "Configura Compression, CORS y servidor de archivos estáticos directamente desde config.toml sin registro manual de layers."
+description: "Configura Compresión, CORS y servidor de archivos estáticos directamente desde config.toml sin registro manual de layers."
 outline: [2, 3]
 keywords:
     [

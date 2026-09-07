@@ -1,6 +1,6 @@
 ---
 title: "Construyendo una aplicación"
-description: "Sword usa un patrón **constructor** para construir aplicaciones."
+description: "Sword usa un patrón **Builder** para construir aplicaciones."
 outline: [2, 3]
 ---
 
