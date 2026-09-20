@@ -14,7 +14,7 @@ export default defineConfig({
         ],
         ["meta", { name: "theme-color", content: "#111111" }],
     ],
-    title: "Sword",
+title: "Sword",
     description: "Sword Web Framework Documentation",
     base: "/",
     rewrites: (page) => {
@@ -207,6 +207,10 @@ export default defineConfig({
                                         text: "OpenAPI & Swagger UI",
                                         link: "/en/practical-guides/web/openapi",
                                     },
+                                    {
+                                        text: "Access Logger",
+                                        link: "/en/practical-guides/web/access-logger",
+                                    },
                                 ],
                             },
                             {
@@ -262,6 +266,10 @@ export default defineConfig({
                                     {
                                         text: "Service Inspection with grpcurl",
                                         link: "/en/practical-guides/grpc/inspeccion-de-servicios-con-grpcurl",
+                                    },
+                                    {
+                                        text: "Access Logger",
+                                        link: "/en/practical-guides/grpc/access-logger",
                                     },
                                 ],
                             },
@@ -449,6 +457,10 @@ export default defineConfig({
                                         text: "OpenAPI y Swagger UI",
                                         link: "/es/practical-guides/web/openapi",
                                     },
+                                    {
+                                        text: "Access Logger",
+                                        link: "/es/practical-guides/web/access-logger",
+                                    },
                                 ],
                             },
                             {
@@ -504,6 +516,10 @@ export default defineConfig({
                                     {
                                         text: "Inspección con grpcurl",
                                         link: "/es/practical-guides/grpc/inspeccion-de-servicios-con-grpcurl",
+                                    },
+                                    {
+                                        text: "Access Logger",
+                                        link: "/es/practical-guides/grpc/access-logger",
                                     },
                                 ],
                             },

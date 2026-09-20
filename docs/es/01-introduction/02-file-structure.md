@@ -1,6 +1,6 @@
 ---
 title: "Estructura de archivos"
-description: "Sword sugiere una estructura de desarrollo basada en modulos."
+description: "Sword sugiere una estructura de desarrollo basada en módulos."
 ---
 
 # Estructura de archivos

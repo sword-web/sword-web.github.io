@@ -1,6 +1,6 @@
 ---
 title: "Error Handling"
-description: "Many Request methods return Result because extraction or deserialization can fail."
+description: "Model domain errors and convert them to JsonResponse with the #[derive(HttpError)] macro in Sword web controllers."
 outline: [2, 3]
 ---
 
@@ -61,6 +61,24 @@ The console output would look like this:
 ```text
 ERROR HTTP error response error="Conflict on username: Alice" error_type="Conflict" status_code=409 field="username" value="Alice"
 ```
+
+### Default level
+
+When `tracing` is not specified, the level is derived from the HTTP status code, matching the [access logger](/en/practical-guides/web/access-logger#levels) `auto` policy:
+
+| Status | Level |
+| ------ | ----- |
+| `2xx` / `3xx` | `info` |
+| `4xx` | `warn` |
+| `5xx` | `error` |
+
+```rust
+#[error("Internal server error")]
+#[http(code = 500, message = "Internal server error")]
+Internal, // logs at ERROR without an explicit #[tracing(...)]
+```
+
+An explicit `#[tracing(level)]` always takes precedence over the derived default.
 
 ## Message Interpolation
 

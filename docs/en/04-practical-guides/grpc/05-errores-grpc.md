@@ -42,7 +42,9 @@ Valid tracing levels: `trace`, `debug`, `info`, `warn`, `error`.
 
 ## Valid gRPC codes
 
-The values accepted by `code` are:
+The values accepted by `code` follow the [gRPC status codes](https://grpc.io/docs/guides/status-codes/) reference.
+
+::: details Show all codes
 
 - `ok`
 - `cancelled`
@@ -61,6 +63,8 @@ The values accepted by `code` are:
 - `unavailable`
 - `data_loss`
 - `unauthenticated`
+
+:::
 
 ## Rich errors with `GrpcStatus`
 
@@ -85,20 +89,111 @@ Err(GrpcStatus::InvalidArgument()
     .bad_request("username", "username cannot be empty"))?
 ```
 
-Available detail builders:
+::: details Available detail builders
 
-- `bad_request(field, description)` — a field violation for `BadRequest`.
-- `localized_message(locale, message)` — a localized message.
-- `error_info(domain, reason, metadata)` — error information (`ErrorInfo`).
-- `retry_after(delay)` — advises the client to retry after a delay (`RetryInfo`).
-- `help(description, url)` — a help link (`Help`).
-- `debug_info(stack_entries, detail)` — debug information (`DebugInfo`).
-- `precondition_failure(violation_type, subject, description)` — a precondition violation.
-- `quota_failure(subject, description)` — a quota violation.
-- `request_info(request_id, serving_data)` — request information (`RequestInfo`).
-- `resource_info(resource_type, resource_name, owner, description)` — resource information (`ResourceInfo`).
+### bad_request
 
-On the client side, you can rebuild the `GrpcStatus` from the received `tonic::Status` with `GrpcStatus::from_status(&status)` and read the details with `StatusExt::get_error_details()`:
+Adds a field violation for `BadRequest`.
+
+```rust
+pub fn bad_request(field: impl Into<String>, description: impl Into<String>) -> Self
+```
+
+---
+
+### localized_message
+
+Sets a localized message (`LocalizedMessage`).
+
+```rust
+pub fn localized_message(locale: impl Into<String>, message: impl Into<String>) -> Self
+```
+
+---
+
+### error_info
+
+Sets error information (`ErrorInfo`).
+
+```rust
+pub fn error_info(domain: impl Into<String>, reason: impl Into<String>, metadata: HashMap<String, String>) -> Self
+```
+
+---
+
+### retry_after
+
+Sets a retry hint (`RetryInfo`) with the given delay.
+
+```rust
+pub fn retry_after(delay: std::time::Duration) -> Self
+```
+
+---
+
+### help
+
+Adds a help link (`Help`).
+
+```rust
+pub fn help(description: impl Into<String>, url: impl Into<String>) -> Self
+```
+
+---
+
+### debug_info
+
+Sets debug information (`DebugInfo`).
+
+```rust
+pub fn debug_info(stack_entries: impl Into<Vec<String>>, detail: impl Into<String>) -> Self
+```
+
+---
+
+### precondition_failure
+
+Adds a precondition violation (`PreconditionFailure`).
+
+```rust
+pub fn precondition_failure(violation_type: impl Into<String>, subject: impl Into<String>, description: impl Into<String>) -> Self
+```
+
+---
+
+### quota_failure
+
+Adds a quota violation (`QuotaFailure`).
+
+```rust
+pub fn quota_failure(subject: impl Into<String>, description: impl Into<String>) -> Self
+```
+
+---
+
+### request_info
+
+Sets request information (`RequestInfo`).
+
+```rust
+pub fn request_info(request_id: impl Into<String>, serving_data: impl Into<String>) -> Self
+```
+
+---
+
+### resource_info
+
+Sets resource information (`ResourceInfo`).
+
+```rust
+pub fn resource_info(resource_type: impl Into<String>, resource_name: impl Into<String>, owner: impl Into<String>, description: impl Into<String>) -> Self
+```
+
+:::
+
+## Reading details on the client
+
+You can rebuild the `GrpcStatus` from the received `tonic::Status` with `GrpcStatus::from_status(&status)` and read the details with `StatusExt::get_error_details()`:
 
 ```rust
 use sword::grpc::*;
@@ -135,6 +230,26 @@ The console output would look like this:
 ```text
 ERROR gRPC error response error="Conflict on username: Alice" error_type="Conflict" grpc_code="already_exists" field="username" value="Alice"
 ```
+
+### Default level
+
+When `tracing` is not specified, the level is derived from the gRPC code, matching the [access logger](/en/practical-guides/grpc/access-logger#levels) `auto` policy:
+
+| Code | Level |
+| ---- | ----- |
+| `ok` | `info` |
+| client errors (`invalid_argument`, `not_found`, `already_exists`, `permission_denied`, `failed_precondition`, `out_of_range`, `unauthenticated`, `aborted`, `cancelled`) | `warn` |
+| server errors (the rest) | `error` |
+
+```rust
+#[derive(Debug, Error, GrpcError)]
+#[grpc_error(code = "internal")] // logs at ERROR without an explicit tracing
+pub enum AppError {
+    // ...
+}
+```
+
+An explicit `tracing = <level>` always takes precedence over the derived default.
 
 ## Message interpolation
 
