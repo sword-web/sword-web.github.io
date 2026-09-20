@@ -14,7 +14,7 @@ export default defineConfig({
         ],
         ["meta", { name: "theme-color", content: "#111111" }],
     ],
-    title: " ",
+    title: "Sword",
     description: "Sword Web Framework Documentation",
     base: "/",
     rewrites: (page) => {
@@ -514,6 +514,7 @@ export default defineConfig({
         },
     },
     themeConfig: {
+        siteTitle: "",
         socialLinks: [{ icon: "github", link: "https://github.com/sword-web" }],
     },
     markdown: {
