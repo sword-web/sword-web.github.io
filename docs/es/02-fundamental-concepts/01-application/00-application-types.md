@@ -1,41 +1,81 @@
 ---
 title: "Tipos de aplicación"
-description: "Sword distingue dos tipos de aplicación que se pueden ajustar a tus necesidades."
+description: "Sword distingue tres tipos de aplicación que se pueden ajustar a tus necesidades."
 outline: [2, 3]
 ---
 
 # Tipos de aplicación
 
-Sword distingue dos tipos de aplicación que se pueden ajustar a tus necesidades.
+En Sword, un tipo de aplicación es una forma de comunicación con el exterior. Dependiendo del tipo, una aplicación puede englobar a otras, porque varios protocolos y metodologías comparten crates. Axum es el ejemplo más claro.
 
-## Aplicación web
+Sword distingue tres tipos de aplicación que se pueden ajustar a tus necesidades.
 
-La aplicación web se basa en axum y se construye a partir de estas features:
+## Aplicación Web
 
-- `web`: Habilita controladores HTTP. Requiere importar `sword::web::*`.
-- `socketio`: Habilita controladores de tiempo real. Requiere importar `sword::socketio::*`.
+El tipo de aplicación Web se construye habilitando la feature:
 
-Puedes elegir una o ambas, dependiendo de si quieres construir una aplicación web tradicional o una aplicación en tiempo real con Socket.IO.
+```toml
+[dependencies]
+sword = { version = "x.y.z", features = ["web"] }
+```
 
-:::info
-Dado que `socketioxide` es un complemento de `axum`, la feature `web` se habilita automáticamente al habilitar `socketio`.
-:::
+En este tipo de aplicación puedes desarrollar e implementar la gran mayoría de patrones comunes en `axum`
 
-### Complementos
+Habilitando esta feature podrás utilizar el import `sword::web::*` como prelude. Para conocer más sobre este tipo de aplicación ve a _Guías Prácticas > Web_.
+
+**Complementos**
 
 Una aplicación web puede ser complementada con estas features:
 
 - `multipart`: Habilita soporte para `multipart/form-data` en controladores HTTP.
-- `validation-validator`: Habilita validación de datos de entrada en controladores web y socketio.
+- `validation-validator`: Habilita validación de datos de entrada en controladores web de la mano del crate `validator`.
+
+## Aplicación Socket.IO
+
+El tipo de aplicación Socket.IO se construye usando la feature:
+
+```toml
+[dependencies]
+sword = { version = "x.y.z", features = ["socketio"] }
+```
+
+En este tipo de aplicación puedes desarrollar e implementar la gran mayoría de patrones comunes en `socketioxide`
+
+:::info
+Dado que `socketioxide` requiere del router de `axum`, la feature `web` se habilita automáticamente al usar este tipo de aplicación.
+:::
+
+Habilitando esta feature podrás utilizar el import `sword::socketio::*` como prelude. Para conocer más sobre este tipo de aplicación ve a _Guías Prácticas > Socket.IO_.
+
+:::warning
+De momento solo es posible usar el `Adapter Local` de `socketioxide` en sword.
+
+[Ver Documentación](https://docs.rs/socketioxide/latest/socketioxide/#adapters)
+:::
+
+**Complementos**
+
+Una aplicación socketio puede ser complementada con estas features:
+
+- `validation-validator`: Habilita validación de datos de entrada en controladores socketio de la mano del crate `validator`.
 
 ## Aplicación gRPC
 
-La aplicación gRPC se basa en tonic y se construye a partir de estas features:
+El tipo de aplicación gRPC se construye usando la feature:
 
-- `grpc`: Habilita controladores gRPC basados en `tonic`. Requiere importar `sword::grpc::*`.
+```toml
+[dependencies]
+sword = { version = "x.y.z", features = ["grpc"] }
+```
 
-### Complementos
+Este tipo de aplicación permite aplicar la gran mayoría de patrones comunes en `tonic`.
+
+Habilitando esta feature podrás utilizar el import `sword::grpc::*` como prelude. Para conocer más sobre este tipo de aplicación ve a _Guías Prácticas > gRPC_.
+
+**Complementos**
 
 Una aplicación gRPC puede ser complementada con estas features:
 
-- `grpc-reflection` (Opcional): Habilita la reflexión gRPC. (Habilitar introspección de servicios gRPC para clientes como grpcurl).
+- `grpc-error-details`: Habilita el acceso a la estructura `GrpcStatus` para crear errores gRPC detallados.
+
+- `grpc-reflection`: Habilita la reflexión gRPC. Útil para realizar introspección de servicios gRPC para clientes como grpcurl.

@@ -6,11 +6,11 @@ outline: [2, 3]
 
 # Construyendo una aplicación
 
-Sword usa un patrón **constructor** para construir aplicaciones web. Este patrón se implementa en la estructura `ApplicationBuilder`, que permite configurar varios aspectos de tu aplicación de manera fluida antes de construir finalmente la instancia de `Application`.
+Sword usa un patrón **constructor** para crear aplicaciones. Este patrón se implementa en la estructura `ApplicationBuilder`, que permite configurar varios aspectos de tu aplicación de manera fluida antes de construir finalmente la instancia de `Application`.
 
 ## Construcción de la Aplicación
 
-El flujo de construcción es sencillo: llamas a `Application::builder()` para obtener un `ApplicationBuilder`, configuras los componentes de tu aplicación encadenando métodos, y finalmente llamas a `.build()` para obtener la instancia final de `Application`:
+El flujo de construcción consiste en llamar a `Application::builder()` para obtener un `ApplicationBuilder`, configuras los componentes de tu aplicación encadenando métodos:
 
 ```rust
 let app = Application::builder()
@@ -18,13 +18,13 @@ let app = Application::builder()
     .build();
 ```
 
-### ¿Cómo funciona el patrón constructor?
+Internamente el método `builder()`:
 
-**Application::builder()**: Crea un nuevo `ApplicationBuilder` que inicializa:
+- Inicializa el runtime interno del tipo de aplicación seleccionada
+- Inicializa el estado compartido de la aplicación
+- Carga la configuración desde el fichero `.toml`
 
-- El runtime interno de la aplicación
-- El estado compartido de la aplicación
-- Carga de la configuración desde el fichero `.toml`
+Finalmente deberás llamar a `.build()` para obtener una instancia de la aplicación.
 
 ### Métodos y atributos de la estructura
 

@@ -1,40 +1,79 @@
 ---
 title: "Application Types"
-description: "Sword distinguishes between two types of applications to suit your needs."
+description: "Sword distinguishes between three application types to suit your needs."
 outline: [2, 3]
 ---
 # Application Types
 
-Sword distinguishes between two types of applications to suit your needs.
+In Sword, an application type is a way of communicating with the outside. Depending on the type, one application can encompass others, because several protocols and methodologies share crates. Axum is the clearest example.
+
+Sword distinguishes between three application types that you can adapt to your needs.
 
 ## Web Application
 
-The Web App is based on Axum and is built using these feature flags:
+The Web application type is enabled with the `web` feature:
 
-- `web`: Enables HTTP controllers. Requires importing `sword::web::*`.
-- `socketio`: Enables real-time controllers. Requires importing `sword::socketio::*`.
+```toml
+[dependencies]
+sword = { version = "x.y.z", features = ["web"] }
+```
 
-You can choose one or both, depending on whether you want to build a traditional web application or a real-time application with Socket.IO.
+With this type you can develop and implement most of the patterns you would normally use in `axum`.
 
-:::info
-Since `socketioxide` is a complement of `axum`, the `web` feature flag is automatically enabled when `socketio` is enabled.
-:::
+Enabling this feature gives you the `sword::web::*` import as a prelude. To learn more about this application type, see _Practical Guides > Web_.
 
-### Complements
+**Complements**
 
-A web application can be complemented with these feature flags:
+A web application can be complemented with these features:
 
 - `multipart`: Enables support for `multipart/form-data` in HTTP controllers.
-- `validation-validator`: Enables validation of input data in web and socketio controllers.
+- `validation-validator`: Enables input data validation in web controllers with the `validator` crate.
+
+## Socket.IO Application
+
+The Socket.IO application type is enabled with the `socketio` feature:
+
+```toml
+[dependencies]
+sword = { version = "x.y.z", features = ["socketio"] }
+```
+
+With this type you can develop and implement most of the patterns you would normally use in `socketioxide`.
+
+:::info
+Since `socketioxide` requires the `axum` router, the `web` feature is automatically enabled when you use this application type.
+:::
+
+Enabling this feature gives you the `sword::socketio::*` import as a prelude. To learn more about this application type, see _Practical Guides > Socket.IO_.
+
+:::warning
+For now only the `Local Adapter` of `socketioxide` can be used in Sword.
+
+[See Documentation](https://docs.rs/socketioxide/latest/socketioxide/#adapters)
+:::
+
+**Complements**
+
+A Socket.IO application can be complemented with these features:
+
+- `validation-validator`: Enables input data validation in Socket.IO controllers with the `validator` crate.
 
 ## gRPC Application
 
-The gRPC application is based on tonic and is built using these feature flags:
+The gRPC application type is enabled with the `grpc` feature:
 
-- `grpc`: Enables gRPC controllers based on `tonic`. Requires importing `sword::grpc::*`.
+```toml
+[dependencies]
+sword = { version = "x.y.z", features = ["grpc"] }
+```
 
-### Complements
+This application type lets you apply most of the patterns you would normally use in `tonic`.
 
-A gRPC application can be complemented with these feature flags:
+Enabling this feature gives you the `sword::grpc::*` import as a prelude. To learn more about this application type, see _Practical Guides > gRPC_.
 
-- `grpc-reflection` (Optional): Enables gRPC reflection. (Enable gRPC service introspection for clients like grpcurl).
+**Complements**
+
+A gRPC application can be complemented with these features:
+
+- `grpc-error-details`: Enables access to the `GrpcStatus` struct to build detailed gRPC errors.
+- `grpc-reflection`: Enables gRPC reflection. Useful for service introspection with clients like grpcurl.

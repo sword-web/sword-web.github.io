@@ -5,11 +5,11 @@ outline: [2, 3]
 ---
 # Building an Application
 
-Sword uses a **Builder** pattern to construct web applications. This pattern is implemented in the `ApplicationBuilder` struct, which allows configuring various aspects of your application in a fluid way before finally building the `Application` instance.
+Sword uses a **Builder** pattern to construct applications. This pattern is implemented in the `ApplicationBuilder` struct, which allows configuring various aspects of your application in a fluid way before finally building the `Application` instance.
 
 ## Application Construction
 
-The construction flow is straightforward: you call `Application::builder()` to get an `ApplicationBuilder`, configure your application components by chaining methods, and finally call `.build()` to obtain the final `Application` instance:
+The construction flow consists of calling `Application::builder()` to get an `ApplicationBuilder`, then configuring your application components by chaining methods:
 
 ```rust
 let app = Application::builder()
@@ -17,13 +17,13 @@ let app = Application::builder()
     .build();
 ```
 
-### How does the Builder pattern work?
+Internally, the `builder()` method:
 
-**Application::builder()**: Creates a new `ApplicationBuilder` that initializes:
+- Initializes the internal runtime of the selected application type.
+- Initializes the shared application state.
+- Loads the configuration from the `.toml` file.
 
-- The application's internal runtime.
-- The shared application state.
-- Configuration loading from the `.toml` file.
+Finally, you call `.build()` to get an `Application` instance.
 
 ### Key Methods and Attributes
 

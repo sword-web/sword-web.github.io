@@ -16,18 +16,20 @@ Puedes encontrar los ejemplos en el repositorio en [Github](https://github.com/s
 
 Cada ejemplo está pensado para mostrar una parte concreta del framework. Si es tu primer contacto con Sword, lo normal es empezar por `web`.
 
-### Ejemplo `web`
+### Ejemplo de aplicación `web`
 
-Es el ejemplo más directo para entender el flujo base de una aplicación REST basada en axum con Sword.
+Es el ejemplo más directo para entender el flujo base de una API REST basada en `axum` con Sword.
 
-### Ejemplo `socketio`
+[Ver en GitHub](https://github.com/sword-web/sword/tree/main/examples/web)
+
+### Ejemplo de aplicación `socketio`
 
 Ejemplo centrado en la integración Socket.IO con Sword, tomando como base el crate `socketioxide`.
 
-### Ejemplo: interceptores
+[Ver en GitHub](https://github.com/sword-web/sword/tree/main/examples/socketio)
 
-Ejemplo centrado en interceptores aplicados a controladores web y Socket.IO.
-
-### Ejemplo `grpc`
+### Ejemplo de aplicación `grpc`
 
 Ejemplo centrado en la integración gRPC con Sword, tomando como base el crate `tonic`.
+
+[Ver en GitHub](https://github.com/sword-web/sword/tree/main/examples/grpc)
