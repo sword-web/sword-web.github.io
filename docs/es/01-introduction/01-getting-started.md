@@ -2,10 +2,6 @@
 title: "Iniciando con Sword"
 description: "Examples disponibles en el repositorio para comenzar a usar Sword."
 outline: [2, 3]
-
-next:
-    text: Estructura del proyecto
-    link: /es/introduction/file-structure
 ---
 
 # Iniciando con Sword

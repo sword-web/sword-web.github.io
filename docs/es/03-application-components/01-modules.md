@@ -2,13 +2,6 @@
 title: "Módulos"
 description: "Organización de aplicaciones Sword mediante módulos"
 outline: [2, 3]
-
-prev:
-    text: Configuración personalizada
-    link: /es/fundamental-concepts/configuration/custom
-next:
-    text: Controladores
-    link: /es/application-components/controllers
 ---
 
 # Módulos en Sword

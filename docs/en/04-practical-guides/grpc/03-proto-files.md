@@ -6,7 +6,7 @@ outline: [2, 3]
 
 # .proto Files
 
-In Sword, `.proto` files define the public contract of your gRPC service. This contract is later converted into Rust code with `tonic` and `tonic-prost-build` (see [Compiling Protos](/en/practical-guides/grpc/compilando-proto)).
+In Sword, `.proto` files define the public contract of your gRPC service. This contract is later converted into Rust code with `tonic` and `tonic-prost-build` (see [Compiling Protos](/en/practical-guides/grpc/compiling-protos)).
 
 ## Recommended location
 

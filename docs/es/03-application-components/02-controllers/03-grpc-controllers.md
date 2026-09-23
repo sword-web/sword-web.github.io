@@ -2,13 +2,6 @@
 title: "Controladores gRPC"
 description: "Definición y registro de controladores gRPC en Sword."
 outline: [2, 3]
-
-prev:
-    text: Controladores Socket.IO
-    link: /es/application-components/controllers/socket-io-controllers
-next:
-    text: Inyección de Dependencias
-    link: /es/application-components/di/
 ---
 
 # Controladores gRPC
@@ -62,7 +55,7 @@ message UserItem {
 
 ## Ver también
 
-- [Ficheros .proto](/es/practical-guides/grpc/ficheros-proto)
-- [Fundamentos de tonic](/es/practical-guides/grpc/fundamentos-de-tonic)
+- [Ficheros .proto](/es/practical-guides/grpc/proto-files)
+- [Fundamentos de tonic](/es/practical-guides/grpc/tonic-fundamentals)
 - [API Reference gRPC](/es/practical-guides/grpc/api-reference-grpc)
-- [Inspección de servicios gRPC con grpcurl](/es/practical-guides/grpc/inspeccion-de-servicios-con-grpcurl)
+- [Inspección de servicios gRPC con grpcurl](/es/practical-guides/grpc/service-inspection-grpcurl)

@@ -7,7 +7,7 @@ outline: [2, 3]
 
 This guide explains how to inspect and test your gRPC services with `grpcurl` in a Sword application.
 
-For `.proto` contract design recommendations, see [.proto Files](/en/practical-guides/grpc/ficheros-proto).
+For `.proto` contract design recommendations, see [.proto Files](/en/practical-guides/grpc/proto-files).
 
 ## Minimum requirements
 
@@ -21,7 +21,7 @@ enable-tonic-reflection = true
 ```
 
 ::: tip Reflection is registered from `build.rs`
-For reflection to expose your services and types, your `build.rs` must generate `sword_descriptor_set.bin` in `OUT_DIR`. See [Compiling Protos](/en/practical-guides/grpc/compilando-proto).
+For reflection to expose your services and types, your `build.rs` must generate `sword_descriptor_set.bin` in `OUT_DIR`. See [Compiling Protos](/en/practical-guides/grpc/compiling-protos).
 :::
 
 ## Basic `grpcurl` commands

@@ -17,7 +17,7 @@ When you compile a `.proto` file with `tonic-prost-build`, it generates:
 - A client to invoke the service (for example `UserGrpcServiceClient<T>`),
 - Request/response types and enums defined in the contract.
 
-The compilation is configured in `build.rs`; see [Compiling Protos](/en/practical-guides/grpc/compilando-proto).
+The compilation is configured in `build.rs`; see [Compiling Protos](/en/practical-guides/grpc/compiling-protos).
 
 ## RPC types
 

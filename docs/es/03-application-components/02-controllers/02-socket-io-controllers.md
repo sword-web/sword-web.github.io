@@ -2,13 +2,6 @@
 title: "Controladores Socket.IO"
 description: "Definición y eventos soportados de controladores Socket.IO en Sword."
 outline: [2, 3]
-
-prev:
-    text: Controladores Web
-    link: /es/application-components/controllers/web-controllers
-next:
-    text: Inyección de Dependencias
-    link: /es/application-components/di/
 ---
 
 # Controladores Socket.IO

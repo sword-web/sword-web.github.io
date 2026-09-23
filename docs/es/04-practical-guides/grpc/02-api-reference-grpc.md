@@ -93,7 +93,7 @@ pub use tonic::Status;
 
 **Cuándo usarlo**
 
-- Para construir errores directamente o convertir errores de dominio con `#[derive(GrpcError)]`. Ver [Errores gRPC con GrpcError](/es/practical-guides/grpc/errores-grpc).
+- Para construir errores directamente o convertir errores de dominio con `#[derive(GrpcError)]`. Ver [Errores gRPC con GrpcError](/es/practical-guides/grpc/grpc-errors).
 
 ### Tipo `GrpcStatus`
 
@@ -116,7 +116,7 @@ GrpcStatus::InvalidArgument()
 
 - Requiere la feature `grpc-error-details`.
 - Se convierte a `tonic::Status` con `.into()` o `.build()`.
-- En el cliente, `GrpcStatus::from_status(&status)` reconstruye el status y lee los detalles con `StatusExt`. Ver [Errores enriquecidos con `GrpcStatus`](/es/practical-guides/grpc/errores-grpc).
+- En el cliente, `GrpcStatus::from_status(&status)` reconstruye el status y lee los detalles con `StatusExt`. Ver [Errores enriquecidos con `GrpcStatus`](/es/practical-guides/grpc/grpc-errors).
 
 ## Referencia de métodos
 
