@@ -59,7 +59,7 @@ fn register_components(components: &ComponentRegistry) {
 async fn register_providers(config: &Config, providers: &ProviderRegistry)
 ```
 
-Registra estructuras `#[injectable(provider)]`, normalmente conexiones o clientes externos como bases de datos, cachés o servicios remotos. Es asíncrono porque inicializar esos recursos puede requerir operaciones async.
+Registra estructuras `#[injectable(provider)]`, normalmente conexiones o clientes externos como bases de datos, cachés o servicios remotos.
 
 **Parámetros**
 
@@ -79,10 +79,6 @@ async fn register_providers(config: &Config, providers: &ProviderRegistry) {
     );
 }
 ```
-
-**Notas**
-
-- Se ejecuta una sola vez, durante la construcción de la aplicación, no en cada request.
 
 </ApiSection>
 
@@ -115,9 +111,24 @@ impl Module for UsersModule {
 }
 ```
 
+## Estructura de archivos
+
+Un módulo suele corresponder a un directorio o a un grupo de ellos. Por ejemplo, un módulo de usuarios podría tener esta estructura:
+
+```text
+users/
+  controller.rs
+  service.rs
+  dtos.rs
+  repository.rs
+  mod.rs
+```
+
+En `mod.rs` vive el `impl Module` que registra cada pieza. Para el detalle de cada tipo de pieza, revisa [Controladores](./controllers) e [Inyección de dependencias](./dependency-injection).
+
 ## Registro en la aplicación
 
-Los módulos se registran con `with_module::<M>()` en `ApplicationBuilder` (ver [Aplicación](./application)). La aplicación no necesita conocer el interior del módulo: solo lo declara.
+Los módulos se registran con `with_module::<M>()` en `ApplicationBuilder`
 
 ```rust
 #[sword::main]
@@ -130,19 +141,3 @@ async fn main() {
     app.run().await;
 }
 ```
-
-Los módulos son independientes entre sí: no se referencian ni se registran unos a otros. El orden en que se declaran determina el orden en que se registran sus piezas.
-
-## Estructura de archivos
-
-Un módulo suele corresponder a un directorio:
-
-```text
-users/
-  controller.rs
-  service.rs
-  repository.rs
-  mod.rs
-```
-
-En `mod.rs` vive el `impl Module` que registra cada pieza. Para el detalle de cada tipo de pieza, revisa [Controladores](./controllers) e [Inyección de dependencias](./dependency-injection).

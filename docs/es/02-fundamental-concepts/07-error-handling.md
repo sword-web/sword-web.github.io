@@ -6,7 +6,13 @@ outline: [2, 3]
 
 # Manejo de errores
 
-Esta página describe el modelo general para manejar errores en Sword. El detalle de cada transporte está en las [guías prácticas](#por-transporte).
+Esta página describe el modelo general para manejar errores en Sword. El detalle de cada transporte está en las guías prácticas de cada uno.
+
+## Principios
+
+- Los errores se tipan como enums, no como cadenas de texto.
+- El formato hacia el cliente es uniforme dentro de cada protocolo.
+- Solo se expone lo que declara cada variante; los detalles internos no se exponen.
 
 ## Errores de dominio, no de transporte
 
@@ -25,16 +31,16 @@ pub enum UserError {
 }
 ```
 
-Ese enum no sabe nada del protocolo que lo va a exponer. Gracias a eso puedes reutilizarlo en controladores HTTP, gRPC o Socket.IO, y probar la lógica del dominio sin levantar un servidor.
+El diseño natural de `thiserror` es agnóstico, por lo que Sword provee abstracciones para transformar las variantes a errores de transporte sin acoplar el dominio a ellos.
 
 ## Traducción por transporte
 
 Cada transporte aporta una macro que convierte el enum de dominio en la respuesta que le corresponde. Los atributos sobre cada variante declaran cómo se traduce:
 
-| Transporte | Macro | Resultado |
-|---|---|---|
-| Web | `HttpError` | `JsonResponse` con su status HTTP |
-| gRPC | `GrpcError` | `tonic::Status` |
+| Transporte | Macro       | Resultado       | Documentación                                       |
+| ---------- | ----------- | --------------- | --------------------------------------------------- |
+| Web        | `HttpError` | `JsonResponse`  | Ver [aquí](/es/practical-guides/web/error-handling) |
+| gRPC       | `GrpcError` | `tonic::Status` | Ver [aquí](/es/practical-guides/grpc/grpc-errors)   |
 
 En los dos casos el procedimiento es el mismo: derivas la macro sobre el enum y anotas cada variante con el código y el mensaje que quieres exponer.
 
@@ -56,15 +62,3 @@ Así el error de un módulo conserva su mapeo aunque cruce el borde de otro.
 ## Trazabilidad
 
 Cada variante puede declarar su propio nivel de `tracing` (`trace`, `debug`, `info`, `warn` o `error`). Si no lo indicas, el nivel se deriva del código de respuesta del transporte. De ese modo el registro refleja la severidad real del error sin que tengas que repetirla en cada handler.
-
-## Principios
-
-- Los errores se tipan como enums, no como cadenas de texto.
-- El dominio no conoce el transporte; el mapeo ocurre en el borde.
-- El formato hacia el cliente es uniforme dentro de cada protocolo.
-- Solo se expone lo que declara cada variante; los detalles internos no se filtran.
-
-## Por transporte
-
-- [Manejo de errores en aplicaciones web](/es/practical-guides/web/error-handling)
-- [Manejo de errores en aplicaciones gRPC](/es/practical-guides/grpc/grpc-errors)

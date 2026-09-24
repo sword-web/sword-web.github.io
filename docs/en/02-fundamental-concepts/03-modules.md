@@ -59,7 +59,7 @@ fn register_components(components: &ComponentRegistry) {
 async fn register_providers(config: &Config, providers: &ProviderRegistry)
 ```
 
-Registers `#[injectable(provider)]` structs, usually external connections or clients such as databases, caches, or remote services. It is async because initializing those resources may require async operations.
+Registers `#[injectable(provider)]` structs, usually external connections or clients such as databases, caches, or remote services.
 
 **Parameters**
 
@@ -79,10 +79,6 @@ async fn register_providers(config: &Config, providers: &ProviderRegistry) {
     );
 }
 ```
-
-**Notes**
-
-- It runs once, during application construction, not on every request.
 
 </ApiSection>
 
@@ -115,9 +111,24 @@ impl Module for UsersModule {
 }
 ```
 
+## File structure
+
+A module usually maps to a directory or a group of them. For example, a users module could have this structure:
+
+```text
+users/
+  controller.rs
+  service.rs
+  dtos.rs
+  repository.rs
+  mod.rs
+```
+
+`mod.rs` holds the `impl Module` that registers each piece. For details on each kind of piece, see [Controllers](./controllers) and [Dependency Injection](./dependency-injection).
+
 ## Application registration
 
-Modules are registered with `with_module::<M>()` in the `ApplicationBuilder` (see [Application](./application)). The application does not need to know the inside of a module: it only declares it.
+Modules are registered with `with_module::<M>()` in the `ApplicationBuilder`
 
 ```rust
 #[sword::main]
@@ -130,19 +141,3 @@ async fn main() {
     app.run().await;
 }
 ```
-
-Modules are independent from each other: they do not reference or register one another. The order in which they are declared determines the order in which their pieces are registered.
-
-## File structure
-
-A module usually maps to a directory:
-
-```text
-users/
-  controller.rs
-  service.rs
-  repository.rs
-  mod.rs
-```
-
-`mod.rs` holds the `impl Module` that registers each piece. For details on each kind of piece, see [Controllers](./controllers) and [Dependency Injection](./dependency-injection).
