@@ -38,6 +38,6 @@ log-query = false
 | `4xx` | `WARN` |
 | `5xx` | `ERROR` |
 
-## Request id
+## Request ID
 
 The logger reuses the `x-request-id` header set by the built-in `RequestIdLayer`. When present, only the first 8 characters are logged; otherwise a `-` placeholder is used.

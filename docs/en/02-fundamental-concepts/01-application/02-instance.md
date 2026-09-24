@@ -11,7 +11,7 @@ keywords:
         "application configuration",
     ]
 ---
-# The `Application` struct
+# Application Instance
 
 Once you have built an `Application` instance using the builder pattern, you can execute it with the `run()` method:
 
@@ -26,7 +26,11 @@ async fn main() {
 }
 ```
 
-The `run()` method starts the server and begins listening for incoming requests. If you have enabled the `graceful-shutdown` option in your configuration, the application will handle termination signals gracefully, allowing ongoing requests to complete before shutting down.
+The `run()` method starts the core of the application type you selected and begins listening for incoming requests.
+
+:::info
+If the `graceful-shutdown` option is enabled, the application handles termination signals gracefully, allowing ongoing requests to complete before shutting down.
+:::
 
 ### Key Methods and Attributes
 
@@ -41,7 +45,7 @@ A public attribute that allows access to the application configuration loaded fr
 Returns a clone of the internal application router (`axum::Router`). This is useful if you need to access the router for advanced operations or to inspect the route configuration.
 
 ::: info
-Only available if you have enabled the `web` or `socketio` features in your project.
+Only available if you have enabled the `web` or `socketio` features in your application.
 :::
 
 ##### Example

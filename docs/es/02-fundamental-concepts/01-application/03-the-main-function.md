@@ -8,15 +8,9 @@ outline: [2, 3]
 
 Como sabrás, en Rust la ejecución de un programa comienza en la función `main`.
 
-Comunmente, en frameworks asíncronos, la función `main` debe ser marcada con un atributo especial para indicar que es asíncrona.
+Comúnmente, en frameworks asíncronos, la función `main` debe ser marcada con un atributo especial para indicar que es asíncrona.
 
-Por ejemplo, en `tokio` se utiliza `#[tokio::main]`, y en `async-std` se usa `#[async_std::main]`.
-
-En sword, proporcionamos la macro `#[sword::main]` que por debajo es en realidad lo mismo que `#[tokio::main]`, sin embargo, se añade una funcionalidad adicional de la que se hablará más adelante, el `hot-reload`.
-
-Además, al utilizar este enfoque, no es necesario añadir `tokio` como dependencia en tu proyecto a menos que lo necesites explícitamente para otras funcionalidades.
-
-## Ejemplo
+En Sword, proporcionamos la macro `#[sword::main]` que se encarga de inicializar el runtime interno de la aplicación con `tokio` y ejecutar la función `main` de manera asíncrona.
 
 ```rust
 use sword::prelude::*;
@@ -30,3 +24,5 @@ async fn main() {
     app.run().await;
 }
 ```
+
+Además, al utilizar este enfoque, no es necesario añadir `tokio` como dependencia en tu proyecto a menos que lo necesites explícitamente para otras funcionalidades.

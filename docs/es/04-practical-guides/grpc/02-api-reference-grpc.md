@@ -19,11 +19,11 @@ outline: false
 **Parámetros**
 
 - `kind = Controller::Grpc`: marca la estructura como controlador gRPC.
-- `service = UserGrpcServiceServer`: servidor generado por tonic para el servicio que implementa.
+- `service = UserGrpcServiceServer`: servidor generado por Tonic para el servicio que implementa.
 
 **Cuándo usarlo**
 
-- En la estructura que implementa el trait del servicio generado por tonic.
+- En la estructura que implementa el trait del servicio generado por Tonic.
 
 ### Atributo `#[sword::grpc::async_trait]`
 
@@ -34,7 +34,7 @@ impl UserGrpcService for UsersController { ... }
 
 **Cuándo usarlo**
 
-- En la implementación del trait generado por tonic, para habilitar métodos `async` en traits.
+- En la implementación del trait generado por Tonic, para habilitar métodos `async` en traits.
 
 ## Tipos base
 
@@ -46,7 +46,7 @@ pub use tonic::Request;
 
 **Retorna**
 
-- Envoltura de tonic sobre la solicitud entrante, con acceso a `into_inner()` (el mensaje) y `metadata()`.
+- Envoltura de Tonic sobre la solicitud entrante, con acceso a `into_inner()` (el mensaje) y `metadata()`.
 
 **Cuándo usarlo**
 
@@ -89,7 +89,7 @@ pub use tonic::Status;
 
 **Retorna**
 
-- El error gRPC estándar que tonic usa para comunicar fallos.
+- El error gRPC estándar que Tonic usa para comunicar fallos.
 
 **Cuándo usarlo**
 

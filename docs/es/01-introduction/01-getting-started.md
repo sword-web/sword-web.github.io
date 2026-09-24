@@ -7,12 +7,12 @@ outline: [2, 3]
 # Iniciando con Sword
 
 ::: info Estado del CLI
-La linea de comandos `sword-cli` está en desarrollo. Por ahora, la forma recomendada de empezar con Sword es revisar y ejecutar los ejemplos del repositorio en Github.
+La línea de comandos `sword-cli` está en desarrollo. Por ahora, la forma recomendada de empezar con Sword es revisar y ejecutar los ejemplos del repositorio en GitHub.
 :::
 
 ## Ejemplos
 
-Puedes encontrar los ejemplos en el repositorio en [Github](https://github.com/sword-web/sword/tree/main/examples)
+Puedes encontrar los ejemplos en el repositorio en [GitHub](https://github.com/sword-web/sword/tree/main/examples)
 
 Cada ejemplo está pensado para mostrar una parte concreta del framework. Si es tu primer contacto con Sword, lo normal es empezar por `web`.
 

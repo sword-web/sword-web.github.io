@@ -17,7 +17,7 @@ keywords:
 
 # Layers y Servicios Auto-registrados
 
-Sword puede registrar automáticamente layers y servicios comunes de Tower solo con configuración via `toml`.
+Sword puede registrar automáticamente layers y servicios comunes de Tower solo con configuración vía `toml`.
 
 ## Compresión
 

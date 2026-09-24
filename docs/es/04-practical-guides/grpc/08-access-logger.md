@@ -39,6 +39,6 @@ skip-paths = [
 | errores de cliente (`invalid_argument`, `not_found`, `already_exists`, `permission_denied`, `failed_precondition`, `out_of_range`, `unauthenticated`, `aborted`, `cancelled`) | `WARN` |
 | errores de servidor (el resto) | `ERROR` |
 
-## Request id
+## Request ID
 
-El logger reutiliza el header `x-request-id` que fija el `RequestIdLayer` integrado, el cual también se aplica a las peticiones gRPC para correlación. Cuando está presente, solo se registran los primeros 8 caracteres; en caso contrario se usa un placeholder `-`.
+El logger reutiliza el header `x-request-id` que fija el `RequestIdLayer` integrado, el cual también se aplica a las solicitudes gRPC para correlación. Cuando está presente, solo se registran los primeros 8 caracteres; en caso contrario se usa un placeholder `-`.

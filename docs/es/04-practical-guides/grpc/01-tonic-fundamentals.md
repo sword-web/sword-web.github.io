@@ -1,10 +1,10 @@
 ---
-title: "Fundamentos de tonic"
+title: "Fundamentos de Tonic"
 description: "Conceptos base de tonic: qué genera un .proto, tipos de RPC y dependencias de build para implementar controladores gRPC en Sword."
 outline: [2, 3]
 ---
 
-# Fundamentos de tonic
+# Fundamentos de Tonic
 
 Sword usa `tonic` como base para los controladores gRPC. Esta guía cubre los conceptos de `tonic` que necesitas entender antes de escribir código con Sword: qué produce la compilación de un `.proto`, qué tipos de RPC existen y qué dependencias requiere el build.
 
@@ -21,11 +21,11 @@ La compilación se configura en `build.rs`; ver [Compilando protos](/es/practica
 
 ## Tipos de RPC
 
-Un servicio definido en `.proto` puede exponer varios tipos de RPC, según la forma de las peticiones y respuestas:
+Un servicio definido en `.proto` puede exponer varios tipos de RPC, según la forma de las solicitudes y respuestas:
 
-- **Unary**: una petición → una respuesta. Es el tipo más común.
-- **Server streaming**: el cliente envía una petición y el servidor responde con un stream de mensajes.
-- **Client streaming**: el cliente envía un stream de peticiones y el servidor responde con un único mensaje.
+- **Unary**: una solicitud → una respuesta. Es el tipo más común.
+- **Server streaming**: el cliente envía una solicitud y el servidor responde con un stream de mensajes.
+- **Client streaming**: el cliente envía un stream de solicitudes y el servidor responde con un único mensaje.
 - **Bidirectional streaming**: ambos lados envían y reciben streams de forma concurrente.
 
 En el contrato se declaran así:
@@ -96,6 +96,6 @@ Si además quieres exponer reflection (necesario para inspeccionar y probar serv
 
 ## Siguiente paso
 
-Con los conceptos de tonic claros, el siguiente paso es conocer cómo Sword define e implementa los controladores gRPC:
+Con los conceptos de Tonic claros, el siguiente paso es conocer cómo Sword define e implementa los controladores gRPC:
 
 - [API Reference gRPC](/es/practical-guides/grpc/api-reference-grpc)

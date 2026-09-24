@@ -295,7 +295,7 @@ Cuando un endpoint necesita redirigir a otra URL, Sword expone `Redirect`. Cada 
 - `Redirect::permanent_redirect(url)` — `308 Permanent Redirect`
 - `Redirect::status(code, url)` — un código personalizado
 
-Por ejemplo, después de un login exitoso puedes redirigir con `see_other`, que fuerza una petición `GET` a la nueva ubicación:
+Por ejemplo, después de un login exitoso puedes redirigir con `see_other`, que fuerza una solicitud `GET` a la nueva ubicación:
 
 ```rust
 use sword::prelude::*;

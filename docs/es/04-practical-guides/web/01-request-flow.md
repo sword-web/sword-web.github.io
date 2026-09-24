@@ -1,12 +1,12 @@
 ---
-title: "El flujo de una petición HTTP"
+title: "El flujo de una solicitud HTTP"
 description: "En Sword, a diferencia de Axum, no se utilizan extractores individuales en la firma de los métodos del controlador web."
 outline: [2, 3]
 ---
 
 # Manejo de solicitudes HTTP y extracción
 
-En Sword, a diferencia de axum, no se utilizan extractores individuales en la firma de los métodos del controlador. En su lugar, se usa una estructura que concentra la información de la solicitud y expone una API unificada para acceder a body, query, params, headers, cookies y más.
+En Sword, a diferencia de Axum, no se utilizan extractores individuales en la firma de los métodos del controlador. En su lugar, se usa una estructura que concentra la información de la solicitud y expone una API unificada para acceder a body, query, params, headers, cookies y más.
 
 ## La estructura `Request`
 

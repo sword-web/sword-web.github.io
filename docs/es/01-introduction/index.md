@@ -16,7 +16,7 @@ keywords:
 
 # Introducción
 
-Sword es un framework web que permite construir aplicaciones del lado del servidor de forma estructurada y opinionada.
+Sword es un framework web estructurado y opinionado que permite construir aplicaciones del lado del servidor.
 
 Actualmente se encuentra en una etapa de desarrollo activo, por lo que algunas características pueden cambiar o eliminarse frecuentemente. Hasta alcanzar una versión estable esta documentación puede sufrir modificaciones.
 
@@ -24,14 +24,14 @@ Actualmente se encuentra en una etapa de desarrollo activo, por lo que algunas c
 
 La idea principal de Sword es establecer una estructura de desarrollo basada en módulos, al estilo de frameworks como Spring o NestJS. Además, Sword provee un conjunto de herramientas y utilidades comúnmente necesarias en este tipo de frameworks, como:
 
-- Manejo de configuración y variables de entorno via `toml`
+- Manejo de configuración y variables de entorno vía `toml`
 - Formato estandarizado de respuestas HTTP en formato JSON
 - Middlewares esenciales incorporados por defecto (interceptores)
 - Inyección de dependencias (Construcción automática de componentes)
-- Manejo de errores sencillo e idiomatico
+- Manejo de errores sencillo e idiomático
 - Soporte para aplicaciones REST y gRPC
 
-### ¿A qué nos referimos con "estructurada/opinionada"?
+### ¿A qué nos referimos con "estructurado/opinionado"?
 
 Crear aplicaciones web escalables requiere organizar el código en capas bien definidas y mantener una clara separación de responsabilidades.
 

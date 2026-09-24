@@ -262,7 +262,7 @@ const labels: Record<Locale, Record<string, string>> = {
 
         "practical-guides": "Guías prácticas",
         web: "Web",
-        "web-request-flow": "El flujo de una petición",
+        "web-request-flow": "El flujo de una solicitud",
         "web-request-structure": "Estructura de Request",
         "web-data-validation": "Validación de datos",
         "web-response-handling": "Manejo de respuestas",
@@ -277,7 +277,7 @@ const labels: Record<Locale, Record<string, string>> = {
         "socketio-acknowledgements": "Acknowledgements",
         "socketio-interceptors": "Interceptores",
         grpc: "gRPC",
-        "grpc-tonic-fundamentals": "Fundamentos de tonic",
+        "grpc-tonic-fundamentals": "Fundamentos de Tonic",
         "grpc-api-reference": "API Reference gRPC",
         "grpc-proto-files": "Ficheros .proto",
         "grpc-compiling-protos": "Compilando protos",

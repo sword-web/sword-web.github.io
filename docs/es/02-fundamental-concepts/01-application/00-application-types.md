@@ -55,9 +55,9 @@ De momento solo es posible usar el `Adapter Local` de `socketioxide` en sword.
 
 **Complementos**
 
-Una aplicación socketio puede ser complementada con estas features:
+Una aplicación Socket.IO puede ser complementada con estas features:
 
-- `validation-validator`: Habilita validación de datos de entrada en controladores socketio de la mano del crate `validator`.
+- `validation-validator`: Habilita validación de datos de entrada en controladores Socket.IO de la mano del crate `validator`.
 
 ## Aplicación gRPC
 

@@ -1,5 +1,5 @@
 ---
-title: "Estructura de `Application` - Sword Framework"
+title: "Instancia de aplicación - Sword Framework"
 description: "Aprende sobre las estructuras `Application` y `ApplicationBuilder` de Sword. Domina el patrón constructor para configurar aplicaciones web en Rust."
 
 keywords:
@@ -12,7 +12,7 @@ keywords:
     ]
 ---
 
-# La estructura `Application`
+# Instancia de una aplicación
 
 Una vez que hayas construido una instancia de `Application` utilizando el patrón constructor, puedes ejecutarla con el método `run()`:
 
@@ -27,7 +27,11 @@ async fn main() {
 }
 ```
 
-El método `run()` inicia el servidor web y comienza a escuchar las solicitudes HTTP entrantes. Si has habilitado la opción `graceful-shutdown` en tu configuración, la aplicación manejará las señales de terminación de manera elegante, permitiendo que las solicitudes en curso se completen antes de apagarse.
+El método `run()` inicia el núcleo del tipo de aplicación que hayas seleccionado y comienza a escuchar las solicitudes entrantes.
+
+:::info
+Si la opción `graceful-shutdown` está activada la aplicación manejará las señales de terminación de manera elegante, permitiendo que las solicitudes en curso se completen antes de apagarse.
+:::
 
 ### Métodos y atributos de la estructura
 
@@ -42,7 +46,7 @@ Atributo público que permite acceder a la configuración de la aplicación carg
 Retorna un clon del router (`axum::Router`) interno de la aplicación. Esto es útil si necesitas acceder al enrutador para operaciones avanzadas o para inspeccionar la configuración de rutas.
 
 ::: info
-Solo disponible si has habilitado los features `web` o `socketio` en tu proyecto.
+Solo disponible si has habilitado las features `web` o `socketio` en tu aplicación.
 :::
 
 ##### Ejemplo

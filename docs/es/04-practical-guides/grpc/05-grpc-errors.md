@@ -173,7 +173,7 @@ pub fn quota_failure(subject: impl Into<String>, description: impl Into<String>)
 
 ### request_info
 
-Fija información de la petición (`RequestInfo`).
+Fija información de la solicitud (`RequestInfo`).
 
 ```rust
 pub fn request_info(request_id: impl Into<String>, serving_data: impl Into<String>) -> Self

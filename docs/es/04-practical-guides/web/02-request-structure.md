@@ -166,7 +166,7 @@ pub fn cookies(&self) -> Result<&Cookies, JsonResponse>
 
 **Retorna**
 
-- `Ok(&Cookies)` si la capa de cookies está disponible.
+- `Ok(&Cookies)` si el layer de cookies está disponible.
 - `Err(JsonResponse)` si no puede extraer cookies.
 
 **Cuándo no usarlo**

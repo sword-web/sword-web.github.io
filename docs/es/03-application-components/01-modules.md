@@ -51,7 +51,7 @@ fn register_components(components: &ComponentRegistry) {
 
 ::: details `register_providers(...)`
 
-Registra estructuras `#[injectable(provider)]`, normalmente conexiones o clientes externos: base de datos, cache o servicios remotos. Este método es asíncrono por defecto, ya que la inicialización de recursos externos puede requerir operaciones async.
+Registra estructuras `#[injectable(provider)]`, normalmente conexiones o clientes externos: base de datos, caché o servicios remotos. Este método es asíncrono por defecto, ya que la inicialización de recursos externos puede requerir operaciones async.
 
 ```rust
 async fn register_providers(config: &Config, providers: &ProviderRegistry) {

@@ -17,7 +17,7 @@ layout: home
 
 hero:
     text: "Framework de Aplicaciones de Servidor"
-    tagline: Progresivo, modular y con opiniones
+    tagline: Progresivo, modular y opinionado
     image:
         light:
             src: /logo-new-dark.png
