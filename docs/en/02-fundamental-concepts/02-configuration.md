@@ -127,7 +127,7 @@ body-limit = "1MB"
 
 :::
 
-You can also use binary units such as `KiB`, `MiB`, and so on.
+You can also use binary units such as `KiB`, `MiB`, and so on. See the formats available in [`byte-unit`](https://docs.rs/byte-unit/latest/).
 
 **`TimeConfig`** represents durations:
 
@@ -151,10 +151,7 @@ ping-interval = "25s"
 
 :::
 
-Formats:
-
-- `ByteConfig`: see the [byte-unit](https://docs.rs/byte-unit/latest) documentation.
-- `TimeConfig`: see the [duration_str](https://docs.rs/duration_str/latest/) documentation.
+See the formats available in [`duration-str`](https://docs.rs/duration-str/latest/).
 
 ## Extracting configuration
 

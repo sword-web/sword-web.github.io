@@ -117,7 +117,7 @@ body-limit = "1MB"
 
 :::
 
-También puedes usar formatos binarios como `KiB`, `MiB`, etc.
+También puedes usar formatos binarios como `KiB`, `MiB`, etc. Consulta los formatos disponibles en [`byte-unit`](https://docs.rs/byte-unit/latest/).
 
 ### Representación de tiempo
 
@@ -142,6 +142,8 @@ ping-interval = "25s"
 ```
 
 :::
+
+Consulta los formatos disponibles en [`duration-str`](https://docs.rs/duration-str/latest/).
 
 ## Extracción de configuración
 
