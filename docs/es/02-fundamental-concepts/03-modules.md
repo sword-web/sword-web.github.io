@@ -8,21 +8,9 @@ outline: [2, 3]
 
 Un módulo agrupa una capacidad de la aplicación: sus controladores, componentes y proveedores. Cada módulo implementa el trait `Module` y registra esas piezas en el contenedor de dependencias, de modo que la aplicación solo necesita declarar los módulos que usa.
 
-## El trait `Module`
+<ApiSection title="Métodos del trait Module" :collapsed="false">
 
-El contrato base es:
-
-```rust
-pub trait Module {
-    fn register_controllers(controllers: &ControllerRegistry) {}
-    fn register_components(components: &ComponentRegistry) {}
-    async fn register_providers(config: &Config, providers: &ProviderRegistry) {}
-}
-```
-
-Todos los métodos tienen implementación por defecto vacía, así que cada módulo implementa solo los que necesita.
-
-<ApiSection title="Métodos del trait Module">
+El trait `Module` define estos tres métodos, todos con implementación por defecto vacía, así que cada módulo implementa solo los que necesita.
 
 #### Método `register_controllers(controllers)`
 

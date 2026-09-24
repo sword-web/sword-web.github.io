@@ -8,21 +8,9 @@ outline: [2, 3]
 
 A module groups one capability of the application: its controllers, components, and providers. Each module implements the `Module` trait and registers those pieces in the dependency container, so the application only needs to declare the modules it uses.
 
-## The `Module` trait
+<ApiSection title="Methods of the Module trait" :collapsed="false">
 
-The base contract is:
-
-```rust
-pub trait Module {
-    fn register_controllers(controllers: &ControllerRegistry) {}
-    fn register_components(components: &ComponentRegistry) {}
-    async fn register_providers(config: &Config, providers: &ProviderRegistry) {}
-}
-```
-
-All methods have an empty default implementation, so each module implements only the ones it needs.
-
-<ApiSection title="Methods of the Module trait">
+The `Module` trait defines these three methods, all with an empty default implementation, so each module implements only the ones it needs.
 
 #### The `register_controllers(controllers)` Method
 
