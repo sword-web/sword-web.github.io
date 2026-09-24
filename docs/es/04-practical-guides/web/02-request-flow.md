@@ -43,7 +43,7 @@ Los extractores focalizados tienen ventajas, especialmente cuando quieres obtene
 
 Sword intenta simplificar esa experiencia agrupando el acceso mediante `Request`.
 
-::: details Comparación de extractores en Axum y Sword
+### Comparación de extractores en Axum y Sword
 
 ::: code-group
 

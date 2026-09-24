@@ -378,6 +378,7 @@ export default defineConfig({
 	themeConfig: {
 		siteTitle: "",
 		socialLinks: [{ icon: "github", link: "https://github.com/sword-web" }],
+		aside: false,
 	},
 	markdown: {
 		lineNumbers: true,

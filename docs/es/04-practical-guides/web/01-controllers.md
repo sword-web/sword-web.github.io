@@ -6,7 +6,7 @@ outline: [2, 3]
 
 # Definición de Controladores Web
 
-En Sword un controlador web es una estructura que actúa como un grupo de métodos relacionados a una ruta base, y cada método representa un endpoint HTTP específico.
+En Sword un controlador web es una estructura que actúa como un grupo de métodos relacionados a una ruta en común, y cada método representa un endpoint HTTP específico.
 
 Estos controladores están basados en los handlers de `axum`, pero añadiendo una capa de integración con el sistema de módulos, inyección de dependencias e interceptores del framework.
 
@@ -86,6 +86,6 @@ async fn get_users(&self, req: Request) -> WebResult<JsonResponse> {
 }
 ```
 
-Para todos los patrones de respuesta — auto-wrap con `Result<T, E>`, manejo de errores y construcción de payload — consulta [Manejo de Respuestas](/es/practical-guides/web/response-handling).
+Para todos los patrones de respuesta — auto-wrap con `Result<T, E>`, manejo de errores y construcción de payload consulta [Manejo de Respuestas](/es/practical-guides/web/response-handling).
 
 Sin embargo, los métodos del controlador también pueden retornar cualquier tipo que implemente `IntoResponse`, ya que la capa web de Sword se apoya en `axum`.

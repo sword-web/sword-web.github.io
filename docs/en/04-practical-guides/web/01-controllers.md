@@ -1,12 +1,12 @@
 ---
 title: "Web Controller Definition"
-description: "In Sword, a web controller is a struct that acts as a group of methods under a base path, where each method represents a specific HTTP endpoint."
+description: "In Sword, a web controller is a struct that acts as a group of methods under a common path, where each method represents a specific HTTP endpoint."
 outline: [2, 3]
 ---
 
 # Web Controller Definition
 
-In Sword, a web controller is a struct that acts as a group of methods under a base path, where each method represents a specific HTTP endpoint.
+In Sword, a web controller is a struct that acts as a group of methods under a common path, where each method represents a specific HTTP endpoint.
 
 These controllers are based on `axum` handlers but add an integration layer with the framework's module system, dependency injection, and interceptors.
 
@@ -86,6 +86,6 @@ async fn get_users(&self, req: Request) -> WebResult<JsonResponse> {
 }
 ```
 
-For all response patterns — auto-wrap with `Result<T, E>`, error handling, and payload construction — see [Response Handling](/en/practical-guides/web/response-handling).
+For all response patterns — auto-wrap with `Result<T, E>`, error handling, and payload construction, see [Response Handling](/en/practical-guides/web/response-handling).
 
 However, controller methods can also return any type that implements `IntoResponse`, as Sword's web layer is built on top of `axum`.

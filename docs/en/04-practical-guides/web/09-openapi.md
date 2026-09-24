@@ -12,7 +12,7 @@ You can serve OpenAPI specification files and mount Swagger UI with **zero code*
 
 ```toml
 [dependencies]
-sword = { features = ["swagger-ui"] }
+sword = { version = "x.y.z", features = ["web", "swagger-ui"] }
 ```
 
 ## Configuration
@@ -28,10 +28,10 @@ spec-file-paths = ["config/openapi.yaml", "config/openapi-test.yaml"]
 
 Once configured, navigate to `/docs` in your browser to explore your API interactively.
 
-:::details Note on the specification path
+:::info Note on the specification path
 If you have a `router-prefix` configured, it will affect the specification path.
 :::
 
 ## Multiple Specs
 
-You can serve multiple specification files — each one gets its own entry in the URL and is selectable from the Swagger UI dropdown.
+You can serve multiple specification files, each one gets its own entry in the URL and is selectable from the Swagger UI dropdown.

@@ -43,7 +43,7 @@ Focused extractors have advantages, especially when you only want to retrieve th
 
 Sword tries to simplify that experience by grouping access through `Request`.
 
-::: details Comparison of extractors in Axum and Sword
+### Comparison of extractors in Axum and Sword
 
 ::: code-group
 

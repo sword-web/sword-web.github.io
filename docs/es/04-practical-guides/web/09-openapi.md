@@ -12,7 +12,7 @@ Puedes servir archivos de especificación OpenAPI y montar Swagger UI con **cero
 
 ```toml
 [dependencies]
-sword = { features = ["swagger-ui"] }
+sword = { version = "x.y.z", features = ["web", "swagger-ui"] }
 ```
 
 ## Configuración
@@ -28,10 +28,10 @@ spec-file-paths = ["config/openapi.yaml", "config/openapi-test.yaml"]
 
 Una vez configurado, navega a `/docs` en tu navegador para explorar tu API interactivamente.
 
-:::details Nota sobre la ruta de la especificación
+:::info Nota sobre la ruta de la especificación
 Si tienes un `router-prefix` configurado este afectará la ruta de la especificación.
 :::
 
 ## Múltiples Especificaciones
 
-Puedes servir múltiples archivos de especificación — cada uno obtiene su propia entrada en la url y es seleccionable desde el menú desplegable de Swagger UI.
+Puedes servir múltiples archivos de especificación, cada uno obtiene su propia entrada en la url y es seleccionable desde el menú desplegable de Swagger UI.
