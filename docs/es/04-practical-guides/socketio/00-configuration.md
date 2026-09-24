@@ -8,8 +8,6 @@ outline: [2, 3]
 
 Además de la configuración común (ver [Configuración](/es/fundamental-concepts/configuration)), una aplicación Socket.IO añade la sección `[socketio]`. Como `socketio` depende de la feature `web`, también se aplica la sección `[web]` de la [guía web](/es/practical-guides/web/configuration).
 
-## Sección `[socketio]`
-
 | Key                   | Tipo                    | Default                    | Descripción                                   |
 | --------------------- | ----------------------- | -------------------------- | --------------------------------------------- |
 | `ack-timeout`         | `Option<TimeConfig>`    | `5s`                       | Tiempo máximo para ACK saliente               |
@@ -23,7 +21,7 @@ Además de la configuración común (ver [Configuración](/es/fundamental-concep
 | `parser`              | `"common" \| "msgpack"` | `"common"`                 | Parser de payloads                            |
 | `ws-read-buffer-size` | `Option<usize>`         | `4096`                     | Tamaño del buffer de lectura websocket        |
 
-::: details Ejemplo en formato TOML
+### Ejemplo en formato TOML
 
 ```toml
 [socketio]
@@ -38,5 +36,3 @@ transports = ["polling", "websocket"]
 parser = "common"
 ws-read-buffer-size = 4096
 ```
-
-:::

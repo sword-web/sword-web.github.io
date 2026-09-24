@@ -262,7 +262,7 @@ async fn create_user(&self) -> WebResult<CreateUserResponse> {
 
 :::
 
-## `File` — downloads and inline content
+## Downloads and inline content with `File`
 
 `JsonResponse` covers JSON responses, but sometimes you need to return files. For that, Sword exposes `File`, a builder that constructs download or inline display responses depending on the `ContentDisposition` you use. By default, `File` behaves as a download (`ContentDisposition::Attachment`) with a `Content-Type` of `application/octet-stream`.
 
@@ -297,7 +297,7 @@ File::new()
 
 You can also add custom headers with `header(...)`. And since `File` implements `IntoResponse`, you can return it directly or inside a `WebResult<File>`.
 
-## `Redirect` — HTTP redirects
+## HTTP redirects with `Redirect`
 
 When an endpoint needs to redirect to another URL, Sword exposes `Redirect`. Each constructor covers one of the most common 3xx codes:
 

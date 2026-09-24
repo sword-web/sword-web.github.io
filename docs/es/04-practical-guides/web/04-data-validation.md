@@ -23,9 +23,9 @@ validator = { version = "x.y.z", features = ["derive"] }
 
 Con esto puedes usar métodos como:
 
-- `req.validated_body::<T>()`
-- `req.validated_query::<T>()`
-- `req.validated_params::<T>()`
+- `req.body_validator::<T>()`
+- `req.query_validator::<T>()`
+- `req.params_validator::<T>()`
 
 ## Ejemplo
 
@@ -74,7 +74,7 @@ struct UsersController;
 impl UsersController {
     #[get("/")]
     async fn list(&self, req: Request) -> WebResult {
-        let query = req.validated_query::<GetUsersQuery>()?.unwrap_or_default();
+        let query = req.query_validator::<GetUsersQuery>()?.unwrap_or_default();
         println!("Listing users with query: {query:?}");
 
         Ok(JsonResponse::Ok().message("User list"))
@@ -82,7 +82,7 @@ impl UsersController {
 
     #[post("/")]
     async fn create(&self, req: Request) -> WebResult {
-        let data = req.validated_body::<CreateUserDto>()?;
+        let data = req.body_validator::<CreateUserDto>()?;
         println!("Creating user with data: {data:?}");
 
         Ok(JsonResponse::Created().message("User created"))

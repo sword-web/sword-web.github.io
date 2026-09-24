@@ -104,7 +104,7 @@ struct UsersController;
 impl UsersController {
     #[post("/")]
     async fn create(&self, req: Request) -> WebResult {
-        let data = req.validated_body::<CreateUserDto>()?;
+        let data = req.body_validator::<CreateUserDto>()?;
         println!("Creating user with data: {data:?}");
 
         Ok(JsonResponse::Created().message("User created"))

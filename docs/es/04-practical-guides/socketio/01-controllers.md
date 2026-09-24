@@ -50,9 +50,3 @@ impl ChatController {
 ### Eventos personalizados
 
 Puedes definir eventos personalizados usando el atributo `#[on("event_name")]`, donde `event_name` es el nombre del evento que deseas manejar.
-
-## Ver también
-
-- [Manejo de eventos](/es/practical-guides/socketio/event-handling)
-- [Acknowledgements](/es/practical-guides/socketio/acknowledgements)
-- [Interceptores en Controladores Socket.IO](/es/practical-guides/socketio/interceptors)
