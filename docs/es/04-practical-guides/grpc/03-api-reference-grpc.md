@@ -8,9 +8,9 @@ outline: false
 
 `Sword` expone los tipos y atributos necesarios para implementar controladores gRPC sobre el código generado por `tonic`. Esta es la referencia de esa API.
 
-## Referencia de atributos
+<ApiSection title="Atributos" :collapsed="false">
 
-### Atributo `#[controller]`
+#### Atributo `#[controller]`
 
 ```rust
 #[controller(kind = Controller::Grpc, service = UserGrpcServiceServer)]
@@ -25,7 +25,7 @@ outline: false
 
 - En la estructura que implementa el trait del servicio generado por Tonic.
 
-### Atributo `#[sword::grpc::async_trait]`
+#### Atributo `#[sword::grpc::async_trait]`
 
 ```rust
 #[sword::grpc::async_trait]
@@ -36,9 +36,11 @@ impl UserGrpcService for UsersController { ... }
 
 - En la implementación del trait generado por Tonic, para habilitar métodos `async` en traits.
 
-## Tipos base
+</ApiSection>
 
-### Tipo `Request<T>`
+<ApiSection title="Tipos" :collapsed="false">
+
+#### Tipo `Request<T>`
 
 ```rust
 pub use tonic::Request;
@@ -52,7 +54,7 @@ pub use tonic::Request;
 
 - Como tipo de entrada en los métodos del servicio (por ejemplo `Request<GetUserRequest>`).
 
-### Tipo `GrpcResult<T>`
+#### Tipo `GrpcResult<T>`
 
 ```rust
 pub type GrpcResult<T> = Result<Response<T>, Status>;
@@ -67,7 +69,7 @@ pub type GrpcResult<T> = Result<Response<T>, Status>;
 
 - Como tipo de retorno de los métodos del servicio.
 
-### Tipo `GrpcStream<T>`
+#### Tipo `GrpcStream<T>`
 
 ```rust
 pub type GrpcStream<T> = Pin<Box<dyn Stream<Item = Result<T, Status>> + Send + 'static>>;
@@ -81,7 +83,7 @@ pub type GrpcStream<T> = Pin<Box<dyn Stream<Item = Result<T, Status>> + Send + '
 
 - Como tipo del stream asociado en métodos de server streaming (`Self::StreamUsersStream`).
 
-### Tipo `Status`
+#### Tipo `Status`
 
 ```rust
 pub use tonic::Status;
@@ -95,7 +97,7 @@ pub use tonic::Status;
 
 - Para construir errores directamente o convertir errores de dominio con `#[derive(GrpcError)]`. Ver [Errores gRPC con GrpcError](/es/practical-guides/grpc/grpc-errors).
 
-### Tipo `GrpcStatus`
+#### Tipo `GrpcStatus`
 
 ```rust
 GrpcStatus::InvalidArgument()
@@ -118,9 +120,11 @@ GrpcStatus::InvalidArgument()
 - Se convierte a `tonic::Status` con `.into()` o `.build()`.
 - En el cliente, `GrpcStatus::from_status(&status)` reconstruye el status y lee los detalles con `StatusExt`. Ver [Errores enriquecidos con `GrpcStatus`](/es/practical-guides/grpc/grpc-errors).
 
-## Referencia de métodos
+</ApiSection>
 
-### Método `GrpcResponse::message()`
+<ApiSection title="Métodos" :collapsed="false">
+
+#### Método `GrpcResponse::message()`
 
 ```rust
 pub fn message<T>(value: T) -> tonic::Response<T>
@@ -134,7 +138,7 @@ pub fn message<T>(value: T) -> tonic::Response<T>
 
 - En métodos unary y client streaming para devolver una respuesta tipada.
 
-### Método `GrpcResponse::stream()`
+#### Método `GrpcResponse::stream()`
 
 ```rust
 pub fn stream<T, S>(stream: S) -> tonic::Response<GrpcStream<T>>
@@ -149,6 +153,8 @@ where
 **Cuándo usarlo**
 
 - En métodos de server streaming para devolver una secuencia de mensajes.
+
+</ApiSection>
 
 ## Notas operativas
 

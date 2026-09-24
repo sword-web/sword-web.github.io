@@ -28,23 +28,43 @@ Internamente, el método `builder()`:
 
 <ApiSection title="Métodos y atributos de la estructura ApplicationBuilder">
 
-#### `config`
+#### Atributo `config`
+
+```rust
+pub config: Config
+```
 
 Atributo público que permite acceder a la configuración de la aplicación cargada desde el fichero de configuración. Para más detalles, revisa la sección de [Configuración](./configuration).
 
-#### `with_module::<M>()`
+#### Método `with_module::<M>()`
+
+```rust
+pub fn with_module<M>(self) -> Self
+where
+    M: Module,
+```
 
 Registra un módulo que implementa el trait `Module`. Los módulos agrupan controladores, componentes y proveedores relacionados.
+
+**Parámetros**
 
 - `M`: un tipo que implementa el trait `Module`.
 
 Aprende más en la sección de [Módulos](./modules).
 
-#### `with_layer::<L>(layer: L)`
+#### Método `with_layer::<L>(layer: L)`
+
+```rust
+pub fn with_layer<L>(mut self, layer: L) -> Self
+```
 
 Registra un `Layer` de Tower de forma global en la aplicación.
 
+**Parámetros**
+
 - `layer`: una instancia que implementa el trait `Layer`.
+
+**Ejemplo**
 
 ```rust
 use tower_http::cors::*;
@@ -60,15 +80,27 @@ let app = Application::builder()
 
 Para más detalles sobre Tower, revisa [Interceptores en controladores web](/es/practical-guides/web/interceptors).
 
-#### `from_config_path::<P: AsRef<Path>>(path: P)`
+#### Método `from_config_path::<P>(path: P)`
+
+```rust
+pub fn from_config_path<P: AsRef<Path>>(path: P) -> ApplicationBuilder
+```
 
 Carga la configuración de la aplicación desde un fichero `.toml` ubicado en una ruta personalizada.
 
-#### `from_config(config: Config)`
+#### Método `from_config(config: Config)`
+
+```rust
+pub fn from_config(config: Config) -> Self
+```
 
 Carga la configuración de la aplicación a partir de una instancia de `Config` creada manualmente.
 
-#### `build()`
+#### Método `build()`
+
+```rust
+pub fn build(mut self) -> Application
+```
 
 Finaliza la construcción del `ApplicationBuilder` y devuelve una instancia de `Application` lista para ejecutarse.
 
@@ -91,17 +123,27 @@ async fn main() {
 
 <ApiSection title="Métodos y atributos de la estructura Application">
 
-#### `run()`
+#### Método `run()`
+
+```rust
+pub async fn run(&self)
+```
 
 Inicia el núcleo del tipo de aplicación seleccionado y comienza a escuchar solicitudes.
 
 Si la opción `graceful-shutdown` está activada, la aplicación maneja las señales de terminación de forma elegante, permitiendo que las solicitudes en curso se completen antes de apagarse.
 
-#### `router()`
+#### Método `router()`
+
+```rust
+pub fn router(&self) -> axum::Router
+```
 
 Devuelve un clon del router (`axum::Router`) interno de la aplicación. Es útil para operaciones avanzadas o para inspeccionar la configuración de rutas.
 
 Solo está disponible si habilitaste las features `web` o `socketio`.
+
+**Ejemplo**
 
 ```rust
 let app = Application::builder()

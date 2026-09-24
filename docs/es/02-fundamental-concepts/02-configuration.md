@@ -14,27 +14,49 @@ La estructura `Config` representa la configuración cargada de la aplicación. S
 
 <ApiSection title="Métodos y atributos de la estructura Config">
 
-#### `get::<T>()`
+#### Método `get::<T>()`
+
+```rust
+pub fn get<T>(&self) -> Option<T>
+where
+    T: DeserializeOwned + ConfigItem,
+```
 
 Extrae una estructura de configuración y devuelve `Option<T>`.
+
+**Ejemplo**
 
 ```rust
 let database = app.config.get::<DatabaseConfig>();
 ```
 
-#### `get_or_default::<T>()`
+#### Método `get_or_default::<T>()`
 
-Extrae la estructura o devuelve su `Default` si no está presente. Devuelve `T`.
+```rust
+pub fn get_or_default<T>(&self) -> T
+where
+    T: DeserializeOwned + ConfigItem + Default,
+```
+
+Extrae la estructura o devuelve su `Default` si no está presente.
+
+**Ejemplo**
 
 ```rust
 let database = app.config.get_or_default::<DatabaseConfig>();
 ```
 
-#### `expect::<T>()`
+#### Método `expect::<T>()`
 
-Extrae la estructura o lanza un `panic!` si no está presente. Devuelve `T`.
+```rust
+pub fn expect<T>(&self) -> T
+where
+    T: DeserializeOwned + ConfigItem,
+```
 
-`expect::<T>()` equivale a `get::<T>().expect("Expected configuration item not found")`.
+Extrae la estructura o lanza un `panic!` si no está presente. Equivale a `get::<T>().expect("Expected configuration item not found")`.
+
+**Ejemplo**
 
 ```rust
 let database = app.config.expect::<DatabaseConfig>();

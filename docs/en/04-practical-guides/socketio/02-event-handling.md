@@ -10,9 +10,9 @@ Just like web controllers, Socket.IO controllers work with methods on the struct
 
 This structure, called `SocketContext`, encapsulates relevant information about the connection, the event, and the socket state.
 
-## SocketContext reference
+<ApiSection title="Methods" :collapsed="false">
 
-### Method `id()`
+#### The `id()` Method
 
 ```rust
 pub fn id(&self) -> &Sid
@@ -26,9 +26,8 @@ pub fn id(&self) -> &Sid
 
 - Logging, traceability, associating events with a specific connection.
 
-<hr/>
 
-### Method `connected()`
+#### The `connected()` Method
 
 ```rust
 pub fn connected(&self) -> bool
@@ -42,9 +41,8 @@ pub fn connected(&self) -> bool
 
 - To check whether the socket is still active before performing operations.
 
-<hr/>
 
-### Method `ns()`
+#### The `ns()` Method
 
 ```rust
 pub fn ns(&self) -> &str
@@ -54,9 +52,8 @@ pub fn ns(&self) -> &str
 
 - The current namespace path of this socket.
 
-<hr/>
 
-### Method `rooms()`
+#### The `rooms()` Method
 
 ```rust
 pub fn rooms(&self) -> Vec<Room>
@@ -66,9 +63,8 @@ pub fn rooms(&self) -> Vec<Room>
 
 - All room names this socket is connected to.
 
-<hr/>
 
-### Method `event()`
+#### The `event()` Method
 
 ```rust
 pub fn event(&self) -> Option<&str>
@@ -86,9 +82,8 @@ pub fn event(&self) -> Option<&str>
 Using this method in the `connection` or `disconnection` event returns `None`.
 :::
 
-<hr/>
 
-### Method `disconnect_reason()`
+#### The `disconnect_reason()` Method
 
 ```rust
 pub fn disconnect_reason(&self) -> Option<&DisconnectReason>
@@ -103,9 +98,8 @@ pub fn disconnect_reason(&self) -> Option<&DisconnectReason>
 
 - To audit why a connection is closed.
 
-<hr/>
 
-### Method `protocol_version()`
+#### The `protocol_version()` Method
 
 ```rust
 pub fn protocol_version(&self) -> ProtocolVersion
@@ -119,9 +113,8 @@ pub fn protocol_version(&self) -> ProtocolVersion
 
 - Diagnostics and client compatibility.
 
-<hr/>
 
-### Method `transport_type()`
+#### The `transport_type()` Method
 
 ```rust
 pub fn transport_type(&self) -> TransportType
@@ -135,9 +128,8 @@ pub fn transport_type(&self) -> TransportType
 
 - Telemetry, transport-based rules, handshake debugging.
 
-<hr/>
 
-### Method `try_data::<T>()`
+#### The `try_data::<T>()` Method
 
 ```rust
 pub fn try_data<T: DeserializeOwned>(&self) -> Result<T, SocketError>
@@ -160,9 +152,8 @@ In the `connection` event, this method tries to read the handshake `auth` payloa
 This method consumes the internal payload. A second call in the same handler fails.
 :::
 
-<hr/>
 
-### Method `try_validated_data::<T>()`
+#### The `try_validated_data::<T>()` Method
 
 ```rust
 pub fn try_validated_data<T>(&self) -> Result<T, SocketError>
@@ -187,9 +178,8 @@ In the `connection` event, this method tries to read the handshake `auth` payloa
 This method consumes the internal payload. A second call in the same handler fails.
 :::
 
-<hr/>
 
-### Method `has_data()`
+#### The `has_data()` Method
 
 ```rust
 pub fn has_data(&self) -> bool
@@ -203,9 +193,8 @@ pub fn has_data(&self) -> bool
 
 - To avoid trying to parse twice.
 
-<hr/>
 
-### Method `query::<T>()`
+#### The `query::<T>()` Method
 
 ```rust
 pub fn query<T: DeserializeOwned>(&self) -> Result<Option<T>, SocketError>
@@ -221,9 +210,8 @@ pub fn query<T: DeserializeOwned>(&self) -> Result<Option<T>, SocketError>
 
 - To read URL query parameters during the connection.
 
-<hr/>
 
-### Method `emit()`
+#### The `emit()` Method
 
 ```rust
 pub fn emit<T>(&self, event: impl AsRef<str>, data: &T) -> Result<(), SocketError>
@@ -240,9 +228,8 @@ where
 
 - To send events to the connected client.
 
-<hr/>
 
-### Method `emit_with_ack()`
+#### The `emit_with_ack()` Method
 
 ```rust
 pub fn emit_with_ack<T: ?Sized + Serialize, V>(
@@ -260,9 +247,8 @@ pub fn emit_with_ack<T: ?Sized + Serialize, V>(
 
 - When you need confirmation from the client that the event was received.
 
-<hr/>
 
-### Method `broadcast()`
+#### The `broadcast()` Method
 
 ```rust
 pub fn broadcast(&self) -> BroadcastOperators<A>
@@ -276,9 +262,8 @@ pub fn broadcast(&self) -> BroadcastOperators<A>
 
 - To transmit a message to every connected client.
 
-<hr/>
 
-### Method `local()`
+#### The `local()` Method
 
 ```rust
 pub fn local(&self) -> BroadcastOperators<A>
@@ -292,9 +277,8 @@ pub fn local(&self) -> BroadcastOperators<A>
 
 - Broadcast only to the current server instance (multi-node deployments).
 
-<hr/>
 
-### Method `to()`
+#### The `to()` Method
 
 ```rust
 pub fn to(&self, rooms: impl RoomParam) -> BroadcastOperators<A>
@@ -308,9 +292,8 @@ pub fn to(&self, rooms: impl RoomParam) -> BroadcastOperators<A>
 
 - To send to specific rooms the socket belongs to.
 
-<hr/>
 
-### Method `within()`
+#### The `within()` Method
 
 ```rust
 pub fn within(&self, rooms: impl RoomParam) -> BroadcastOperators<A>
@@ -320,9 +303,8 @@ pub fn within(&self, rooms: impl RoomParam) -> BroadcastOperators<A>
 
 - A broadcast operator limited to the specified rooms (alias of `to()`).
 
-<hr/>
 
-### Method `except()`
+#### The `except()` Method
 
 ```rust
 pub fn except(&self, rooms: impl RoomParam) -> BroadcastOperators<A>
@@ -336,9 +318,8 @@ pub fn except(&self, rooms: impl RoomParam) -> BroadcastOperators<A>
 
 - Broadcast to everyone except certain rooms.
 
-<hr/>
 
-### Method `timeout()`
+#### The `timeout()` Method
 
 ```rust
 pub fn timeout(&self, timeout: Duration) -> ConfOperators<'_, A>
@@ -352,9 +333,8 @@ pub fn timeout(&self, timeout: Duration) -> ConfOperators<'_, A>
 
 - To set a timeout when sending a message with acknowledgement.
 
-<hr/>
 
-### Method `join()`
+#### The `join()` Method
 
 ```rust
 pub fn join(&self, rooms: impl RoomParam)
@@ -364,9 +344,8 @@ pub fn join(&self, rooms: impl RoomParam)
 
 - To add the current socket to one or more rooms.
 
-<hr/>
 
-### Method `leave()`
+#### The `leave()` Method
 
 ```rust
 pub fn leave(&self, rooms: impl RoomParam)
@@ -376,9 +355,8 @@ pub fn leave(&self, rooms: impl RoomParam)
 
 - To remove the current socket from one or more rooms.
 
-<hr/>
 
-### Method `leave_all()`
+#### The `leave_all()` Method
 
 ```rust
 pub fn leave_all(&self)
@@ -388,9 +366,8 @@ pub fn leave_all(&self)
 
 - To remove the current socket from all its rooms.
 
-<hr/>
 
-### Method `has_ack()`
+#### The `has_ack()` Method
 
 ```rust
 pub fn has_ack(&self) -> bool
@@ -404,9 +381,8 @@ pub fn has_ack(&self) -> bool
 
 - Before calling `ack(...)` in message handlers.
 
-<hr/>
 
-### Method `ack()`
+#### The `ack()` Method
 
 ```rust
 pub fn ack<D>(self, data: &D) -> Result<(), SendError>
@@ -431,9 +407,8 @@ where
 It consumes `self`, meaning you cannot reuse the context after calling it.
 :::
 
-<hr/>
 
-### Method `req_parts()`
+#### The `req_parts()` Method
 
 ```rust
 pub fn req_parts(&self) -> &Parts
@@ -447,9 +422,8 @@ pub fn req_parts(&self) -> &Parts
 
 - To access raw HTTP data (method, URI, etc.).
 
-<hr/>
 
-### Method `headers()`
+#### The `headers()` Method
 
 ```rust
 pub fn headers(&self) -> &HeaderMap
@@ -463,9 +437,8 @@ pub fn headers(&self) -> &HeaderMap
 
 - To read HTTP headers from the initial handshake.
 
-<hr/>
 
-### Method `authorization()`
+#### The `authorization()` Method
 
 ```rust
 pub fn authorization(&self) -> Option<&str>
@@ -479,9 +452,8 @@ pub fn authorization(&self) -> Option<&str>
 
 - To extract Bearer tokens or other authentication data from the handshake.
 
-<hr/>
 
-### Method `extensions()`
+#### The `extensions()` Method
 
 ```rust
 pub fn extensions(&self) -> &Extensions
@@ -495,9 +467,8 @@ pub fn extensions(&self) -> &Extensions
 
 - To share state for the lifetime of the connection.
 
-<hr/>
 
-### Method `http_extensions()`
+#### The `http_extensions()` Method
 
 ```rust
 pub fn http_extensions(&self) -> &HttpExtensions
@@ -511,9 +482,8 @@ pub fn http_extensions(&self) -> &HttpExtensions
 
 - To reuse data written by HTTP interceptors/layers during the handshake.
 
-<hr/>
 
-### Method `disconnect()`
+#### The `disconnect()` Method
 
 ```rust
 pub fn disconnect(self) -> Result<(), SocketError>
@@ -531,6 +501,8 @@ pub fn disconnect(self) -> Result<(), SocketError>
 ::: warning
 It consumes `self`, meaning you cannot reuse the context after calling it.
 :::
+
+</ApiSection>
 
 ## Base example
 

@@ -54,7 +54,11 @@ JsonResponse::TooManyRequests()
 
 ### Payload construction
 
-#### `message()` method
+#### The `message()` Method
+
+```rust
+pub fn message(mut self, message: impl Into<String>) -> Self
+```
 
 Adds a descriptive message to the response.
 
@@ -75,7 +79,11 @@ JsonResponse::Ok().message("Successful operation");
 
 :::
 
-#### `data()` method
+#### The `data()` Method
+
+```rust
+pub fn data<T: Serialize>(mut self, data: T) -> Self
+```
 
 Attaches serializable information to the response.
 
@@ -111,7 +119,12 @@ let response = JsonResponse::Ok().data(MyData {
 
 :::
 
-#### `error()` and `errors()` methods
+#### The `error()` and `errors()` Methods
+
+```rust
+pub fn error<T: Serialize>(mut self, error: T) -> Self
+pub fn errors<T: Serialize>(mut self, errors: T) -> Self
+```
 
 Let you attach errors to the response. `error()` is for a single error, while `errors()` is for a collection of errors or a validation structure. Both have essentially the same purpose; however, both are included for semantics and clarity in the intent of the response.
 
