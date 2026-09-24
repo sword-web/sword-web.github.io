@@ -1,6 +1,6 @@
 ---
 title: "Configuration"
-description: "Common configuration of a Sword application: loading, the [application] section, custom configuration, and extraction."
+description: "Common configuration of a Sword application: the Config struct, the [application] section, and custom configuration."
 outline: [2, 3]
 ---
 
@@ -9,6 +9,40 @@ outline: [2, 3]
 Sword uses `thisconfig` to load one or more TOML files. By default, the builder pattern loads `config/config.toml` during initialization. If the file is missing or contains invalid TOML, the application fails to build.
 
 If you need a different path, you can build the application with `Application::from_config(...)` or `Application::from_config_path(...)`.
+
+## The `Config` struct
+
+The `Config` struct represents the loaded application configuration. You access it through the `config` field of an `ApplicationBuilder` or `Application` instance, and from other components through dependency injection.
+
+<ApiSection title="Methods and attributes of the Config struct">
+
+#### `get::<T>()`
+
+Extracts a configuration struct and returns `Option<T>`.
+
+```rust
+let database = app.config.get::<DatabaseConfig>();
+```
+
+#### `get_or_default::<T>()`
+
+Extracts the struct or returns its `Default` if not present. Returns `T`.
+
+```rust
+let database = app.config.get_or_default::<DatabaseConfig>();
+```
+
+#### `expect::<T>()`
+
+Extracts the struct or triggers a `panic!` if not present. Returns `T`.
+
+`expect::<T>()` is equivalent to `get::<T>().expect("Expected configuration item not found")`.
+
+```rust
+let database = app.config.expect::<DatabaseConfig>();
+```
+
+</ApiSection>
 
 ## `[application]` section
 
@@ -152,18 +186,6 @@ ping-interval = "25s"
 :::
 
 See the formats available in [`duration-str`](https://docs.rs/duration-str/latest/).
-
-## Extracting configuration
-
-Once defined, Sword automatically registers the configuration in the application state. You can access it from an `ApplicationBuilder` or `Application` instance through the `config` field:
-
-- `get::<T>()`: extracts a configuration struct and returns `Option<T>`.
-- `get_or_default::<T>()`: extracts the struct or returns its `Default` if not present. Returns `T`.
-- `expect::<T>()`: extracts the struct or triggers a `panic!` if not present. Returns `T`.
-
-`expect::<T>()` is equivalent to `get::<T>().expect("Expected configuration item not found")`, and it is useful when a critical configuration must be present and you do not want to handle its absence.
-
-You can also extract configuration from other parts of your application, such as controllers or components, through dependency injection. See the [Dependency Injection](/en/fundamental-concepts/dependency-injection) section.
 
 ## Configuration per application type
 

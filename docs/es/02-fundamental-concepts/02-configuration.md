@@ -1,12 +1,46 @@
 ---
 title: "Configuración"
-description: "Configuración común de una aplicación Sword: carga, sección [application], configuración personalizada y extracción."
+description: "Configuración común de una aplicación Sword: la estructura Config, la sección [application] y la configuración personalizada."
 outline: [2, 3]
 ---
 
 # Configuración
 
 Sword usa el crate `thisconfig` para cargar archivos TOML como configuración. Por defecto, el patrón constructor carga `config/config.toml` durante la inicialización. Si el archivo no existe o contiene TOML inválido, la aplicación falla al construirse.
+
+## La estructura `Config`
+
+La estructura `Config` representa la configuración cargada de la aplicación. Se accede a ella desde el campo `config` de una instancia de `ApplicationBuilder` o `Application`, y desde otros componentes mediante inyección de dependencias.
+
+<ApiSection title="Métodos y atributos de la estructura Config">
+
+#### `get::<T>()`
+
+Extrae una estructura de configuración y devuelve `Option<T>`.
+
+```rust
+let database = app.config.get::<DatabaseConfig>();
+```
+
+#### `get_or_default::<T>()`
+
+Extrae la estructura o devuelve su `Default` si no está presente. Devuelve `T`.
+
+```rust
+let database = app.config.get_or_default::<DatabaseConfig>();
+```
+
+#### `expect::<T>()`
+
+Extrae la estructura o lanza un `panic!` si no está presente. Devuelve `T`.
+
+`expect::<T>()` equivale a `get::<T>().expect("Expected configuration item not found")`.
+
+```rust
+let database = app.config.expect::<DatabaseConfig>();
+```
+
+</ApiSection>
 
 ## Configuración de la aplicación
 
@@ -144,18 +178,6 @@ ping-interval = "25s"
 :::
 
 Consulta los formatos disponibles en [`duration-str`](https://docs.rs/duration-str/latest/).
-
-## Extracción de configuración
-
-Una vez definida, Sword registra la configuración automáticamente en el estado de la aplicación. Puedes acceder a ella desde una instancia de `ApplicationBuilder` o `Application` con el campo `config`:
-
-- `get::<T>()`: extrae una estructura de configuración y devuelve `Option<T>`.
-- `get_or_default::<T>()`: extrae la estructura o devuelve su `Default` si no está presente. Devuelve `T`.
-- `expect::<T>()`: extrae la estructura o lanza un `panic!` si no está presente. Devuelve `T`.
-
-`expect::<T>()` equivale a `get::<T>().expect("Expected configuration item not found")`, y es útil cuando una configuración crítica debe estar presente y no quieres manejar su ausencia.
-
-Además, puedes extraer la configuración desde otras partes de la aplicación, como controladores o componentes, mediante inyección de dependencias. Ver la sección de [Inyección de dependencias](/es/fundamental-concepts/dependency-injection).
 
 ## Configuración por tipo de aplicación
 
