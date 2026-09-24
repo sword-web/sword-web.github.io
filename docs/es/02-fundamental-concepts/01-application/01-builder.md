@@ -32,7 +32,7 @@ La estructura tiene campos y métodos clave que te permiten personalizar tu apli
 
 #### Atributo `config`
 
-Atributo público que permite acceder a la configuración de la aplicación cargada desde el fichero de configuración. Para más detalles sobre la configuración, revisa la sección de [Configuración](../configuration/application)
+Atributo público que permite acceder a la configuración de la aplicación cargada desde el fichero de configuración. Para más detalles sobre la configuración, revisa la sección de [Configuración](../configuration)
 
 <hr/>
 

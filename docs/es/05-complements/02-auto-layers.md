@@ -81,5 +81,5 @@ Cuando Sword carga la configuración, verifica estas secciones y registra autom�
 
 ## Véase También
 
-- [Configuración de Aplicación](/es/fundamental-concepts/configuration/application)
+- [Configuración de Aplicación](/es/fundamental-concepts/configuration)
 - [Interceptores en Controladores Web](/es/practical-guides/web/interceptors)

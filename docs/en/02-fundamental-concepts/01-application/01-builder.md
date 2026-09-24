@@ -31,7 +31,7 @@ The struct has key fields and methods that allow you to customize your applicati
 
 #### `config` Attribute
 
-A public attribute that allows access to the application configuration loaded from the configuration file. For more details on the configuration, check the [Configuration](../configuration/application) section.
+A public attribute that allows access to the application configuration loaded from the configuration file. For more details on the configuration, check the [Configuration](../configuration) section.
 
 <hr/>
 

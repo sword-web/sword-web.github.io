@@ -81,5 +81,5 @@ When Sword loads the configuration, it checks for these sections and automatical
 
 ## See Also
 
-- [Application Configuration](/en/fundamental-concepts/configuration/application)
+- [Application Configuration](/en/fundamental-concepts/configuration)
 - [Interceptors in Web Controllers](/en/practical-guides/web/interceptors)

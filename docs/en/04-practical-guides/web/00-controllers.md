@@ -69,7 +69,7 @@ All methods receive the route in the same way, for example: `#[get("/")]`, `#[po
 
 Handlers receive `&self` because the controller can have dependencies injected into its fields.
 
-This flow is explained in [Dependency Injection](/en/fundamental-concepts/di/).
+This flow is explained in [Dependency Injection](/en/fundamental-concepts/dependency-injection).
 
 ## Return Type
 

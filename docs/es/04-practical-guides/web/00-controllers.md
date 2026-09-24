@@ -70,7 +70,7 @@ Todos los métodos reciben la ruta de la misma forma, por ejemplo: `#[get("/")]`
 
 Los handlers reciben `&self` porque el controlador puede tener dependencias inyectadas en sus campos.
 
-Ese flujo se explica en [Inyección de Dependencias](/es/fundamental-concepts/di/).
+Ese flujo se explica en [Inyección de dependencias](/es/fundamental-concepts/dependency-injection).
 
 ## Tipo de retorno
 
