@@ -270,7 +270,7 @@ async fn download_report(&self) -> File {
 }
 ```
 
-El método `bytes()` recibe el contenido del archivo, `content_type()` define su `Content-Type`, y `filename()` el nombre que se usará en el header `Content-Disposition`.
+El método `bytes()` recibe el contenido del archivo, `content_type()` define su `Content-Type`, y `filename()` el nombre que llevará el header `Content-Disposition`.
 
 Si en lugar de descargar quieres que el navegador muestre el archivo directamente (por ejemplo, un PDF o una imagen), usa `inline()`:
 

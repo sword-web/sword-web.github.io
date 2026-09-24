@@ -30,7 +30,7 @@ The core idea of Sword is to establish a development structure based on modules,
 - Simple and idiomatic error handling
 - Support for REST and gRPC applications
 
-### What do we mean by "structured/opinionated"?
+### What does "structured/opinionated" mean?
 
 Building scalable web applications requires organizing code into well-defined layers and maintaining a clear separation of concerns.
 

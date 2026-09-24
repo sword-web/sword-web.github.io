@@ -10,7 +10,7 @@ In Sword, `.proto` files define the public contract of your gRPC service. This c
 
 ## Recommended location
 
-We recommend keeping the `.proto` files under `config/proto/`.
+The recommended location for the `.proto` files is `config/proto/`.
 
 This helps you:
 

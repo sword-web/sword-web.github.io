@@ -132,6 +132,6 @@ Defaults usados por Sword:
 
 Si `use-env-filter = true`, Sword intenta leer `RUST_LOG`.
 
-Si `RUST_LOG` no existe o no puede interpretarse, se usa `filter`.
+Si `RUST_LOG` no existe o no puede interpretarse, Sword usa `filter`.
 
-Si `use-env-filter = false`, siempre se usa `filter`.
+Si `use-env-filter = false`, Sword usa siempre `filter`.

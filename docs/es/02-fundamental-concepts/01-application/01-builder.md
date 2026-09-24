@@ -24,7 +24,7 @@ Internamente el método `builder()`:
 - Inicializa el estado compartido de la aplicación
 - Carga la configuración desde el fichero `.toml`
 
-Finalmente deberás llamar a `.build()` para obtener una instancia de la aplicación.
+Finalmente debes llamar a `.build()` para obtener una instancia de la aplicación.
 
 ### Métodos y atributos de la estructura
 

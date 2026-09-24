@@ -41,4 +41,4 @@ skip-paths = [
 
 ## Request ID
 
-The logger reuses the `x-request-id` header set by the built-in `RequestIdLayer`, which is also applied to gRPC requests for correlation. When present, only the first 8 characters are logged; otherwise a `-` placeholder is used.
+The logger reuses the `x-request-id` header set by the built-in `RequestIdLayer`, which is also applied to gRPC requests for correlation. When present, the logger logs only the first 8 characters; otherwise it uses a `-` placeholder.

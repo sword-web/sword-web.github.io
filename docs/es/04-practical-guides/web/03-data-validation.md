@@ -21,7 +21,7 @@ serde = { version = "x.y.z", features = ["derive"] }
 validator = { version = "x.y.z", features = ["derive"] }
 ```
 
-Con esto podrás usar métodos como:
+Con esto puedes usar métodos como:
 
 - `req.validated_body::<T>()`
 - `req.validated_query::<T>()`
@@ -130,4 +130,4 @@ Sword maneja automáticamente los errores de validación y responde con un estad
 
 ## Nota final
 
-Esta integración corresponde específicamente a la feature `validation-validator`. Si decides usar otra librería de validación, tendrás que definir tu propia lógica de validación y el formato de error que quieras exponer.
+Esta integración corresponde específicamente a la feature `validation-validator`. Si decides usar otra librería de validación, debes definir tu propia lógica de validación y el formato de error que quieras exponer.

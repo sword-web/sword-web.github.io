@@ -13,7 +13,7 @@ The `sword-cli` command line tool is currently in development. For now, the reco
 
 You can find the examples in the repository on [GitHub](https://github.com/sword-web/sword/tree/main/examples).
 
-Each example is designed to showcase a specific part of the framework. If this is your first time using Sword, we recommend starting with `web`.
+Each example is designed to showcase a specific part of the framework. If this is your first time using Sword, the recommended starting point is `web`.
 
 ### `web` Example
 

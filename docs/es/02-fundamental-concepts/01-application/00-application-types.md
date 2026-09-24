@@ -1,6 +1,6 @@
 ---
 title: "Tipos de aplicación"
-description: "Sword distingue tres tipos de aplicación que se pueden ajustar a tus necesidades."
+description: "Sword distingue tres tipos de aplicación que puedes ajustar a tus necesidades."
 outline: [2, 3]
 ---
 
@@ -8,7 +8,7 @@ outline: [2, 3]
 
 En Sword, un tipo de aplicación es una forma de comunicación con el exterior. Dependiendo del tipo, una aplicación puede englobar a otras, porque varios protocolos y metodologías comparten crates. Axum es el ejemplo más claro.
 
-Sword distingue tres tipos de aplicación que se pueden ajustar a tus necesidades.
+Sword distingue tres tipos de aplicación que puedes ajustar a tus necesidades.
 
 ## Aplicación Web
 
@@ -21,7 +21,7 @@ sword = { version = "x.y.z", features = ["web"] }
 
 En este tipo de aplicación puedes desarrollar e implementar la gran mayoría de patrones comunes en `axum`
 
-Habilitando esta feature podrás utilizar el import `sword::web::*` como prelude. Para conocer más sobre este tipo de aplicación ve a _Guías Prácticas > Web_.
+Habilitando esta feature puedes usar el import `sword::web::*` como prelude. Para conocer más sobre este tipo de aplicación ve a _Guías Prácticas > Web_.
 
 **Complementos**
 
@@ -45,7 +45,7 @@ En este tipo de aplicación puedes desarrollar e implementar la gran mayoría de
 Dado que `socketioxide` requiere del router de `axum`, la feature `web` se habilita automáticamente al usar este tipo de aplicación.
 :::
 
-Habilitando esta feature podrás utilizar el import `sword::socketio::*` como prelude. Para conocer más sobre este tipo de aplicación ve a _Guías Prácticas > Socket.IO_.
+Habilitando esta feature puedes usar el import `sword::socketio::*` como prelude. Para conocer más sobre este tipo de aplicación ve a _Guías Prácticas > Socket.IO_.
 
 :::warning
 De momento solo es posible usar el `Adapter Local` de `socketioxide` en sword.
@@ -70,7 +70,7 @@ sword = { version = "x.y.z", features = ["grpc"] }
 
 Este tipo de aplicación permite aplicar la gran mayoría de patrones comunes en `tonic`.
 
-Habilitando esta feature podrás utilizar el import `sword::grpc::*` como prelude. Para conocer más sobre este tipo de aplicación ve a _Guías Prácticas > gRPC_.
+Habilitando esta feature puedes usar el import `sword::grpc::*` como prelude. Para conocer más sobre este tipo de aplicación ve a _Guías Prácticas > gRPC_.
 
 **Complementos**
 

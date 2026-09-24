@@ -40,4 +40,4 @@ log-query = false
 
 ## Request ID
 
-The logger reuses the `x-request-id` header set by the built-in `RequestIdLayer`. When present, only the first 8 characters are logged; otherwise a `-` placeholder is used.
+The logger reuses the `x-request-id` header set by the built-in `RequestIdLayer`. When present, the logger logs only the first 8 characters; otherwise it uses a `-` placeholder.

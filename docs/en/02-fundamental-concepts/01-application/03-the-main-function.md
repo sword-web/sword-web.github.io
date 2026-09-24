@@ -9,7 +9,7 @@ As you know, in Rust, program execution begins at the `main` function.
 
 Commonly, in asynchronous frameworks, the `main` function must be marked with a special attribute to indicate that it is asynchronous.
 
-In Sword, we provide the `#[sword::main]` macro, which takes care of initializing the application's internal runtime with `tokio` and running the `main` function asynchronously.
+In Sword, the `#[sword::main]` macro initializes the application's internal runtime with `tokio` and runs the `main` function asynchronously.
 
 ```rust
 use sword::prelude::*;
