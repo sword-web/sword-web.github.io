@@ -665,6 +665,12 @@ div[class*="language-"] .copy:hover {
     border-top: 1px solid var(--vp-c-divider);
 }
 
+/* The heading right after a collapsible section keeps its normal spacing, so
+ * the closed accordion does not leave a large empty gap. */
+.vp-doc .api-section + h2 {
+    margin-top: 16px;
+}
+
 .api-section__summary {
     display: flex;
     align-items: center;
