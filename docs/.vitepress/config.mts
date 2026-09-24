@@ -52,42 +52,37 @@ const sidebarTree: PageNode[] = [
                     { key: "config-extract", path: "fundamental-concepts/configuration/extract" },
                 ],
             },
-        ],
-    },
-    {
-        key: "application-components",
-        collapsed: false,
-        items: [
-            { key: "modules", path: "application-components/modules" },
+            { key: "modules", path: "fundamental-concepts/modules" },
             {
                 key: "controllers",
-                path: "application-components/controllers",
+                path: "fundamental-concepts/controllers",
                 collapsed: true,
                 items: [
                     {
                         key: "web-controllers",
-                        path: "application-components/controllers/web-controllers",
+                        path: "fundamental-concepts/controllers/web-controllers",
                     },
                     {
                         key: "socketio-controllers",
-                        path: "application-components/controllers/socket-io-controllers",
+                        path: "fundamental-concepts/controllers/socket-io-controllers",
                     },
                     {
                         key: "grpc-controllers",
-                        path: "application-components/controllers/grpc-controllers",
+                        path: "fundamental-concepts/controllers/grpc-controllers",
                     },
                 ],
             },
             {
                 key: "dependency-injection",
-                path: "application-components/di/",
+                path: "fundamental-concepts/di/",
                 collapsed: true,
                 items: [
-                    { key: "providers", path: "application-components/di/providers" },
-                    { key: "components", path: "application-components/di/components" },
+                    { key: "providers", path: "fundamental-concepts/di/providers" },
+                    { key: "components", path: "fundamental-concepts/di/components" },
                 ],
             },
-            { key: "interceptors", path: "application-components/interceptors/" },
+            { key: "interceptors", path: "fundamental-concepts/interceptors/" },
+            { key: "error-handling", path: "fundamental-concepts/error-handling" },
         ],
     },
     {
@@ -178,7 +173,7 @@ const labels: Record<Locale, Record<string, string>> = {
         "getting-started": "Getting Started",
         "file-structure": "File Structure",
 
-        "fundamental-concepts": "Fundamental Concepts",
+        "fundamental-concepts": "Fundamentals",
         "the-application": "The Sword Application",
         "application-types": "Application Types",
         builder: "Application Builder",
@@ -189,7 +184,6 @@ const labels: Record<Locale, Record<string, string>> = {
         "config-custom": "Custom",
         "config-extract": "Extraction",
 
-        "application-components": "Application Components",
         modules: "Modules",
         controllers: "Controllers",
         "web-controllers": "Web Controllers",
@@ -199,6 +193,7 @@ const labels: Record<Locale, Record<string, string>> = {
         providers: "Providers",
         components: "Components",
         interceptors: "Interceptors",
+        "error-handling": "Error Handling",
 
         "practical-guides": "Practical Guides",
         web: "Web",
@@ -238,7 +233,7 @@ const labels: Record<Locale, Record<string, string>> = {
         "getting-started": "Iniciando",
         "file-structure": "Estructura de archivos",
 
-        "fundamental-concepts": "Conceptos fundamentales",
+        "fundamental-concepts": "Fundamentos",
         "the-application": "La aplicación Sword",
         "application-types": "Tipos de aplicación",
         builder: "Constructor de aplicación",
@@ -249,7 +244,6 @@ const labels: Record<Locale, Record<string, string>> = {
         "config-custom": "Personalizada",
         "config-extract": "Extracción",
 
-        "application-components": "Componentes de la aplicación",
         modules: "Módulos",
         controllers: "Controladores",
         "web-controllers": "Controladores Web",
@@ -259,6 +253,7 @@ const labels: Record<Locale, Record<string, string>> = {
         providers: "Providers",
         components: "Components",
         interceptors: "Interceptores",
+        "error-handling": "Manejo de errores",
 
         "practical-guides": "Guías prácticas",
         web: "Web",

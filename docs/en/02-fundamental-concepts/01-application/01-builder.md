@@ -43,7 +43,7 @@ A method that registers a module implementing the `Module` trait. Modules define
 
 - `M`: A type that implements the `Module` trait.
 
-Learn more about modules in the [Modules](../../application-components/modules) section.
+Learn more about modules in the [Modules](/en/fundamental-concepts/modules) section.
 
 <hr/>
 

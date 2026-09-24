@@ -45,4 +45,4 @@ This method is useful when you want to ensure a critical configuration is presen
 
 <hr/>
 
-Additionally, you can extract configuration from other parts of your application, such as controllers or components, using dependency injection. See the [Dependency Injection](/en/application-components/di/) section for more details.
+Additionally, you can extract configuration from other parts of your application, such as controllers or components, using dependency injection. See the [Dependency Injection](/en/fundamental-concepts/di/) section for more details.

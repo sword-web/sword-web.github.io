@@ -44,7 +44,7 @@ Método que registra un módulo que implementa el trait `Module`. Los módulos d
 
 - `M`: Un tipo que implementa el trait `Module`.
 
-Aprende más sobre los módulos en la sección [Módulos](../../application-components/modules).
+Aprende más sobre los módulos en la sección [Módulos](/es/fundamental-concepts/modules).
 
 <hr/>
 
