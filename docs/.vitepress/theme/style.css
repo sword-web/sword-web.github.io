@@ -656,6 +656,60 @@ div[class*="language-"] .copy:hover {
 }
 
 /* ----------------------------------------------------------------------------
+ * API accordion
+ * -------------------------------------------------------------------------- */
+
+.api-accordion {
+    border: 1px solid var(--vp-c-divider);
+    border-radius: 8px;
+    margin: 12px 0;
+    background-color: var(--vp-c-bg-soft);
+}
+
+.api-accordion__summary {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    cursor: pointer;
+    list-style: none;
+}
+
+.api-accordion__summary::-webkit-details-marker {
+    display: none;
+}
+
+.api-accordion__summary::before {
+    content: "";
+    width: 0;
+    height: 0;
+    border-left: 5px solid var(--vp-c-text-2);
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    transition: transform 0.2s ease;
+}
+
+.api-accordion[open] .api-accordion__summary::before {
+    transform: rotate(90deg);
+}
+
+.api-accordion__signature {
+    font-family: var(--vp-font-family-mono);
+    font-size: 0.9em;
+    color: var(--vp-c-text-1);
+    background: none;
+    padding: 0;
+}
+
+.api-accordion__body {
+    padding: 0 16px 14px;
+}
+
+.api-accordion__body > :first-child {
+    margin-top: 0;
+}
+
+/* ----------------------------------------------------------------------------
  * Motion
  * -------------------------------------------------------------------------- */
 

@@ -3,11 +3,14 @@ import type { Theme } from "vitepress";
 import DefaultTheme from "vitepress/theme-without-fonts";
 import "./fonts.css";
 import "./style.css";
+import ApiAccordion from "./components/ApiAccordion.vue";
 
 export default {
     extends: DefaultTheme,
     Layout: () => {
         return h(DefaultTheme.Layout, null, {});
     },
-    enhanceApp({ app, router, siteData }) {},
+    enhanceApp({ app }) {
+        app.component("ApiAccordion", ApiAccordion);
+    },
 } satisfies Theme;

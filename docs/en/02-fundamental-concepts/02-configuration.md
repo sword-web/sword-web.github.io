@@ -1,6 +1,6 @@
 ---
 title: "Configuration"
-description: "How to configure a Sword application: base sections, per-application-type configuration, custom configuration, and extraction."
+description: "Common configuration of a Sword application: loading, the [application] section, custom configuration, and extraction."
 outline: [2, 3]
 ---
 
@@ -27,93 +27,6 @@ It holds the general application values:
 name = "My Sword App"
 environment = "development"
 graceful-shutdown = true
-```
-
-:::
-
-## Per-application-type configuration
-
-As explained in [Application Types](/en/fundamental-concepts/application/application-types), Sword has three application types (Web, Socket.IO, and gRPC). Each one adds its own configuration section.
-
-### `[web]` section
-
-This applies to `web` and `socketio` applications.
-
-| Key               | Type                           | Default     | Description                                                             |
-| ----------------- | ------------------------------ | ----------- | ----------------------------------------------------------------------- |
-| `host`            | `String`                       | `"0.0.0.0"` | Bind host or IP for the web application                                 |
-| `port`            | `u16`                          | `8000`      | Web application port                                                    |
-| `router-prefix`   | `Option<String>`               | `None`      | Global prefix for web routes                                            |
-| `request-timeout` | `Option<RequestTimeoutConfig>` | `None`      | Timeout configuration for web controllers                               |
-| `body-limit`      | `Option<BodyLimitConfig>`      | `10MB`      | Body size limit configuration for web request extraction                |
-
-::: details TOML example
-
-```toml
-[web]
-host = "0.0.0.0"
-port = 8000
-router-prefix = "/api"
-body-limit = "2MB"
-request-timeout = { enabled = true, timeout = "30s" }
-```
-
-:::
-
-### `[socketio]` section
-
-In Sword, `socketio` depends on the `web` feature. When you use it, you configure the web runtime first and then add the dedicated Socket.IO section.
-
-| Key                   | Type                    | Default                    | Description                                   |
-| --------------------- | ----------------------- | -------------------------- | --------------------------------------------- |
-| `ack-timeout`         | `Option<TimeConfig>`    | `5s`                       | Maximum time for outgoing ACKs                |
-| `connect-timeout`     | `Option<TimeConfig>`    | `45s`                      | Time limit to complete initial connection     |
-| `max-buffer-size`     | `Option<usize>`         | `128`                      | Max buffered packets per connection           |
-| `max-payload`         | `Option<ByteConfig>`    | `100KB`                    | Maximum outgoing payload size                 |
-| `ping-interval`       | `Option<TimeConfig>`    | `25s`                      | Server ping interval                          |
-| `ping-timeout`        | `Option<TimeConfig>`    | `20s`                      | Pong timeout before disconnect                |
-| `req-path`            | `Option<String>`        | `"/socket.io"`             | HTTP path where Socket.IO is mounted          |
-| `transports`          | `Option<Vec<String>>`   | `["polling", "websocket"]` | Allowed transports                            |
-| `parser`              | `"common" \| "msgpack"` | `"common"`                 | Payload parser                                |
-| `ws-read-buffer-size` | `Option<usize>`         | `4096`                     | WebSocket read buffer size                    |
-
-::: details TOML example
-
-```toml
-[socketio]
-ack-timeout = "5s"
-connect-timeout = "45s"
-max-buffer-size = 128
-max-payload = "100KB"
-ping-interval = "25s"
-ping-timeout = "20s"
-req-path = "/socket.io"
-transports = ["polling", "websocket"]
-parser = "common"
-ws-read-buffer-size = 4096
-```
-
-:::
-
-### `[grpc]` section
-
-This applies to gRPC applications and is unrelated to the web runtime.
-
-| Key                       | Type                          | Default     | Description                                                              |
-| ------------------------- | ----------------------------- | ----------- | ------------------------------------------------------------------------ |
-| `host`                    | `String`                      | `"0.0.0.0"` | Bind host or IP for the gRPC server                                      |
-| `port`                    | `u16`                         | `50051`     | gRPC server port                                                         |
-| `enable-tonic-reflection` | `bool`                        | `false`     | Enables tonic reflection service                                         |
-| `body-limit`              | `Option<GrpcBodyLimitConfig>` | `10MB`      | Size limit config for incoming/outgoing gRPC messages                    |
-
-::: details TOML example
-
-```toml
-[grpc]
-host = "0.0.0.0"
-port = 50051
-enable-tonic-reflection = true
-body-limit = { max-decoding-message-size = "4MB", max-encoding-message-size = "4MB" }
 ```
 
 :::
@@ -247,10 +160,10 @@ Once defined, Sword automatically registers the configuration in the application
 
 You can also extract configuration from other parts of your application, such as controllers or components, through dependency injection. See the [Dependency Injection](/en/fundamental-concepts/dependency-injection) section.
 
-## Additional configuration per application type
+## Configuration per application type
 
-The sections above cover the base configuration. Each application type adds its own settings, documented in its practical guides:
+The configuration specific to each application type lives in its practical guide:
 
-- **Web:** access logger (`[web.logger]`) in [Access Logger](/en/practical-guides/web/access-logger), and `[web.openapi]` in [OpenAPI & Swagger UI](/en/practical-guides/web/openapi).
-- **gRPC:** access logger (`[grpc.logger]`) in [Access Logger](/en/practical-guides/grpc/access-logger), and `[grpc]` reflection in [Service Inspection with grpcurl](/en/practical-guides/grpc/service-inspection-grpcurl).
-- **Socket.IO:** its options are covered in the `[socketio]` section of this page.
+- [Configuration of a web application](/en/practical-guides/web/configuration)
+- [Configuration of a Socket.IO application](/en/practical-guides/socketio/configuration)
+- [Configuration of a gRPC application](/en/practical-guides/grpc/configuration)

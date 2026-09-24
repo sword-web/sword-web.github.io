@@ -17,6 +17,7 @@ const sidebarTree: PageNode[] = [
         items: [
             { key: "intro", path: "introduction/" },
             { key: "getting-started", path: "introduction/getting-started" },
+            { key: "application-types", path: "introduction/application-types" },
             { key: "file-structure", path: "introduction/file-structure" },
         ],
     },
@@ -24,22 +25,7 @@ const sidebarTree: PageNode[] = [
         key: "fundamental-concepts",
         collapsed: false,
         items: [
-            {
-                key: "the-application",
-                collapsed: false,
-                items: [
-                    {
-                        key: "application-types",
-                        path: "fundamental-concepts/application/application-types",
-                    },
-                    { key: "builder", path: "fundamental-concepts/application/builder" },
-                    { key: "instance", path: "fundamental-concepts/application/instance" },
-                    {
-                        key: "main-function",
-                        path: "fundamental-concepts/application/the-main-function",
-                    },
-                ],
-            },
+            { key: "application", path: "fundamental-concepts/application" },
             { key: "configuration", path: "fundamental-concepts/configuration" },
             { key: "modules", path: "fundamental-concepts/modules" },
             { key: "controllers", path: "fundamental-concepts/controllers" },
@@ -56,6 +42,7 @@ const sidebarTree: PageNode[] = [
                 key: "web",
                 collapsed: true,
                 items: [
+                    { key: "web-configuration", path: "practical-guides/web/configuration" },
                     { key: "web-controllers", path: "practical-guides/web/controllers" },
                     { key: "web-request-flow", path: "practical-guides/web/request-flow" },
                     { key: "web-request-structure", path: "practical-guides/web/request-structure" },
@@ -72,6 +59,10 @@ const sidebarTree: PageNode[] = [
                 key: "socketio",
                 collapsed: true,
                 items: [
+                    {
+                        key: "socketio-configuration",
+                        path: "practical-guides/socketio/configuration",
+                    },
                     {
                         key: "socketio-controllers",
                         path: "practical-guides/socketio/controllers",
@@ -98,6 +89,7 @@ const sidebarTree: PageNode[] = [
                 key: "grpc",
                 collapsed: true,
                 items: [
+                    { key: "grpc-configuration", path: "practical-guides/grpc/configuration" },
                     { key: "grpc-controllers", path: "practical-guides/grpc/controllers" },
                     {
                         key: "grpc-tonic-fundamentals",
@@ -143,11 +135,8 @@ const labels: Record<Locale, Record<string, string>> = {
         "file-structure": "File Structure",
 
         "fundamental-concepts": "Fundamentals",
-        "the-application": "The Sword Application",
         "application-types": "Application Types",
-        builder: "Application Builder",
-        instance: "Application Instance",
-        "main-function": "The main function",
+        application: "Application",
         configuration: "Configuration",
         modules: "Modules",
         controllers: "Controllers",
@@ -157,6 +146,7 @@ const labels: Record<Locale, Record<string, string>> = {
 
         "practical-guides": "Practical Guides",
         web: "Web",
+        "web-configuration": "Configuration",
         "web-controllers": "Controllers",
         "web-request-flow": "Request Flow",
         "web-request-structure": "Request Structure",
@@ -168,12 +158,14 @@ const labels: Record<Locale, Record<string, string>> = {
         "web-openapi": "OpenAPI & Swagger UI",
         "web-access-logger": "Access Logger",
         socketio: "Socket.IO",
+        "socketio-configuration": "Configuration",
         "socketio-controllers": "Controllers",
         "socketio-event-handling": "Event Handling",
         "socketio-data-validation": "Data Validation",
         "socketio-acknowledgements": "Acknowledgements",
         "socketio-interceptors": "Interceptors",
         grpc: "gRPC",
+        "grpc-configuration": "Configuration",
         "grpc-controllers": "Controllers",
         "grpc-tonic-fundamentals": "Tonic Fundamentals",
         "grpc-api-reference": "gRPC API Reference",
@@ -197,11 +189,8 @@ const labels: Record<Locale, Record<string, string>> = {
         "file-structure": "Estructura de archivos",
 
         "fundamental-concepts": "Fundamentos",
-        "the-application": "La aplicación Sword",
         "application-types": "Tipos de aplicación",
-        builder: "Constructor de aplicación",
-        instance: "Instancia de aplicación",
-        "main-function": "La función main",
+        application: "Aplicación",
         configuration: "Configuración",
         modules: "Módulos",
         controllers: "Controladores",
@@ -211,6 +200,7 @@ const labels: Record<Locale, Record<string, string>> = {
 
         "practical-guides": "Guías prácticas",
         web: "Web",
+        "web-configuration": "Configuración",
         "web-controllers": "Controladores",
         "web-request-flow": "El flujo de una solicitud",
         "web-request-structure": "Estructura de Request",
@@ -222,12 +212,14 @@ const labels: Record<Locale, Record<string, string>> = {
         "web-openapi": "OpenAPI y Swagger UI",
         "web-access-logger": "Access Logger",
         socketio: "Socket.IO",
+        "socketio-configuration": "Configuración",
         "socketio-controllers": "Controladores",
         "socketio-event-handling": "Manejo de eventos",
         "socketio-data-validation": "Validación de datos",
         "socketio-acknowledgements": "Acknowledgements",
         "socketio-interceptors": "Interceptores",
         grpc: "gRPC",
+        "grpc-configuration": "Configuración",
         "grpc-controllers": "Controladores",
         "grpc-tonic-fundamentals": "Fundamentos de Tonic",
         "grpc-api-reference": "API Reference gRPC",
