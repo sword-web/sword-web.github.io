@@ -4,9 +4,11 @@ description: "How to build, run, and bootstrap a Sword application: builder, ins
 outline: [2, 3]
 ---
 
-# Application
+# The Sword Application
 
-## Construction
+The central piece of a Sword application is the `Application` struct. It represents your application instance and provides methods to build, configure, and run it.
+
+## Application Construction
 
 Sword uses a builder pattern to create applications. It is implemented in the `ApplicationBuilder` struct, which lets you configure aspects of the application fluently before building the `Application` instance.
 
@@ -23,10 +25,6 @@ Internally, the `builder()` method:
 - Initializes the internal runtime of the selected application type.
 - Initializes the shared application state.
 - Loads the configuration from the `.toml` file.
-
-Finally, you call `.build()` to get an `Application` instance.
-
-## Methods and attributes
 
 <ApiSection title="ApplicationBuilder">
 
@@ -75,6 +73,21 @@ Loads the application configuration from a manually created `Config` instance.
 Finalizes the `ApplicationBuilder` construction and returns an `Application` instance ready to be executed.
 
 </ApiSection>
+
+## Application Instance
+
+Once you build an `Application` instance with `build()`, you can run it with `run()`:
+
+```rust
+#[sword::main]
+async fn main() {
+    let app = Application::builder()
+        .with_module::<SomeModule>()
+        .build();
+
+    app.run().await;
+}
+```
 
 <ApiSection title="Application">
 

@@ -4,9 +4,11 @@ description: "Cómo construir, ejecutar y arrancar una aplicación Sword: constr
 outline: [2, 3]
 ---
 
-# Aplicación
+# La aplicación Sword
 
-## Construcción
+El punto central de una aplicación Sword es la estructura `Application`. Esta estructura representa la instancia de tu aplicación y proporciona métodos para construirla, configurarla y ejecutarla.
+
+## Construcción de la Aplicación
 
 Sword usa un patrón constructor para crear aplicaciones. Se implementa en la estructura `ApplicationBuilder`, que permite configurar aspectos de la aplicación de forma fluida antes de construir la instancia de `Application`.
 
@@ -23,10 +25,6 @@ Internamente, el método `builder()`:
 - Inicializa el runtime interno del tipo de aplicación seleccionada.
 - Inicializa el estado compartido de la aplicación.
 - Carga la configuración desde el fichero `.toml`.
-
-Finalmente, llamas a `.build()` para obtener una instancia de `Application`.
-
-## Métodos y atributos
 
 <ApiSection title="ApplicationBuilder">
 
@@ -75,6 +73,21 @@ Carga la configuración de la aplicación a partir de una instancia de `Config` 
 Finaliza la construcción del `ApplicationBuilder` y devuelve una instancia de `Application` lista para ejecutarse.
 
 </ApiSection>
+
+## Instancia de la Aplicación
+
+Al construir una instancia de `Application`, con el método `build()`, puedes ejecutarla con el método `run()`:
+
+```rust
+#[sword::main]
+async fn main() {
+    let app = Application::builder()
+        .with_module::<SomeModule>()
+        .build();
+
+    app.run().await;
+}
+```
 
 <ApiSection title="Application">
 
