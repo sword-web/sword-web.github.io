@@ -6,13 +6,11 @@ outline: [2, 3]
 
 # Configuración
 
-Sword usa `thisconfig` para cargar uno o varios archivos TOML. Por defecto, el patrón constructor carga `config/config.toml` durante la inicialización. Si el archivo no existe o contiene TOML inválido, la aplicación falla al construirse.
+Sword usa el crate `thisconfig` para cargar archivos TOML como configuración. Por defecto, el patrón constructor carga `config/config.toml` durante la inicialización. Si el archivo no existe o contiene TOML inválido, la aplicación falla al construirse.
 
-Si necesitas otra ruta, puedes construir la aplicación con `Application::from_config(...)` o `Application::from_config_path(...)`.
+## Configuración de la aplicación
 
-## Sección `[application]`
-
-Contiene los valores generales de la aplicación:
+Sword establece una configuración general compartida para cualquier tipo de aplicación:
 
 | Key                 | Tipo             | Default | Descripción                                                 |
 | ------------------- | ---------------- | ------- | ----------------------------------------------------------- |
@@ -33,13 +31,13 @@ graceful-shutdown = true
 
 ## Configuración personalizada
 
-Sword permite definir configuraciones propias además de la configuración base del framework. Es útil cuando la aplicación necesita parámetros específicos de dominio o de integración. El sistema también soporta interpolación de variables de entorno y carga de contenido desde archivos.
+Sword permite definir configuraciones propias además de la configuración base del framework. Es útil cuando la aplicación necesita parámetros específicos de dominio o de integración.
 
-### Usando la macro `#[config]`
+Marca una struct con la macro `#[config]` e indica la clave TOML donde se cargará:
 
-Marca tu struct con la macro `#[config]` e indica la clave TOML donde se cargará:
+:::code-group
 
-```rust
+```rust [database.rs]
 use serde::Deserialize;
 use sword::prelude::*;
 
@@ -51,7 +49,15 @@ pub struct DatabaseConfig {
 }
 ```
 
-### Traits requeridos
+```toml [config.toml]
+[database]
+database_url = "postgres://user:password@localhost/mydb"
+max_connections = 50
+```
+
+:::
+
+**Traits requeridos**
 
 Para que un struct se use como configuración personalizada, debe derivar o implementar:
 
@@ -59,27 +65,9 @@ Para que un struct se use como configuración personalizada, debe derivar o impl
 - `Clone`
 - `Deserialize`
 
-La macro `#[config(key = "...")]` genera automáticamente:
+La macro genera automáticamente la implementación del trait `ConfigItem` así como el registro de la configuración en el estado de la aplicación.
 
-- la implementación de `ConfigItem`;
-- la implementación de `TryFrom<&State>` para inyección de dependencias;
-- el registro automático en el estado durante la inicialización.
-
-### Estructura en el archivo TOML
-
-La configuración personalizada debe existir bajo la clave indicada en `#[config(key = "...")]`.
-
-```toml
-[application]
-host = "0.0.0.0"
-port = 8080
-
-[database]
-database_url = "postgres://user:password@localhost/mydb"
-max_connections = 50
-```
-
-### Interpolación de variables de entorno
+## Variables de entorno
 
 La carga de configuración soporta interpolación directa de variables de entorno.
 
@@ -91,9 +79,9 @@ max_connections = "${DB_MAX_CONNECTIONS:20}"
 
 La sintaxis es `${VARIABLE_NAME:default_value}`. Si no se especifica un valor por defecto y la variable no existe, la carga falla.
 
-### Cargar contenido desde archivos
+## Cargar contenido desde archivos
 
-`thisconfig` permite cargar contenido de archivos dentro del TOML mediante el prefijo `file:`.
+Se permite cargar contenido de archivos dentro del TOML mediante el prefijo `file:`
 
 ```toml
 [auth]
@@ -102,51 +90,58 @@ jwt_secret = "file:secrets/jwt_secret.txt"
 
 Esto es útil para secretos, certificados o claves privadas.
 
-### Unidades especiales
+## Unidades especiales
 
-Gracias a `thisconfig`, puedes usar unidades legibles por humanos para tamaños y duraciones: `ByteConfig` para tamaños en bytes y `TimeConfig` para duraciones. No guardan solo el valor parseado; también conservan el valor crudo (`raw`) para logging y display.
+Gracias a `thisconfig`, puedes usar unidades legibles por humanos para tamaños y duraciones. Estas unidades no solo guardan el valor parseado; también conservan el valor crudo para logging y display.
 
-**`ByteConfig`** representa tamaños en bytes:
+### Representación de bytes
 
-```rust
+`ByteConfig` representa tamaños en bytes:
+
+- `raw`: string original leída desde TOML (por ejemplo `"10MB"`).
+- `parsed`: valor convertido a bytes (`usize`) para uso interno.
+
+::: code-group
+
+```rust [Rust]
 pub struct ByteConfig {
     pub parsed: usize,
     pub raw: String,
 }
 ```
 
-- `raw`: string original leída desde TOML (por ejemplo `"10MB"`).
-- `parsed`: valor convertido a bytes (`usize`) para uso interno.
-
-```toml
+```toml [TOML]
 max-payload = "100KB"
 body-limit = "1MB"
 ```
 
+:::
+
 También puedes usar formatos binarios como `KiB`, `MiB`, etc.
 
-**`TimeConfig`** representa duraciones:
+### Representación de tiempo
 
-```rust
+`TimeConfig` representa duraciones:
+
+- `raw`: string original (por ejemplo `"30s"`, `"1h 30m"`).
+- `parsed`: `std::time::Duration` listo para timeouts, intervalos, etc.
+
+::: code-group
+
+```rust [Rust]
 pub struct TimeConfig {
     pub parsed: Duration,
     pub raw: String,
 }
 ```
 
-- `raw`: string original (por ejemplo `"30s"`, `"1h 30m"`).
-- `parsed`: `std::time::Duration` listo para timeouts, intervalos, etc.
-
-```toml
+```toml [TOML]
 request-timeout = { enabled = true, timeout = "10s", display = true }
 ping-timeout = "20s"
 ping-interval = "25s"
 ```
 
-Formatos:
-
-- `ByteConfig`: ver la documentación de [byte-unit](https://docs.rs/byte-unit/latest).
-- `TimeConfig`: ver la documentación de [duration_str](https://docs.rs/duration_str/latest/).
+:::
 
 ## Extracción de configuración
 

@@ -104,44 +104,52 @@ This is useful for secrets, certificates, and private keys.
 
 ### Special units
 
-Thanks to `thisconfig`, you can use human-readable units for sizes and durations: `ByteConfig` for byte sizes and `TimeConfig` for durations. They do not just keep the parsed value; they also preserve the original raw value (`raw`) for logging and config display.
+Thanks to `thisconfig`, you can use human-readable units for sizes and durations. They do not just keep the parsed value; they also preserve the original raw value (`raw`) for logging and config display.
 
 **`ByteConfig`** represents byte sizes:
 
-```rust
+- `raw`: original TOML string (for example, `"10MB"`)
+- `parsed`: value converted to bytes (`usize`) for runtime use
+
+::: code-group
+
+```rust [Rust]
 pub struct ByteConfig {
     pub parsed: usize,
     pub raw: String,
 }
 ```
 
-- `raw`: original TOML string (for example, `"10MB"`)
-- `parsed`: value converted to bytes (`usize`) for runtime use
-
-```toml
+```toml [TOML]
 max-payload = "100KB"
 body-limit = "1MB"
 ```
+
+:::
 
 You can also use binary units such as `KiB`, `MiB`, and so on.
 
 **`TimeConfig`** represents durations:
 
-```rust
+- `raw`: original string (for example, `"30s"`, `"1h 30m"`)
+- `parsed`: `std::time::Duration` ready to use in timeouts, intervals, etc.
+
+::: code-group
+
+```rust [Rust]
 pub struct TimeConfig {
     pub parsed: Duration,
     pub raw: String,
 }
 ```
 
-- `raw`: original string (for example, `"30s"`, `"1h 30m"`)
-- `parsed`: `std::time::Duration` ready to use in timeouts, intervals, etc.
-
-```toml
+```toml [TOML]
 request-timeout = { enabled = true, timeout = "10s", display = true }
 ping-timeout = "20s"
 ping-interval = "25s"
 ```
+
+:::
 
 Formats:
 
