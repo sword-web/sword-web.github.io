@@ -10,25 +10,17 @@ La inyección de dependencias es un patrón que permite a un elemento recibir su
 
 Sword usa este enfoque para gestionar componentes y servicios dentro de la aplicación: las dependencias se inyectan automáticamente cuando se necesitan.
 
-## Conceptos clave
-
-### Contenedor de dependencias
+## Contenedor de dependencias
 
 La estructura `DependencyContainer` es el núcleo del patrón en Sword. Actúa como un registro centralizado donde se registran y resuelven las dependencias.
 
-### Inyectables
+## Inyectables
 
 Un inyectable (`Injectable`) es cualquier estructura que puede usarse como dependencia. El contenedor puede inyectarla automáticamente cuando se solicita.
 
-### Proveedores
+## Proveedores
 
 Un proveedor (`Provider`) es un inyectable que se instancia y registra **manualmente** en el contenedor. Suele representar conexiones a servicios externos, como bases de datos o APIs.
-
-### Componentes
-
-Un componente (`Component`) es un inyectable que se **autoconstruye** a partir de dependencias ya registradas en el contenedor. Es ideal para representar partes modulares de la aplicación que dependen de otros servicios o configuraciones.
-
-## Proveedores
 
 ### Definir un proveedor
 
@@ -95,6 +87,8 @@ Application::builder()
 ```
 
 ## Componentes
+
+Un componente (`Component`) es un inyectable que se **autoconstruye** a partir de dependencias ya registradas en el contenedor. Es ideal para representar partes modulares de la aplicación que dependen de otros servicios o configuraciones.
 
 ### Definir un componente
 

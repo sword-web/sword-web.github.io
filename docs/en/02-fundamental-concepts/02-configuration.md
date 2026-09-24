@@ -29,7 +29,7 @@ Extracts a configuration struct and returns `Option<T>`.
 **Example**
 
 ```rust
-let database = app.config.get::<DatabaseConfig>();
+let database = config.get::<DatabaseConfig>();
 ```
 
 #### The `get_or_default::<T>()` Method
@@ -45,7 +45,7 @@ Extracts the struct or returns its `Default` if not present.
 **Example**
 
 ```rust
-let database = app.config.get_or_default::<DatabaseConfig>();
+let database = config.get_or_default::<DatabaseConfig>();
 ```
 
 #### The `expect::<T>()` Method
@@ -61,7 +61,7 @@ Extracts the struct or triggers a `panic!` if not present. It is equivalent to `
 **Example**
 
 ```rust
-let database = app.config.expect::<DatabaseConfig>();
+let database = config.expect::<DatabaseConfig>();
 ```
 
 </ApiSection>

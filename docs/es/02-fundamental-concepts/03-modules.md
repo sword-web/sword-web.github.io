@@ -1,14 +1,14 @@
 ---
 title: "Módulos"
-description: "Organización de aplicaciones Sword mediante módulos"
+description: "Organización de aplicaciones Sword mediante módulos."
 outline: [2, 3]
 ---
 
-# Módulos en Sword
+# Módulos
 
-En Sword, un módulo agrupa piezas relacionadas de una misma capacidad de la aplicación, como controladores, componentes, proveedores, DTOs e incluso otros módulos. Cada módulo implementa el trait `Module` y registra sus piezas en el contenedor de dependencias.
+Un módulo agrupa una capacidad de la aplicación: sus controladores, componentes y proveedores. Cada módulo implementa el trait `Module` y registra esas piezas en el contenedor de dependencias, de modo que la aplicación solo necesita declarar los módulos que usa.
 
-## Trait `Module`
+## El trait `Module`
 
 El contrato base es:
 
@@ -20,13 +20,23 @@ pub trait Module {
 }
 ```
 
-Todos los métodos tienen implementación por defecto vacía.
+Todos los métodos tienen implementación por defecto vacía, así que cada módulo implementa solo los que necesita.
 
-## ¿Qué registra cada método?
+<ApiSection title="Métodos del trait Module">
 
-::: info `register_controllers(...)`
+#### Método `register_controllers(controllers)`
 
-Registra puntos de entrada externos: HTTP, Socket.IO y otros tipos de estructuras que implementan `ControllerSpec`.
+```rust
+fn register_controllers(controllers: &ControllerRegistry)
+```
+
+Registra los puntos de entrada externos del módulo: controladores HTTP, Socket.IO, gRPC y cualquier estructura que implemente `ControllerSpec`.
+
+**Parámetros**
+
+- `controllers`: registro donde se declaran los controladores del módulo.
+
+**Ejemplo**
 
 ```rust
 fn register_controllers(controllers: &ControllerRegistry) {
@@ -34,11 +44,19 @@ fn register_controllers(controllers: &ControllerRegistry) {
 }
 ```
 
-:::
+#### Método `register_components(components)`
 
-::: details `register_components(...)`
+```rust
+fn register_components(components: &ComponentRegistry)
+```
 
-Registra estructuras `#[injectable]` que deben construirse desde el contenedor de dependencias.
+Registra estructuras `#[injectable]` que el contenedor construye automáticamente.
+
+**Parámetros**
+
+- `components`: registro donde se declaran los componentes del módulo.
+
+**Ejemplo**
 
 ```rust
 fn register_components(components: &ComponentRegistry) {
@@ -47,11 +65,20 @@ fn register_components(components: &ComponentRegistry) {
 }
 ```
 
-:::
+#### Método `register_providers(config, providers)`
 
-::: details `register_providers(...)`
+```rust
+async fn register_providers(config: &Config, providers: &ProviderRegistry)
+```
 
-Registra estructuras `#[injectable(provider)]`, normalmente conexiones o clientes externos: base de datos, caché o servicios remotos. Este método es asíncrono por defecto, ya que la inicialización de recursos externos puede requerir operaciones async.
+Registra estructuras `#[injectable(provider)]`, normalmente conexiones o clientes externos como bases de datos, cachés o servicios remotos. Es asíncrono porque inicializar esos recursos puede requerir operaciones async.
+
+**Parámetros**
+
+- `config`: la configuración cargada, para leer los valores del proveedor.
+- `providers`: registro donde se declaran los proveedores del módulo.
+
+**Ejemplo**
 
 ```rust
 async fn register_providers(config: &Config, providers: &ProviderRegistry) {
@@ -65,9 +92,13 @@ async fn register_providers(config: &Config, providers: &ProviderRegistry) {
 }
 ```
 
-:::
+**Notas**
 
-## Ejemplo de módulo
+- Se ejecuta una sola vez, durante la construcción de la aplicación, no en cada request.
+
+</ApiSection>
+
+## Ejemplo completo
 
 ```rust
 use sword::prelude::*;
@@ -75,20 +106,30 @@ use sword::prelude::*;
 pub struct UsersModule;
 
 impl Module for UsersModule {
+    fn register_controllers(controllers: &ControllerRegistry) {
+        controllers.register::<UsersController>();
+    }
+
     fn register_components(components: &ComponentRegistry) {
         components.register::<UserRepository>();
         components.register::<UsersService>();
     }
 
-    fn register_controllers(controllers: &ControllerRegistry) {
-        controllers.register::<UsersController>();
+    async fn register_providers(config: &Config, providers: &ProviderRegistry) {
+        let db_config = config.expect::<DatabaseConfig>();
+
+        providers.register(
+            Database::new(db_config)
+                .await
+                .expect("Failed to create Database provider"),
+        );
     }
 }
 ```
 
 ## Registro en la aplicación
 
-Los módulos se registran con `with_module::<M>()` en `ApplicationBuilder`.
+Los módulos se registran con `with_module::<M>()` en `ApplicationBuilder` (ver [Aplicación](./application)). La aplicación no necesita conocer el interior del módulo: solo lo declara.
 
 ```rust
 #[sword::main]
@@ -102,30 +143,11 @@ async fn main() {
 }
 ```
 
-## Separación de responsabilidades
+Los módulos son independientes entre sí: no se referencian ni se registran unos a otros. El orden en que se declaran determina el orden en que se registran sus piezas.
 
-::: code-group
+## Estructura de archivos
 
-```text [Controller]
-Expone una interfaz externa.
-Ejemplos: endpoint HTTP, namespace Socket.IO.
-```
-
-```text [Component]
-Lógica interna autoconstruida por DI.
-Ejemplos: servicio de dominio, repositorio, hasher.
-```
-
-```text [Provider]
-Recurso externo o inicialización async.
-Ejemplos: base de datos, cliente Redis, SDK externo.
-```
-
-:::
-
-## Estructura habitual
-
-Una estructura habitual es:
+Un módulo suele corresponder a un directorio:
 
 ```text
 users/
@@ -135,12 +157,4 @@ users/
   mod.rs
 ```
 
-Y en `mod.rs`:
-
-```rust
-pub struct UsersModule;
-
-impl Module for UsersModule {
-    // registro de los elementos del módulo
-}
-```
+En `mod.rs` vive el `impl Module` que registra cada pieza. Para el detalle de cada tipo de pieza, revisa [Controladores](./controllers) e [Inyección de dependencias](./dependency-injection).
