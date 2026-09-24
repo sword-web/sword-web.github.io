@@ -3,16 +3,7 @@ title: "OpenAPI & Swagger UI"
 description: "Serve OpenAPI specifications and mount Swagger UI with zero code — just add configuration."
 outline: [2, 3]
 keywords:
-    [
-        "openapi",
-        "swagger",
-        "swagger ui",
-        "api documentation",
-        "spec",
-        "yaml",
-        "json",
-        "sword web",
-    ]
+  ["openapi", "swagger", "swagger ui", "api documentation", "spec", "yaml", "json", "sword web"]
 ---
 
 # OpenAPI & Swagger UI

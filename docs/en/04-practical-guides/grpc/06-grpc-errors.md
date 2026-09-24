@@ -235,11 +235,11 @@ ERROR gRPC error response error="Conflict on username: Alice" error_type="Confli
 
 When `tracing` is not specified, the level is derived from the gRPC code, matching the [access logger](/en/practical-guides/grpc/access-logger#levels) `auto` policy:
 
-| Code | Level |
-| ---- | ----- |
-| `ok` | `info` |
-| client errors (`invalid_argument`, `not_found`, `already_exists`, `permission_denied`, `failed_precondition`, `out_of_range`, `unauthenticated`, `aborted`, `cancelled`) | `warn` |
-| server errors (the rest) | `error` |
+| Code                                                                                                                                                                     | Level   |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------- |
+| `ok`                                                                                                                                                                     | `info`  |
+| client errors (`invalid_argument`, `not_found`, `already_exists`, `permission_denied`, `failed_precondition`, `out_of_range`, `unauthenticated`, `aborted`, `cancelled`) | `warn`  |
+| server errors (the rest)                                                                                                                                                 | `error` |
 
 ```rust
 #[derive(Debug, Error, GrpcError)]

@@ -3,16 +3,17 @@ title: "Introduction to Sword - Web Framework for Rust"
 description: "Sword is a structured and opinionated web framework for Rust, built on top of the Tokio ecosystem. Learn about its modular architecture and features."
 
 keywords:
-    [
-        "sword framework",
-        "rust web framework",
-        "grpc",
-        "axum",
-        "tokio",
-        "rust web development",
-        "modular framework",
-    ]
+  [
+    "sword framework",
+    "rust web framework",
+    "grpc",
+    "axum",
+    "tokio",
+    "rust web development",
+    "modular framework",
+  ]
 ---
+
 # Introduction
 
 Sword is a web framework that enables building server-side applications in a structured and opinionated way.

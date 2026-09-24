@@ -43,10 +43,10 @@ JsonResponse::TooManyRequests()
 
 ```json [Respuesta]
 {
-    "code": 429,
-    "success": false,
-    "message": "Too Many Requests",
-    "timestamp": "2024-06-01T12:00:00Z"
+	"code": 429,
+	"success": false,
+	"message": "Too Many Requests",
+	"timestamp": "2024-06-01T12:00:00Z"
 }
 ```
 
@@ -70,10 +70,10 @@ JsonResponse::Ok().message("Successful operation");
 
 ```json [Respuesta]
 {
-    "code": 200,
-    "success": true,
-    "message": "Successful operation",
-    "timestamp": "2024-06-01T12:00:00Z"
+	"code": 200,
+	"success": true,
+	"message": "Successful operation",
+	"timestamp": "2024-06-01T12:00:00Z"
 }
 ```
 
@@ -106,14 +106,14 @@ let response = JsonResponse::Ok().data(MyData {
 
 ```json [Respuesta]
 {
-    "code": 200,
-    "message": "OK",
-    "success": true,
-    "timestamp": "2024-06-01T12:00:00Z",
-    "data": {
-        "field1": "value",
-        "field2": 42
-    }
+	"code": 200,
+	"message": "OK",
+	"success": true,
+	"timestamp": "2024-06-01T12:00:00Z",
+	"data": {
+		"field1": "value",
+		"field2": 42
+	}
 }
 ```
 
@@ -138,12 +138,12 @@ JsonResponse::BadRequest()
 
 ```json [Respuesta]
 {
-    "code": 400,
-    "message": "Bad Request",
-    "success": false,
-    "timestamp": "2024-06-01T12:00:00Z",
-    "error": "Invalid input data",
-    "errors": ["Error 1", "Error 2"]
+	"code": 400,
+	"message": "Bad Request",
+	"success": false,
+	"timestamp": "2024-06-01T12:00:00Z",
+	"error": "Invalid input data",
+	"errors": ["Error 1", "Error 2"]
 }
 ```
 
@@ -173,17 +173,17 @@ async fn create_user(&self, req: Request) -> WebResult {
 
 ```json [Request Body]
 {
-    "name": "Alice"
+	"name": "Alice"
 }
 ```
 
 ```json [Respuesta]
 {
-    "code": 400,
-    "error": "Failed to deserialize request body to the required type.",
-    "message": "Invalid request body",
-    "success": false,
-    "timestamp": "2024-06-01T12:00:00Z"
+	"code": 400,
+	"error": "Failed to deserialize request body to the required type.",
+	"message": "Invalid request body",
+	"success": false,
+	"timestamp": "2024-06-01T12:00:00Z"
 }
 ```
 
@@ -217,14 +217,14 @@ async fn get_user(&self, req: Request) -> WebResult<User> {
 
 ```json [Respuesta]
 {
-    "code": 200,
-    "message": "OK",
-    "success": true,
-    "timestamp": "2024-06-01T12:00:00Z",
-    "data": {
-        "id": 1,
-        "name": "Alice"
-    }
+	"code": 200,
+	"message": "OK",
+	"success": true,
+	"timestamp": "2024-06-01T12:00:00Z",
+	"data": {
+		"id": 1,
+		"name": "Alice"
+	}
 }
 ```
 
@@ -250,13 +250,13 @@ async fn create_user(&self) -> WebResult<CreateUserResponse> {
 
 ```json [Respuesta]
 {
-    "code": 201,
-    "message": "Created",
-    "success": true,
-    "timestamp": "2024-06-01T12:00:00Z",
-    "data": {
-        "id": 1
-    }
+	"code": 201,
+	"message": "Created",
+	"success": true,
+	"timestamp": "2024-06-01T12:00:00Z",
+	"data": {
+		"id": 1
+	}
 }
 ```
 

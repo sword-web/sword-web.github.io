@@ -12,13 +12,13 @@ On top of the application's common configuration (see [Configuration](/en/fundam
 
 This applies to `web` and `socketio` applications.
 
-| Key               | Type                           | Default     | Description                                                             |
-| ----------------- | ------------------------------ | ----------- | ----------------------------------------------------------------------- |
-| `host`            | `String`                       | `"0.0.0.0"` | Bind host or IP for the web application                                 |
-| `port`            | `u16`                          | `8000`      | Web application port                                                    |
-| `router-prefix`   | `Option<String>`               | `None`      | Global prefix for web routes                                            |
-| `request-timeout` | `Option<RequestTimeoutConfig>` | `None`      | Timeout configuration for web controllers                               |
-| `body-limit`      | `Option<BodyLimitConfig>`      | `10MB`      | Body size limit configuration for web request extraction                |
+| Key               | Type                           | Default     | Description                                              |
+| ----------------- | ------------------------------ | ----------- | -------------------------------------------------------- |
+| `host`            | `String`                       | `"0.0.0.0"` | Bind host or IP for the web application                  |
+| `port`            | `u16`                          | `8000`      | Web application port                                     |
+| `router-prefix`   | `Option<String>`               | `None`      | Global prefix for web routes                             |
+| `request-timeout` | `Option<RequestTimeoutConfig>` | `None`      | Timeout configuration for web controllers                |
+| `body-limit`      | `Option<BodyLimitConfig>`      | `10MB`      | Body size limit configuration for web request extraction |
 
 ::: details TOML example
 

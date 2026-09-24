@@ -10,12 +10,12 @@ On top of the common configuration (see [Configuration](/en/fundamental-concepts
 
 ## `[grpc]` section
 
-| Key                       | Type                          | Default     | Description                                                              |
-| ------------------------- | ----------------------------- | ----------- | ------------------------------------------------------------------------ |
-| `host`                    | `String`                      | `"0.0.0.0"` | Bind host or IP for the gRPC server                                      |
-| `port`                    | `u16`                         | `50051`     | gRPC server port                                                         |
-| `enable-tonic-reflection` | `bool`                        | `false`     | Enables tonic reflection service                                         |
-| `body-limit`              | `Option<GrpcBodyLimitConfig>` | `10MB`      | Size limit config for incoming/outgoing gRPC messages                    |
+| Key                       | Type                          | Default     | Description                                           |
+| ------------------------- | ----------------------------- | ----------- | ----------------------------------------------------- |
+| `host`                    | `String`                      | `"0.0.0.0"` | Bind host or IP for the gRPC server                   |
+| `port`                    | `u16`                         | `50051`     | gRPC server port                                      |
+| `enable-tonic-reflection` | `bool`                        | `false`     | Enables tonic reflection service                      |
+| `body-limit`              | `Option<GrpcBodyLimitConfig>` | `10MB`      | Size limit config for incoming/outgoing gRPC messages |
 
 ::: details TOML example
 

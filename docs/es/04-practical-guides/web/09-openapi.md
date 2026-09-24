@@ -3,16 +3,7 @@ title: "OpenAPI y Swagger UI"
 description: "Sirve especificaciones OpenAPI y monta Swagger UI con cero código — solo agrega configuración."
 outline: [2, 3]
 keywords:
-    [
-        "openapi",
-        "swagger",
-        "swagger ui",
-        "api documentation",
-        "spec",
-        "yaml",
-        "json",
-        "sword web",
-    ]
+  ["openapi", "swagger", "swagger ui", "api documentation", "spec", "yaml", "json", "sword web"]
 ---
 
 # OpenAPI y Swagger UI

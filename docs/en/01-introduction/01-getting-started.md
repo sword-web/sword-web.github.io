@@ -3,6 +3,7 @@ title: "Getting Started with Sword"
 description: "Examples available in the repository to start using Sword."
 outline: [2, 3]
 ---
+
 # Getting Started with Sword
 
 ::: info CLI Status

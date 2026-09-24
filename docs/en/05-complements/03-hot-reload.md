@@ -5,6 +5,7 @@ outline: [2, 3]
 
 keywords: ["hot reload", "watch", "sword", "development", "dioxus", "subsecond"]
 ---
+
 # Watch Mode and Hot Reload
 
 During development, you can use various tools to automatically recompile or refresh your application whenever code changes are detected.

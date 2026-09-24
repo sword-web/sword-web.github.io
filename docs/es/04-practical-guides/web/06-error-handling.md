@@ -66,11 +66,11 @@ ERROR HTTP error response error="Conflicto en username: Alice" error_type="Confl
 
 Cuando no se especifica `tracing`, el nivel se deriva del status HTTP, siguiendo la política `auto` del [access logger](/es/practical-guides/web/access-logger#niveles):
 
-| Status | Nivel |
-| ------ | ----- |
-| `2xx` / `3xx` | `info` |
-| `4xx` | `warn` |
-| `5xx` | `error` |
+| Status        | Nivel   |
+| ------------- | ------- |
+| `2xx` / `3xx` | `info`  |
+| `4xx`         | `warn`  |
+| `5xx`         | `error` |
 
 ```rust
 #[error("Error interno del servidor")]

@@ -98,8 +98,8 @@ Sword maneja automáticamente los errores de validación y responde con un estad
 
 ```json
 {
-    "name": "",
-    "email": "not_an_valid_email"
+	"name": "",
+	"email": "not_an_valid_email"
 }
 ```
 
@@ -107,24 +107,24 @@ Sword maneja automáticamente los errores de validación y responde con un estad
 
 ```json
 {
-    "code": 400,
-    "errors": {
-        "email": [
-            {
-                "code": "email",
-                "message": "Invalid email format"
-            }
-        ],
-        "name": [
-            {
-                "code": "length",
-                "message": "Name must be between 1 and 50 characters"
-            }
-        ]
-    },
-    "message": "Invalid request body",
-    "success": false,
-    "timestamp": "2025-10-21T05:09:16Z"
+	"code": 400,
+	"errors": {
+		"email": [
+			{
+				"code": "email",
+				"message": "Invalid email format"
+			}
+		],
+		"name": [
+			{
+				"code": "length",
+				"message": "Name must be between 1 and 50 characters"
+			}
+		]
+	},
+	"message": "Invalid request body",
+	"success": false,
+	"timestamp": "2025-10-21T05:09:16Z"
 }
 ```
 

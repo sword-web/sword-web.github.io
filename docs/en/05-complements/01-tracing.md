@@ -3,6 +3,7 @@ title: "Tracing Configuration"
 description: "Logging and tracing configuration in Sword through the [tracing] section."
 outline: [2, 3]
 ---
+
 # Tracing Configuration
 
 Sword can configure a global `tracing` subscriber to capture traces across the entire application.
@@ -36,15 +37,15 @@ with-fields = []
 
 ## Supported fields
 
-| Key              | Type                                                                  | Default      | Description                                                             |
-| ---------------- | --------------------------------------------------------------------- | ------------ | ----------------------------------------------------------------------- |
-| `enabled`        | `bool`                                                                | `true`       | Enables or disables global subscriber initialization                    |
-| `use-env-filter` | `bool`                                                                | `true`       | Tries to read directives from `RUST_LOG` before using `filter`          |
-| `filter`         | `String`                                                              | `"info"`     | Fallback filter when `RUST_LOG` is missing or disabled                  |
-| `format`         | `full \| pretty \| compact \| dev \| json`                            | `full`       | Subscriber output format                                                |
-| `time-style`     | `system \| uptime \| local \| utc \| none`                            | `system`     | Timestamp source and style                                              |
-| `time-pattern`   | `String?`                                                             | `None`       | `strftime` pattern used by `local` and `utc`                           |
-| `with-fields`    | `target[] \| file[] \| line-number[] \| thread-id[] \| thread-name[]` | `["target"]` | Optional metadata included on each event                               |
+| Key              | Type                                                                  | Default      | Description                                                    |
+| ---------------- | --------------------------------------------------------------------- | ------------ | -------------------------------------------------------------- |
+| `enabled`        | `bool`                                                                | `true`       | Enables or disables global subscriber initialization           |
+| `use-env-filter` | `bool`                                                                | `true`       | Tries to read directives from `RUST_LOG` before using `filter` |
+| `filter`         | `String`                                                              | `"info"`     | Fallback filter when `RUST_LOG` is missing or disabled         |
+| `format`         | `full \| pretty \| compact \| dev \| json`                            | `full`       | Subscriber output format                                       |
+| `time-style`     | `system \| uptime \| local \| utc \| none`                            | `system`     | Timestamp source and style                                     |
+| `time-pattern`   | `String?`                                                             | `None`       | `strftime` pattern used by `local` and `utc`                   |
+| `with-fields`    | `target[] \| file[] \| line-number[] \| thread-id[] \| thread-name[]` | `["target"]` | Optional metadata included on each event                       |
 
 ## Available formats
 

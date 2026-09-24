@@ -26,7 +26,6 @@ pub fn id(&self) -> &Sid
 
 - Logging, trazabilidad, asociar eventos a una conexión específica.
 
-
 #### Método `connected()`
 
 ```rust
@@ -41,7 +40,6 @@ pub fn connected(&self) -> bool
 
 - Verificar si el socket sigue activo antes de realizar operaciones.
 
-
 #### Método `ns()`
 
 ```rust
@@ -52,7 +50,6 @@ pub fn ns(&self) -> &str
 
 - La ruta del namespace actual de este socket.
 
-
 #### Método `rooms()`
 
 ```rust
@@ -62,7 +59,6 @@ pub fn rooms(&self) -> Vec<Room>
 **Retorna**
 
 - Todos los nombres de salas a las que este socket está conectado.
-
 
 #### Método `event()`
 
@@ -82,7 +78,6 @@ pub fn event(&self) -> Option<&str>
 Al usar este método en el evento `connection` o `disconnection` retornará `None`.
 :::
 
-
 #### Método `disconnect_reason()`
 
 ```rust
@@ -98,7 +93,6 @@ pub fn disconnect_reason(&self) -> Option<&DisconnectReason>
 
 - Auditar por qué se cierra una conexión.
 
-
 #### Método `protocol_version()`
 
 ```rust
@@ -113,7 +107,6 @@ pub fn protocol_version(&self) -> ProtocolVersion
 
 - Diagnostico y compatibilidad de clientes.
 
-
 #### Método `transport_type()`
 
 ```rust
@@ -127,7 +120,6 @@ pub fn transport_type(&self) -> TransportType
 **Cuándo usarlo**
 
 - Telemetría, reglas por tipo de transporte, depuración de handshake.
-
 
 #### Método `try_data::<T>()`
 
@@ -151,7 +143,6 @@ En el evento `connection`, este método intenta leer el payload de `auth` del ha
 :::warning
 Este método consume el payload interno. Una segunda llamada en el mismo handler falla.
 :::
-
 
 #### Método `try_validated_data::<T>()`
 
@@ -178,7 +169,6 @@ En el evento `connection`, este método intenta leer el payload de `auth` del ha
 Este método consume el payload interno. Una segunda llamada en el mismo handler falla.
 :::
 
-
 #### Método `has_data()`
 
 ```rust
@@ -192,7 +182,6 @@ pub fn has_data(&self) -> bool
 **Cuándo usarlo**
 
 - Para evitar intentar parsear dos veces.
-
 
 #### Método `query::<T>()`
 
@@ -210,7 +199,6 @@ pub fn query<T: DeserializeOwned>(&self) -> Result<Option<T>, SocketError>
 
 - Para leer parámetros de query de la URL durante la conexión.
 
-
 #### Método `emit()`
 
 ```rust
@@ -227,7 +215,6 @@ where
 **Cuándo usarlo**
 
 - Enviar eventos al cliente conectado.
-
 
 #### Método `emit_with_ack()`
 
@@ -247,7 +234,6 @@ pub fn emit_with_ack<T: ?Sized + Serialize, V>(
 
 - Cuando necesitas confirmación del cliente de que el evento fue recibido.
 
-
 #### Método `broadcast()`
 
 ```rust
@@ -261,7 +247,6 @@ pub fn broadcast(&self) -> BroadcastOperators<A>
 **Cuándo usarlo**
 
 - Transmitir un mensaje a cada cliente conectado.
-
 
 #### Método `local()`
 
@@ -277,7 +262,6 @@ pub fn local(&self) -> BroadcastOperators<A>
 
 - Broadcast solo a la instancia actual del servidor (despliegues multi-nodo).
 
-
 #### Método `to()`
 
 ```rust
@@ -292,7 +276,6 @@ pub fn to(&self, rooms: impl RoomParam) -> BroadcastOperators<A>
 
 - Enviar a salas específicas a las que el socket pertenece.
 
-
 #### Método `within()`
 
 ```rust
@@ -302,7 +285,6 @@ pub fn within(&self, rooms: impl RoomParam) -> BroadcastOperators<A>
 **Retorna**
 
 - Un operador de difusión limitado a las salas especificadas (alias de `to()`).
-
 
 #### Método `except()`
 
@@ -318,7 +300,6 @@ pub fn except(&self, rooms: impl RoomParam) -> BroadcastOperators<A>
 
 - Broadcast a todos excepto ciertas salas.
 
-
 #### Método `timeout()`
 
 ```rust
@@ -333,7 +314,6 @@ pub fn timeout(&self, timeout: Duration) -> ConfOperators<'_, A>
 
 - Establecer un tiempo de espera al enviar un mensaje con confirmación.
 
-
 #### Método `join()`
 
 ```rust
@@ -343,7 +323,6 @@ pub fn join(&self, rooms: impl RoomParam)
 **Cuándo usarlo**
 
 - Agregar el socket actual a una o más salas.
-
 
 #### Método `leave()`
 
@@ -355,7 +334,6 @@ pub fn leave(&self, rooms: impl RoomParam)
 
 - Remover el socket actual de una o más salas.
 
-
 #### Método `leave_all()`
 
 ```rust
@@ -365,7 +343,6 @@ pub fn leave_all(&self)
 **Cuándo usarlo**
 
 - Remover el socket actual de todas sus salas.
-
 
 #### Método `has_ack()`
 
@@ -380,7 +357,6 @@ pub fn has_ack(&self) -> bool
 **Cuándo usarlo**
 
 - Antes de llamar `ack(...)` en handlers de mensaje.
-
 
 #### Método `ack()`
 
@@ -407,7 +383,6 @@ where
 Consume `self`, es decir, después de invocarlo no puedes reutilizar el contexto.
 :::
 
-
 #### Método `req_parts()`
 
 ```rust
@@ -421,7 +396,6 @@ pub fn req_parts(&self) -> &Parts
 **Cuándo usarlo**
 
 - Acceder a datos HTTP crudos (método, URI, etc.).
-
 
 #### Método `headers()`
 
@@ -437,7 +411,6 @@ pub fn headers(&self) -> &HeaderMap
 
 - Leer headers HTTP del handshake inicial.
 
-
 #### Método `authorization()`
 
 ```rust
@@ -451,7 +424,6 @@ pub fn authorization(&self) -> Option<&str>
 **Cuándo usarlo**
 
 - Extraer tokens Bearer u otros datos de autenticación del handshake.
-
 
 #### Método `extensions()`
 
@@ -467,7 +439,6 @@ pub fn extensions(&self) -> &Extensions
 
 - Compartir estado durante la vida de la conexión.
 
-
 #### Método `http_extensions()`
 
 ```rust
@@ -481,7 +452,6 @@ pub fn http_extensions(&self) -> &HttpExtensions
 **Cuándo usarlo**
 
 - Reutilizar datos escritos en interceptores/layers HTTP durante el handshake.
-
 
 #### Método `disconnect()`
 

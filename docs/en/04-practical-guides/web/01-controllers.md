@@ -3,6 +3,7 @@ title: "Web Controller Definition"
 description: "In Sword, a web controller is a struct that acts as a group of methods under a base path, where each method represents a specific HTTP endpoint."
 outline: [2, 3]
 ---
+
 # Web Controller Definition
 
 In Sword, a web controller is a struct that acts as a group of methods under a base path, where each method represents a specific HTTP endpoint.

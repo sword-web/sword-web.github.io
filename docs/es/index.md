@@ -3,38 +3,38 @@ title: "Sword - Framework Web para Rust"
 description: "Sword es un framework web asíncrono y modular para Rust construido sobre Axum y Tokio. Listo para escalar con inyección de dependencias, interceptores y layers reutilizables."
 
 keywords:
-    [
-        "sword framework",
-        "rust web framework",
-        "rust async",
-        "axum",
-        "tokio",
-        "web development",
-        "modular framework",
-    ]
+  [
+    "sword framework",
+    "rust web framework",
+    "rust async",
+    "axum",
+    "tokio",
+    "web development",
+    "modular framework",
+  ]
 
 layout: home
 
 hero:
-    text: "Framework de Aplicaciones de Servidor"
-    tagline: Progresivo, modular y opinionado
-    image:
-        light:
-            src: /logo-new-dark.png
-            alt: Logo de Sword
-        dark:
-            src: /logo-new.png
-            alt: Logo de Sword
-    actions:
-        - theme: brand
-          text: ¿Qué es Sword?
-          link: /es/introduction/
-        - theme: alt
-          text: Iniciando
-          link: /es/introduction/getting-started
-        - theme: alt
-          text: GitHub
-          link: "https://github.com/sword-web/"
+  text: "Framework de Aplicaciones de Servidor"
+  tagline: Progresivo, modular y opinionado
+  image:
+    light:
+      src: /logo-new-dark.png
+      alt: Logo de Sword
+    dark:
+      src: /logo-new.png
+      alt: Logo de Sword
+  actions:
+    - theme: brand
+      text: ¿Qué es Sword?
+      link: /es/introduction/
+    - theme: alt
+      text: Iniciando
+      link: /es/introduction/getting-started
+    - theme: alt
+      text: GitHub
+      link: "https://github.com/sword-web/"
 ---
 
 ## ¿Por qué Sword?

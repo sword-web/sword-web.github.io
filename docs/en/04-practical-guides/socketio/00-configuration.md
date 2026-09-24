@@ -10,18 +10,18 @@ On top of the common configuration (see [Configuration](/en/fundamental-concepts
 
 ## `[socketio]` section
 
-| Key                   | Type                    | Default                    | Description                                   |
-| --------------------- | ----------------------- | -------------------------- | --------------------------------------------- |
-| `ack-timeout`         | `Option<TimeConfig>`    | `5s`                       | Maximum time for outgoing ACKs                |
-| `connect-timeout`     | `Option<TimeConfig>`    | `45s`                      | Time limit to complete initial connection     |
-| `max-buffer-size`     | `Option<usize>`         | `128`                      | Max buffered packets per connection           |
-| `max-payload`         | `Option<ByteConfig>`    | `100KB`                    | Maximum outgoing payload size                 |
-| `ping-interval`       | `Option<TimeConfig>`    | `25s`                      | Server ping interval                          |
-| `ping-timeout`        | `Option<TimeConfig>`    | `20s`                      | Pong timeout before disconnect                |
-| `req-path`            | `Option<String>`        | `"/socket.io"`             | HTTP path where Socket.IO is mounted          |
-| `transports`          | `Option<Vec<String>>`   | `["polling", "websocket"]` | Allowed transports                            |
-| `parser`              | `"common" \| "msgpack"` | `"common"`                 | Payload parser                                |
-| `ws-read-buffer-size` | `Option<usize>`         | `4096`                     | WebSocket read buffer size                    |
+| Key                   | Type                    | Default                    | Description                               |
+| --------------------- | ----------------------- | -------------------------- | ----------------------------------------- |
+| `ack-timeout`         | `Option<TimeConfig>`    | `5s`                       | Maximum time for outgoing ACKs            |
+| `connect-timeout`     | `Option<TimeConfig>`    | `45s`                      | Time limit to complete initial connection |
+| `max-buffer-size`     | `Option<usize>`         | `128`                      | Max buffered packets per connection       |
+| `max-payload`         | `Option<ByteConfig>`    | `100KB`                    | Maximum outgoing payload size             |
+| `ping-interval`       | `Option<TimeConfig>`    | `25s`                      | Server ping interval                      |
+| `ping-timeout`        | `Option<TimeConfig>`    | `20s`                      | Pong timeout before disconnect            |
+| `req-path`            | `Option<String>`        | `"/socket.io"`             | HTTP path where Socket.IO is mounted      |
+| `transports`          | `Option<Vec<String>>`   | `["polling", "websocket"]` | Allowed transports                        |
+| `parser`              | `"common" \| "msgpack"` | `"common"`                 | Payload parser                            |
+| `ws-read-buffer-size` | `Option<usize>`         | `4096`                     | WebSocket read buffer size                |
 
 ::: details TOML example
 

@@ -3,16 +3,16 @@ title: "Auto-registered Layers & Services"
 description: "Configure Compression, CORS, and static file serving directly from config.toml without manual layer registration."
 outline: [2, 3]
 keywords:
-    [
-        "compression",
-        "cors",
-        "serve-dir",
-        "static files",
-        "middleware",
-        "tower layers",
-        "auto-register",
-        "sword configuration",
-    ]
+  [
+    "compression",
+    "cors",
+    "serve-dir",
+    "static files",
+    "middleware",
+    "tower layers",
+    "auto-register",
+    "sword configuration",
+  ]
 ---
 
 # Auto-registered Layers & Services
@@ -30,12 +30,12 @@ algorithms = ["gzip", "br"]
 
 ### Supported Algorithms
 
-| Algorithm | Note |
-|---|---|
-| `gzip` | Widely supported |
-| `br` | Brotli, best compression ratio |
-| `deflate` | Legacy algorithm |
-| `zstd` | Fast, modern algorithm |
+| Algorithm | Note                           |
+| --------- | ------------------------------ |
+| `gzip`    | Widely supported               |
+| `br`      | Brotli, best compression ratio |
+| `deflate` | Legacy algorithm               |
+| `zstd`    | Fast, modern algorithm         |
 
 ## CORS
 
@@ -67,13 +67,13 @@ router-path = "/static"
 
 ### Options
 
-| Key | Description | Default |
-|---|---|---|
-| `static-dir` | Directory to serve | `"public"` |
-| `router-path` | URL path prefix | `"/static"` |
-| `compression` | Pre-compressed file support | `true` |
-| `chunk-size` | Streaming chunk size in bytes | `65536` |
-| `not-found` | Custom 404 fallback path | — |
+| Key           | Description                   | Default     |
+| ------------- | ----------------------------- | ----------- |
+| `static-dir`  | Directory to serve            | `"public"`  |
+| `router-path` | URL path prefix               | `"/static"` |
+| `compression` | Pre-compressed file support   | `true`      |
+| `chunk-size`  | Streaming chunk size in bytes | `65536`     |
+| `not-found`   | Custom 404 fallback path      | —           |
 
 ## How It Works
 

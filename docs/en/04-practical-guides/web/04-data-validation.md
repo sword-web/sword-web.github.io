@@ -3,6 +3,7 @@ title: "Data Validation"
 description: "Input data validation is a fundamental aspect of web applications. It ensures that data meets specific rules before being processed or stored."
 outline: [2, 3]
 ---
+
 # Data Validation
 
 Input data validation is a fundamental aspect of web applications. It ensures that data meets specific rules before being processed or stored.
@@ -97,8 +98,8 @@ Sword automatically handles validation errors and responds with an HTTP `400 Bad
 
 ```json
 {
-    "name": "",
-    "email": "not_a_valid_email"
+	"name": "",
+	"email": "not_a_valid_email"
 }
 ```
 
@@ -106,24 +107,24 @@ Sword automatically handles validation errors and responds with an HTTP `400 Bad
 
 ```json
 {
-    "code": 400,
-    "errors": {
-        "email": [
-            {
-                "code": "email",
-                "message": "Invalid email format"
-            }
-        ],
-        "name": [
-            {
-                "code": "length",
-                "message": "Name must be between 1 and 50 characters"
-            }
-        ]
-    },
-    "message": "Invalid request body",
-    "success": false,
-    "timestamp": "2025-10-21T05:09:16Z"
+	"code": 400,
+	"errors": {
+		"email": [
+			{
+				"code": "email",
+				"message": "Invalid email format"
+			}
+		],
+		"name": [
+			{
+				"code": "length",
+				"message": "Name must be between 1 and 50 characters"
+			}
+		]
+	},
+	"message": "Invalid request body",
+	"success": false,
+	"timestamp": "2025-10-21T05:09:16Z"
 }
 ```
 

@@ -20,23 +20,23 @@ skip-paths = ["/api/health"]
 log-query = false
 ```
 
-| Key          | Tipo             | Default | Descripción                                                            |
-| ------------ | ---------------- | ------- | ---------------------------------------------------------------------- |
-| `enabled`    | `bool`           | `true`  | Habilita o deshabilita el logger                                        |
-| `level`      | `auto \| info`   | `auto`  | Política de nivel de log. Ver [Niveles](#niveles)                       |
-| `skip-paths` | `String[]`       | `[]`    | Rutas a excluir del log (coincidencia exacta o por prefijo)             |
-| `log-query`  | `bool`           | `false` | Incluye el query string en la uri registrada                            |
+| Key          | Tipo           | Default | Descripción                                                 |
+| ------------ | -------------- | ------- | ----------------------------------------------------------- |
+| `enabled`    | `bool`         | `true`  | Habilita o deshabilita el logger                            |
+| `level`      | `auto \| info` | `auto`  | Política de nivel de log. Ver [Niveles](#niveles)           |
+| `skip-paths` | `String[]`     | `[]`    | Rutas a excluir del log (coincidencia exacta o por prefijo) |
+| `log-query`  | `bool`         | `false` | Incluye el query string en la uri registrada                |
 
 ## Niveles
 
 - `info` registra cada solicitud en `INFO` sin importar el status.
 - `auto` elige el nivel según el status de la respuesta:
 
-| Status | Nivel |
-| ------ | ----- |
-| `2xx` / `3xx` | `INFO` |
-| `4xx` | `WARN` |
-| `5xx` | `ERROR` |
+| Status        | Nivel   |
+| ------------- | ------- |
+| `2xx` / `3xx` | `INFO`  |
+| `4xx`         | `WARN`  |
+| `5xx`         | `ERROR` |
 
 ## Request ID
 

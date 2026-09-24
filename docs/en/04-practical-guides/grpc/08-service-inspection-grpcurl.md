@@ -3,6 +3,7 @@ title: "Service Inspection with grpcurl"
 description: "How to enable reflection in Sword and use grpcurl to inspect and test gRPC services."
 outline: [2, 3]
 ---
+
 # Service Inspection with grpcurl
 
 This guide explains how to inspect and test your gRPC services with `grpcurl` in a Sword application.

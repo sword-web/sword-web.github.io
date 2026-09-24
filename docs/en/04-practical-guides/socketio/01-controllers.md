@@ -3,6 +3,7 @@ title: "Socket.IO Controllers"
 description: "Definition and supported events for Socket.IO controllers in Sword."
 outline: [2, 3]
 ---
+
 # Socket.IO Controllers
 
 In Sword, a Socket.IO controller is a struct that defines a namespace and a set of events that can be handled by specific methods.

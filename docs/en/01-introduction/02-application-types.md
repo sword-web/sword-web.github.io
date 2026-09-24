@@ -3,6 +3,7 @@ title: "Application Types"
 description: "Sword distinguishes between three application types to suit your needs."
 outline: [2, 3]
 ---
+
 # Application Types
 
 In Sword, an application type is a way of communicating with the outside. Depending on the type, one application can encompass others, because several protocols and methodologies share crates. Axum is the clearest example.

@@ -3,6 +3,7 @@ title: "Request Reference"
 description: "API-style reference of Request in Sword for params, body, query, headers, cookies, and HTTP metadata."
 outline: false
 ---
+
 # The `Request` structure
 
 `Request` is the main extractor for working with HTTP requests in Sword web controllers.
