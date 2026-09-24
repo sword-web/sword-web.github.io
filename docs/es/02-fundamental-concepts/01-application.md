@@ -28,13 +28,13 @@ Finalmente, llamas a `.build()` para obtener una instancia de `Application`.
 
 ## Métodos y atributos
 
-<ApiAccordion signature="config">
+<ApiSection title="ApplicationBuilder">
+
+#### `config`
 
 Atributo público que permite acceder a la configuración de la aplicación cargada desde el fichero de configuración. Para más detalles, revisa la sección de [Configuración](./configuration).
 
-</ApiAccordion>
-
-<ApiAccordion signature="with_module::<M>()">
+#### `with_module::<M>()`
 
 Registra un módulo que implementa el trait `Module`. Los módulos agrupan controladores, componentes y proveedores relacionados.
 
@@ -42,9 +42,7 @@ Registra un módulo que implementa el trait `Module`. Los módulos agrupan contr
 
 Aprende más en la sección de [Módulos](./modules).
 
-</ApiAccordion>
-
-<ApiAccordion signature="with_layer::<L>(layer: L)">
+#### `with_layer::<L>(layer: L)`
 
 Registra un `Layer` de Tower de forma global en la aplicación.
 
@@ -64,29 +62,29 @@ let app = Application::builder()
 
 Para más detalles sobre Tower, revisa [Interceptores en controladores web](/es/practical-guides/web/interceptors).
 
-</ApiAccordion>
-
-<ApiAccordion signature="from_config_path<P: AsRef<Path>>(path: P)">
+#### `from_config_path::<P: AsRef<Path>>(path: P)`
 
 Carga la configuración de la aplicación desde un fichero `.toml` ubicado en una ruta personalizada.
 
-</ApiAccordion>
-
-<ApiAccordion signature="from_config(config: Config)">
+#### `from_config(config: Config)`
 
 Carga la configuración de la aplicación a partir de una instancia de `Config` creada manualmente.
 
-</ApiAccordion>
+#### `build()`
 
-<ApiAccordion signature="run()">
+Finaliza la construcción del `ApplicationBuilder` y devuelve una instancia de `Application` lista para ejecutarse.
+
+</ApiSection>
+
+<ApiSection title="Application">
+
+#### `run()`
 
 Inicia el núcleo del tipo de aplicación seleccionado y comienza a escuchar solicitudes.
 
 Si la opción `graceful-shutdown` está activada, la aplicación maneja las señales de terminación de forma elegante, permitiendo que las solicitudes en curso se completen antes de apagarse.
 
-</ApiAccordion>
-
-<ApiAccordion signature="router()">
+#### `router()`
 
 Devuelve un clon del router (`axum::Router`) interno de la aplicación. Es útil para operaciones avanzadas o para inspeccionar la configuración de rutas.
 
@@ -100,7 +98,7 @@ let app = Application::builder()
 let router: axum::Router = app.router();
 ```
 
-</ApiAccordion>
+</ApiSection>
 
 ## La función `main`
 

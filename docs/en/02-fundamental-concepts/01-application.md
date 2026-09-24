@@ -28,13 +28,13 @@ Finally, you call `.build()` to get an `Application` instance.
 
 ## Methods and attributes
 
-<ApiAccordion signature="config">
+<ApiSection title="ApplicationBuilder">
+
+#### `config`
 
 A public attribute that gives access to the application configuration loaded from the configuration file. For more details, see the [Configuration](./configuration) section.
 
-</ApiAccordion>
-
-<ApiAccordion signature="with_module::<M>()">
+#### `with_module::<M>()`
 
 Registers a module that implements the `Module` trait. Modules group related controllers, components, and providers.
 
@@ -42,9 +42,7 @@ Registers a module that implements the `Module` trait. Modules group related con
 
 Learn more in the [Modules](./modules) section.
 
-</ApiAccordion>
-
-<ApiAccordion signature="with_layer::<L>(layer: L)">
+#### `with_layer::<L>(layer: L)`
 
 Registers a Tower `Layer` globally in the application.
 
@@ -64,29 +62,29 @@ let app = Application::builder()
 
 For more details on Tower, see [Interceptors in Web Controllers](/en/practical-guides/web/interceptors).
 
-</ApiAccordion>
-
-<ApiAccordion signature="from_config_path<P: AsRef<Path>>(path: P)">
+#### `from_config_path::<P: AsRef<Path>>(path: P)`
 
 Loads the application configuration from a `.toml` file located at a custom path.
 
-</ApiAccordion>
-
-<ApiAccordion signature="from_config(config: Config)">
+#### `from_config(config: Config)`
 
 Loads the application configuration from a manually created `Config` instance.
 
-</ApiAccordion>
+#### `build()`
 
-<ApiAccordion signature="run()">
+Finalizes the `ApplicationBuilder` construction and returns an `Application` instance ready to be executed.
+
+</ApiSection>
+
+<ApiSection title="Application">
+
+#### `run()`
 
 Starts the core of the selected application type and begins listening for requests.
 
 If the `graceful-shutdown` option is enabled, the application handles termination signals gracefully, allowing ongoing requests to complete before shutting down.
 
-</ApiAccordion>
-
-<ApiAccordion signature="router()">
+#### `router()`
 
 Returns a clone of the internal application router (`axum::Router`). It is useful for advanced operations or to inspect the route configuration.
 
@@ -100,7 +98,7 @@ let app = Application::builder()
 let router: axum::Router = app.router();
 ```
 
-</ApiAccordion>
+</ApiSection>
 
 ## The `main` function
 

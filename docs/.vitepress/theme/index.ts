@@ -3,7 +3,7 @@ import type { Theme } from "vitepress";
 import DefaultTheme from "vitepress/theme-without-fonts";
 import "./fonts.css";
 import "./style.css";
-import ApiAccordion from "./components/ApiAccordion.vue";
+import ApiSection from "./components/ApiSection.vue";
 
 export default {
     extends: DefaultTheme,
@@ -11,6 +11,6 @@ export default {
         return h(DefaultTheme.Layout, null, {});
     },
     enhanceApp({ app }) {
-        app.component("ApiAccordion", ApiAccordion);
+        app.component("ApiSection", ApiSection);
     },
 } satisfies Theme;
