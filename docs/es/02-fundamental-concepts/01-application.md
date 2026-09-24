@@ -26,7 +26,7 @@ Internamente, el método `builder()`:
 - Inicializa el estado compartido de la aplicación.
 - Carga la configuración desde el fichero `.toml`.
 
-<ApiSection title="ApplicationBuilder">
+<ApiSection title="Métodos y atributos de la estructura ApplicationBuilder">
 
 #### `config`
 
@@ -89,7 +89,7 @@ async fn main() {
 }
 ```
 
-<ApiSection title="Application">
+<ApiSection title="Métodos y atributos de la estructura Application">
 
 #### `run()`
 

@@ -20,7 +20,6 @@ const headingTag = computed(() => `h${props.level}`);
             </component>
             <span class="api-section__chevron" aria-hidden="true"></span>
         </summary>
-        <hr class="api-section__divider" />
         <div class="api-section__body">
             <slot />
         </div>

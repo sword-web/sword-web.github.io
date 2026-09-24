@@ -26,7 +26,7 @@ Internally, the `builder()` method:
 - Initializes the shared application state.
 - Loads the configuration from the `.toml` file.
 
-<ApiSection title="ApplicationBuilder">
+<ApiSection title="Methods and attributes of the ApplicationBuilder struct">
 
 #### `config`
 
@@ -89,7 +89,7 @@ async fn main() {
 }
 ```
 
-<ApiSection title="Application">
+<ApiSection title="Methods and attributes of the Application struct">
 
 #### `run()`
 
