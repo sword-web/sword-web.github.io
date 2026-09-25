@@ -82,7 +82,7 @@ sword = { version = "x.y.z", features = ["grpc", "grpc-error-details"] }
 ```rust
 use sword::grpc::*;
 
-// ... asuming a request handler ...
+// ... assuming a request handler ...
 
 Err(GrpcStatus::InvalidArgument()
     .message("invalid request")

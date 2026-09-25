@@ -134,6 +134,10 @@ const sidebarTree: PageNode[] = [
 				collapsed: true,
 				items: [
 					{
+						key: "grpc-fundamentals",
+						path: "practical-guides/grpc/protocol-buffers",
+					},
+					{
 						key: "grpc-configuration",
 						path: "practical-guides/grpc/configuration",
 					},
@@ -142,28 +146,16 @@ const sidebarTree: PageNode[] = [
 						path: "practical-guides/grpc/controllers",
 					},
 					{
-						key: "grpc-tonic-fundamentals",
-						path: "practical-guides/grpc/tonic-fundamentals",
-					},
-					{
-						key: "grpc-api-reference",
-						path: "practical-guides/grpc/api-reference-grpc",
-					},
-					{
-						key: "grpc-proto-files",
-						path: "practical-guides/grpc/proto-files",
-					},
-					{
-						key: "grpc-compiling-protos",
-						path: "practical-guides/grpc/compiling-protos",
-					},
-					{
 						key: "grpc-errors",
 						path: "practical-guides/grpc/grpc-errors",
 					},
 					{
 						key: "grpc-interceptors",
 						path: "practical-guides/grpc/interceptors",
+					},
+					{
+						key: "grpc-streaming",
+						path: "practical-guides/grpc/streaming",
 					},
 					{
 						key: "grpc-service-inspection",
@@ -229,12 +221,10 @@ const labels: Record<Locale, Record<string, string>> = {
 		"grpc": "gRPC",
 		"grpc-configuration": "Configuration",
 		"grpc-controllers": "Controllers",
-		"grpc-tonic-fundamentals": "Tonic Fundamentals",
-		"grpc-api-reference": "gRPC API Reference",
-		"grpc-proto-files": ".proto files",
-		"grpc-compiling-protos": "Compiling Protos",
+		"grpc-fundamentals": "Protocol Buffers",
 		"grpc-errors": "gRPC Errors",
 		"grpc-interceptors": "Interceptors",
+		"grpc-streaming": "Streaming",
 		"grpc-service-inspection": "Service Inspection with grpcurl",
 		"grpc-access-logger": "Access Logger",
 
@@ -283,12 +273,10 @@ const labels: Record<Locale, Record<string, string>> = {
 		"grpc": "gRPC",
 		"grpc-configuration": "Configuración",
 		"grpc-controllers": "Controladores",
-		"grpc-tonic-fundamentals": "Fundamentos de Tonic",
-		"grpc-api-reference": "API Reference gRPC",
-		"grpc-proto-files": "Ficheros .proto",
-		"grpc-compiling-protos": "Compilando protos",
+		"grpc-fundamentals": "Protocol Buffers",
 		"grpc-errors": "Errores gRPC",
 		"grpc-interceptors": "Interceptors",
+		"grpc-streaming": "Streaming",
 		"grpc-service-inspection": "Inspección con grpcurl",
 		"grpc-access-logger": "Access Logger",
 

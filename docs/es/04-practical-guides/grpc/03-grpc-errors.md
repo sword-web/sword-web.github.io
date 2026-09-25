@@ -82,7 +82,7 @@ sword = { version = "x.y.z", features = ["grpc", "grpc-error-details"] }
 ```rust
 use sword::grpc::*;
 
-// ... asuming a request handler ...
+// ... assuming a request handler ...
 
 Err(GrpcStatus::InvalidArgument()
     .message("invalid request")
@@ -251,7 +251,7 @@ pub enum AppError {
 
 Un `tracing = <nivel>` explícito siempre tiene prioridad sobre el nivel derivado por defecto.
 
-## Interpolación de Mensajes
+## Interpolación de mensajes
 
 En el atributo `message` puedes referenciar campos de la variante con sintaxis `{field}`. Por ejemplo, en `UserError`:
 
