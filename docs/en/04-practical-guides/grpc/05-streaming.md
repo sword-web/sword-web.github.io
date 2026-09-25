@@ -112,7 +112,7 @@ impl UserService for UsersController {
 
 ## Base types
 
-<ApiSection title="Base types" :collapsed="false">
+<ApiSection title="gRPC steaming types" :collapsed="false">
 
 #### The `GrpcStream<T>` Type
 

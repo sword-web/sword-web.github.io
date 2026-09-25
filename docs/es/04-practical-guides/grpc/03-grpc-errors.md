@@ -89,9 +89,9 @@ Err(GrpcStatus::InvalidArgument()
     .bad_request("username", "username cannot be empty"))?
 ```
 
-::: details Builders de detalle disponibles
+<ApiSection title="Métodos de errores detallados disponibles" :collapsed="true">
 
-### bad_request
+#### The `bad_request()` Builder
 
 Añade una violación de campo para `BadRequest`.
 
@@ -99,9 +99,7 @@ Añade una violación de campo para `BadRequest`.
 pub fn bad_request(field: impl Into<String>, description: impl Into<String>) -> Self
 ```
 
----
-
-### localized_message
+#### The `localized_message()` Builder
 
 Fija un mensaje localizado (`LocalizedMessage`).
 
@@ -109,9 +107,7 @@ Fija un mensaje localizado (`LocalizedMessage`).
 pub fn localized_message(locale: impl Into<String>, message: impl Into<String>) -> Self
 ```
 
----
-
-### error_info
+#### The `error_info()` Builder
 
 Fija información del error (`ErrorInfo`).
 
@@ -119,9 +115,7 @@ Fija información del error (`ErrorInfo`).
 pub fn error_info(domain: impl Into<String>, reason: impl Into<String>, metadata: HashMap<String, String>) -> Self
 ```
 
----
-
-### retry_after
+#### The `retry_after()` Builder
 
 Fija una pista de reintento (`RetryInfo`) con la espera dada.
 
@@ -129,9 +123,7 @@ Fija una pista de reintento (`RetryInfo`) con la espera dada.
 pub fn retry_after(delay: std::time::Duration) -> Self
 ```
 
----
-
-### help
+#### The `help()` Builder
 
 Añade un enlace de ayuda (`Help`).
 
@@ -139,9 +131,7 @@ Añade un enlace de ayuda (`Help`).
 pub fn help(description: impl Into<String>, url: impl Into<String>) -> Self
 ```
 
----
-
-### debug_info
+#### The `debug_info()` Builder
 
 Fija información de depuración (`DebugInfo`).
 
@@ -149,9 +139,7 @@ Fija información de depuración (`DebugInfo`).
 pub fn debug_info(stack_entries: impl Into<Vec<String>>, detail: impl Into<String>) -> Self
 ```
 
----
-
-### precondition_failure
+#### The `precondition_failure()` Builder
 
 Añade una violación de precondición (`PreconditionFailure`).
 
@@ -159,9 +147,7 @@ Añade una violación de precondición (`PreconditionFailure`).
 pub fn precondition_failure(violation_type: impl Into<String>, subject: impl Into<String>, description: impl Into<String>) -> Self
 ```
 
----
-
-### quota_failure
+#### The `quota_failure()` Builder
 
 Añade una violación de cuota (`QuotaFailure`).
 
@@ -169,9 +155,7 @@ Añade una violación de cuota (`QuotaFailure`).
 pub fn quota_failure(subject: impl Into<String>, description: impl Into<String>) -> Self
 ```
 
----
-
-### request_info
+#### The `request_info()` Builder
 
 Fija información de la solicitud (`RequestInfo`).
 
@@ -179,9 +163,7 @@ Fija información de la solicitud (`RequestInfo`).
 pub fn request_info(request_id: impl Into<String>, serving_data: impl Into<String>) -> Self
 ```
 
----
-
-### resource_info
+#### The `resource_info()` Builder
 
 Fija información del recurso (`ResourceInfo`).
 
@@ -189,7 +171,7 @@ Fija información del recurso (`ResourceInfo`).
 pub fn resource_info(resource_type: impl Into<String>, resource_name: impl Into<String>, owner: impl Into<String>, description: impl Into<String>) -> Self
 ```
 
-:::
+</ApiSection>
 
 ## Leyendo los detalles en el cliente
 
@@ -235,21 +217,11 @@ ERROR gRPC error response error="Conflicto en username: Alice" error_type="Confl
 
 Cuando no se especifica `tracing`, el nivel se deriva del código gRPC, siguiendo la política `auto` del [access logger](/es/practical-guides/grpc/access-logger#niveles):
 
-| Código                                                                                                                                                                        | Nivel   |
-| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
-| `ok`                                                                                                                                                                          | `info`  |
-| errores de cliente (`invalid_argument`, `not_found`, `already_exists`, `permission_denied`, `failed_precondition`, `out_of_range`, `unauthenticated`, `aborted`, `cancelled`) | `warn`  |
-| errores de servidor (el resto)                                                                                                                                                | `error` |
-
-```rust
-#[derive(Debug, Error, GrpcError)]
-#[grpc_error(code = "internal")] // loguea en ERROR sin un tracing explícito
-pub enum AppError {
-    // ...
-}
-```
-
-Un `tracing = <nivel>` explícito siempre tiene prioridad sobre el nivel derivado por defecto.
+| Código                         | Nivel   |
+| ------------------------------ | ------- |
+| `ok`                           | `info`  |
+| errores de cliente             | `warn`  |
+| errores de servidor (el resto) | `error` |
 
 ## Interpolación de mensajes
 

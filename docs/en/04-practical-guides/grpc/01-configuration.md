@@ -28,4 +28,4 @@ body-limit = { max-decoding-message-size = "4MB", max-encoding-message-size = "4
 ## Additional settings
 
 - **Access logger** (`[grpc.logger]`): see [Access Logger](/en/practical-guides/grpc/access-logger).
-- **Reflection** (`enable-tonic-reflection`): see [Service Inspection with grpcurl](/en/practical-guides/grpc/service-inspection-grpcurl).
+- **Reflection** (`enable-tonic-reflection`): exposes the descriptor to introspection clients like `grpcurl`. See [Reflection](/en/practical-guides/grpc/protocol-buffers#reflection).

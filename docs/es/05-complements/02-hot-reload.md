@@ -1,6 +1,6 @@
 ---
-title: "Modo Watch y Hot Reload - Framework Sword"
-description: "Aprende a usar watch y hot reload en Sword durante el desarrollo."
+title: "Modo Watch y Hot Reload"
+description: "Cómo recompilar y refrescar tu aplicación Sword automáticamente durante el desarrollo con cargo-watch, subsecond y dioxus-cli."
 outline: [2, 3]
 
 keywords: ["hot reload", "watch", "sword", "desarrollo", "dioxus", "subsecond"]
@@ -8,9 +8,9 @@ keywords: ["hot reload", "watch", "sword", "desarrollo", "dioxus", "subsecond"]
 
 # Modo Watch y Hot Reload
 
-Durante el desarrollo, puedes utilizar distintas herramientas para recompilar o refrescar tu aplicación automáticamente cuando detectan cambios en el código.
+Durante el desarrollo, puedes usar distintas herramientas para recompilar o refrescar tu aplicación automáticamente cuando detectan cambios en el código.
 
-## Crate `cargo-watch`
+## `cargo-watch`
 
 El crate `cargo-watch` ha sido durante mucho tiempo una de las herramientas más conocidas para observar cambios en el código fuente y recompilar automáticamente el proyecto.
 
@@ -28,26 +28,26 @@ El equipo de Dioxus mantiene herramientas como `subsecond`, que permiten una exp
 
 Para utilizar este flujo en un proyecto Sword:
 
-1. Habilita la feature `hot-reload` en tu `Cargo.toml`
+1. Habilita la feature `hot-reload` en tu `Cargo.toml`:
 
 ```toml
 [dependencies]
 sword = { version = "x.y.z", features = ["hot-reload"] }
 ```
 
-2. Instala `dioxus-cli`
+2. Instala `dioxus-cli`:
 
 ```bash
 cargo install dioxus-cli
 ```
 
-3. Ejecuta tu aplicación con `dx serve`
+3. Ejecuta tu aplicación con `dx serve`:
 
 ```bash
 dx serve
 ```
 
-Ese comando cumple un rol similar a `cargo run`, pero dentro del flujo de desarrollo orientado a hot reload.
+Este comando cumple un rol similar a `cargo run`, pero dentro del flujo de desarrollo orientado a hot reload.
 
 ## ¿Cuándo usar cada opción?
 

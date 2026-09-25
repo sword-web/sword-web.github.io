@@ -33,11 +33,11 @@ skip-paths = [
 - `info` registra cada RPC en `INFO` sin importar el código de status.
 - `auto` elige el nivel según el código gRPC leído del header `grpc-status` de la respuesta:
 
-| Código                                                                                                                                                                        | Nivel   |
-| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
-| `ok`                                                                                                                                                                          | `INFO`  |
-| errores de cliente (`invalid_argument`, `not_found`, `already_exists`, `permission_denied`, `failed_precondition`, `out_of_range`, `unauthenticated`, `aborted`, `cancelled`) | `WARN`  |
-| errores de servidor (el resto)                                                                                                                                                | `ERROR` |
+| Código                         | Nivel   |
+| ------------------------------ | ------- |
+| `ok`                           | `INFO`  |
+| errores de cliente             | `WARN`  |
+| errores de servidor (el resto) | `ERROR` |
 
 ## Identificador de solicitud
 

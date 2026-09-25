@@ -110,9 +110,7 @@ impl UserService for UsersController {
 }
 ```
 
-## Tipos base
-
-<ApiSection title="Tipos base" :collapsed="false">
+<ApiSection title="Tipos en streaming gRPC" :collapsed="false">
 
 #### Tipo `GrpcStream<T>`
 

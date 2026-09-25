@@ -43,6 +43,7 @@ const sidebarTree: PageNode[] = [
 				key: "error-handling",
 				path: "fundamental-concepts/error-handling",
 			},
+			{ key: "tracing", path: "fundamental-concepts/tracing" },
 		],
 	},
 	{
@@ -158,10 +159,6 @@ const sidebarTree: PageNode[] = [
 						path: "practical-guides/grpc/streaming",
 					},
 					{
-						key: "grpc-service-inspection",
-						path: "practical-guides/grpc/service-inspection-grpcurl",
-					},
-					{
 						key: "grpc-access-logger",
 						path: "practical-guides/grpc/access-logger",
 					},
@@ -173,7 +170,6 @@ const sidebarTree: PageNode[] = [
 		key: "complements",
 		collapsed: true,
 		items: [
-			{ key: "tracing", path: "complements/tracing" },
 			{ key: "auto-layers", path: "complements/auto-layers" },
 			{ key: "hot-reload", path: "complements/hot-reload" },
 			{ key: "sword-cli", path: "complements/sword-cli" },
@@ -222,10 +218,9 @@ const labels: Record<Locale, Record<string, string>> = {
 		"grpc-configuration": "Configuration",
 		"grpc-controllers": "Controllers",
 		"grpc-fundamentals": "Protocol Buffers",
-		"grpc-errors": "gRPC Errors",
+		"grpc-errors": "Error Handling",
 		"grpc-interceptors": "Interceptors",
 		"grpc-streaming": "Streaming",
-		"grpc-service-inspection": "Service Inspection with grpcurl",
 		"grpc-access-logger": "Access Logger",
 
 		"complements": "Complements",
@@ -274,10 +269,9 @@ const labels: Record<Locale, Record<string, string>> = {
 		"grpc-configuration": "Configuración",
 		"grpc-controllers": "Controladores",
 		"grpc-fundamentals": "Protocol Buffers",
-		"grpc-errors": "Errores gRPC",
+		"grpc-errors": "Manejo de Errores",
 		"grpc-interceptors": "Interceptors",
 		"grpc-streaming": "Streaming",
-		"grpc-service-inspection": "Inspección con grpcurl",
 		"grpc-access-logger": "Access Logger",
 
 		"complements": "Complementos",
