@@ -270,7 +270,7 @@ const labels: Record<Locale, Record<string, string>> = {
 		"grpc-controllers": "Controladores",
 		"grpc-fundamentals": "Protocol Buffers",
 		"grpc-errors": "Manejo de Errores",
-		"grpc-interceptors": "Interceptors",
+		"grpc-interceptors": "Interceptores",
 		"grpc-streaming": "Streaming",
 		"grpc-access-logger": "Access Logger",
 
