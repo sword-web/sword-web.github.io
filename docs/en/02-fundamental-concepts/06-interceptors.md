@@ -26,7 +26,7 @@ The most common variant. They are declared as structs that derive the `Intercept
 
 ### With configuration
 
-They behave like the traditional ones, but add an extra `T` parameter to the signature of the interception method (`OnRequestWithConfig`, `OnConnectWithConfig`, etc.). That parameter lets you pass additional configuration to the interceptor.
+They behave like the traditional ones, but add an extra `T` parameter to the signature of the interception method (`OnRequestWithConfig`, `OnRequestStreamWithConfig`, etc.). That parameter lets you pass additional configuration to the interceptor.
 
 ### Tower layers
 

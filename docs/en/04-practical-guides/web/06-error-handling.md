@@ -109,6 +109,7 @@ use crate::auth::AuthError;
 use crate::users::UserError;
 
 use sword::prelude::*;
+use sword::web::*;
 use thiserror::Error;
 
 #[derive(Debug, Error, HttpError)]
@@ -129,6 +130,7 @@ pub enum AppError {
 
 ```rust [users/errors.rs]
 use sword::prelude::*;
+use sword::web::*;
 use thiserror::Error;
 
 #[derive(Debug, Error, HttpError)]
@@ -152,6 +154,7 @@ pub enum UserError {
 
 ```rust [auth/errors.rs]
 use sword::prelude::*;
+use sword::web::*;
 use thiserror::Error;
 
 #[derive(Debug, Error, HttpError)]
@@ -190,7 +193,7 @@ pub enum AuthError {
 // UserError::Conflict
 {
     "code": 409,
-    "message": "Conflict on {field}: {value}",
+    "message": "Conflict on username: Alice",
     "success": false,
     "timestamp": "2024-06-01T12:00:00Z"
 }

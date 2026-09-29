@@ -12,7 +12,7 @@ Puedes servir archivos de especificación OpenAPI y montar Swagger UI con **cero
 
 ```toml
 [dependencies]
-sword = { version = "x.y.z", features = ["web", "swagger-ui"] }
+sword = { version = "x.y.z", features = ["web", "web-swagger-ui"] }
 ```
 
 ## Configuración

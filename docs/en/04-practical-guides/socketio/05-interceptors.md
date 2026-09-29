@@ -1,6 +1,6 @@
 ---
 title: "Interceptors in Socket.IO Controllers"
-description: "How to apply interceptors to Socket.IO controllers in Sword: OnConnect, OnConnectWithConfig, and the role of Tower."
+description: "How to apply interceptors to Socket.IO controllers in Sword: OnConnect and the role of Tower."
 outline: [2, 3]
 ---
 
@@ -64,60 +64,6 @@ As you may have noticed, you must define an associated error type. It can have w
 
 :::
 
-## Interceptors with configuration
-
-### The `OnConnectWithConfig` Trait
-
-Like `OnConnect`, this trait lets you define custom logic that runs before a client connects to a specific namespace, but it also accepts an extra `T` parameter that gives you an additional level of configuration.
-
-::: code-group
-
-```rust [interceptor.rs]
-use sword::prelude::*;
-use sword::socketio::*;
-
-#[derive(Interceptor)]
-struct EventLogger;
-
-impl OnConnectWithConfig<&str> for EventLogger {
-    type Error = String;
-
-    async fn on_connect(
-        &self,
-        config: &str,
-        ctx: SocketContext,
-    ) -> Result<(), Self::Error> {
-        println!("[Socket.IO] - New connection - Socket ID: {}", ctx.id());
-        println!("Using '&str' config with value: {config}");
-
-        Ok(())
-    }
-}
-```
-
-```rust [controller.rs]
-use sword::prelude::*;
-use sword::socketio::*;
-
-#[controller(kind = Controller::SocketIo, namespace = "/events")]
-#[interceptor(EventLogger, config = "some &str")]
-struct EventController;
-
-impl EventController {
-    #[on("connection")]
-    async fn on_connect(&self, ctx: SocketContext) {
-        println!("Client connected: {}", ctx.id());
-    }
-
-    #[on("event")]
-    async fn handle_message_event(&self, ctx: SocketContext) {
-        // ... do something with the event
-    }
-}
-```
-
-:::
-
 ## Tower and Socket.IO
 
 With Socket.IO it is worth distinguishing two things:
@@ -125,7 +71,7 @@ With Socket.IO it is worth distinguishing two things:
 - **Global layers**: they do apply, because Socket.IO is mounted on the application's web runtime. For example, a global CORS layer can affect the initial handshake and the HTTP request associated with the `polling` or `websocket` transport.
 - **Local layers via `#[interceptor(expr)]`**: they are not supported for connection logic.
 
-If you need connection-specific logic in Socket.IO, the right way is through `OnConnect` or `OnConnectWithConfig`.
+If you need connection-specific logic in Socket.IO, the right way is through `OnConnect`.
 
 ## Extensions
 

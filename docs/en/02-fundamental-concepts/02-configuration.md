@@ -127,8 +127,8 @@ Custom configuration must exist under the key declared in `#[config(key = "...")
 
 ```toml
 [application]
-host = "0.0.0.0"
-port = 8080
+name = "My Sword App"
+environment = "development"
 
 [database]
 database_url = "postgres://user:password@localhost/mydb"

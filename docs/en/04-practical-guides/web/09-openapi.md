@@ -12,7 +12,7 @@ You can serve OpenAPI specification files and mount Swagger UI with **zero code*
 
 ```toml
 [dependencies]
-sword = { version = "x.y.z", features = ["web", "swagger-ui"] }
+sword = { version = "x.y.z", features = ["web", "web-swagger-ui"] }
 ```
 
 ## Configuration

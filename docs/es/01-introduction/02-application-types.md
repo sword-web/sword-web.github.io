@@ -27,7 +27,7 @@ Habilitando esta feature puedes usar el import `sword::web::*` como prelude. Par
 
 Una aplicación web puede ser complementada con estas features:
 
-- `multipart`: Habilita soporte para `multipart/form-data` en controladores HTTP.
+- `web-multipart`: Habilita soporte para `multipart/form-data` en controladores HTTP.
 - `validation-validator`: Habilita validación de datos de entrada en controladores web de la mano del crate `validator`.
 
 ## Aplicación Socket.IO

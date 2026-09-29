@@ -26,7 +26,7 @@ La variante más común. Se declaran como estructuras que derivan el trait `Inte
 
 ### Con configuración
 
-Poseen el mismo comportamiento que los tradicionales, pero añaden un parámetro de tipo `T` extra en la firma del método de intercepción (`OnRequestWithConfig`, `OnConnectWithConfig`, etc.). Ese parámetro permite pasar configuración adicional al interceptor.
+Poseen el mismo comportamiento que los tradicionales, pero añaden un parámetro de tipo `T` extra en la firma del método de intercepción (`OnRequestWithConfig`, `OnRequestStreamWithConfig`, etc.). Ese parámetro permite pasar configuración adicional al interceptor.
 
 ### Layers de Tower
 

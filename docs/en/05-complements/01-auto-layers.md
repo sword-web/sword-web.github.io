@@ -17,7 +17,7 @@ keywords:
 
 # Auto-registered Layers & Services
 
-Sword can automatically register common Tower layers and services through configuration alone, via `toml`. Each section is optional: when present, its layer is enabled without manual registration.
+Sword can automatically register common Tower layers and services through configuration alone, via `toml`. When the corresponding feature is compiled, the layer is registered automatically: it uses the values from its section when present, and the defaults otherwise. No manual registration is needed.
 
 ## Compression
 
@@ -67,14 +67,14 @@ static-dir = "public"
 router-path = "/static"
 ```
 
-| Key           | Description                   | Default     |
-| ------------- | ----------------------------- | ----------- |
-| `static-dir`  | Directory to serve            | `"public"`  |
-| `router-path` | URL path prefix               | `"/static"` |
-| `compression` | Pre-compressed file support   | `true`      |
-| `chunk-size`  | Streaming chunk size in bytes | `65536`     |
-| `not-found`   | Custom 404 fallback path      | —           |
+| Key                     | Description                                                   | Default     |
+| ----------------------- | ------------------------------------------------------------- | ----------- |
+| `static-dir`            | Directory to serve                                            | `"public"`  |
+| `router-path`           | URL path prefix                                               | `"/static"` |
+| `compression-algorithm` | Pre-compressed file support (`br`, `gzip`, `deflate`, `zstd`) | —           |
+| `chunk-size`            | Streaming chunk size (e.g. `"64KB"`)                          | —           |
+| `not-found-file`        | Custom 404 fallback file                                      | —           |
 
 ## How they are registered
 
-When Sword loads the configuration, it checks for these sections and automatically registers the corresponding Tower layers or services in the correct order before the application starts, with no manual setup required.
+When Sword loads the configuration, it automatically registers the corresponding Tower layers or services in the correct order before the application starts, using each section's values when present and its defaults otherwise. No manual setup is required.

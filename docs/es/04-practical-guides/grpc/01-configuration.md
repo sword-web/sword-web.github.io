@@ -8,11 +8,11 @@ outline: [2, 3]
 
 Además de la configuración común (ver [Configuración](/es/fundamental-concepts/configuration)), una aplicación gRPC se ajusta con la sección `[grpc]`.
 
-| Key          | Tipo                          | Default     | Descripción                                               |
-| ------------ | ----------------------------- | ----------- | --------------------------------------------------------- |
-| `host`       | `String`                      | `"0.0.0.0"` | Host del servidor gRPC                                    |
-| `port`       | `u16`                         | `50051`     | Puerto del servidor gRPC                                  |
-| `body-limit` | `Option<GrpcBodyLimitConfig>` | `10MB`      | Límite de tamaño para mensajes gRPC entrantes y salientes |
+| Key          | Tipo                  | Default     | Descripción                                               |
+| ------------ | --------------------- | ----------- | --------------------------------------------------------- |
+| `host`       | `String`              | `"0.0.0.0"` | Host del servidor gRPC                                    |
+| `port`       | `u16`                 | `50051`     | Puerto del servidor gRPC                                  |
+| `body-limit` | `GrpcBodyLimitConfig` | `4MB`       | Límite de tamaño para mensajes gRPC entrantes y salientes |
 
 ### Ejemplo en formato TOML
 
@@ -26,4 +26,4 @@ body-limit = { max-decoding-message-size = "4MB", max-encoding-message-size = "4
 ## Ajustes adicionales
 
 - **Logger de acceso** (`[grpc.logger]`): ver [Access Logger](/es/practical-guides/grpc/access-logger).
-- **Reflection** (`enable-tonic-reflection`): expone el descriptor a clientes de introspección como `grpcurl`. Ver [Reflection](/es/practical-guides/grpc/protocol-buffers#reflection).
+- **Reflection** (feature de Cargo `grpc-reflection`): expone el descriptor a clientes de introspección como `grpcurl`. Ver [Reflection](/es/practical-guides/grpc/protocol-buffers#reflection).

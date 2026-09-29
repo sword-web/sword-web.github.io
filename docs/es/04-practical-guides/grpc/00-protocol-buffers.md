@@ -176,13 +176,11 @@ Todo proyecto que usa controladores gRPC necesita un archivo `build.rs` que comp
 ::: code-group
 
 ```rust [build.rs]
-use std::{env, path::pathbuf};
-
-fn main() -> result<(), box<dyn std::error::error>> {
+fn main() -> Result<(), Box<dyn std::error::Error>> {
     tonic_prost_build::configure()
         .compile_protos(&["config/proto/users.proto"], &["config/proto"])?;
 
-    ok(())
+    Ok(())
 }
 ```
 
@@ -209,17 +207,17 @@ sword = { version = "x.y.z", features = ["grpc", "grpc-reflection"] }
 ```
 
 ```rust [build.rs]
-use std::{env, path::pathbuf};
+use std::{env, path::PathBuf};
 
-fn main() -> result<(), box<dyn std::error::error>> {
-    let out_dir = pathbuf::from(env::var("out_dir")?); // [!code ++]
+fn main() -> Result<(), Box<dyn std::error::Error>> {
+    let out_dir = PathBuf::from(env::var("OUT_DIR")?); // [!code ++]
     let descriptor_path = out_dir.join("sword_descriptor_set.bin"); // [!code ++]
 
     tonic_prost_build::configure()
         .file_descriptor_set_path(&descriptor_path) // [!code ++]
         .compile_protos(&["config/proto/users.proto"], &["config/proto"])?;
 
-    ok(())
+    Ok(())
 }
 ```
 

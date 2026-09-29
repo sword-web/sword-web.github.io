@@ -9,13 +9,13 @@ aside: false
 
 Además de la configuración común de la aplicación (ver [Configuración](/es/fundamental-concepts/configuration)), una aplicación web se ajusta con la sección `[web]`.
 
-| Key               | Tipo                           | Default     | Descripción                                              |
-| ----------------- | ------------------------------ | ----------- | -------------------------------------------------------- |
-| `host`            | `String`                       | `"0.0.0.0"` | Host de la aplicación web                                |
-| `port`            | `u16`                          | `8000`      | Puerto de la aplicación web                              |
-| `router-prefix`   | `Option<String>`               | `None`      | Prefijo global para el enrutador de Axum                 |
-| `request-timeout` | `Option<RequestTimeoutConfig>` | `None`      | Timeout para controladores web                           |
-| `body-limit`      | `Option<BodyLimitConfig>`      | `10MB`      | Límite de tamaño para extracción de body en requests web |
+| Key               | Tipo                   | Default                                | Descripción                                              |
+| ----------------- | ---------------------- | -------------------------------------- | -------------------------------------------------------- |
+| `host`            | `String`               | `"0.0.0.0"`                            | Host de la aplicación web                                |
+| `port`            | `u16`                  | `8000`                                 | Puerto de la aplicación web                              |
+| `router-prefix`   | `Option<String>`       | `None`                                 | Prefijo global para el enrutador de Axum                 |
+| `request-timeout` | `RequestTimeoutConfig` | `{ enabled = false, timeout = "15s" }` | Timeout para controladores web                           |
+| `body-limit`      | `BodyLimitConfig`      | `10MB`                                 | Límite de tamaño para extracción de body en requests web |
 
 ## Ejemplo en formato TOML
 

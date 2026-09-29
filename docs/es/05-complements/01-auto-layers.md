@@ -17,7 +17,7 @@ keywords:
 
 # Layers y Servicios Auto-registrados
 
-Sword puede registrar automáticamente layers y servicios comunes de Tower solo con configuración vía `toml`. Cada sección es opcional: cuando está presente, su layer se activa sin registro manual.
+Sword puede registrar automáticamente layers y servicios comunes de Tower solo con configuración vía `toml`. Cuando la feature correspondiente está compilada, el layer se registra automáticamente: usa los valores de su sección cuando está presente y los defaults en caso contrario. No se necesita registro manual.
 
 ## Compresión
 
@@ -67,14 +67,14 @@ static-dir = "public"
 router-path = "/static"
 ```
 
-| Clave         | Descripción                         | Por defecto |
-| ------------- | ----------------------------------- | ----------- |
-| `static-dir`  | Directorio a servir                 | `"public"`  |
-| `router-path` | Prefijo de ruta URL                 | `"/static"` |
-| `compression` | Soporte de archivos pre-comprimidos | `true`      |
-| `chunk-size`  | Tamaño de chunk en bytes            | `65536`     |
-| `not-found`   | Ruta 404 personalizada              | —           |
+| Clave                   | Descripción                                                           | Por defecto |
+| ----------------------- | --------------------------------------------------------------------- | ----------- |
+| `static-dir`            | Directorio a servir                                                   | `"public"`  |
+| `router-path`           | Prefijo de ruta URL                                                   | `"/static"` |
+| `compression-algorithm` | Soporte de archivos pre-comprimidos (`br`, `gzip`, `deflate`, `zstd`) | —           |
+| `chunk-size`            | Tamaño de chunk en streaming (p. ej. `"64KB"`)                        | —           |
+| `not-found-file`        | Archivo 404 personalizado                                             | —           |
 
 ## Cómo se registran
 
-Cuando Sword carga la configuración, verifica estas secciones y registra automáticamente los layers o servicios de Tower correspondientes en el orden correcto antes de iniciar la aplicación, sin configuración manual adicional.
+Cuando Sword carga la configuración, registra automáticamente los layers o servicios de Tower correspondientes en el orden correcto antes de iniciar la aplicación, usando los valores de cada sección cuando está presente y sus defaults en caso contrario. No se requiere configuración manual.

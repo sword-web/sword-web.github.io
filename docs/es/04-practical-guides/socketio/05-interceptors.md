@@ -1,6 +1,6 @@
 ---
 title: "Interceptores en Controladores Socket.IO"
-description: "Cómo aplicar interceptores a controladores Socket.IO en Sword: OnConnect, OnConnectWithConfig y el rol de Tower."
+description: "Cómo aplicar interceptores a controladores Socket.IO en Sword: OnConnect y el rol de Tower."
 outline: [2, 3]
 ---
 
@@ -64,60 +64,6 @@ Como habrás notado, es necesario definir un tipo de error asociado. Este puede 
 
 :::
 
-## Interceptores con configuración
-
-### El Trait `OnConnectWithConfig`
-
-Al igual que `OnConnect`, este trait permite definir lógica personalizada que se ejecuta antes de que un cliente se conecte a un namespace en concreto, pero permite recibir un parámetro de tipo `T` extra con el que podremos tener un nivel adicional de configuración.
-
-::: code-group
-
-```rust [interceptor.rs]
-use sword::prelude::*;
-use sword::socketio::*;
-
-#[derive(Interceptor)]
-struct EventLogger;
-
-impl OnConnectWithConfig<&str> for EventLogger {
-    type Error = String;
-
-    async fn on_connect(
-        &self,
-        config: &str,
-        ctx: SocketContext,
-    ) -> Result<(), Self::Error> {
-        println!("[Socket.IO] - New connection - Socket ID: {}", ctx.id());
-        println!("Using '&str' config with value: {config}");
-
-        Ok(())
-    }
-}
-```
-
-```rust [controller.rs]
-use sword::prelude::*;
-use sword::socketio::*;
-
-#[controller(kind = Controller::SocketIo, namespace = "/events")]
-#[interceptor(EventLogger, config = "some &str")]
-struct EventController;
-
-impl EventController {
-    #[on("connection")]
-    async fn on_connect(&self, ctx: SocketContext) {
-        println!("Client connected: {}", ctx.id());
-    }
-
-    #[on("event")]
-    async fn handle_message_event(&self, ctx: SocketContext) {
-        // ... do something with the event
-    }
-}
-```
-
-:::
-
 ## Tower y Socket.IO
 
 En Socket.IO conviene distinguir dos cosas:
@@ -125,7 +71,7 @@ En Socket.IO conviene distinguir dos cosas:
 - **Layers globales**: sí aplican, porque Socket.IO se monta sobre el runtime web de la aplicación. Por ejemplo, una layer global de CORS puede influir en el handshake inicial y en la solicitud HTTP asociada al transporte `polling` o `websocket`.
 - **Layers locales vía `#[interceptor(expr)]`**: no se soportan para lógica de conexión.
 
-Si necesitas lógica específica de conexión en Socket.IO, la forma correcta es mediante `OnConnect` u `OnConnectWithConfig`.
+Si necesitas lógica específica de conexión en Socket.IO, la forma correcta es mediante `OnConnect`.
 
 ## Extensiones
 

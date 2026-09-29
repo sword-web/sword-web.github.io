@@ -21,7 +21,6 @@ use sword::prelude::*;
 #[derive(Interceptor)]
 struct AuthInterceptor;
 
-#[sword::grpc::async_trait]
 impl OnRequest for AuthInterceptor {
     async fn on_request(&self, req: Request<()>) -> GrpcInterceptorResult {
         if req.metadata().get("authorization").is_none() {
@@ -60,7 +59,6 @@ use sword::prelude::*;
 #[derive(Interceptor)]
 struct ApiKeyInterceptor;
 
-#[sword::grpc::async_trait]
 impl OnRequestWithConfig<&'static str> for ApiKeyInterceptor {
     async fn on_request(
         &self,

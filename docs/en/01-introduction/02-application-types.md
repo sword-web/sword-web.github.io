@@ -27,7 +27,7 @@ Enabling this feature gives you the `sword::web::*` import as a prelude. To lear
 
 A web application can be complemented with these features:
 
-- `multipart`: Enables support for `multipart/form-data` in HTTP controllers.
+- `web-multipart`: Enables support for `multipart/form-data` in HTTP controllers.
 - `validation-validator`: Enables input data validation in web controllers with the `validator` crate.
 
 ## Socket.IO Application
