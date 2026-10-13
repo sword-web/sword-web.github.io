@@ -52,5 +52,6 @@ Each transport documents the definition and details of its controllers in its pr
 - [Web controllers](/en/practical-guides/web/controllers)
 - [Socket.IO controllers](/en/practical-guides/socketio/controllers)
 - [gRPC controllers](/en/practical-guides/grpc/controllers)
+- [Job controllers](/en/practical-guides/jobs/controllers)
 
 Controllers for internal and external events are part of the application's event handling.

@@ -79,3 +79,14 @@ Una aplicación gRPC puede ser complementada con estas features:
 - `grpc-error-details`: Habilita el acceso a la estructura `GrpcStatus` para crear errores gRPC detallados.
 
 - `grpc-reflection`: Habilita la reflexión gRPC. Útil para realizar introspección de servicios gRPC para clientes como grpcurl.
+
+## Jobs en segundo plano
+
+Además del tipo de aplicación, la feature `jobs` ejecuta tareas programadas en segundo plano. Se habilita con:
+
+```toml
+[dependencies]
+sword = { version = "x.y.z", features = ["jobs"] }
+```
+
+Los jobs no son un transporte, así que corren junto al tipo de aplicación que elijas. Para conocer más, ve a _Guías Prácticas > Jobs_.

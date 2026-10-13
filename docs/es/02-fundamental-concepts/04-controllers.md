@@ -52,5 +52,6 @@ Cada transporte documenta la definición y las particularidades de sus controlad
 - [Controladores web](/es/practical-guides/web/controllers)
 - [Controladores Socket.IO](/es/practical-guides/socketio/controllers)
 - [Controladores gRPC](/es/practical-guides/grpc/controllers)
+- [Controladores de Tareas programadas](/es/practical-guides/jobs/controllers)
 
 Los controladores de eventos internos y externos forman parte del manejo de eventos de la aplicación.

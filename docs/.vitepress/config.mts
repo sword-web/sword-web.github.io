@@ -164,6 +164,20 @@ const sidebarTree: PageNode[] = [
 					},
 				],
 			},
+			{
+				key: "jobs",
+				collapsed: true,
+				items: [
+					{
+						key: "jobs-controllers",
+						path: "practical-guides/jobs/controllers",
+					},
+					{
+						key: "jobs-scheduling",
+						path: "practical-guides/jobs/scheduling",
+					},
+				],
+			},
 		],
 	},
 	{
@@ -222,6 +236,9 @@ const labels: Record<Locale, Record<string, string>> = {
 		"grpc-interceptors": "Interceptors",
 		"grpc-streaming": "Streaming",
 		"grpc-access-logger": "Access Logger",
+		"jobs": "Jobs",
+		"jobs-controllers": "Controllers",
+		"jobs-scheduling": "Scheduling",
 
 		"complements": "Complements",
 		"tracing": "Tracing & Logging",
@@ -273,6 +290,9 @@ const labels: Record<Locale, Record<string, string>> = {
 		"grpc-interceptors": "Interceptores",
 		"grpc-streaming": "Streaming",
 		"grpc-access-logger": "Access Logger",
+		"jobs": "Jobs",
+		"jobs-controllers": "Controladores",
+		"jobs-scheduling": "Programación",
 
 		"complements": "Complementos",
 		"tracing": "Tracing y logging",

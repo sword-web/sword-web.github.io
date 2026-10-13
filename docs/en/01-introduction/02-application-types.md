@@ -78,3 +78,14 @@ A gRPC application can be complemented with these features:
 
 - `grpc-error-details`: Enables access to the `GrpcStatus` struct to build detailed gRPC errors.
 - `grpc-reflection`: Enables gRPC reflection. Useful for service introspection with clients like grpcurl.
+
+## Background Jobs
+
+On top of an application type, the `jobs` feature runs scheduled background tasks. It is enabled with:
+
+```toml
+[dependencies]
+sword = { version = "x.y.z", features = ["jobs"] }
+```
+
+Jobs are not a transport, so they run alongside whichever application type you choose. To learn more, see _Practical Guides > Jobs_.
