@@ -39,10 +39,11 @@ hero:
 
 ## Why Sword?
 
-- **Async by default** — built on top of Tokio ecosystem.
-- **Modular** — modules and dependency injection as first-class citizens.
-- **Web, Socket.IO and gRPC** — one framework for all your APIs.
-- **Bateries included** — built-in support for validation, standardized error handling, TOML based configuration, and more.
+- **Async by default**: built on the Tokio ecosystem.
+- **Modular**: modules and dependency injection as first-class citizens.
+- **Web, Socket.IO, and gRPC**: one framework for all your APIs.
+- **Scheduled jobs**: cron, repeated, and one-shot background tasks.
+- **Batteries included**: built-in support for validation, standardized error handling, TOML-based configuration, and more.
 
 ## Quick start
 
