@@ -159,6 +159,10 @@ const sidebarTree: PageNode[] = [
 						path: "practical-guides/grpc/streaming",
 					},
 					{
+						key: "grpc-clients",
+						path: "practical-guides/grpc/clients",
+					},
+					{
 						key: "grpc-access-logger",
 						path: "practical-guides/grpc/access-logger",
 					},
@@ -235,6 +239,7 @@ const labels: Record<Locale, Record<string, string>> = {
 		"grpc-errors": "Error Handling",
 		"grpc-interceptors": "Interceptors",
 		"grpc-streaming": "Streaming",
+		"grpc-clients": "Clients",
 		"grpc-access-logger": "Access Logger",
 		"jobs": "Jobs",
 		"jobs-controllers": "Controllers",
@@ -289,6 +294,7 @@ const labels: Record<Locale, Record<string, string>> = {
 		"grpc-errors": "Manejo de Errores",
 		"grpc-interceptors": "Interceptores",
 		"grpc-streaming": "Streaming",
+		"grpc-clients": "Clientes",
 		"grpc-access-logger": "Access Logger",
 		"jobs": "Jobs",
 		"jobs-controllers": "Controladores",
