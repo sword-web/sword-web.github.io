@@ -114,23 +114,24 @@ where
 #### The `params()` Method
 
 ```rust
-pub fn params(&self) -> &HashMap<String, String>
+pub fn params(&self) -> &RawPathParams
 ```
 
 **Returns**
 
-- All path parameters as a `HashMap<String, String>`.
+- The raw path parameters (percent-decoded, not deserialized) as `RawPathParams`.
 
 **When to use it**
 
-- When you need to access multiple path params dynamically.
+- When you need to iterate over every path param without knowing their names in advance. For a specific one, use `param::<T>()`.
 
 ```rust
 #[get("/users/{id}/posts/{post_id}")]
 async fn get_user_post(&self, req: Request) -> WebResult {
-    let all_params = req.params();
-    let id = all_params.get("id").unwrap();
-    let post_id = all_params.get("post_id").unwrap();
+    for (name, value) in req.params() {
+        // name: "id" | "post_id"
+        // value: the decoded segment
+    }
     // ...
 }
 ```
