@@ -16,25 +16,25 @@ keywords:
 
 # Introduction
 
-Sword is a web framework that enables building server-side applications in a structured and opinionated way.
+Sword is a structured and opinionated framework for building server-side applications.
 
 It is currently under active development, so some features may change or be removed frequently. This documentation may undergo modifications until a stable version is reached.
 
 ### Motivation
 
-The core idea of Sword is to establish a development structure based on modules, similar to frameworks like Spring or NestJS. Additionally, Sword provides a suite of tools and utilities commonly required in these types of frameworks:
+The main idea behind Sword is to provide a module-based development structure, similar to frameworks like Spring or NestJS. Besides providing the tools and utilities these frameworks usually need, Sword includes:
 
 - Configuration and environment variable management via `toml`
-- Standardized HTTP response formatting (JSON)
-- Essential built-in middlewares (Interceptors)
-- Dependency Injection (Automatic component construction)
-- Simple and idiomatic error handling
-- Support for REST and gRPC applications
+- Standardized JSON responses for HTTP
+- Essential built-in middleware (interceptors)
+- Dependency injection (automatic component construction)
+- Simple, idiomatic error handling
+- Support for REST, gRPC, events, Socket.IO, and scheduled jobs (cron jobs)
 
 ### What does "structured/opinionated" mean?
 
 Building scalable web applications requires organizing code into well-defined layers and maintaining a clear separation of concerns.
 
-If you are here, you have likely used `axum`, a framework developed by the `tokio` team. Axum offers a comprehensive set of features for web development; however, as your project grows, the codebase can become complex to maintain. You might find yourself adding elements to extend or simplify Axum's own functionality, which can lead to a difficult-to-maintain codebase over time.
+If you are here, you have probably used `axum`, a framework developed by the `tokio` team. Axum covers most of what you need for web development, but as your project grows, the code can become hard to maintain. You may start adding pieces to extend or simplify Axum's own features, and over time the codebase becomes difficult to keep up.
 
-For this reason, Sword leverages libraries from the `tokio` ecosystem to build a more organized and modular development structure, aiming to facilitate the scalability and maintainability of your Rust web projects.
+Sword uses libraries from the `tokio` ecosystem to build a more organized, modular structure. The goal is to make Rust web projects easier to scale and maintain.

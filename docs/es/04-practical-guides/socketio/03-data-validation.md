@@ -10,13 +10,13 @@ Al igual que en controladores web, es posible validar datos entrantes en eventos
 
 Para la referencia completa de `try_data` y `try_validated_data`, revisa [Manejo de eventos y referencia de SocketContext](/es/practical-guides/socketio/event-handling).
 
-## Habilitar `validation-validator`
+## Activación de la feature
 
 Para usar validación en `SocketContext`, debes habilitar la feature `validation-validator`.
 
 ```toml
 [dependencies]
-sword = { version = "x.y.z", features = ["validation-validator"] }
+sword = { version = "x.y.z", features = ["socketio", "validation-validator"] }
 serde = { version = "x.y.z", features = ["derive"] }
 validator = { version = "x.y.z", features = ["derive"] }
 ```
@@ -58,7 +58,7 @@ impl ChatController {
 
 :::
 
-## Diferencia con `try_data`
+## Diferencia con el método 'try_data'
 
 - `try_data::<T>()` solo deserializa el payload.
 - `try_validated_data::<T>()` deserializa y luego ejecuta `Validate`.

@@ -39,21 +39,21 @@ with-fields = []
 
 El formato se elige con la clave `format`.
 
-### Formato `full`
+### Formato 'full'
 
 Usa el formatter estándar de `tracing-subscriber`. Es el formato por defecto y prioriza exponer más metadata.
 
-### Formato `pretty`
+### Formato 'pretty'
 
 Usa el formatter multilínea legible de `tracing-subscriber`.
 
 Es útil en desarrollo cuando quieres ver bloques más claros por evento, pero ocupa más espacio vertical.
 
-### Formato `compact`
+### Formato 'compact'
 
 Usa una variante más densa en una sola línea, cercana al estilo clásico de `tracing-subscriber`.
 
-### Formato `dev`
+### Formato 'dev'
 
 Formato propio de Sword orientado a desarrollo en consola.
 
@@ -66,7 +66,7 @@ INFO  Initialized tracing subscriber
       use_env_filter: true
 ```
 
-### Formato `json`
+### Formato 'json'
 
 Usa el formatter JSON nativo de `tracing-subscriber` con los fields del evento aplanados al nivel raíz.
 

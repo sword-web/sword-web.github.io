@@ -66,7 +66,7 @@ Los valores aceptados por `code` siguen la [referencia de códigos de status de 
 
 :::
 
-## Errores enriquecidos con `GrpcStatus`
+## Errores enriquecidos con 'GrpcStatus'
 
 `GrpcError` cubre la propagación de errores de dominio con `?`, pero a veces necesitas una respuesta de error con más información: el estándar [gRPC Richer Error Model](https://grpc.io/docs/guides/error/) define detalles estructurados que los clientes pueden leer (field violations, localized messages, retry hints, etc.). Para eso, Sword expone `GrpcStatus`, un builder de status con detalles encadenables.
 
@@ -91,7 +91,7 @@ Err(GrpcStatus::InvalidArgument()
 
 <ApiSection title="Métodos de errores detallados disponibles" :collapsed="true">
 
-#### The `bad_request()` Builder
+#### El método 'bad_request'
 
 Añade una violación de campo para `BadRequest`.
 
@@ -99,7 +99,7 @@ Añade una violación de campo para `BadRequest`.
 pub fn bad_request(field: impl Into<String>, description: impl Into<String>) -> Self
 ```
 
-#### The `localized_message()` Builder
+#### El método 'localized_message'
 
 Fija un mensaje localizado (`LocalizedMessage`).
 
@@ -107,7 +107,7 @@ Fija un mensaje localizado (`LocalizedMessage`).
 pub fn localized_message(locale: impl Into<String>, message: impl Into<String>) -> Self
 ```
 
-#### The `error_info()` Builder
+#### El método 'error_info'
 
 Fija información del error (`ErrorInfo`).
 
@@ -115,7 +115,7 @@ Fija información del error (`ErrorInfo`).
 pub fn error_info(domain: impl Into<String>, reason: impl Into<String>, metadata: HashMap<String, String>) -> Self
 ```
 
-#### The `retry_after()` Builder
+#### El método 'retry_after'
 
 Fija una pista de reintento (`RetryInfo`) con la espera dada.
 
@@ -123,7 +123,7 @@ Fija una pista de reintento (`RetryInfo`) con la espera dada.
 pub fn retry_after(delay: std::time::Duration) -> Self
 ```
 
-#### The `help()` Builder
+#### El método 'help'
 
 Añade un enlace de ayuda (`Help`).
 
@@ -131,7 +131,7 @@ Añade un enlace de ayuda (`Help`).
 pub fn help(description: impl Into<String>, url: impl Into<String>) -> Self
 ```
 
-#### The `debug_info()` Builder
+#### El método 'debug_info'
 
 Fija información de depuración (`DebugInfo`).
 
@@ -139,7 +139,7 @@ Fija información de depuración (`DebugInfo`).
 pub fn debug_info(stack_entries: impl Into<Vec<String>>, detail: impl Into<String>) -> Self
 ```
 
-#### The `precondition_failure()` Builder
+#### El método 'precondition_failure'
 
 Añade una violación de precondición (`PreconditionFailure`).
 
@@ -147,7 +147,7 @@ Añade una violación de precondición (`PreconditionFailure`).
 pub fn precondition_failure(violation_type: impl Into<String>, subject: impl Into<String>, description: impl Into<String>) -> Self
 ```
 
-#### The `quota_failure()` Builder
+#### El método 'quota_failure'
 
 Añade una violación de cuota (`QuotaFailure`).
 
@@ -155,7 +155,7 @@ Añade una violación de cuota (`QuotaFailure`).
 pub fn quota_failure(subject: impl Into<String>, description: impl Into<String>) -> Self
 ```
 
-#### The `request_info()` Builder
+#### El método 'request_info'
 
 Fija información de la solicitud (`RequestInfo`).
 
@@ -163,7 +163,7 @@ Fija información de la solicitud (`RequestInfo`).
 pub fn request_info(request_id: impl Into<String>, serving_data: impl Into<String>) -> Self
 ```
 
-#### The `resource_info()` Builder
+#### El método 'resource_info'
 
 Fija información del recurso (`ResourceInfo`).
 
@@ -188,7 +188,7 @@ if let Some(bad_request) = details.bad_request() {
 }
 ```
 
-::: tip ¿`GrpcError` o `GrpcStatus`?
+::: tip ¿Cuándo usar GrpcError o GrpcStatus?
 `GrpcError` convierte errores de dominio a `Status` para propagarlos con `?` en cualquier método. `GrpcStatus` construye directamente una respuesta de error rica con detalles estructurados. Ambos coexisten: usa `GrpcError` para el flujo normal de errores y `GrpcStatus` cuando necesites adjuntar detalles estandarizados.
 :::
 
@@ -333,8 +333,6 @@ code = "unavailable" message = "Service unavailable"
 
 :::
 
-## Nota sobre `transparent`
+## Nota sobre 'transparent'
 
-`#[grpc(transparent)]` delega la conversión a `tonic::Status` en el error interno.
-
-Es útil cuando tu variante envuelve otro tipo que ya implementa el flujo de conversión esperado.
+El atributo `#[grpc(transparent)]` delega la conversión a `tonic::Status` en el error interno. Es útil cuando tu variante envuelve otro tipo que ya implementa el flujo de conversión esperado.

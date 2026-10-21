@@ -6,29 +6,23 @@ outline: [2, 3]
 
 # Dependency Injection
 
-Dependency injection is a pattern where an object receives its dependencies from external sources instead of creating them itself. That brings more modularity, makes unit testing easier, and improves code maintainability.
+Dependency injection is a pattern where an object receives its dependencies from external sources instead of creating them itself. It makes code more modular, easier to test, and easier to maintain.
 
-Sword uses this approach to manage components and services within the application: dependencies are injected automatically whenever they are needed.
+Sword uses this approach to manage components and services inside the application. Dependencies are injected automatically, without extra code to resolve them.
 
-## Key concepts
-
-### Dependency container
+## Dependency container
 
 The `DependencyContainer` struct is the core of the pattern in Sword. It acts as a centralized registry where dependencies are registered and resolved.
 
-### Injectables
+<DependencyInjectionDiagram />
 
-An injectable is any struct that can be used as a dependency. The container can inject it automatically when it is requested.
+## Injectables
 
-### Providers
-
-A provider is an injectable that is instantiated and registered **manually** in the container. It usually represents connections to external services, such as databases or APIs.
-
-### Components
-
-A component is an injectable that is **self-constructed** from dependencies already registered in the container. It is ideal for representing modular parts of the application that depend on other services or configurations.
+An injectable (`Injectable`) is any struct that can be used as a dependency. The container can inject it automatically when it is requested.
 
 ## Providers
+
+A provider (`Provider`) is an injectable that is instantiated and registered **manually** in the container. It usually represents connections to external services, such as databases or APIs.
 
 ### Defining a provider
 
@@ -59,7 +53,7 @@ impl Database {
 
 ### Registering a provider
 
-You can register an instance of the provider in the container, either within a module or globally.
+You can register a provider instance in the container, either inside a module or globally.
 
 **In a module:**
 
@@ -96,12 +90,14 @@ Application::builder()
 
 ## Components
 
+A component (`Component`) is an injectable that is **self-constructed** from dependencies already registered in the container. It is a good fit for modular parts of the application that depend on other services or configuration.
+
 ### Defining a component
 
 Use the `#[injectable]` attribute on the struct definition:
 
 :::info Tip
-The `#[injectable(component)]` syntax is also valid, but not necessary. Use it only if you want to be explicit about your intention to define a component.
+The `#[injectable(component)]` syntax is also valid, but not necessary. Use it only if you want to be explicit about defining a component.
 :::
 
 ```rust
@@ -131,11 +127,11 @@ impl TaskRepository {
 
 `TaskRepository` does not need a specific constructor: the container resolves each field and constructs it automatically.
 
-You probably noticed that `Database` is wrapped in an `Arc` pointer. It is not required, but it is useful for sharing references to the same component or provider in several places without extra clones.
+You probably noticed that `Database` is wrapped in an `Arc`. It is not required, but it is useful for sharing references to the same component or provider in several places without extra clones.
 
 ### Multiple injection
 
-A component can depend on multiple providers, components, and structs marked with the `#[config]` attribute. For configurations, you do not need to wrap them in `Arc`:
+A component can depend on several providers, components, and structs marked with the `#[config]` attribute. You do not need to wrap configuration values in `Arc`:
 
 ```rust
 #[config(key = "task")]

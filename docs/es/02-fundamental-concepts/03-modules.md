@@ -6,23 +6,25 @@ outline: [2, 3]
 
 # Módulos
 
-Un módulo agrupa una capacidad de la aplicación: sus controladores, componentes y proveedores. Cada módulo implementa el trait `Module` y registra esas piezas en el contenedor de dependencias, de modo que la aplicación solo necesita declarar los módulos que usa.
+Un módulo es la unidad que agrupa una capacidad de la aplicación. En Sword, cada módulo es una estructura que implementa el trait `Module` y declara qué controladores, componentes y proveedores aporta. Se basa en el modelo de composición y cohesión de módulos de NestJS, pero con un enfoque más simple y flexible.
 
-<ApiSection title="Métodos del trait Module" :collapsed="false">
+Cada módulo declara solo lo que aporta, y la aplicación se construye en base a la composición de esas piezas.
+
+<ApiSection title="API Reference: Métodos del trait Module" :collapsed="false">
 
 El trait `Module` define estos tres métodos, todos con implementación por defecto vacía, así que cada módulo implementa solo los que necesita.
 
-#### Método `register_controllers(controllers)`
+#### Registro de controladores
+
+Registra los controladores definidos en la aplicación, ya sean Web, Socket.IO, gRPC, Events o Jobs. [Ver más](./controllers.md)
 
 ```rust
-fn register_controllers(controllers: &ControllerRegistry)
+fn register_controllers(controllers: &ControllerRegistry) {}
 ```
-
-Registra los puntos de entrada externos del módulo: controladores HTTP, Socket.IO, gRPC y cualquier estructura que implemente `ControllerSpec`.
 
 **Parámetros**
 
-- `controllers`: registro donde se declaran los controladores del módulo.
+- `controllers`: referencia al registro compartido de controladores de la aplicación.
 
 **Ejemplo**
 
@@ -32,13 +34,15 @@ fn register_controllers(controllers: &ControllerRegistry) {
 }
 ```
 
-#### Método `register_components(components)`
+---
+
+#### Registro de componentes
+
+Registra estructuras inyectables que el contenedor de dependencias construye automáticamente. [Ver más](./dependency-injection.md)
 
 ```rust
 fn register_components(components: &ComponentRegistry)
 ```
-
-Registra estructuras `#[injectable]` que el contenedor construye automáticamente.
 
 **Parámetros**
 
@@ -53,17 +57,19 @@ fn register_components(components: &ComponentRegistry) {
 }
 ```
 
-#### Método `register_providers(config, providers)`
+---
+
+#### Registro de proveedores
+
+Registra estructuras inyectables con construcción manual denominadas 'proveedores', normalmente conexiones o clientes externos como bases de datos, cachés o servicios remotos. [Ver más](./dependency-injection.md)
 
 ```rust
 async fn register_providers(config: &Config, providers: &ProviderRegistry)
 ```
 
-Registra estructuras `#[injectable(provider)]`, normalmente conexiones o clientes externos como bases de datos, cachés o servicios remotos.
-
 **Parámetros**
 
-- `config`: la configuración cargada, para leer los valores del proveedor.
+- `config`: la configuración cargada, para obtener la configuración del proveedor.
 - `providers`: registro donde se declaran los proveedores del módulo.
 
 **Ejemplo**
@@ -83,6 +89,8 @@ async fn register_providers(config: &Config, providers: &ProviderRegistry) {
 </ApiSection>
 
 ## Ejemplo completo
+
+::: details Ver ejemplo completo de un módulo de usuarios
 
 ```rust
 use sword::prelude::*;
@@ -111,6 +119,8 @@ impl Module for UsersModule {
 }
 ```
 
+:::
+
 ## Estructura de archivos
 
 Un módulo suele corresponder a un directorio o a un grupo de ellos. Por ejemplo, un módulo de usuarios podría tener esta estructura:
@@ -124,11 +134,11 @@ users/
   mod.rs
 ```
 
-En `mod.rs` vive el `impl Module` que registra cada pieza. Para el detalle de cada tipo de pieza, revisa [Controladores](./controllers) e [Inyección de dependencias](./dependency-injection).
+En el archivo `mod.rs` vive la declaración e implementación del módulo que registra cada pieza.
 
 ## Registro en la aplicación
 
-Los módulos se registran con `with_module::<M>()` en `ApplicationBuilder`
+Los módulos se registran con el método `with_module` del `ApplicationBuilder`. Por ejemplo, para registrar un módulo de usuarios y un módulo compartido:
 
 ```rust
 #[sword::main]

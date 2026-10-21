@@ -11,7 +11,7 @@ Cada método de un controlador de jobs se programa con uno de tres atributos: `c
 
 ## Programaciones cron
 
-`#[cron("...")]` ejecuta un job siguiendo una expresión cron:
+La macro `#[cron("...")]` ejecuta un job siguiendo una expresión cron:
 
 ```rust
 #[cron("0 */5 * * * *")]
@@ -31,7 +31,7 @@ El año puede omitirse. Por ejemplo, `"0 0 9 * * *"` se ejecuta todos los días 
 
 ## Intervalos repetidos
 
-`#[repeated(Duration)]` ejecuta un job cada vez que transcurre la duración indicada:
+La macro `#[repeated(Duration)]` ejecuta un job cada vez que transcurre la duración indicada:
 
 ```rust
 use std::time::Duration;
@@ -44,7 +44,7 @@ async fn poll(&self, _uuid: Uuid, _scheduler: JobScheduler) {
 
 ## Jobs de una sola ejecución
 
-`#[once(Duration)]` ejecuta un job una única vez, tras la duración indicada:
+La macro `#[once(Duration)]` ejecuta un job una única vez, tras la duración indicada:
 
 ```rust
 use std::time::Duration;

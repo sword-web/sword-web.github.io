@@ -10,9 +10,9 @@ Al igual que en los controladores web, los controladores Socket.IO trabajan con 
 
 Esta estructura, llamada `SocketContext`, encapsula información relevante sobre la conexión, el evento y el estado del socket.
 
-<ApiSection title="Métodos" :collapsed="false">
+<ApiSection title="API Reference: Métodos de la estructura 'SocketContext'" :collapsed="false">
 
-#### Método `id()`
+#### Acceder al identificador del socket
 
 ```rust
 pub fn id(&self) -> &Sid
@@ -20,13 +20,17 @@ pub fn id(&self) -> &Sid
 
 **Retorna**
 
-- Identificador del socket (`socketioxide::Sid`).
+- `&Sid` que representa el identificador único de este socket.
 
 **Cuándo usarlo**
 
 - Logging, trazabilidad, asociar eventos a una conexión específica.
 
-#### Método `connected()`
+---
+
+#### Comprobar si el socket está conectado
+
+Verifica si el socket sigue activo antes de realizar operaciones que dependan de la conexión.
 
 ```rust
 pub fn connected(&self) -> bool
@@ -34,13 +38,11 @@ pub fn connected(&self) -> bool
 
 **Retorna**
 
-- `true` si el socket está conectado al namespace.
+- `true` o `false` dependiendo de si el socket está conectado o no.
 
-**Cuándo usarlo**
+---
 
-- Verificar si el socket sigue activo antes de realizar operaciones.
-
-#### Método `ns()`
+#### Acceder al namespace del socket
 
 ```rust
 pub fn ns(&self) -> &str
@@ -50,7 +52,9 @@ pub fn ns(&self) -> &str
 
 - La ruta del namespace actual de este socket.
 
-#### Método `rooms()`
+---
+
+#### Acceder a las salas del socket
 
 ```rust
 pub fn rooms(&self) -> Vec<Room>
@@ -60,7 +64,9 @@ pub fn rooms(&self) -> Vec<Room>
 
 - Todos los nombres de salas a las que este socket está conectado.
 
-#### Método `event()`
+---
+
+#### Acceder al nombre del evento actual
 
 ```rust
 pub fn event(&self) -> Option<&str>
@@ -70,15 +76,13 @@ pub fn event(&self) -> Option<&str>
 
 - `Some(nombre_evento)` en handlers de mensaje.
 
-**Cuándo usarlo**
-
-- Para enrutar lógica por nombre de evento o registrar métricas por evento.
-
 :::info
 Al usar este método en el evento `connection` o `disconnection` retornará `None`.
 :::
 
-#### Método `disconnect_reason()`
+---
+
+#### Acceder a la razón de desconexión
 
 ```rust
 pub fn disconnect_reason(&self) -> Option<&DisconnectReason>
@@ -93,7 +97,9 @@ pub fn disconnect_reason(&self) -> Option<&DisconnectReason>
 
 - Auditar por qué se cierra una conexión.
 
-#### Método `protocol_version()`
+---
+
+#### Acceder a la versión de protocolo en uso
 
 ```rust
 pub fn protocol_version(&self) -> ProtocolVersion
@@ -107,7 +113,9 @@ pub fn protocol_version(&self) -> ProtocolVersion
 
 - Diagnostico y compatibilidad de clientes.
 
-#### Método `transport_type()`
+---
+
+#### Acceder al tipo de transporte en uso
 
 ```rust
 pub fn transport_type(&self) -> TransportType
@@ -121,20 +129,22 @@ pub fn transport_type(&self) -> TransportType
 
 - Telemetría, reglas por tipo de transporte, depuración de handshake.
 
-#### Método `try_data::<T>()`
+---
+
+#### Acceder al payload de datos del evento
 
 ```rust
 pub fn try_data<T: DeserializeOwned>(&self) -> Result<T, SocketError>
 ```
 
+**Parametros**
+
+- `T`: Tipo de datos esperado, debe implementar `DeserializeOwned`.
+
 **Retorna**
 
 - `Ok(T)` si el payload pudo deserializarse.
 - `Err(SocketError)` si no hay payload disponible o falla el parseo.
-
-**Cuándo usarlo**
-
-- Cuando necesitas deserializar payload sin validación de esquema.
 
 :::info
 En el evento `connection`, este método intenta leer el payload de `auth` del handshake.
@@ -144,7 +154,9 @@ En el evento `connection`, este método intenta leer el payload de `auth` del ha
 Este método consume el payload interno. Una segunda llamada en el mismo handler falla.
 :::
 
-#### Método `try_validated_data::<T>()`
+---
+
+#### Acceder al payload de datos del evento con validación
 
 ```rust
 pub fn try_validated_data<T>(&self) -> Result<T, SocketError>
@@ -169,7 +181,9 @@ En el evento `connection`, este método intenta leer el payload de `auth` del ha
 Este método consume el payload interno. Una segunda llamada en el mismo handler falla.
 :::
 
-#### Método `has_data()`
+---
+
+#### Comprobar si hay payload disponible
 
 ```rust
 pub fn has_data(&self) -> bool
@@ -183,11 +197,17 @@ pub fn has_data(&self) -> bool
 
 - Para evitar intentar parsear dos veces.
 
-#### Método `query::<T>()`
+---
+
+#### Acceder a los parámetros de query de la URL
 
 ```rust
 pub fn query<T: DeserializeOwned>(&self) -> Result<Option<T>, SocketError>
 ```
+
+**Parametros**
+
+- `T`: Tipo de datos esperado, debe implementar `DeserializeOwned`.
 
 **Retorna**
 
@@ -199,13 +219,20 @@ pub fn query<T: DeserializeOwned>(&self) -> Result<Option<T>, SocketError>
 
 - Para leer parámetros de query de la URL durante la conexión.
 
-#### Método `emit()`
+---
+
+#### Emitir un evento al cliente
 
 ```rust
 pub fn emit<T>(&self, event: impl AsRef<str>, data: &T) -> Result<(), SocketError>
 where
     T: Serialize + ?Sized
 ```
+
+**Parametros**
+
+- `event`: Nombre del evento a emitir.
+- `data`: Payload serializable a enviar.
 
 **Retorna**
 
@@ -216,7 +243,9 @@ where
 
 - Enviar eventos al cliente conectado.
 
-#### Método `emit_with_ack()`
+---
+
+#### Emitir un evento al cliente y esperar confirmación
 
 ```rust
 pub fn emit_with_ack<T: ?Sized + Serialize, V>(
@@ -226,6 +255,11 @@ pub fn emit_with_ack<T: ?Sized + Serialize, V>(
 ) -> Result<AckStream<V>, SocketError>
 ```
 
+**Parametros**
+
+- `event`: Nombre del evento a emitir.
+- `data`: Payload serializable a enviar.
+
 **Retorna**
 
 - Un `AckStream` que se resuelve cuando el cliente confirma el evento.
@@ -234,7 +268,9 @@ pub fn emit_with_ack<T: ?Sized + Serialize, V>(
 
 - Cuando necesitas confirmación del cliente de que el evento fue recibido.
 
-#### Método `broadcast()`
+---
+
+#### Acceder a un operador de difusión
 
 ```rust
 pub fn broadcast(&self) -> BroadcastOperators<A>
@@ -248,21 +284,9 @@ pub fn broadcast(&self) -> BroadcastOperators<A>
 
 - Transmitir un mensaje a cada cliente conectado.
 
-#### Método `local()`
+---
 
-```rust
-pub fn local(&self) -> BroadcastOperators<A>
-```
-
-**Retorna**
-
-- Un operador de difusión que envía solo a los clientes de este nodo.
-
-**Cuándo usarlo**
-
-- Broadcast solo a la instancia actual del servidor (despliegues multi-nodo).
-
-#### Método `to()`
+#### Acceder a un operador de difusión limitado a salas específicas
 
 ```rust
 pub fn to(&self, rooms: impl RoomParam) -> BroadcastOperators<A>
@@ -276,17 +300,9 @@ pub fn to(&self, rooms: impl RoomParam) -> BroadcastOperators<A>
 
 - Enviar a salas específicas a las que el socket pertenece.
 
-#### Método `within()`
+---
 
-```rust
-pub fn within(&self, rooms: impl RoomParam) -> BroadcastOperators<A>
-```
-
-**Retorna**
-
-- Un operador de difusión limitado a las salas especificadas (alias de `to()`).
-
-#### Método `except()`
+#### Acceder a un operador de difusión que excluye ciertas salas
 
 ```rust
 pub fn except(&self, rooms: impl RoomParam) -> BroadcastOperators<A>
@@ -300,7 +316,9 @@ pub fn except(&self, rooms: impl RoomParam) -> BroadcastOperators<A>
 
 - Broadcast a todos excepto ciertas salas.
 
-#### Método `timeout()`
+---
+
+#### Acceder a un operador de configuración para confirmaciones
 
 ```rust
 pub fn timeout(&self, timeout: Duration) -> ConfOperators<'_, A>
@@ -314,7 +332,9 @@ pub fn timeout(&self, timeout: Duration) -> ConfOperators<'_, A>
 
 - Establecer un tiempo de espera al enviar un mensaje con confirmación.
 
-#### Método `join()`
+---
+
+#### Agregar el socket a una o más salas
 
 ```rust
 pub fn join(&self, rooms: impl RoomParam)
@@ -324,7 +344,9 @@ pub fn join(&self, rooms: impl RoomParam)
 
 - Agregar el socket actual a una o más salas.
 
-#### Método `leave()`
+---
+
+#### Remover el socket de una o más salas
 
 ```rust
 pub fn leave(&self, rooms: impl RoomParam)
@@ -334,7 +356,9 @@ pub fn leave(&self, rooms: impl RoomParam)
 
 - Remover el socket actual de una o más salas.
 
-#### Método `leave_all()`
+---
+
+#### Remover el socket de todas sus salas
 
 ```rust
 pub fn leave_all(&self)
@@ -344,7 +368,9 @@ pub fn leave_all(&self)
 
 - Remover el socket actual de todas sus salas.
 
-#### Método `has_ack()`
+---
+
+#### Comprobar si el evento actual incluye callback ACK
 
 ```rust
 pub fn has_ack(&self) -> bool
@@ -358,13 +384,19 @@ pub fn has_ack(&self) -> bool
 
 - Antes de llamar `ack(...)` en handlers de mensaje.
 
-#### Método `ack()`
+---
+
+#### Responder a un callback ACK del cliente
 
 ```rust
 pub fn ack<D>(self, data: &D) -> Result<(), SendError>
 where
     D: Serialize + ?Sized
 ```
+
+**Parametros**
+
+- `data`: Payload serializable a enviar como respuesta al callback.
 
 **Retorna**
 
@@ -383,7 +415,9 @@ where
 Consume `self`, es decir, después de invocarlo no puedes reutilizar el contexto.
 :::
 
-#### Método `req_parts()`
+---
+
+#### Obtener las partes de la solicitud HTTP del handshake inicial
 
 ```rust
 pub fn req_parts(&self) -> &Parts
@@ -397,7 +431,9 @@ pub fn req_parts(&self) -> &Parts
 
 - Acceder a datos HTTP crudos (método, URI, etc.).
 
-#### Método `headers()`
+---
+
+#### Obtener los headers de la solicitud HTTP del handshake inicial
 
 ```rust
 pub fn headers(&self) -> &HeaderMap
@@ -411,7 +447,9 @@ pub fn headers(&self) -> &HeaderMap
 
 - Leer headers HTTP del handshake inicial.
 
-#### Método `authorization()`
+---
+
+#### Obtener el valor del header 'Authorization' del handshake inicial
 
 ```rust
 pub fn authorization(&self) -> Option<&str>
@@ -425,7 +463,9 @@ pub fn authorization(&self) -> Option<&str>
 
 - Extraer tokens Bearer u otros datos de autenticación del handshake.
 
-#### Método `extensions()`
+---
+
+#### Acceder al almacén de extensiones del socket
 
 ```rust
 pub fn extensions(&self) -> &Extensions
@@ -439,7 +479,9 @@ pub fn extensions(&self) -> &Extensions
 
 - Compartir estado durante la vida de la conexión.
 
-#### Método `http_extensions()`
+---
+
+#### Acceder al almacén de extensiones HTTP del handshake inicial
 
 ```rust
 pub fn http_extensions(&self) -> &HttpExtensions
@@ -453,7 +495,9 @@ pub fn http_extensions(&self) -> &HttpExtensions
 
 - Reutilizar datos escritos en interceptores/layers HTTP durante el handshake.
 
-#### Método `disconnect()`
+---
+
+#### Cerrar la conexión del socket
 
 ```rust
 pub fn disconnect(self) -> Result<(), SocketError>

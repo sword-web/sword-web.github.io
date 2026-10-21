@@ -12,7 +12,7 @@ Existen tres mecanismos: interceptores tradicionales, interceptores con configur
 
 ## Interceptores tradicionales
 
-### El Trait `OnRequest`
+### El Trait 'OnRequest'
 
 Este trait permite definir lógica personalizada que se ejecuta antes de que una solicitud HTTP llegue al controlador. Esto es útil para tareas como autenticación, autorización o registro de solicitudes.
 
@@ -50,7 +50,7 @@ impl ApiController {
 
 ## Interceptores con configuración
 
-### El Trait `OnRequestWithConfig`
+### El Trait 'OnRequestWithConfig'
 
 Al igual que `OnRequest`, este trait permite definir lógica personalizada que se ejecuta antes de que una solicitud HTTP llegue al controlador web, pero permite recibir un parámetro de tipo `T` extra con el que podremos tener un nivel adicional de configuración.
 

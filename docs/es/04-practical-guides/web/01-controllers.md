@@ -54,21 +54,23 @@ Para más detalles sobre extracción, revisa [Manejo de Solicitudes](/es/practic
 
 Sword soporta los métodos HTTP estándar que provee `axum`:
 
-- GET: `#[get("...")]`
-- POST: `#[post("...")]`
-- PUT: `#[put("...")]`
-- DELETE: `#[delete("...")]`
-- PATCH: `#[patch("...")]`
-- HEAD: `#[head("...")]`
-- OPTIONS: `#[options("...")]`
-- CONNECT: `#[connect("...")]`
-- TRACE: `#[trace("...")]`
+| Método HTTP | Macro               |
+| ----------- | ------------------- |
+| GET         | `#[get("...")]`     |
+| POST        | `#[post("...")]`    |
+| PUT         | `#[put("...")]`     |
+| DELETE      | `#[delete("...")]`  |
+| PATCH       | `#[patch("...")]`   |
+| HEAD        | `#[head("...")]`    |
+| OPTIONS     | `#[options("...")]` |
+| CONNECT     | `#[connect("...")]` |
+| TRACE       | `#[trace("...")]`   |
 
 Todos los métodos reciben la ruta de la misma forma, por ejemplo: `#[get("/")]`, `#[post("/api/users")]`, etc.
 
-## Sobre `&self`
+## Sobre el uso de '&self'
 
-Los handlers reciben `&self` porque el controlador puede tener dependencias inyectadas en sus campos.
+Los handlers reciben `&self` porque el controlador puede tener dependencias inyectadas en sus campos y usarlas dentro de los métodos.
 
 Ese flujo se explica en [Inyección de dependencias](/es/fundamental-concepts/dependency-injection).
 

@@ -4,31 +4,29 @@ description: "Referencia de la estructura `Request` en Sword para parámetros, b
 outline: false
 ---
 
-# La estructura `Request`
+# La estructura 'Request'
 
-`Request` es el extractor principal para trabajar con solicitudes HTTP en controladores web de Sword.
+La estructura `Request` es el extractor principal para trabajar con solicitudes HTTP en controladores web de Sword.
 
-<ApiSection title="Atributos" :collapsed="false">
+<ApiSection title="API Reference" :collapsed="false">
 
-#### Atributo `extensions`
+#### Acceso a las extensiones de la solicitud
+
+Atributo que retorna las extensiones de Axum asociadas a la solicitud actual.
 
 ```rust
 pub extensions: Extensions
 ```
 
-**Retorna**
-
-- Extensiones de Axum asociadas a la solicitud actual.
-
 **Cuándo usarlo**
 
 - Para leer estado agregado por layers o interceptores previos.
 
-</ApiSection>
+---
 
-<ApiSection title="Métodos" :collapsed="false">
+#### Obteniendo la URI de la solicitud
 
-#### Método `uri()`
+Método que retorna la URI completa de la solicitud
 
 ```rust
 pub fn uri(&self) -> String
@@ -36,9 +34,11 @@ pub fn uri(&self) -> String
 
 **Retorna**
 
-- URI completa de la solicitud.
+- URI completa de la solicitud, incluyendo path y query string.
 
-#### Método `method()`
+---
+
+#### Obteniendo el método HTTP de la solicitud
 
 ```rust
 pub fn method(&self) -> &Method
@@ -46,9 +46,11 @@ pub fn method(&self) -> &Method
 
 **Retorna**
 
-- Método HTTP (`GET`, `POST`, etc.).
+- Método HTTP de la solicitud.
 
-#### Método `header()`
+---
+
+#### Obtener un header de la solicitud
 
 ```rust
 pub fn header(&self, key: &str) -> Option<&str>
@@ -58,34 +60,25 @@ pub fn header(&self, key: &str) -> Option<&str>
 
 - Valor de header si existe y es UTF-8 válido.
 
-#### Método `headers()`
+---
+
+#### Obtener todos los headers de la solicitud
 
 ```rust
 pub fn headers(&self) -> &HeaderMap
-```
-
-**Retorna**
-
-- Referencia inmutable al `HeaderMap` completo.
-
-#### Método `headers_mut()`
-
-```rust
 pub fn headers_mut(&mut self) -> &mut HeaderMap
 ```
 
 **Retorna**
 
-- Referencia mutable al `HeaderMap`.
+- Referencia inmutable y mutable al `HeaderMap` respectivamente.
 
-#### Método `set_header()`
+---
+
+#### Agregar o reemplazar un header de la solicitud
 
 ```rust
-pub fn set_header(
-    &mut self,
-    name: impl Into<String>,
-    value: impl Into<String>,
-) -> Result<(), RequestError>
+pub fn set_header(&mut self, name: impl Into<String>, value: impl Into<String>) -> Result<(), RequestError>
 ```
 
 **Retorna**
@@ -93,7 +86,9 @@ pub fn set_header(
 - `Ok(())` si inserta/reemplaza correctamente.
 - `Err(RequestError)` si nombre o valor son inválidos.
 
-#### Método `param::<T>()`
+---
+
+#### Obtener un parámetro de ruta
 
 ```rust
 pub fn param<T>(&self, key: &str) -> Result<T, RequestError>
@@ -101,6 +96,11 @@ where
     T: FromStr,
     T::Err: Display,
 ```
+
+**Parámetros**
+
+- `T`: Tipo al que se quiere parsear el parámetro de ruta.
+- `key`: Nombre del parámetro de ruta a extraer.
 
 **Retorna**
 
@@ -111,7 +111,9 @@ where
 
 - Parámetros de ruta como `/users/{id}`.
 
-#### Método `params()`
+---
+
+#### Obtener todos los parámetros de ruta
 
 ```rust
 pub fn params(&self) -> &RawPathParams
@@ -123,24 +125,19 @@ pub fn params(&self) -> &RawPathParams
 
 **Cuándo usarlo**
 
-- Cuando necesitas recorrer todos los path params sin conocer sus nombres de antemano. Para uno puntual, usa `param::<T>()`.
+- Cuando necesitas iterar todos los path params sin conocer sus nombres de antemano. Para uno puntual, usa `param::<T>()`.
 
-```rust
-#[get("/users/{id}/posts/{post_id}")]
-async fn get_user_post(&self, req: Request) -> WebResult {
-    for (name, value) in req.params() {
-        // name: "id" | "post_id"
-        // value: el segmento ya decodificado
-    }
-    // ...
-}
-```
+---
 
-#### Método `body::<T>()`
+#### Obtener el body de la solicitud
 
 ```rust
 pub fn body<T: DeserializeOwned>(&self) -> Result<T, RequestError>
 ```
+
+**Parámetros**
+
+- `T`: Tipo al que se quiere deserializar el body JSON. Debe implementar `DeserializeOwned`.
 
 **Retorna**
 
@@ -151,11 +148,17 @@ pub fn body<T: DeserializeOwned>(&self) -> Result<T, RequestError>
 
 - Requests JSON en endpoints `POST`, `PUT`, `PATCH`.
 
-#### Método `query::<T>()`
+---
+
+#### Obtener la query string de la solicitud
 
 ```rust
 pub fn query<T: DeserializeOwned>(&self) -> Result<Option<T>, RequestError>
 ```
+
+**Parámetros**
+
+- `T`: Tipo al que se quiere deserializar la query string. Debe implementar `DeserializeOwned`.
 
 **Retorna**
 
@@ -163,7 +166,9 @@ pub fn query<T: DeserializeOwned>(&self) -> Result<Option<T>, RequestError>
 - `Ok(None)` si no hay query string.
 - `Err(RequestError)` si la query existe pero no deserializa.
 
-#### Método `cookies()`
+---
+
+#### Accediendo a las cookies de la solicitud
 
 ```rust
 pub fn cookies(&self) -> Result<&Cookies, JsonResponse>
@@ -174,11 +179,11 @@ pub fn cookies(&self) -> Result<&Cookies, JsonResponse>
 - `Ok(&Cookies)` si el layer de cookies está disponible.
 - `Err(JsonResponse)` si no puede extraer cookies.
 
-**Cuándo no usarlo**
+---
 
-- Si no tienes habilitada/aplicada la `CookieManagerLayer` en el router.
+#### Obteniendo el header 'Authorization'
 
-#### Método `authorization()`
+Acceso directo al header `Authorization` de la solicitud.
 
 ```rust
 pub fn authorization(&self) -> Option<&str>
@@ -186,9 +191,13 @@ pub fn authorization(&self) -> Option<&str>
 
 **Retorna**
 
-- Valor del header `Authorization`.
+- Valor del header `Authorization` o `None` si no existe o no es UTF-8 válido.
 
-#### Método `user_agent()`
+---
+
+#### Obteniendo el header 'User-Agent'
+
+Acceso directo al header `User-Agent` de la solicitud.
 
 ```rust
 pub fn user_agent(&self) -> Option<&str>
@@ -196,9 +205,13 @@ pub fn user_agent(&self) -> Option<&str>
 
 **Retorna**
 
-- Valor del header `User-Agent`.
+- Valor del header `User-Agent` o `None` si no existe o no es UTF-8 válido.
 
-#### Método `ip()`
+---
+
+#### Obteniendo la IP del cliente
+
+Acceso directo al primer valor del header `X-Forwarded-For` de la solicitud.
 
 ```rust
 pub fn ip(&self) -> Option<&str>
@@ -206,9 +219,13 @@ pub fn ip(&self) -> Option<&str>
 
 **Retorna**
 
-- Primer valor de `X-Forwarded-For` como texto.
+- Primer valor de `X-Forwarded-For` como texto plano, o `None` si no existe.
 
-#### Método `ips()`
+---
+
+#### Obteniendo todas las IPs del cliente
+
+Acceso directo al header `X-Forwarded-For` de la solicitud, que puede contener múltiples IPs.
 
 ```rust
 pub fn ips(&self) -> Option<Vec<&str>>
@@ -216,9 +233,13 @@ pub fn ips(&self) -> Option<Vec<&str>>
 
 **Retorna**
 
-- Lista de IPs en `X-Forwarded-For` separadas por coma.
+- Lista de IPs en `X-Forwarded-For` separadas por coma, o `None` si no existe.
 
-#### Método `protocol()`
+---
+
+#### Obteniendo el protocolo de la solicitud
+
+Acceso directo al header `X-Forwarded-Proto` de la solicitud.
 
 ```rust
 pub fn protocol(&self) -> &str
@@ -228,7 +249,11 @@ pub fn protocol(&self) -> &str
 
 - Valor de `X-Forwarded-Proto` o `"http"` por defecto.
 
-#### Método `content_type()`
+---
+
+#### Obteniendo el header 'Content-Type'
+
+Acceso directo al header `Content-Type` de la solicitud.
 
 ```rust
 pub fn content_type(&self) -> Option<&str>
@@ -236,9 +261,11 @@ pub fn content_type(&self) -> Option<&str>
 
 **Retorna**
 
-- Valor de `Content-Type`.
+- Valor de `Content-Type` o `None` si no existe o no es UTF-8 válido.
 
-#### Método `content_length()`
+---
+
+#### Obteniendo el header 'Content-Length'
 
 ```rust
 pub fn content_length(&self) -> Option<u64>
@@ -246,9 +273,11 @@ pub fn content_length(&self) -> Option<u64>
 
 **Retorna**
 
-- `Content-Length` parseado a `u64`.
+- `Content-Length` parseado a `u64`, o `None` si no existe o no es un número válido.
 
-#### Método `id()`
+---
+
+#### Obteniendo el Request ID
 
 ```rust
 pub fn id(&self) -> String
@@ -256,30 +285,17 @@ pub fn id(&self) -> String
 
 **Retorna**
 
-- Request ID de `RequestIdLayer`.
+- Request ID de `RequestIdLayer` en formato UUID v4.
 - `"unknown"` si no está disponible.
 
-#### Método `next()`
+---
+
+#### Avanzando al siguiente interceptor
+
+Este método permite continuar la cadena de interceptores, solo debe ser usado dentro de implementaciones `OnRequest*`. No debe usarse en handlers web normales.
 
 ```rust
 pub async fn next(self) -> WebInterceptorResult
 ```
 
-**Retorna**
-
-- Resultado de la cadena de interceptores.
-
-**Cuándo usarlo**
-
-- Solo dentro de implementaciones `OnRequest*`.
-
-**Cuándo no usarlo**
-
-- En handlers web normales.
-
 </ApiSection>
-
-## Notas operativas
-
-- `ip()`, `ips()` y `protocol()` dependen de headers de proxy (`X-Forwarded-For`, `X-Forwarded-Proto`).
-- `body::<T>()` exige `Content-Type` JSON (`application/json` o `+json`).

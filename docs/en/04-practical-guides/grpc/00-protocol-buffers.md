@@ -143,7 +143,7 @@ tonic-prost-build = "x.y.z"
 When `.proto` files are compiled, they depend directly on `prost` and `tonic-prost` in the final client, meaning these crates need to be in the project's `Cargo.toml`; it is not enough for `sword` to re-export them.
 :::
 
-### Advanced types with `prost-types`
+### Advanced types with the 'prost-types' crate
 
 If your contract uses protobuf well-known types (`google.protobuf.Timestamp`, `Duration`, `Any`, etc.), you also need the `prost-types` crate in the project.
 
@@ -169,7 +169,7 @@ pub struct User {
 
 :::
 
-## Compiling `.proto` files in `build.rs`
+## Compiling '.proto' files in 'build.rs'
 
 Any project using gRPC controllers needs a `build.rs` file that compiles the `.proto` files with `tonic_prost_build`.
 
@@ -186,7 +186,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
 :::
 
-## What does compiling a `.proto` generate?
+## What does compiling a '.proto' file generate?
 
 When you compile a `.proto` file with `tonic-prost-build`, it generates:
 

@@ -6,11 +6,13 @@ outline: [2, 3]
 
 # Interceptors in Web Controllers
 
-Sword lets you apply interceptors to web controllers and routes. There are three mechanisms: traditional interceptors, interceptors with configuration, and Tower layers applied with the `#[interceptor(expr)]` attribute.
+Sword lets you apply interceptors to web controllers and routes.
+
+There are three mechanisms: traditional interceptors, interceptors with configuration, and Tower layers.
 
 ## Traditional interceptors
 
-### The `OnRequest` Trait
+### The 'OnRequest' Trait
 
 This trait allows you to define custom logic that runs before an HTTP request reaches the controller. This is useful for tasks like authentication, authorization, or request logging.
 
@@ -48,7 +50,7 @@ impl ApiController {
 
 ## Interceptors with configuration
 
-### The `OnRequestWithConfig` Trait
+### The 'OnRequestWithConfig' Trait
 
 Like `OnRequest`, this trait lets you define custom logic that runs before an HTTP request reaches the web controller, but it also accepts an extra `T` parameter that gives you an additional level of configuration.
 
@@ -84,7 +86,7 @@ impl ApiController {
 }
 ```
 
-## Tower layers with `#[interceptor(expr)]`
+## Tower Layers
 
 In web controllers, you can apply a Tower layer directly to a controller or a specific route, as long as it is an expression that implements `tower::Layer` or a compatible derivative.
 
@@ -106,7 +108,9 @@ impl TestController {
 }
 ```
 
-## Local layer at the controller level
+## Controller-level interceptor
+
+You can also apply any type of interceptor at the controller level. It affects every route defined in that controller.
 
 ```rust
 use std::time::Duration;

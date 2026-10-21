@@ -10,8 +10,6 @@ Sword lets you apply interceptors to gRPC controllers to validate or transform t
 
 ## Traditional interceptors
 
-### The `OnRequest` Trait
-
 In gRPC, `OnRequest` lets you intercept the request before it reaches the service method.
 
 ::: code-group
@@ -49,8 +47,6 @@ Unlike web interceptors, there is no `next()` in this variant: the interceptor v
 :::
 
 ## Interceptors with configuration
-
-### The `OnRequestWithConfig` Trait
 
 In gRPC you can use `OnRequestWithConfig<T>` to inject configuration parameters into the validation/interception.
 

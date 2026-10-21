@@ -10,9 +10,9 @@ The central piece of a Sword application is the `Application` struct. It represe
 
 ## Application Construction
 
-Sword uses a builder pattern to create applications. It is implemented in the `ApplicationBuilder` struct, which lets you configure aspects of the application fluently before building the `Application` instance.
+Sword uses a builder pattern to create applications. It is implemented in the `ApplicationBuilder` struct, which lets you configure the application before building the `Application` instance.
 
-The flow consists of calling `Application::builder()` and chaining methods:
+The flow starts with `Application::builder()` and chains the configuration methods:
 
 ```rust
 let app = Application::builder()
@@ -22,13 +22,12 @@ let app = Application::builder()
 
 Internally, the `builder()` method:
 
-- Initializes the internal runtime of the selected application type.
 - Initializes the shared application state.
-- Loads the configuration from the `.toml` file.
+- Loads the configuration from the TOML file.
 
-<ApiSection title="Methods and attributes of the ApplicationBuilder struct">
+<ApiSection title="API Reference: Methods and attributes of the 'ApplicationBuilder' struct">
 
-#### The `config` Attribute
+#### Accessing the application configuration
 
 ```rust
 pub config: Config
@@ -36,29 +35,27 @@ pub config: Config
 
 A public attribute that gives access to the application configuration loaded from the configuration file. For more details, see the [Configuration](./configuration) section.
 
-#### The `with_module::<M>()` Method
+#### Registering modules
+
+Registers a module that implements the `Module` trait. Modules group related controllers, components, and providers. [Learn more](./modules)
 
 ```rust
-pub fn with_module<M>(self) -> Self
-where
-    M: Module,
+pub fn with_module<M: Module>(self) -> Self
 ```
-
-Registers a module that implements the `Module` trait. Modules group related controllers, components, and providers.
 
 **Parameters**
 
 - `M`: a type that implements the `Module` trait.
 
-Learn more in the [Modules](./modules) section.
+---
 
-#### The `with_layer::<L>(layer: L)` Method
+#### Registering 'Tower Layers'
+
+Registers a Tower `Layer` globally in the application.
 
 ```rust
 pub fn with_layer<L>(mut self, layer: L) -> Self
 ```
-
-Registers a Tower `Layer` globally in the application.
 
 **Parameters**
 
@@ -80,29 +77,35 @@ let app = Application::builder()
 
 For more details on Tower, see [Interceptors in Web Controllers](/en/practical-guides/web/interceptors).
 
-#### The `from_config_path::<P>(path: P)` Method
+---
+
+#### Building from a custom configuration path
+
+Loads the application configuration from a `.toml` file at a custom path.
 
 ```rust
 pub fn from_config_path<P: AsRef<Path>>(path: P) -> ApplicationBuilder
 ```
 
-Loads the application configuration from a `.toml` file located at a custom path.
+---
 
-#### The `from_config(config: Config)` Method
+#### Building from a 'Config' instance
+
+Loads the application configuration from a manually created `Config` instance.
 
 ```rust
 pub fn from_config(config: Config) -> Self
 ```
 
-Loads the application configuration from a manually created `Config` instance.
+---
 
-#### The `build()` Method
+#### Building the application
+
+Finishes the `ApplicationBuilder` and returns an `Application` instance ready to run.
 
 ```rust
 pub fn build(mut self) -> Application
 ```
-
-Finalizes the `ApplicationBuilder` construction and returns an `Application` instance ready to be executed.
 
 </ApiSection>
 
@@ -121,27 +124,29 @@ async fn main() {
 }
 ```
 
-<ApiSection title="Methods and attributes of the Application struct">
+<ApiSection title="API Reference: Methods and attributes of the 'Application' struct">
 
-#### The `run()` Method
+#### Starting the application
+
+Starts the core of the selected application type and begins listening for requests.
 
 ```rust
 pub async fn run(&self)
 ```
 
-Starts the core of the selected application type and begins listening for requests.
-
 If the `graceful-shutdown` option is enabled, the application handles termination signals gracefully, allowing ongoing requests to complete before shutting down.
 
-#### The `router()` Method
+---
+
+#### Accessing the internal router
+
+Available for Web and Socket.IO applications, it returns a clone of the application's internal router (`axum::Router`).
 
 ```rust
 pub fn router(&self) -> axum::Router
 ```
 
-Returns a clone of the internal application router (`axum::Router`). It is useful for advanced operations or to inspect the route configuration.
-
-It is only available if you enabled the `web` or `socketio` features.
+Use it for advanced operations or to inspect the route configuration.
 
 **Example**
 
@@ -155,11 +160,11 @@ let router: axum::Router = app.router();
 
 </ApiSection>
 
-## The `main` function
+## The 'main' function
 
 In Rust, program execution begins at the `main` function. In asynchronous frameworks, that function must be marked with a special attribute.
 
-Sword provides the `#[sword::main]` macro, which initializes the application's internal runtime with `tokio` and runs the `main` function asynchronously:
+Sword provides the `#[sword::main]` macro, which initializes the application's internal `tokio` runtime and runs the `main` function asynchronously:
 
 ```rust
 use sword::prelude::*;
@@ -174,4 +179,4 @@ async fn main() {
 }
 ```
 
-Also, with this approach you do not need to add `tokio` as a dependency in your project, unless you explicitly need it for other features.
+With this approach, you do not need to add `tokio` as a dependency unless you need it for other features.

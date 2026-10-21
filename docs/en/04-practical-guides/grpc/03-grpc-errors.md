@@ -66,7 +66,7 @@ The values accepted by `code` follow the [gRPC status codes](https://grpc.io/doc
 
 :::
 
-## Rich errors with `GrpcStatus`
+## Rich errors with 'GrpcStatus'
 
 `GrpcError` covers propagating domain errors with `?`, but sometimes you need an error response with more information: the [gRPC Richer Error Model](https://grpc.io/docs/guides/error/) standard defines structured details clients can read (field violations, localized messages, retry hints, etc.). For that, Sword exposes `GrpcStatus`, a status builder with chainable details.
 
@@ -91,7 +91,7 @@ Err(GrpcStatus::InvalidArgument()
 
 <ApiSection title="Available error detail builders" :collapsed="true">
 
-#### The `bad_request()` Builder
+#### The 'bad_request' method
 
 Adds a field violation for `BadRequest`.
 
@@ -99,7 +99,7 @@ Adds a field violation for `BadRequest`.
 pub fn bad_request(field: impl Into<String>, description: impl Into<String>) -> Self
 ```
 
-#### The `localized_message()` Builder
+#### The 'localized_message' method
 
 Sets a localized message (`LocalizedMessage`).
 
@@ -107,7 +107,7 @@ Sets a localized message (`LocalizedMessage`).
 pub fn localized_message(locale: impl Into<String>, message: impl Into<String>) -> Self
 ```
 
-#### The `error_info()` Builder
+#### The 'error_info' method
 
 Sets error information (`ErrorInfo`).
 
@@ -115,7 +115,7 @@ Sets error information (`ErrorInfo`).
 pub fn error_info(domain: impl Into<String>, reason: impl Into<String>, metadata: HashMap<String, String>) -> Self
 ```
 
-#### The `retry_after()` Builder
+#### The 'retry_after' method
 
 Sets a retry hint (`RetryInfo`) with the given delay.
 
@@ -123,7 +123,7 @@ Sets a retry hint (`RetryInfo`) with the given delay.
 pub fn retry_after(delay: std::time::Duration) -> Self
 ```
 
-#### The `help()` Builder
+#### The 'help' method
 
 Adds a help link (`Help`).
 
@@ -131,7 +131,7 @@ Adds a help link (`Help`).
 pub fn help(description: impl Into<String>, url: impl Into<String>) -> Self
 ```
 
-#### The `debug_info()` Builder
+#### The 'debug_info' method
 
 Sets debug information (`DebugInfo`).
 
@@ -139,7 +139,7 @@ Sets debug information (`DebugInfo`).
 pub fn debug_info(stack_entries: impl Into<Vec<String>>, detail: impl Into<String>) -> Self
 ```
 
-#### The `precondition_failure()` Builder
+#### The 'precondition_failure' method
 
 Adds a precondition violation (`PreconditionFailure`).
 
@@ -147,7 +147,7 @@ Adds a precondition violation (`PreconditionFailure`).
 pub fn precondition_failure(violation_type: impl Into<String>, subject: impl Into<String>, description: impl Into<String>) -> Self
 ```
 
-#### The `quota_failure()` Builder
+#### The 'quota_failure' method
 
 Adds a quota violation (`QuotaFailure`).
 
@@ -155,7 +155,7 @@ Adds a quota violation (`QuotaFailure`).
 pub fn quota_failure(subject: impl Into<String>, description: impl Into<String>) -> Self
 ```
 
-#### The `request_info()` Builder
+#### The 'request_info' method
 
 Sets request information (`RequestInfo`).
 
@@ -163,7 +163,7 @@ Sets request information (`RequestInfo`).
 pub fn request_info(request_id: impl Into<String>, serving_data: impl Into<String>) -> Self
 ```
 
-#### The `resource_info()` Builder
+#### The 'resource_info' method
 
 Sets resource information (`ResourceInfo`).
 
@@ -188,7 +188,7 @@ if let Some(bad_request) = details.bad_request() {
 }
 ```
 
-::: tip `GrpcError` or `GrpcStatus`?
+::: tip When to use GrpcError or GrpcStatus?
 `GrpcError` converts domain errors to `Status` to propagate them with `?` in any method. `GrpcStatus` directly builds a rich error response with structured details. Both coexist: use `GrpcError` for the normal error flow and `GrpcStatus` when you need to attach standardized details.
 :::
 
@@ -333,8 +333,6 @@ code = "unavailable" message = "Service unavailable"
 
 :::
 
-## A note on `transparent`
+## A note on 'transparent'
 
-`#[grpc(transparent)]` delegates the conversion to `tonic::Status` to the inner error.
-
-It is useful when your variant wraps another type that already implements the expected conversion flow.
+The `#[grpc(transparent)]` attribute delegates the conversion to `tonic::Status` to the inner error. It is useful when your variant wraps another type that already implements the expected conversion flow.

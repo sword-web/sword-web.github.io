@@ -110,11 +110,9 @@ impl UserService for UsersController {
 }
 ```
 
-## Base types
+<ApiSection title="API Reference: Streaming gRPC" :collapsed="false">
 
-<ApiSection title="gRPC steaming types" :collapsed="false">
-
-#### The `GrpcStream<T>` Type
+#### The 'GrpcStream' type
 
 ```rust
 pub type GrpcStream<T> = Pin<Box<dyn Stream<Item = Result<T, Status>> + Send + 'static>>;
@@ -128,7 +126,7 @@ pub type GrpcStream<T> = Pin<Box<dyn Stream<Item = Result<T, Status>> + Send + '
 
 - As the type of the associated stream in server streaming methods (`type StreamUsersStream = GrpcStream<T>`) and as the result of `GrpcResponse::stream()`.
 
-#### The `GrpcResponse::stream()` Method
+#### Responding with a gRPC stream
 
 ```rust
 pub fn stream<T, S>(stream: S) -> tonic::Response<GrpcStream<T>>

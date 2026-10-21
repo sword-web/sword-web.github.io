@@ -22,13 +22,12 @@ let app = Application::builder()
 
 Internamente, el método `builder()`:
 
-- Inicializa el runtime interno del tipo de aplicación seleccionada.
 - Inicializa el estado compartido de la aplicación.
-- Carga la configuración desde el fichero `.toml`.
+- Carga la configuración desde el fichero TOML.
 
-<ApiSection title="Métodos y atributos de la estructura ApplicationBuilder">
+<ApiSection title="API Reference: Métodos y atributos de la estructura 'ApplicationBuilder'">
 
-#### Atributo `config`
+#### Acceso a la configuración de la aplicación
 
 ```rust
 pub config: Config
@@ -36,29 +35,27 @@ pub config: Config
 
 Atributo público que permite acceder a la configuración de la aplicación cargada desde el fichero de configuración. Para más detalles, revisa la sección de [Configuración](./configuration).
 
-#### Método `with_module::<M>()`
+#### Registro de módulos
+
+Registra un módulo que implementa el trait `Module`. Los módulos agrupan controladores, componentes y proveedores relacionados. [Ver más](./modules)
 
 ```rust
-pub fn with_module<M>(self) -> Self
-where
-    M: Module,
+pub fn with_module<M: Module>(self) -> Self
 ```
-
-Registra un módulo que implementa el trait `Module`. Los módulos agrupan controladores, componentes y proveedores relacionados.
 
 **Parámetros**
 
 - `M`: un tipo que implementa el trait `Module`.
 
-Aprende más en la sección de [Módulos](./modules).
+---
 
-#### Método `with_layer::<L>(layer: L)`
+#### Registro de 'Tower Layers'
+
+Registra un `Layer` de Tower de forma global en la aplicación.
 
 ```rust
 pub fn with_layer<L>(mut self, layer: L) -> Self
 ```
-
-Registra un `Layer` de Tower de forma global en la aplicación.
 
 **Parámetros**
 
@@ -80,29 +77,35 @@ let app = Application::builder()
 
 Para más detalles sobre Tower, revisa [Interceptores en controladores web](/es/practical-guides/web/interceptors).
 
-#### Método `from_config_path::<P>(path: P)`
+---
+
+#### Construir desde una ruta de configuración personalizada
+
+Carga la configuración de la aplicación desde un fichero `.toml` ubicado en una ruta personalizada.
 
 ```rust
 pub fn from_config_path<P: AsRef<Path>>(path: P) -> ApplicationBuilder
 ```
 
-Carga la configuración de la aplicación desde un fichero `.toml` ubicado en una ruta personalizada.
+---
 
-#### Método `from_config(config: Config)`
+#### Construir desde una instancia de la estructura 'Config'
+
+Carga la configuración de la aplicación a partir de una instancia de `Config` creada manualmente.
 
 ```rust
 pub fn from_config(config: Config) -> Self
 ```
 
-Carga la configuración de la aplicación a partir de una instancia de `Config` creada manualmente.
+---
 
-#### Método `build()`
+#### Construir la aplicación
+
+Finaliza la construcción del `ApplicationBuilder` y retorna una instancia de `Application` lista para ejecutarse.
 
 ```rust
 pub fn build(mut self) -> Application
 ```
-
-Finaliza la construcción del `ApplicationBuilder` y devuelve una instancia de `Application` lista para ejecutarse.
 
 </ApiSection>
 
@@ -121,27 +124,29 @@ async fn main() {
 }
 ```
 
-<ApiSection title="Métodos y atributos de la estructura Application">
+<ApiSection title="API Reference: Métodos y atributos de la estructura 'Application'">
 
-#### Método `run()`
+#### Iniciar la aplicación
+
+Inicia el núcleo del tipo de aplicación seleccionado y comienza a escuchar solicitudes.
 
 ```rust
 pub async fn run(&self)
 ```
 
-Inicia el núcleo del tipo de aplicación seleccionado y comienza a escuchar solicitudes.
-
 Si la opción `graceful-shutdown` está activada, la aplicación maneja las señales de terminación de forma elegante, permitiendo que las solicitudes en curso se completen antes de apagarse.
 
-#### Método `router()`
+---
+
+#### Acceso al router interno
+
+Disponible para aplicaciones Web y Socket.IO, devuelve un clon del router (`axum::Router`) interno de la aplicación.
 
 ```rust
 pub fn router(&self) -> axum::Router
 ```
 
-Devuelve un clon del router (`axum::Router`) interno de la aplicación. Es útil para operaciones avanzadas o para inspeccionar la configuración de rutas.
-
-Solo está disponible si habilitaste las features `web` o `socketio`.
+Es útil para operaciones avanzadas o para inspeccionar la configuración de rutas.
 
 **Ejemplo**
 
@@ -155,7 +160,7 @@ let router: axum::Router = app.router();
 
 </ApiSection>
 
-## La función `main`
+## La función 'main'
 
 En Rust, la ejecución de un programa comienza en la función `main`. En frameworks asíncronos, esa función debe marcarse con un atributo especial.
 

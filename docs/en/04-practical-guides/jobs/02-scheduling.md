@@ -11,7 +11,7 @@ Each method of a job controller is scheduled with one of three attributes: `cron
 
 ## Cron schedules
 
-`#[cron("...")]` runs a job following a cron expression:
+The `#[cron("...")]` macro runs a job following a cron expression:
 
 ```rust
 #[cron("0 */5 * * * *")]
@@ -31,7 +31,7 @@ The year may be omitted. For example, `"0 0 9 * * *"` runs every day at 09:00 UT
 
 ## Repeated intervals
 
-`#[repeated(Duration)]` runs a job every time the given duration elapses:
+The `#[repeated(Duration)]` macro runs a job every time the given duration elapses:
 
 ```rust
 use std::time::Duration;
@@ -44,7 +44,7 @@ async fn poll(&self, _uuid: Uuid, _scheduler: JobScheduler) {
 
 ## One-shot jobs
 
-`#[once(Duration)]` runs a job a single time, after the given duration:
+The `#[once(Duration)]` macro runs a job a single time, after the given duration:
 
 ```rust
 use std::time::Duration;

@@ -8,32 +8,53 @@ outline: [2, 3]
 
 A controller is the entry point to your application. It receives events or requests, internal or external, and turns them into calls to the business logic of your modules.
 
-Depending on the communication mechanism, a controller can serve an HTTP request, listen for real-time events, answer remote gRPC calls, or process internal and external events.
+Depending on the communication mechanism, a controller can serve an HTTP request, listen for real-time messages, answer remote gRPC calls, or process internal and external events.
+
+<ControllersDiagram />
 
 ## Declaration
 
-A controller is a struct annotated with the `#[controller]` macro, which states the controller type and its routing data. The struct's methods are the entry points, and each one is marked with the attribute that corresponds to its transport:
+A controller is a struct annotated with the `#[controller]` macro that implements the `ControllerSpec` trait.
 
 ```rust
+use std::sync::Arc;
 use sword::prelude::*;
-use sword::web::*;
 
 #[controller(kind = Controller::Web, path = "/users")]
-pub struct UsersController;
-
-impl UsersController {
-    #[get("/")]
-    async fn list(&self) -> WebResult {
-        Ok(JsonResponse::Ok().message("Users list"))
-    }
+pub struct UsersController {
+    logger: Arc<Logger>,
+    service: Arc<UsersService>,
 }
 ```
 
-The `kind` attribute selects the controller type (`Web`, `SocketIo`, `Grpc`, ...). The data that goes with it depends on that type: `path` for web controllers, `namespace` for Socket.IO, and `service` for gRPC.
+### Macro attributes
+
+**Controller type**
+
+The `kind` attribute selects the controller type, defined by:
+
+```rust
+enum Controller {
+    Web,
+    SocketIo,
+    Grpc,
+    Events,
+    Jobs,
+}
+```
+
+**Attributes for each controller type**
+
+Each controller type defines its own attributes, documented in its practical guide:
+
+- [Web controllers](/en/practical-guides/web/controllers)
+- [Socket.IO controllers](/en/practical-guides/socketio/controllers)
+- [gRPC controllers](/en/practical-guides/grpc/controllers)
+- [Scheduled job controllers](/en/practical-guides/jobs/controllers)
 
 ## Registration
 
-Controllers are registered from a module with `register_controllers`. Each module declares its own, and `Application::builder().with_module::<...>()` takes care of the rest.
+Controllers are registered from a module. A module is the unit that groups your application's domains, and you can register one or more controllers in it:
 
 ```rust
 impl Module for UsersModule {
@@ -44,14 +65,3 @@ impl Module for UsersModule {
 ```
 
 Internally, every controller implements `ControllerSpec`, which describes how to mount it on its transport.
-
-## Controller types
-
-Each transport documents the definition and details of its controllers in its practical guide:
-
-- [Web controllers](/en/practical-guides/web/controllers)
-- [Socket.IO controllers](/en/practical-guides/socketio/controllers)
-- [gRPC controllers](/en/practical-guides/grpc/controllers)
-- [Job controllers](/en/practical-guides/jobs/controllers)
-
-Controllers for internal and external events are part of the application's event handling.

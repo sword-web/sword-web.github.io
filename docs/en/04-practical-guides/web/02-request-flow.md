@@ -8,7 +8,7 @@ outline: [2, 3]
 
 In Sword, unlike Axum, individual extractors are not used in the signature of the controller's methods. Instead, a struct centralizes the request information and exposes a unified API for accessing the body, query, params, headers, cookies, and more.
 
-## The `Request` struct
+## The 'Request' struct
 
 This struct acts as a central access extractor for the HTTP request, similar to how it is handled in other frameworks.
 
@@ -114,7 +114,7 @@ impl UsersController {
 
 :::
 
-## Extending `Request`
+## Extending 'Request'
 
 Since `Request` is the central access point for the request, you can also extend it with your own traits to add application-specific helpers.
 

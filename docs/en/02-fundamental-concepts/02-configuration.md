@@ -1,22 +1,51 @@
 ---
 title: "Configuration"
-description: "Common configuration of a Sword application: the Config struct, the [application] section, and custom configuration."
+description: "Common configuration for a Sword application: the Config struct, the [application] section, and custom configuration."
 outline: [2, 3]
 ---
 
 # Configuration
 
-Sword uses `thisconfig` to load one or more TOML files. By default, the builder pattern loads `config/config.toml` during initialization. If the file is missing or contains invalid TOML, the application fails to build.
+Most applications need configuration values to connect to databases, external services, or define internal behavior. Sword provides a flexible configuration system for this.
 
-If you need a different path, you can build the application with `Application::from_config(...)` or `Application::from_config_path(...)`.
+Configuration uses the `thisconfig` crate to load TOML files. By default, building the application looks for `config/config.toml`, but you can also set a different path. If the file is missing or contains invalid TOML, the application fails to build.
 
-## The `Config` struct
+## The 'Config' struct
 
-The `Config` struct represents the loaded application configuration. You access it through the `config` field of an `ApplicationBuilder` or `Application` instance, and from other components through dependency injection.
+Once the configuration is loaded, it is represented by the `Config` struct. This struct gives you typed, checked access to the configuration values.
 
-<ApiSection title="Methods and attributes of the Config struct">
+You can access it through the `config` field of an `ApplicationBuilder` or `Application` instance, or through dependency injection in other components.
 
-#### The `get::<T>()` Method
+<ApiSection title="API Reference: Methods and attributes of the 'Config' struct">
+
+:::details Assuming the following snippet for the examples:
+
+```rust
+use sword::prelude::*;
+use serde::Deserialize;
+
+#[config(key = "database")]
+#[derive(Debug, Clone, Deserialize)]
+struct DatabaseConfig {
+    database_url: String,
+    max_connections: u32,
+}
+
+impl Default for DatabaseConfig {
+    fn default() -> Self {
+        Self {
+            database_url: "postgres://user:password@localhost/mydb".to_string(),
+            max_connections: 10,
+        }
+    }
+}
+```
+
+:::
+
+#### Getting a configuration section
+
+Extracts a configuration struct and returns `Option<T>`.
 
 ```rust
 pub fn get<T>(&self) -> Option<T>
@@ -24,7 +53,9 @@ where
     T: DeserializeOwned + ConfigItem,
 ```
 
-Extracts a configuration struct and returns `Option<T>`.
+**Parameters**
+
+- `T`: the configuration struct to extract. It must implement `DeserializeOwned` and `ConfigItem`.
 
 **Example**
 
@@ -32,7 +63,11 @@ Extracts a configuration struct and returns `Option<T>`.
 let database = config.get::<DatabaseConfig>();
 ```
 
-#### The `get_or_default::<T>()` Method
+---
+
+#### Getting a configuration section or its default value
+
+Extracts the struct or returns its `Default` if it is not present.
 
 ```rust
 pub fn get_or_default<T>(&self) -> T
@@ -40,7 +75,9 @@ where
     T: DeserializeOwned + ConfigItem + Default,
 ```
 
-Extracts the struct or returns its `Default` if not present.
+**Parameters**
+
+- `T`: the configuration struct to extract. It must implement `DeserializeOwned`, `ConfigItem`, and `Default`.
 
 **Example**
 
@@ -48,7 +85,11 @@ Extracts the struct or returns its `Default` if not present.
 let database = config.get_or_default::<DatabaseConfig>();
 ```
 
-#### The `expect::<T>()` Method
+---
+
+#### Getting a configuration section or panicking
+
+Extracts the struct or panics if it is not present.
 
 ```rust
 pub fn expect<T>(&self) -> T
@@ -56,7 +97,9 @@ where
     T: DeserializeOwned + ConfigItem,
 ```
 
-Extracts the struct or triggers a `panic!` if not present. It is equivalent to `get::<T>().expect("Expected configuration item not found")`.
+**Parameters**
+
+- `T`: the configuration struct to extract. It must implement `DeserializeOwned` and `ConfigItem`.
 
 **Example**
 
@@ -64,11 +107,17 @@ Extracts the struct or triggers a `panic!` if not present. It is equivalent to `
 let database = config.expect::<DatabaseConfig>();
 ```
 
+This is useful when the configuration is required and the application cannot continue without it. It is equivalent to:
+
+```rust
+let database = config.get::<DatabaseConfig>().expect("Expected configuration item not found");
+```
+
 </ApiSection>
 
-## `[application]` section
+## Application configuration
 
-It holds the general application values:
+Sword defines a shared configuration for every application type:
 
 | Key                 | Type             | Default | Description                                                     |
 | ------------------- | ---------------- | ------- | --------------------------------------------------------------- |
@@ -89,13 +138,13 @@ graceful-shutdown = true
 
 ## Custom configuration
 
-Sword lets you define your own configuration alongside the framework's base configuration. It is useful when your app needs domain-specific or integration-specific settings. The system also supports environment variable interpolation and loading values from files.
+Sword lets you define your own configuration on top of the framework's base configuration. This is useful when the application needs domain-specific or integration-specific settings.
 
-### Using the `#[config]` macro
+Annotate a struct with the `#[config]` macro and set the TOML key where it will be loaded:
 
-Annotate your struct with `#[config]` and set the TOML key where it should be loaded:
+:::code-group
 
-```rust
+```rust [database.rs]
 use serde::Deserialize;
 use sword::prelude::*;
 
@@ -107,37 +156,33 @@ pub struct DatabaseConfig {
 }
 ```
 
-### Required traits
-
-For a struct to be used as custom configuration, it must derive or implement:
-
-- `Debug`
-- `Clone`
-- `Deserialize`
-
-The `#[config(key = "...")]` macro automatically generates:
-
-- the `ConfigItem` implementation;
-- the `TryFrom<&State>` implementation for dependency injection;
-- automatic registration in application state during initialization.
-
-### TOML file structure
-
-Custom configuration must exist under the key declared in `#[config(key = "...")]`.
-
-```toml
-[application]
-name = "My Sword App"
-environment = "development"
-
+```toml [config.toml]
 [database]
 database_url = "postgres://user:password@localhost/mydb"
 max_connections = 50
 ```
 
-### Environment variable interpolation
+```toml [Cargo.toml]
+[dependencies]
+sword = { version = "x.y.z" }
+serde = { version = "x.y.z", features = ["derive"] }
+```
 
-Configuration loading supports direct interpolation of environment variables.
+:::
+
+**Required traits**
+
+To use a struct as custom configuration, it must derive or implement:
+
+- `Debug`
+- `Clone`
+- `Deserialize`
+
+The macro generates the `ConfigItem` implementation and registers the configuration in the application state.
+
+## Environment variables
+
+Configuration supports direct interpolation of environment variables.
 
 ```toml
 [database]
@@ -145,11 +190,11 @@ database_url = "${DATABASE_URL:postgres://localhost/app}"
 max_connections = "${DB_MAX_CONNECTIONS:20}"
 ```
 
-The syntax is `${VARIABLE_NAME:default_value}`. If no default is defined and the variable does not exist, loading fails.
+The syntax is `${VARIABLE_NAME:default_value}`. If you do not set a default and the variable does not exist, loading fails.
 
-### Loading content from files
+## Loading content from files
 
-`thisconfig` can load file content into TOML values using the `file:` prefix.
+You can load file content into TOML values with the `file:` prefix:
 
 ```toml
 [auth]
@@ -158,14 +203,16 @@ jwt_secret = "file:secrets/jwt_secret.txt"
 
 This is useful for secrets, certificates, and private keys.
 
-### Special units
+## Special units
 
-Thanks to `thisconfig`, you can use human-readable units for sizes and durations. They do not just keep the parsed value; they also preserve the original raw value (`raw`) for logging and config display.
+You can also use human-readable units for sizes and durations. These units keep the parsed value and the original raw value (`raw`) for logging and display.
 
-**`ByteConfig`** represents byte sizes:
+### Byte representation
 
-- `raw`: original TOML string (for example, `"10MB"`)
-- `parsed`: value converted to bytes (`usize`) for runtime use
+`ByteConfig` represents byte sizes:
+
+- `raw`: the original string read from TOML (for example, `"10MB"`).
+- `parsed`: the value converted to bytes (`usize`) for internal use.
 
 ::: code-group
 
@@ -183,12 +230,14 @@ body-limit = "1MB"
 
 :::
 
-You can also use binary units such as `KiB`, `MiB`, and so on. See the formats available in [`byte-unit`](https://docs.rs/byte-unit/latest/).
+You can also use binary units such as `KiB`, `MiB`, etc. See the available formats in [`byte-unit`](https://docs.rs/byte-unit/latest/).
 
-**`TimeConfig`** represents durations:
+### Time representation
 
-- `raw`: original string (for example, `"30s"`, `"1h 30m"`)
-- `parsed`: `std::time::Duration` ready to use in timeouts, intervals, etc.
+`TimeConfig` represents durations:
+
+- `raw`: the original string (for example, `"30s"`, `"1h 30m"`).
+- `parsed`: a `std::time::Duration` ready for timeouts, intervals, etc.
 
 ::: code-group
 
@@ -207,11 +256,11 @@ ping-interval = "25s"
 
 :::
 
-See the formats available in [`duration-str`](https://docs.rs/duration-str/latest/).
+See the available formats in [`duration-str`](https://docs.rs/duration-str/latest/).
 
 ## Configuration per application type
 
-The configuration specific to each application type lives in its practical guide:
+You can find configuration examples for each Sword application type in the practical guides:
 
 - [Configuration of a web application](/en/practical-guides/web/configuration)
 - [Configuration of a Socket.IO application](/en/practical-guides/socketio/configuration)

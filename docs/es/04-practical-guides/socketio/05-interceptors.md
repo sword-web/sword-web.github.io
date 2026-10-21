@@ -12,7 +12,7 @@ A diferencia de los interceptores de controladores web, el interceptor se ejecut
 
 ## Interceptores tradicionales
 
-### El Trait `OnConnect`
+### El Trait 'OnConnect'
 
 Este trait permite definir lógica personalizada que se ejecuta antes de que un cliente se conecte a un namespace en concreto.
 
@@ -130,7 +130,12 @@ impl EventController {
 
 :::
 
-### Diferencia entre `extensions()` y `http_extensions()`
+### Diferencia entre los métodos 'extensions' y 'http_extensions'
 
-- `ctx.extensions()` da acceso a los datos del socket. Viven durante toda la conexión — desde el `connection` hasta el `disconnection` — y se comparten entre todos los eventos del socket. Es el lugar para que el interceptor escriba y los handlers lean.
-- `ctx.http_extensions()` da acceso a las extensiones de la request HTTP del handshake que estableció la conexión. Es una foto del momento en que el cliente se conectó: contiene lo que las layers o interceptors web dejaron en la request inicial, como el `RequestId` de `RequestIdLayer` o las cookies si `CookieManagerLayer` está presente. Es de solo lectura.
+**Método 'extensions'**
+
+Proveen acceso a los datos del socket. Viven durante toda la conexión y se comparten entre todos los eventos del socket. Es el lugar para que el interceptor escriba y los handlers lean los datos que necesiten durante la vida de la conexión.
+
+**Método 'http_extensions'**
+
+Proveen acceso a las extensiones de la request HTTP del handshake que estableció la conexión.

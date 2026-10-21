@@ -6,23 +6,25 @@ outline: [2, 3]
 
 # Modules
 
-A module groups one capability of the application: its controllers, components, and providers. Each module implements the `Module` trait and registers those pieces in the dependency container, so the application only needs to declare the modules it uses.
+A module is the unit that groups one capability of the application. In Sword, a module is a struct that implements the `Module` trait and declares which controllers, components, and providers it provides. It follows the module composition and cohesion model from NestJS, with a simpler and more flexible approach.
 
-<ApiSection title="Methods of the Module trait" :collapsed="false">
+Each module declares only what it contributes, and the application is built by composing those pieces.
 
-The `Module` trait defines these three methods, all with an empty default implementation, so each module implements only the ones it needs.
+<ApiSection title="API Reference: Methods of the 'Module' trait" :collapsed="false">
 
-#### The `register_controllers(controllers)` Method
+The `Module` trait defines three methods, all with an empty default implementation, so each module implements only the ones it needs.
+
+#### Registering controllers
+
+Registers the controllers defined in the application, whether Web, Socket.IO, gRPC, Events, or Jobs. [Learn more](./controllers.md)
 
 ```rust
-fn register_controllers(controllers: &ControllerRegistry)
+fn register_controllers(controllers: &ControllerRegistry) {}
 ```
-
-Registers the module's external entry points: HTTP, Socket.IO, and gRPC controllers, plus any struct that implements `ControllerSpec`.
 
 **Parameters**
 
-- `controllers`: the registry where the module's controllers are declared.
+- `controllers`: a reference to the application's shared controller registry.
 
 **Example**
 
@@ -32,13 +34,15 @@ fn register_controllers(controllers: &ControllerRegistry) {
 }
 ```
 
-#### The `register_components(components)` Method
+---
+
+#### Registering components
+
+Registers injectable structs that the dependency container builds automatically. [Learn more](./dependency-injection.md)
 
 ```rust
 fn register_components(components: &ComponentRegistry)
 ```
-
-Registers `#[injectable]` structs that the container builds automatically.
 
 **Parameters**
 
@@ -53,17 +57,19 @@ fn register_components(components: &ComponentRegistry) {
 }
 ```
 
-#### The `register_providers(config, providers)` Method
+---
+
+#### Registering providers
+
+Registers injectable structs that are built manually, called 'providers'. They are usually external connections or clients such as databases, caches, or remote services. [Learn more](./dependency-injection.md)
 
 ```rust
 async fn register_providers(config: &Config, providers: &ProviderRegistry)
 ```
 
-Registers `#[injectable(provider)]` structs, usually external connections or clients such as databases, caches, or remote services.
-
 **Parameters**
 
-- `config`: the loaded configuration, to read the provider's values.
+- `config`: the loaded configuration, used to get the provider's settings.
 - `providers`: the registry where the module's providers are declared.
 
 **Example**
@@ -83,6 +89,8 @@ async fn register_providers(config: &Config, providers: &ProviderRegistry) {
 </ApiSection>
 
 ## Full example
+
+::: details View the full example of a users module
 
 ```rust
 use sword::prelude::*;
@@ -111,9 +119,11 @@ impl Module for UsersModule {
 }
 ```
 
+:::
+
 ## File structure
 
-A module usually maps to a directory or a group of them. For example, a users module could have this structure:
+A module usually maps to a directory or a group of directories. For example, a users module could have this structure:
 
 ```text
 users/
@@ -124,11 +134,11 @@ users/
   mod.rs
 ```
 
-`mod.rs` holds the `impl Module` that registers each piece. For details on each kind of piece, see [Controllers](./controllers) and [Dependency Injection](./dependency-injection).
+The module declaration and implementation live in `mod.rs`, where each piece is registered.
 
 ## Application registration
 
-Modules are registered with `with_module::<M>()` in the `ApplicationBuilder`
+Modules are registered with the `ApplicationBuilder`'s `with_module` method. For example, to register a users module and a shared module:
 
 ```rust
 #[sword::main]

@@ -52,6 +52,8 @@ Esto facilita:
 - reutilizar el mismo patrón en `build.rs`,
 - separar contratos de transporte del resto del código de aplicación.
 
+---
+
 #### Servicios
 
 Usa el sufijo `GrpcService` en servicios proto, porque en tu código de aplicación pueden coexistir servicios de negocio con nombres similares.
@@ -72,6 +74,8 @@ service UserService {
 
 :::
 
+---
+
 #### Métodos RPC
 
 Nombra métodos por intención (`Get`, `List`, `Create`, `Update`, `Delete`, `Stream`) para que el contrato sea autoexplicativo para quien lo consume.
@@ -90,6 +94,8 @@ rpc DoUserAction (ListUsersRequest) returns (ListUsersResponse);
 ```
 
 :::
+
+---
 
 #### Mensajes
 
@@ -143,7 +149,7 @@ tonic-prost-build = "x.y.z"
 Cuando los archivos `.proto` se compilan dependen directamente de `prost` y `tonic-prost` en el cliente final, es decir, con estos crates en el `Cargo.toml` del proyecto, no basta con que `sword` los reexporte.
 :::
 
-### Tipos avanzados con `prost-types`
+### Tipos avanzados con el crate 'prost-types'
 
 Si tu contrato usa tipos well-known de protobuf (`google.protobuf.Timestamp`, `Duration`, `Any`, etc.), también necesitas el crate `prost-types` en el proyecto.
 
@@ -186,7 +192,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
 :::
 
-## ¿Qué genera la compilación de un `.proto`?
+## ¿Qué genera la compilación de un archivo '.proto'?
 
 Al compilar un archivo `.proto` con `tonic-prost-build`, se genera:
 

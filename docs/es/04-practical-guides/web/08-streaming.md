@@ -19,7 +19,7 @@ Sword expone dos formas de streaming: `StreamRequest`, para trabajar con el body
 
 Cuando el handler recibe `StreamRequest` en lugar de `Request`, el interceptor web debe implementar el trait de streaming correspondiente.
 
-#### El Trait `OnRequestStream`
+#### El Trait 'OnRequestStream'
 
 ```rust
 use sword::prelude::*;
@@ -36,7 +36,7 @@ impl OnRequestStream for StreamTagInterceptor {
 }
 ```
 
-#### El Trait `OnRequestStreamWithConfig`
+#### El Trait 'OnRequestStreamWithConfig'
 
 ```rust
 use sword::prelude::*;

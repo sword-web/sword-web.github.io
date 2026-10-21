@@ -10,15 +10,7 @@ Cuando un cliente envía un evento con un callback, el servidor puede responder 
 
 Puedes encontrar la referencia de los métodos `has_ack()` y `ack(...)`, en la [referencia de SocketContext](/es/practical-guides/socketio/event-handling).
 
-## Detectar si el evento espera acknowledgement
-
-```rust
-if ctx.has_ack() {
-    // ...
-}
-```
-
-## Responder con `ack(...)`
+## Responder a un evento con un ACK
 
 ```rust
 use serde::Serialize;

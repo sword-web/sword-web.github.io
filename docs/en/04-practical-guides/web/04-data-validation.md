@@ -10,13 +10,13 @@ Input data validation is a fundamental aspect of web applications. It ensures th
 
 Sword integrates support for the `validator` crate via the `validation-validator` feature.
 
-## Enabling `validator`
+## Enabling the feature
 
 To use validation based on the `validator` crate, add the dependencies and enable the corresponding feature:
 
 ```toml
 [dependencies]
-sword = { version = "x.y.z", features = ["validation-validator"] }
+sword = { version = "x.y.z", features = ["web", "validation-validator"] }
 serde = { version = "x.y.z", features = ["derive"] }
 validator = { version = "x.y.z", features = ["derive"] }
 ```

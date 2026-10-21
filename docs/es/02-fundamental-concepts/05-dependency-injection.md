@@ -8,11 +8,13 @@ outline: [2, 3]
 
 La inyección de dependencias es un patrón que permite a un elemento recibir sus dependencias desde fuentes externas en lugar de crearlas por sí mismo. Eso da más modularidad, facilita las pruebas unitarias y mejora la mantenibilidad del código.
 
-Sword usa este enfoque para gestionar componentes y servicios dentro de la aplicación: las dependencias se inyectan automáticamente cuando se necesitan.
+Sword usa este enfoque para gestionar componentes y servicios dentro de la aplicación, las dependencias se inyectan automáticamente sin necesidad de escribir código adicional para resolverlas.
 
 ## Contenedor de dependencias
 
 La estructura `DependencyContainer` es el núcleo del patrón en Sword. Actúa como un registro centralizado donde se registran y resuelven las dependencias.
+
+<DependencyInjectionDiagram />
 
 ## Inyectables
 

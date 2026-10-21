@@ -10,7 +10,10 @@ En Sword, un controlador gRPC es una estructura que implementa un trait generada
 
 ## Definir un controlador
 
-```rust
+:::code-group
+
+```rust [controller.rs]
+use super::proto::*;
 use sword::grpc::*;
 use sword::prelude::*;
 
@@ -30,9 +33,7 @@ impl UserGrpcService for UsersController {
 }
 ```
 
-El trait `UserGrpcService` se genera a partir de un archivo `.proto` como el siguiente:
-
-```proto
+```proto [users.proto]
 syntax = "proto3";
 
 package users;
@@ -53,6 +54,8 @@ message UserItem {
 }
 ```
 
+:::
+
 <ApiSection title="Atributos del controlador" :collapsed="false">
 
 #### Atributo `#[controller]`
@@ -66,6 +69,8 @@ message UserItem {
 - `kind = Controller::Grpc`: marca la estructura como controlador gRPC.
 - `service = UserGrpcServiceServer`: servidor generado por Tonic para el servicio que implementa.
 
+---
+
 #### Atributo `#[sword::grpc::async_trait]`
 
 ```rust
@@ -75,18 +80,14 @@ impl UserGrpcService for UsersController { ... }
 
 De la misma forma que lo establece `tonic`, este atributo es necesario para implementar el trait generado por `tonic`: permite que los métodos del trait puedan ser `async` y sean registrados correctamente en el servidor gRPC.
 
-**Cuándo usarlo**
-
-- En la implementación del trait generado por Tonic, para habilitar métodos `async` en traits.
-
 </ApiSection>
 
-<ApiSection title="Tipos base y respuestas" :collapsed="false">
+<ApiSection title="API Reference: Tipos base y respuestas" :collapsed="false">
 
-#### Tipo `Request<T>`
+#### Estructura 'Request'
 
 ```rust
-pub use tonic::Request;
+pub use sword::grpc::Request;
 ```
 
 **Retorna**
@@ -97,7 +98,9 @@ pub use tonic::Request;
 
 - Como tipo de entrada en los métodos del servicio (por ejemplo `Request<GetUserRequest>`).
 
-#### Tipo `GrpcResult<T>`
+---
+
+#### Tipo 'GrpcResult'
 
 ```rust
 pub type GrpcResult<T> = Result<Response<T>, Status>;
@@ -112,7 +115,9 @@ pub type GrpcResult<T> = Result<Response<T>, Status>;
 
 - Como tipo de retorno de los métodos del servicio.
 
-#### Método `GrpcResponse::message()`
+---
+
+#### Responder a una solicitud gRPC con 'GrpcResponse'
 
 ```rust
 pub fn message<T>(value: T) -> tonic::Response<T>

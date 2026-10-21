@@ -8,7 +8,7 @@ outline: [2, 3]
 
 En Sword, a diferencia de Axum, no se utilizan extractores individuales en la firma de los métodos del controlador. En su lugar, Sword usa una estructura que concentra la información de la solicitud y expone una API unificada para acceder a body, query, params, headers, cookies y más.
 
-## La estructura `Request`
+## La estructura 'Request'
 
 Esta estructura actúa como un extractor de acceso central a la solicitud HTTP, de forma similar a como se maneja en otros frameworks.
 
@@ -114,7 +114,7 @@ impl UsersController {
 
 :::
 
-## Extender `Request`
+## Extender 'Request'
 
 Como `Request` es el punto central de acceso a la solicitud, también puedes extenderlo con traits propios para añadir helpers específicos de tu aplicación.
 

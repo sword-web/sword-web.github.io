@@ -10,9 +10,9 @@ keywords: ["hot reload", "watch", "sword", "desarrollo", "dioxus", "subsecond"]
 
 Durante el desarrollo, puedes usar distintas herramientas para recompilar o refrescar tu aplicación automáticamente cuando detectan cambios en el código.
 
-## `cargo-watch`
+## El crate 'cargo-watch'
 
-El crate `cargo-watch` ha sido durante mucho tiempo una de las herramientas más conocidas para observar cambios en el código fuente y recompilar automáticamente el proyecto.
+Este método ha sido durante mucho tiempo una de las herramientas más conocidas para observar cambios en el código fuente y recompilar automáticamente el proyecto.
 
 Puedes instalarlo con:
 
@@ -22,7 +22,7 @@ cargo install cargo-watch
 
 Sin embargo, `cargo-watch` se limita a recompilar y reiniciar la aplicación. No ofrece por sí solo una experiencia de hot reload completa.
 
-## Hot reload con `subsecond` y `dioxus-cli`
+## Hot reload con 'subsecond' y 'dioxus-cli'
 
 El equipo de Dioxus mantiene herramientas como `subsecond`, que permiten una experiencia de hot reload más fluida y compatible con Axum y otros crates del ecosistema.
 
@@ -35,7 +35,7 @@ Para utilizar este flujo en un proyecto Sword:
 sword = { version = "x.y.z", features = ["hot-reload"] }
 ```
 
-2. Instala `dioxus-cli`:
+2. Instala 'dioxus-cli':
 
 ```bash
 cargo install dioxus-cli

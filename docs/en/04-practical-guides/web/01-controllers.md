@@ -54,21 +54,23 @@ For more details on extraction, check the [Request Handling](/en/practical-guide
 
 Sword supports the standard HTTP methods provided by `axum`:
 
-- GET: `#[get("...")]`
-- POST: `#[post("...")]`
-- PUT: `#[put("...")]`
-- DELETE: `#[delete("...")]`
-- PATCH: `#[patch("...")]`
-- HEAD: `#[head("...")]`
-- OPTIONS: `#[options("...")]`
-- CONNECT: `#[connect("...")]`
-- TRACE: `#[trace("...")]`
+| HTTP Method | Macro               |
+| ----------- | ------------------- |
+| GET         | `#[get("...")]`     |
+| POST        | `#[post("...")]`    |
+| PUT         | `#[put("...")]`     |
+| DELETE      | `#[delete("...")]`  |
+| PATCH       | `#[patch("...")]`   |
+| HEAD        | `#[head("...")]`    |
+| OPTIONS     | `#[options("...")]` |
+| CONNECT     | `#[connect("...")]` |
+| TRACE       | `#[trace("...")]`   |
 
 All methods receive the route in the same way, for example: `#[get("/")]`, `#[post("/api/users")]`, etc.
 
-## About `&self`
+## About using '&self'
 
-Handlers receive `&self` because the controller can have dependencies injected into its fields.
+Handlers receive `&self` because the controller can have dependencies injected into its fields and use them inside the methods.
 
 This flow is explained in [Dependency Injection](/en/fundamental-concepts/dependency-injection).
 
@@ -86,6 +88,6 @@ async fn get_users(&self, req: Request) -> WebResult<JsonResponse> {
 }
 ```
 
-For all response patterns — auto-wrap with `Result<T, E>`, error handling, and payload construction, see [Response Handling](/en/practical-guides/web/response-handling).
+For all response patterns, including auto-wrap with `Result<T, E>`, error handling, and payload construction, see [Response Handling](/en/practical-guides/web/response-handling).
 
 However, controller methods can also return any type that implements `IntoResponse`, as Sword's web layer is built on top of `axum`.

@@ -6,7 +6,7 @@ outline: [2, 3]
 
 # Configuration
 
-On top of the common configuration (see [Configuration](/en/fundamental-concepts/configuration)), a Socket.IO application adds the `[socketio]` section. Since `socketio` depends on the `web` feature, the `[web]` section from the [web guide](/en/practical-guides/web/configuration) also applies.
+Besides the shared configuration, a Socket.IO application adds the `[socketio]` section. Since `socketio` depends on the `web` feature, the `[web]` section from the [web guide](/en/practical-guides/web/configuration) also applies.
 
 | Key                   | Type                    | Default                    | Description                               |
 | --------------------- | ----------------------- | -------------------------- | ----------------------------------------- |

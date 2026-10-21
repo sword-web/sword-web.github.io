@@ -54,7 +54,7 @@ JsonResponse::TooManyRequests()
 
 ### Construcción de payload
 
-#### Método `message()`
+#### Añadir un mensaje personalizado al cuerpo de la respuesta
 
 ```rust
 pub fn message(mut self, message: impl Into<String>) -> Self
@@ -79,7 +79,9 @@ JsonResponse::Ok().message("Successful operation");
 
 :::
 
-#### Método `data()`
+---
+
+#### Añadir información serializable al cuerpo de la respuesta
 
 ```rust
 pub fn data<T: Serialize>(mut self, data: T) -> Self
@@ -119,7 +121,9 @@ let response = JsonResponse::Ok().data(MyData {
 
 :::
 
-#### Método `error()` y `errors()`
+---
+
+#### Adjuntar errores al cuerpo de la respuesta
 
 ```rust
 pub fn error<T: Serialize>(mut self, error: T) -> Self
@@ -149,9 +153,11 @@ JsonResponse::BadRequest()
 
 :::
 
-### Errores automáticos desde `Request`
+---
 
-Muchos métodos de `Request` retornan `RequestError`, si usas `?` en el método del controlador, el error se convertirá automáticamente en un `JsonResponse` con el código de estado correspondiente.
+### Errores automáticos desde 'Request'
+
+Muchos métodos de `Request` pueden retornar un error, si usas `?` en el método del controlador, el error se convertirá automáticamente en un `JsonResponse` con el código de estado correspondiente.
 
 #### Ejemplo
 
@@ -189,7 +195,7 @@ async fn create_user(&self, req: Request) -> WebResult {
 
 :::
 
-### Auto conversión de respuesta con `WebResult<T>`
+### Auto conversión de respuesta con 'WebResult'
 
 Las macros de ruta (`#[get]`, `#[post]`, etc.) detectan el tipo genérico `T` de `WebResult<T>` y lo envuelven automáticamente en un `JsonResponse`.
 
@@ -262,7 +268,7 @@ async fn create_user(&self) -> WebResult<CreateUserResponse> {
 
 :::
 
-## Descargas y contenido inline con `File`
+## Descargas y contenido inline con 'File'
 
 `JsonResponse` cubre las respuestas JSON, pero a veces necesitas devolver archivos. Para eso Sword expone `File`, un builder que construye respuestas de descarga o de visualización inline según la `ContentDisposition` que uses. Por defecto, `File` se comporta como una descarga (`ContentDisposition::Attachment`) con `Content-Type` `application/octet-stream`.
 
@@ -297,7 +303,7 @@ File::new()
 
 También puedes agregar headers personalizados con `header(...)`. Y como `File` implementa `IntoResponse`, puedes devolverlo directamente o dentro de un `WebResult<File>`.
 
-## Redirecciones HTTP con `Redirect`
+## Redirecciones HTTP con 'Redirect'
 
 Cuando un endpoint necesita redirigir a otra URL, Sword expone `Redirect`. Cada constructor cubre uno de los códigos 3xx más comunes:
 
@@ -325,5 +331,3 @@ La redirección agrega el header `Location` con la URL de destino y el código d
 Redirect::temporary("/maintenance")
     .header("X-Redirect-Reason", "maintenance")
 ```
-
-Al igual que `File`, `Redirect` implementa `IntoResponse`, por lo que también puede devolverse dentro de un `WebResult<Redirect>`.

@@ -110,9 +110,9 @@ impl UserService for UsersController {
 }
 ```
 
-<ApiSection title="Tipos en streaming gRPC" :collapsed="false">
+<ApiSection title="API Reference: Streaming gRPC" :collapsed="false">
 
-#### Tipo `GrpcStream<T>`
+#### El Tipo 'GrpcStream'
 
 ```rust
 pub type GrpcStream<T> = Pin<Box<dyn Stream<Item = Result<T, Status>> + Send + 'static>>;
@@ -126,7 +126,9 @@ pub type GrpcStream<T> = Pin<Box<dyn Stream<Item = Result<T, Status>> + Send + '
 
 - Como tipo del stream asociado en métodos de server streaming (`type StreamUsersStream = GrpcStream<T>`) y como resultado de `GrpcResponse::stream()`.
 
-#### Método `GrpcResponse::stream()`
+---
+
+#### Responder con un stream gRPC
 
 ```rust
 pub fn stream<T, S>(stream: S) -> tonic::Response<GrpcStream<T>>
@@ -147,5 +149,5 @@ where
 ## Notas
 
 - `GrpcResponse` es una estructura sin estado: sus métodos son constructores estáticos.
-- El tipo asociado que define el trait generado debe coincidir con `GrpcStream<T>`; si no, la implementación no compila.
-- `async_stream` es una dependencia opcional pero cómoda para construir streams; también puedes implementar `Stream` a mano si lo prefieres.
+- El tipo asociado que define el trait generado debe coincidir con `GrpcStream<T>`, si no, la implementación no compila.
+- `async_stream` es una dependencia opcional pero cómoda para construir streams, también puedes implementar `Stream` manualmente si lo prefieres.

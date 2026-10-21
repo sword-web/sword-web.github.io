@@ -6,7 +6,7 @@ outline: [2, 3]
 
 # Configuración
 
-Además de la configuración común (ver [Configuración](/es/fundamental-concepts/configuration)), una aplicación gRPC se ajusta con la sección `[grpc]`.
+Además de la configuración común, una aplicación gRPC se ajusta con la sección `[grpc]`.
 
 | Key          | Tipo                  | Default     | Descripción                                               |
 | ------------ | --------------------- | ----------- | --------------------------------------------------------- |
@@ -25,6 +25,6 @@ body-limit = { max-decoding-message-size = "4MB", max-encoding-message-size = "4
 
 ## Ajustes adicionales
 
-- **Logger de acceso** (`[grpc.logger]`): ver [Access Logger](/es/practical-guides/grpc/access-logger).
-- **Clientes** (`[grpc.clients]`): ver [Clientes](/es/practical-guides/grpc/clients).
-- **Reflection** (feature de Cargo `grpc-reflection`): expone el descriptor a clientes de introspección como `grpcurl`. Ver [Reflection](/es/practical-guides/grpc/protocol-buffers#reflection).
+- **Logger de acceso**: ver [Access Logger](/es/practical-guides/grpc/access-logger).
+- **Clientes**: ver [Clientes](/es/practical-guides/grpc/clients).
+- **Reflection**: expone el descriptor a clientes de introspección como `grpcurl`. Ver [Reflection](/es/practical-guides/grpc/protocol-buffers#reflection).

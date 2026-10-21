@@ -1,14 +1,16 @@
 ---
 title: "Tipos de aplicación"
-description: "Sword distingue tres tipos de aplicación que puedes ajustar a tus necesidades."
+description: "Sword provee múltiples tipos de aplicación que puedes ajustar a tus necesidades."
 outline: [2, 3]
 ---
 
 # Tipos de aplicación
 
-En Sword, un tipo de aplicación es una forma de comunicación con el exterior. Dependiendo del tipo, una aplicación puede englobar a otras, porque varios protocolos y metodologías comparten crates. Axum es el ejemplo más claro.
+En Sword, un tipo de aplicación es un motor de ejecución que expone un mecanismo de entrada para los [controladores](../02-fundamental-concepts/04-controllers). Cada tipo se habilita con una feature y puede convivir con los demás en la misma aplicación.
 
-Sword distingue tres tipos de aplicación que puedes ajustar a tus necesidades.
+No todos los tipos implican comunicación con el exterior. Algunos reciben tráfico externo (Web, Socket.IO, gRPC, Eventos NATs) mientras que otros procesan trabajo dentro del proceso, como las tareas programadas (Jobs) o los eventos en memoria. Lo que comparten es que todos montan controladores como punto de entrada a la lógica de negocio.
+
+Además, cada tipo de aplicación (bajo un feature) puede ser complementada con otras features que habilitan funcionalidades adicionales en su contexto.
 
 ## Aplicación Web
 
@@ -19,9 +21,7 @@ El tipo de aplicación Web se construye habilitando la feature:
 sword = { version = "x.y.z", features = ["web"] }
 ```
 
-En este tipo de aplicación puedes desarrollar e implementar la gran mayoría de patrones comunes en `axum`
-
-Habilitando esta feature puedes usar el import `sword::web::*` como prelude. Para conocer más sobre este tipo de aplicación ve a _Guías Prácticas > Web_.
+En este tipo de aplicación puedes desarrollar e implementar la gran mayoría de patrones comunes en `axum`. Para conocer más sobre este tipo de aplicación ve a _Guías Prácticas > Web_.
 
 **Complementos**
 
@@ -80,13 +80,29 @@ Una aplicación gRPC puede ser complementada con estas features:
 
 - `grpc-reflection`: Habilita la reflexión gRPC. Útil para realizar introspección de servicios gRPC para clientes como grpcurl.
 
-## Jobs en segundo plano
+## Aplicación de Tareas Programadas (Jobs)
 
-Además del tipo de aplicación, la feature `jobs` ejecuta tareas programadas en segundo plano. Se habilita con:
+La feature `jobs` permite declarar controladores que ejecutan tareas programadas con `cron`. Se habilita con:
 
 ```toml
 [dependencies]
 sword = { version = "x.y.z", features = ["jobs"] }
 ```
 
-Los jobs no son un transporte, así que corren junto al tipo de aplicación que elijas. Para conocer más, ve a _Guías Prácticas > Jobs_.
+Para conocer más, ve a _Guías Prácticas > Jobs_.
+
+## Aplicación de Eventos
+
+Una aplicación de eventos permite manejar eventos en memoria y de fuentes externas como NATS. Se habilita con la feature:
+
+```toml
+[dependencies]
+sword = { version = "x.y.z", features = ["events"] }
+```
+
+**Complementos**
+
+En este tipo de aplicación es obligatorio habilitar al menos un adaptador de eventos. Actualmente, Sword soporta los siguientes adaptadores:
+
+- `events-nats`: Habilita el adaptador de eventos NATS.
+- `events-memory`: Habilita el adaptador de eventos en memoria.
