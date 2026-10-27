@@ -34,10 +34,9 @@ sword.build.web — Build error
    ╭─[Config.toml:2:8]
  1 │ [web]
  2 │ host = ""
-   ·        ─┬
-   ·         ╰── must not be empty
+   ·        ──
    ╰────
-  help: Use a valid host such as 0.0.0.0 or 127.0.0.1
+  help: Use 0.0.0.0, 127.0.0.1, or a specific interface
 ```
 
 `tracing` emits one structured event per diagnostic with `code`, `phase`,
