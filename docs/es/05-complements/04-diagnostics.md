@@ -28,7 +28,7 @@ diagnostics = "miette"
 fase, el mensaje, un snippet cuando hay span, y un bloque `help`:
 
 ```text
-sword.build.web — Build error
+sword.build.web · Build error
 
   × Invalid [web] configuration: host must not be empty
    ╭─[Config.toml:2:8]
