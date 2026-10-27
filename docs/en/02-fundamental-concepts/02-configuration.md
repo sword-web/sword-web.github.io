@@ -121,9 +121,9 @@ Sword defines a shared configuration for every application type:
 
 | Key                 | Type             | Default | Description                                                     |
 | ------------------- | ---------------- | ------- | --------------------------------------------------------------- |
-| `name`              | `Option<String>` | `None`  | Application name                                                |
-| `environment`       | `Option<String>` | `None`  | Environment name                                                |
-| `graceful-shutdown` | `bool`           | `false` | Enables graceful shutdown when termination signals are received |
+| `name`                | `Option<String>` | `None`  | Application name                                                        |
+| `environment`         | `Option<String>` | `None`  | Environment name                                                        |
+| `shutdown-timeout-ms` | `integer`        | `10000` | Maximum time to wait for engines to stop after a shutdown starts        |
 
 ::: details TOML example
 
@@ -131,7 +131,7 @@ Sword defines a shared configuration for every application type:
 [application]
 name = "My Sword App"
 environment = "development"
-graceful-shutdown = true
+shutdown-timeout-ms = 10000
 ```
 
 :::

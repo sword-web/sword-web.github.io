@@ -131,10 +131,12 @@ async fn main() {
 Inicia el núcleo del tipo de aplicación seleccionado y comienza a escuchar solicitudes.
 
 ```rust
-pub async fn run(&self)
+pub async fn run(self) -> Result<(), Error>
 ```
 
-Si la opción `graceful-shutdown` está activada, la aplicación maneja las señales de terminación de forma elegante, permitiendo que las solicitudes en curso se completen antes de apagarse.
+El primer SIGINT/SIGTERM inicia un apagado ordenado: los engines dejan de aceptar trabajo y tienen `shutdown-timeout-ms` para terminar las solicitudes, handlers de eventos y jobs en curso. Un segundo signal termina el proceso de inmediato con código `130`.
+
+Los errores de engine siguen su fase de diagnóstico. Los errores `Build` y `Startup` abortan de inmediato porque la aplicación nunca llegó a estar operativa. Los errores `Runtime` drenan el resto de los engines. Un apagado que supera el timeout se reporta como `sword.shutdown.timeout`.
 
 ---
 

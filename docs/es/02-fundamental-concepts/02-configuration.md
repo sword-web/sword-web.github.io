@@ -121,9 +121,9 @@ Sword establece una configuración general compartida para cualquier tipo de apl
 
 | Key                 | Tipo             | Default | Descripción                                                 |
 | ------------------- | ---------------- | ------- | ----------------------------------------------------------- |
-| `name`              | `Option<String>` | `None`  | Nombre de la aplicación                                     |
-| `environment`       | `Option<String>` | `None`  | Nombre del entorno                                          |
-| `graceful-shutdown` | `bool`           | `false` | Habilita apagado elegante al recibir señales de terminación |
+| `name`                | `Option<String>` | `None`  | Nombre de la aplicación                                                |
+| `environment`         | `Option<String>` | `None`  | Nombre del entorno                                                     |
+| `shutdown-timeout-ms` | `integer`        | `10000` | Tiempo máximo de espera para que los engines se detengan al apagar     |
 
 ::: details Ejemplo en formato TOML
 
@@ -131,7 +131,7 @@ Sword establece una configuración general compartida para cualquier tipo de apl
 [application]
 name = "My Sword App"
 environment = "development"
-graceful-shutdown = true
+shutdown-timeout-ms = 10000
 ```
 
 :::

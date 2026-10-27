@@ -80,3 +80,9 @@ same happens when the Tokio runtime cannot be built.
 
 Codes follow `sword.<phase>.<subsystem>` and are stable. Each crate documents the
 codes it emits in its API docs.
+
+Shutdown adds a few process-level codes:
+
+- `sword.runtime.engine`: an engine stopped without a shutdown request.
+- `sword.runtime.panic`: an engine task panicked.
+- `sword.shutdown.timeout`: the graceful shutdown exceeded `shutdown-timeout-ms`.

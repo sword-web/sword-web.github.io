@@ -79,3 +79,9 @@ Lo mismo pasa si no se puede construir el runtime de Tokio.
 
 Los códigos siguen `sword.<fase>.<subsistema>` y son estables. Cada crate
 documenta en su API los códigos que emite.
+
+El apagado agrega algunos códigos de proceso:
+
+- `sword.runtime.engine`: un engine se detuvo sin que se pidiera el apagado.
+- `sword.runtime.panic`: una tarea de engine entró en panic.
+- `sword.shutdown.timeout`: el apagado ordenado superó `shutdown-timeout-ms`.
