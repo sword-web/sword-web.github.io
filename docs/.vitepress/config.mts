@@ -191,6 +191,7 @@ const sidebarTree: PageNode[] = [
 			{ key: "auto-layers", path: "complements/auto-layers" },
 			{ key: "hot-reload", path: "complements/hot-reload" },
 			{ key: "sword-cli", path: "complements/sword-cli" },
+			{ key: "diagnostics", path: "complements/diagnostics" },
 		],
 	},
 ]
@@ -250,6 +251,7 @@ const labels: Record<Locale, Record<string, string>> = {
 		"auto-layers": "Built-in Tower Layers",
 		"hot-reload": "Watch Mode & Hot Reload",
 		"sword-cli": "Sword CLI",
+		"diagnostics": "Diagnostics",
 	},
 	es: {
 		"first-steps": "Primeros pasos",
@@ -305,6 +307,7 @@ const labels: Record<Locale, Record<string, string>> = {
 		"auto-layers": "Layers de Tower integradas",
 		"hot-reload": "Modo Watch y Hot Reload",
 		"sword-cli": "CLI",
+		"diagnostics": "Diagnósticos",
 	},
 }
 
