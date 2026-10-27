@@ -31,6 +31,7 @@ message, a snippet when a span is available, and a `help` block:
 sword.build.web · Build error
 
   × Invalid [web] configuration: host must not be empty
+
    ╭─[Config.toml:2:8]
  1 │ [web]
  2 │ host = ""
