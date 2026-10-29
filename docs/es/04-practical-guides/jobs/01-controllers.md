@@ -36,7 +36,7 @@ pub struct CleanupJobs;
 
 impl CleanupJobs {
     #[repeated(Duration::from_secs(60))]
-    async fn cleanup(&self, _uuid: Uuid, _scheduler: JobScheduler) {
+    async fn cleanup(&self, _: Uuid, _: JobScheduler) {
         tracing::info!("Running periodic cleanup");
     }
 }
@@ -75,7 +75,7 @@ pub struct NotificationJobs {
 
 impl NotificationJobs {
     #[cron("0 0 9 * * *")]
-    async fn send_digest(&self, _uuid: Uuid, _scheduler: JobScheduler) {
+    async fn send_digest(&self, _: Uuid, _: JobScheduler) {
         self.email.send_digest().await;
     }
 }

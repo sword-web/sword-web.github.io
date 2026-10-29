@@ -48,14 +48,14 @@ reporta un error de configuración en vez de perder el diagnóstico en silencio.
 
 Cada crate valida su propia sección de configuración:
 
-| Sección | Dueño |
-|---|---|
-| `[application]` | `sword` |
-| `[tracing]` | `sword-layers` |
-| `[web]` | `sword-web` |
-| `[grpc]` | `sword-grpc` |
-| `[events]` | `sword-events` |
-| `[socketio]` | `sword-socketio` |
+| Sección         | Dueño            |
+| --------------- | ---------------- |
+| `[application]` | `sword`          |
+| `[tracing]`     | `sword-layers`   |
+| `[web]`         | `sword-web`      |
+| `[grpc]`        | `sword-grpc`     |
+| `[events]`      | `sword-events`   |
+| `[socketio]`    | `sword-socketio` |
 
 Las secciones ausentes usan sus defaults y no se validan. Una sección que existe
 pero tiene tipos o valores inválidos reporta todos sus problemas, con un label
@@ -80,8 +80,7 @@ Lo mismo pasa si no se puede construir el runtime de Tokio.
 Los códigos siguen `sword.<fase>.<subsistema>` y son estables. Cada crate
 documenta en su API los códigos que emite.
 
-El apagado agrega algunos códigos de proceso:
+El runtime agrega algunos códigos de proceso:
 
 - `sword.runtime.engine`: un engine se detuvo sin que se pidiera el apagado.
 - `sword.runtime.panic`: una tarea de engine entró en panic.
-- `sword.shutdown.timeout`: el apagado ordenado superó `shutdown-timeout-ms`.

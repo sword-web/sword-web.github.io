@@ -134,9 +134,23 @@ Inicia el núcleo del tipo de aplicación seleccionado y comienza a escuchar sol
 pub async fn run(self) -> Result<(), Error>
 ```
 
-El primer SIGINT/SIGTERM inicia un apagado ordenado: los engines dejan de aceptar trabajo y tienen `shutdown-timeout-ms` para terminar las solicitudes, handlers de eventos y jobs en curso. Un segundo signal termina el proceso de inmediato con código `130`.
+El método `run` inicializa la ejecución de la aplicación y los engines asociados.
+La ejecución de cada engine depende del tipo de aplicación (Web, Socket.IO,
+Events, gRPC). Si ocurre un error durante la ejecución, se devuelve un `Result`
+con el error correspondiente.
 
-Los errores de engine siguen su fase de diagnóstico. Los errores `Build` y `Startup` abortan de inmediato porque la aplicación nunca llegó a estar operativa. Los errores `Runtime` drenan el resto de los engines. Un apagado que supera el timeout se reporta como `sword.shutdown.timeout`.
+Si un engine falla, la aplicación y todos los engines asociados se detienen.
+
+La aplicación también se detiene cuando recibe una señal de terminación:
+
+- **SIGINT**: se genera al presionar Ctrl+C en la terminal. Detiene todos los
+  engines de inmediato y el proceso sale con código `0`.
+
+- **SIGTERM**: se envía normalmente Docker, systemd o Kubernetes para pedir el
+  apagado. Tiene el mismo comportamiento: parada inmediata y salida con `0`.
+
+En los casos manejados, el termino es inmediato, no se espera a que terminen las
+solicitudes, handlers ni jobs en curso. Las señales no se tratan como errores.
 
 ---
 

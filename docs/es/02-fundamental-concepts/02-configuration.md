@@ -119,11 +119,10 @@ let database = config.get::<DatabaseConfig>().expect("Expected configuration ite
 
 Sword establece una configuración general compartida para cualquier tipo de aplicación:
 
-| Key                 | Tipo             | Default | Descripción                                                 |
-| ------------------- | ---------------- | ------- | ----------------------------------------------------------- |
-| `name`                | `Option<String>` | `None`  | Nombre de la aplicación                                                |
-| `environment`         | `Option<String>` | `None`  | Nombre del entorno                                                     |
-| `shutdown-timeout-ms` | `integer`        | `10000` | Tiempo máximo de espera para que los engines se detengan al apagar     |
+| Key           | Tipo             | Default | Descripción             |
+| ------------- | ---------------- | ------- | ----------------------- |
+| `name`        | `Option<String>` | `None`  | Nombre de la aplicación |
+| `environment` | `Option<String>` | `None`  | Nombre del entorno      |
 
 ::: details Ejemplo en formato TOML
 
@@ -131,7 +130,6 @@ Sword establece una configuración general compartida para cualquier tipo de apl
 [application]
 name = "My Sword App"
 environment = "development"
-shutdown-timeout-ms = 10000
 ```
 
 :::

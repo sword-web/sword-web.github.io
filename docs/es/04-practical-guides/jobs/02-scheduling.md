@@ -57,4 +57,4 @@ async fn warm_up(&self, _uuid: Uuid, _scheduler: JobScheduler) {
 
 ## Ejecución y apagado
 
-El scheduler de jobs es un engine de la aplicación: arranca cuando se llama a `Application::run` y corre junto al resto de engines (web, Socket.IO o gRPC). Al apagarse, el scheduler se detiene de forma ordenada con la aplicación.
+El scheduler de jobs es un engine de la aplicación: arranca cuando se llama a `Application::run` y corre junto al resto de engines (Web, Socket.IO, Events o gRPC). Cuando la aplicación se detiene, el scheduler se detiene con ella.

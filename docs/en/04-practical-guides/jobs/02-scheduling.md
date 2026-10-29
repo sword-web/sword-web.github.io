@@ -15,7 +15,7 @@ The `#[cron("...")]` macro runs a job following a cron expression:
 
 ```rust
 #[cron("0 */5 * * * *")]
-async fn refresh_cache(&self, _uuid: Uuid, _scheduler: JobScheduler) {
+async fn refresh_cache(&self, _: Uuid, _: JobScheduler) {
     // Runs every 5 minutes.
 }
 ```
@@ -37,7 +37,7 @@ The `#[repeated(Duration)]` macro runs a job every time the given duration elaps
 use std::time::Duration;
 
 #[repeated(Duration::from_secs(30))]
-async fn poll(&self, _uuid: Uuid, _scheduler: JobScheduler) {
+async fn poll(&self, _: Uuid, _: JobScheduler) {
     // Runs every 30 seconds.
 }
 ```
@@ -50,11 +50,11 @@ The `#[once(Duration)]` macro runs a job a single time, after the given duration
 use std::time::Duration;
 
 #[once(Duration::from_secs(10))]
-async fn warm_up(&self, _uuid: Uuid, _scheduler: JobScheduler) {
+async fn warm_up(&self, _: Uuid, _: JobScheduler) {
     // Runs once, 10 seconds after startup.
 }
 ```
 
 ## Running and shutdown
 
-The job scheduler is an engine of the application: it starts when `Application::run` is called and runs alongside the rest of the engines (web, Socket.IO, or gRPC). On shutdown, the scheduler stops gracefully with the application.
+The job scheduler is an engine of the application: it starts when `Application::run` is called and runs alongside the rest of the engines (Web, Socket.IO, Events or gRPC). When the application stops, the scheduler stops with it.
