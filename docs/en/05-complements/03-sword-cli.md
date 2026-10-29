@@ -1,5 +1,5 @@
 ---
-title: "Sword CLI"
+title: "CLI"
 description: "Sword's command line tool for creating and managing projects from the terminal."
 outline: [2, 3]
 

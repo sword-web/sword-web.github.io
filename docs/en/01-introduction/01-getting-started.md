@@ -1,5 +1,5 @@
 ---
-title: "Getting Started with Sword"
+title: "Getting Started"
 description: "Examples in the repository to help you start using Sword."
 outline: [2, 3]
 ---

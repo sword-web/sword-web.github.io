@@ -332,13 +332,15 @@ export default defineConfig({
 			"meta",
 			{
 				name: "keywords",
-				content: "rust, framework, web, axum, sword, documentation",
+				content:
+					"rust, framework, server, grpc, socket.io, events, jobs, axum, tokio, sword, documentation",
 			},
 		],
 		["meta", { name: "theme-color", content: "#111111" }],
 	],
 	title: "Sword",
-	description: "Sword Web Framework Documentation",
+	titleTemplate: ":title · Sword",
+	description: "Documentation for the Sword server application framework",
 	base: "/",
 	rewrites: (page) => {
 		if (!page.startsWith("es/") && !page.startsWith("en/")) return page

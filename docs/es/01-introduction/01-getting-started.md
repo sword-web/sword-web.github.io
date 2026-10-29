@@ -1,5 +1,5 @@
 ---
-title: "Iniciando con Sword"
+title: "Iniciando"
 description: "Examples disponibles en el repositorio para comenzar a usar Sword."
 outline: [2, 3]
 ---

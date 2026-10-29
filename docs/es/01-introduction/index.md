@@ -1,16 +1,18 @@
 ---
-title: "Introducción a Sword - Framework Web para Rust"
-description: "Sword es un framework web estructurado y opinionado para Rust, construido sobre el ecosistema Tokio. Aprende sobre su arquitectura modular y características."
+title: "Introducción"
+description: "Aprende cómo Sword estructura aplicaciones del lado del servidor: web, Socket.IO, gRPC, eventos y jobs, con inyección de dependencias, interceptores y layers reutilizables."
 
 keywords:
   [
     "sword framework",
-    "rust web framework",
+    "framework rust servidor",
     "grpc",
+    "socket.io",
+    "eventos",
+    "jobs",
+    "inyección de dependencias",
     "axum",
     "tokio",
-    "desarrollo web rust",
-    "framework modular",
   ]
 ---
 
