@@ -169,6 +169,24 @@ const sidebarTree: PageNode[] = [
 				],
 			},
 			{
+				key: "events",
+				collapsed: true,
+				items: [
+					{
+						key: "events-handling",
+						path: "practical-guides/events/handling-events",
+					},
+					{
+						key: "events-memory",
+						path: "practical-guides/events/memory/",
+					},
+					{
+						key: "events-nats",
+						path: "practical-guides/events/nats/",
+					},
+				],
+			},
+			{
 				key: "jobs",
 				collapsed: true,
 				items: [
@@ -242,6 +260,10 @@ const labels: Record<Locale, Record<string, string>> = {
 		"grpc-streaming": "Streaming",
 		"grpc-clients": "Clients",
 		"grpc-access-logger": "Access Logger",
+		"events": "Events",
+		"events-handling": "Handling Events",
+		"events-memory": "In-Memory",
+		"events-nats": "NATS",
 		"jobs": "Jobs",
 		"jobs-controllers": "Controllers",
 		"jobs-scheduling": "Scheduling",
@@ -298,6 +320,10 @@ const labels: Record<Locale, Record<string, string>> = {
 		"grpc-streaming": "Streaming",
 		"grpc-clients": "Clientes",
 		"grpc-access-logger": "Access Logger",
+		"events": "Eventos",
+		"events-handling": "Manejo de eventos",
+		"events-memory": "En memoria",
+		"events-nats": "NATS",
 		"jobs": "Jobs",
 		"jobs-controllers": "Controladores",
 		"jobs-scheduling": "Programación",

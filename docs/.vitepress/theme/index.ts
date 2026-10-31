@@ -6,6 +6,7 @@ import "./style.css"
 import ApiSection from "./components/ApiSection.vue"
 import DependencyInjectionDiagram from "./components/DependencyInjectionDiagram.vue"
 import ControllersDiagram from "./components/ControllersDiagram.vue"
+import EventFlowDiagram from "./components/EventFlowDiagram.vue"
 
 export default {
 	extends: DefaultTheme,
@@ -16,5 +17,6 @@ export default {
 		app.component("ApiSection", ApiSection)
 		app.component("DependencyInjectionDiagram", DependencyInjectionDiagram)
 		app.component("ControllersDiagram", ControllersDiagram)
+		app.component("EventFlowDiagram", EventFlowDiagram)
 	},
 } satisfies Theme
