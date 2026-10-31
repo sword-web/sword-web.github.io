@@ -58,3 +58,5 @@ async fn warm_up(&self, _: Uuid, _: JobScheduler) {
 ## Running and shutdown
 
 The job scheduler is an engine of the application. It starts when `Application::run` is called and runs alongside the rest of the engines (Web, Socket.IO, Events or gRPC). When the application stops, the scheduler stops with it.
+
+The web example includes a jobs module with all three schedules on [GitHub](https://github.com/sword-web/sword/tree/main/examples/web/src/jobs).

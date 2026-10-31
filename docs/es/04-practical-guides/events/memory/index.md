@@ -137,4 +137,4 @@ A diferencia de **NATS**, en este transporte no hay _wildcards_. Los handlers de
 | ---------------------------- | ------------------------------------------ |
 | `buffer_size = 0`            | Error al iniciar la aplicación, no arranca |
 | El handler devuelve un error | Se reintenta si está configurado           |
-| Apagado de la aplicación     | Los eventos pendientes se descartan        |
+| Apagado de la aplicación     | Los pendientes se descartan y se registran |

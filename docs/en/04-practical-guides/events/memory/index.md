@@ -137,4 +137,4 @@ Unlike **NATS**, this transport has no _wildcards_. Handlers must subscribe to t
 | ------------------------ | --------------------------------------------- |
 | `buffer_size = 0`        | Startup error, the application does not start |
 | Handler returns an error | Retried if configured                         |
-| Application shutdown     | Pending events are discarded                  |
+| Application shutdown     | Pending events are discarded and counted      |

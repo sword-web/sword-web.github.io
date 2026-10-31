@@ -58,3 +58,5 @@ async fn warm_up(&self, _uuid: Uuid, _scheduler: JobScheduler) {
 ## Ejecución y apagado
 
 El scheduler de jobs es un engine de la aplicación, este arranca cuando se llama a `Application::run` y corre junto al resto de engines (Web, Socket.IO, Events o gRPC). Cuando la aplicación se detiene, el scheduler se detiene con ella.
+
+El ejemplo web incluye un módulo de jobs con las tres programaciones en [GitHub](https://github.com/sword-web/sword/tree/main/examples/web/src/jobs).
