@@ -41,11 +41,11 @@ hero:
 
 ## Why Sword?
 
-- **Async by default**: built on the Tokio ecosystem.
-- **Modular**: modules and dependency injection as first-class citizens.
-- **Web, Socket.IO, and gRPC**: one framework for all your APIs.
-- **Scheduled jobs**: cron, repeated, and one-shot background tasks.
-- **Batteries included**: built-in support for validation, standardized error handling, TOML-based configuration, and more.
+- Async by default: built on the Tokio ecosystem.
+- Modular: modules and dependency injection are part of the core.
+- Web, Socket.IO and gRPC controllers in one framework.
+- Scheduled jobs: cron, repeated and one-shot background tasks.
+- Validation, standardized error handling and TOML configuration built in.
 
 ## Quick start
 
@@ -57,7 +57,7 @@ cd sword/examples/web
 cargo run
 ```
 
-Then open `http://localhost:3000` in your browser.
+Then open `http://localhost:3000` in the browser.
 
 <div class="sword-cta">
 <h2>Ready to build with Sword?</h2>

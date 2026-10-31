@@ -19,7 +19,7 @@ module_name
 └── service.rs      # Business logic layer.
 ```
 
-You have likely seen or used a similar architecture in frameworks like Spring (Java) or NestJS (Node.js). Sword takes heavy inspiration from the latter.
+The structure resembles frameworks like Spring (Java) or NestJS (Node.js). Sword takes heavy inspiration from the latter.
 
 Of course, this structure is only a guide. In fact, it is highly likely you will need to add additional files, such as:
 

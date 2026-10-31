@@ -41,4 +41,4 @@ skip-paths = [
 
 ## Identificador de solicitud
 
-El logger reutiliza el header `x-request-id` que fija el `RequestIdLayer` integrado, el cual también se aplica a las solicitudes gRPC para correlación. Cuando está presente, solo registra los primeros 8 caracteres; en caso contrario usa un placeholder `-`.
+El logger reutiliza el header `x-request-id` que fija el `RequestIdLayer` integrado, el cual también se aplica a las solicitudes gRPC para correlación. Cuando está presente, solo registra los primeros 8 caracteres. En caso contrario, usa un placeholder `-`.

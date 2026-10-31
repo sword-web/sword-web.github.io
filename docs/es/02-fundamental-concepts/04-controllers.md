@@ -18,6 +18,7 @@ Un controlador es una estructura anotada con la macro `#[controller]` que implem
 
 ```rust
 use std::sync::Arc;
+
 use sword::prelude::*;
 
 #[controller(kind = Controller::Web, path = "/users")]
@@ -50,6 +51,7 @@ Cada tipo de controlador define sus propios atributos, que se documentan en la g
 - [Controladores web](/es/practical-guides/web/controllers)
 - [Controladores Socket.IO](/es/practical-guides/socketio/controllers)
 - [Controladores gRPC](/es/practical-guides/grpc/controllers)
+- [Controladores de eventos](/es/practical-guides/events/handling-events)
 - [Controladores de Tareas programadas](/es/practical-guides/jobs/controllers)
 
 ## Registro

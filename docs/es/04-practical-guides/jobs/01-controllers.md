@@ -28,8 +28,9 @@ Un controlador de jobs es una estructura anotada con `#[controller(kind = Contro
 
 ```rust
 use std::time::Duration;
-use sword::prelude::*;
+
 use sword::jobs::*;
+use sword::prelude::*;
 
 #[controller(kind = Controller::JobHandler)]
 pub struct CleanupJobs;
@@ -62,8 +63,9 @@ Como cualquier otro controlador, un controlador de jobs puede recibir dependenci
 
 ```rust
 use std::sync::Arc;
-use sword::prelude::*;
+
 use sword::jobs::*;
+use sword::prelude::*;
 
 #[injectable]
 pub struct EmailService;

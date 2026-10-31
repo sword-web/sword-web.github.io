@@ -15,12 +15,12 @@ En server streaming el cliente envía una solicitud y el servidor responde con u
 Puedes construir el stream con `async_stream::try_stream` y envolverlo con `GrpcResponse::stream()`:
 
 ```rust
-use async_stream::try_stream;
 use std::sync::Arc;
-use tokio::time::{self, Duration};
 
+use async_stream::try_stream;
 use sword::grpc::*;
 use sword::prelude::*;
+use tokio::time::{self, Duration};
 
 #[controller(kind = Controller::Grpc, service = UserServiceServer)]
 pub struct UsersController {
@@ -54,13 +54,12 @@ impl UserService for UsersController {
 
 ## Streaming de cliente
 
-En client streaming el cliente envía un stream de mensajes y el servidor responde con un único mensaje. El método recibe `Request<tonic::Streaming<T>>`; con `into_inner()` obtienes el stream y lo iteras por mensajes:
+En client streaming el cliente envía un stream de mensajes y el servidor responde con un único mensaje. El método recibe `Request<tonic::Streaming<T>>`. Con `into_inner()` obtienes el stream y lo iteras por mensajes:
 
 ```rust
-use tonic::Streaming;
-
 use sword::grpc::*;
 use sword::prelude::*;
+use tonic::Streaming;
 
 #[sword::grpc::async_trait]
 impl UserService for UsersController {
@@ -78,7 +77,7 @@ impl UserService for UsersController {
 }
 ```
 
-`stream.message().await` devuelve `Result<Option<T>, tonic::Status>`: `Some` por cada mensaje recibido y `None` cuando el cliente cierra el stream.
+`stream.message().await` devuelve `Result<Option<T>, tonic::Status>`, con `Some` por cada mensaje recibido y `None` cuando el cliente cierra el stream.
 
 ## Streaming bidireccional
 
@@ -86,10 +85,9 @@ En bidi streaming ambos lados envían y reciben streams de forma concurrente. Re
 
 ```rust
 use async_stream::try_stream;
-use tonic::Streaming;
-
 use sword::grpc::*;
 use sword::prelude::*;
+use tonic::Streaming;
 
 #[sword::grpc::async_trait]
 impl UserService for UsersController {
@@ -149,5 +147,5 @@ where
 ## Notas
 
 - `GrpcResponse` es una estructura sin estado: sus métodos son constructores estáticos.
-- El tipo asociado que define el trait generado debe coincidir con `GrpcStream<T>`, si no, la implementación no compila.
-- `async_stream` es una dependencia opcional pero cómoda para construir streams, también puedes implementar `Stream` manualmente si lo prefieres.
+- El tipo asociado que define el trait generado debe coincidir con `GrpcStream<T>`. Si no, la implementación no compila.
+- `async_stream` es una dependencia opcional pero cómoda para construir streams. También puedes implementar `Stream` manualmente si lo prefieres.

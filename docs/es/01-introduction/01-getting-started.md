@@ -36,4 +36,4 @@ Ejemplo centrado en la integración gRPC con Sword, tomando como base el crate `
 
 Ejemplo centrado en la integración con el broker de eventos NATs, tomando como base el crate `async_nats`.
 
-[Ver en GitHub](https://github.com/sword-web/sword/tree/main/examples/events)
+[Ver en GitHub](https://github.com/sword-web/sword/tree/main/examples/nats)

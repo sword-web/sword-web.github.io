@@ -68,8 +68,8 @@ Como habrás notado, es necesario definir un tipo de error asociado. Este puede 
 
 En Socket.IO conviene distinguir dos cosas:
 
-- **Layers globales**: sí aplican, porque Socket.IO se monta sobre el runtime web de la aplicación. Por ejemplo, una layer global de CORS puede influir en el handshake inicial y en la solicitud HTTP asociada al transporte `polling` o `websocket`.
-- **Layers locales vía `#[interceptor(expr)]`**: no se soportan para lógica de conexión.
+- Las layers globales aplican porque Socket.IO se monta sobre el runtime web de la aplicación. Una layer global de CORS, por ejemplo, puede influir en el handshake inicial y en la solicitud HTTP asociada al transporte `polling` o `websocket`.
+- Las layers locales vía `#[interceptor(expr)]` no se soportan para lógica de conexión.
 
 Si necesitas lógica específica de conexión en Socket.IO, la forma correcta es mediante `OnConnect`.
 

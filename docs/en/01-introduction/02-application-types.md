@@ -1,6 +1,6 @@
 ---
 title: "Application Types"
-description: "Sword provides multiple application types that you can adapt to your needs."
+description: "Sword provides multiple application types for the needs of each project."
 outline: [2, 3]
 ---
 
@@ -96,7 +96,7 @@ An events application handles in-memory events and events from external sources 
 
 ```toml
 [dependencies]
-sword = { version = "x.y.z", features = ["events"] }
+sword = { version = "x.y.z", features = ["events", "events-nats"] }
 ```
 
 **Complements**
@@ -105,3 +105,5 @@ You must enable at least one event adapter. Sword currently supports these adapt
 
 - `events-nats`: Enables the NATS event adapter.
 - `events-memory`: Enables the in-memory event adapter.
+
+To learn more, see _Practical Guides > Handling Events_.

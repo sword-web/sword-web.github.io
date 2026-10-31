@@ -88,6 +88,6 @@ async fn get_users(&self, req: Request) -> WebResult<JsonResponse> {
 }
 ```
 
-Para todos los patrones de respuesta — auto-wrap con `Result<T, E>`, manejo de errores y construcción de payload consulta [Manejo de Respuestas](/es/practical-guides/web/response-handling).
+Para todos los patrones de respuesta, incluidos auto-wrap con `Result<T, E>`, manejo de errores y construcción de payload, consulta [Manejo de Respuestas](/es/practical-guides/web/response-handling).
 
 Sin embargo, los métodos del controlador también pueden retornar cualquier tipo que implemente `IntoResponse`, ya que la capa web de Sword se apoya en `axum`.

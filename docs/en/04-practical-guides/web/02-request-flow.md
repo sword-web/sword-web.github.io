@@ -6,7 +6,7 @@ outline: [2, 3]
 
 # HTTP Request Handling and Extraction
 
-In Sword, unlike Axum, individual extractors are not used in the signature of the controller's methods. Instead, a struct centralizes the request information and exposes a unified API for accessing the body, query, params, headers, cookies, and more.
+In Sword, unlike Axum, individual extractors are not used in the signature of the controller's methods. Instead, a struct centralizes the request information and exposes a unified API for accessing the body, query, params, headers and cookies.
 
 ## The 'Request' struct
 

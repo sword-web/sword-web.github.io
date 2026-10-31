@@ -41,7 +41,7 @@ sword.build.web · Build error
 ```
 
 `tracing` emits one structured event per diagnostic with `code`, `phase`,
-`engine`, `source` and `reason`. It requires an active subscriber; if there is
+`engine`, `source` and `reason`. It requires an active subscriber. If there is
 none, Sword reports a configuration error instead of silently dropping the
 diagnostic.
 

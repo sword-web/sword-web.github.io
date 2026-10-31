@@ -43,7 +43,7 @@ struct UsersController;
 :::
 
 ::: info Avance en la cadena de interceptores
-A diferencia de los interceptores web, en esta variante no existe `next()`: el interceptor valida/transforma metadata de entrada y retorna `Ok(req)` o un `Status` de error.
+A diferencia de los interceptores web, en esta variante no existe `next()`, el interceptor valida/transforma metadata de entrada y retorna `Ok(req)` o un `Status` de error.
 :::
 
 ## Interceptores con configuración

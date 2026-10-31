@@ -41,7 +41,7 @@ sword.build.web · Build error
 ```
 
 `tracing` emite un evento estructurado por diagnóstico con `code`, `phase`,
-`engine`, `source` y `reason`. Requiere un subscriber activo; si no lo hay, Sword
+`engine`, `source` y `reason`. Requiere un subscriber activo. Si no lo hay, Sword
 reporta un error de configuración en vez de perder el diagnóstico en silencio.
 
 ## De dónde salen

@@ -21,8 +21,8 @@ Para acceder a ella, se puede usar el campo `config` de una instancia de `Applic
 :::details Asumiendo el siguiente snippet de código para los ejemplos:
 
 ```rust
-use sword::prelude::*;
 use serde::Deserialize;
+use sword::prelude::*;
 
 #[config(key = "database")]
 #[derive(Debug, Clone, Deserialize)]
@@ -203,7 +203,7 @@ Esto es útil para secretos, certificados o claves privadas.
 
 ## Unidades especiales
 
-Tambien es posible utilizar unidades legibles por humanos para tamaños y duraciones. Estas unidades no solo guardan el valor parseado; también conservan el valor crudo para logging y display.
+Tambien es posible utilizar unidades legibles por humanos para tamaños y duraciones. Estas unidades guardan el valor parseado y también el valor crudo para logging y display.
 
 ### Representación de bytes
 
@@ -263,3 +263,5 @@ Puedes encontrar ejemplos de configuración específica para cada tipo de aplica
 - [Configuración de una aplicación web](/es/practical-guides/web/configuration)
 - [Configuración de una aplicación Socket.IO](/es/practical-guides/socketio/configuration)
 - [Configuración de una aplicación gRPC](/es/practical-guides/grpc/configuration)
+- [Configuración de eventos en memoria](/es/practical-guides/events/memory/#configuracion)
+- [Configuración de eventos NATS](/es/practical-guides/events/nats/#configuracion)

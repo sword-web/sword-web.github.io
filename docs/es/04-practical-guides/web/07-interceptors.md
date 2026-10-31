@@ -114,6 +114,7 @@ También puedes aplicar cualquier tipo de interceptor a nivel de controlador, lo
 
 ```rust
 use std::time::Duration;
+
 use sword::prelude::*;
 use tower_http::timeout::TimeoutLayer;
 

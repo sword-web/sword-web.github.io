@@ -82,10 +82,10 @@ let db_provider = Database::new(db_conf)
     .await
     .expect("Failed to create Database provider");
 
-Application::builder()
+Application::builder()?
     .with_module::<SomeModule>()
     .with_provider(db_provider)
-    .build();
+    .build()?;
 ```
 
 ## Components
@@ -97,7 +97,7 @@ A component (`Component`) is an injectable that is **self-constructed** from dep
 Use the `#[injectable]` attribute on the struct definition:
 
 :::info Tip
-The `#[injectable(component)]` syntax is also valid, but not necessary. Use it only if you want to be explicit about defining a component.
+The `#[injectable(component)]` syntax is also valid, but not necessary. Use it only to mark the type explicitly as a component.
 :::
 
 ```rust
@@ -125,9 +125,9 @@ impl TaskRepository {
 }
 ```
 
-`TaskRepository` does not need a specific constructor: the container resolves each field and constructs it automatically.
+`TaskRepository` does not need a specific constructor, since the container resolves each field and constructs it automatically.
 
-You probably noticed that `Database` is wrapped in an `Arc`. It is not required, but it is useful for sharing references to the same component or provider in several places without extra clones.
+`Database` is wrapped in an `Arc`. It is not required, but it is useful for sharing references to the same component or provider in several places without extra clones.
 
 ### Multiple injection
 

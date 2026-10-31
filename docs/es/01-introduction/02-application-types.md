@@ -1,6 +1,6 @@
 ---
 title: "Tipos de aplicación"
-description: "Sword provee múltiples tipos de aplicación que puedes ajustar a tus necesidades."
+description: "Sword provee múltiples tipos de aplicación que se ajustan a las necesidades de cada proyecto."
 outline: [2, 3]
 ---
 
@@ -97,7 +97,7 @@ Una aplicación de eventos permite manejar eventos en memoria y de fuentes exter
 
 ```toml
 [dependencies]
-sword = { version = "x.y.z", features = ["events"] }
+sword = { version = "x.y.z", features = ["events", "events-nats"] }
 ```
 
 **Complementos**
@@ -106,3 +106,5 @@ En este tipo de aplicación es obligatorio habilitar al menos un adaptador de ev
 
 - `events-nats`: Habilita el adaptador de eventos NATS.
 - `events-memory`: Habilita el adaptador de eventos en memoria.
+
+Para conocer más, ve a _Guías Prácticas > Manejo de eventos_.

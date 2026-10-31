@@ -41,11 +41,11 @@ hero:
 
 ## ¿Por qué Sword?
 
-- **Asíncrono por defecto**: construido sobre el ecosistema de Tokio.
-- **Modular**: módulos e inyección de dependencias como ciudadanos de primera clase.
-- **Web, Socket.IO y gRPC**: un solo framework para todas tus APIs.
-- **Jobs programados**: tareas de fondo cron, repetidas y de una sola ejecución.
-- **Baterías incluidas**: soporte integrado para validación, manejo de errores estandarizado, configuración basada en TOML y más.
+- Asíncrono por defecto: construido sobre el ecosistema de Tokio.
+- Modular: módulos e inyección de dependencias forman parte del núcleo.
+- Controladores Web, Socket.IO y gRPC en un solo framework.
+- Jobs programados: tareas de fondo cron, repetidas y de una sola ejecución.
+- Validación, manejo de errores estandarizado y configuración TOML integrados.
 
 ## Inicio rápido
 
@@ -57,7 +57,7 @@ cd sword/examples/web
 cargo run
 ```
 
-Luego abre `http://localhost:3000` en tu navegador.
+Luego abre `http://localhost:3000` en el navegador.
 
 <div class="sword-cta">
 <h2>¿Listo para construir con Sword?</h2>

@@ -142,12 +142,12 @@ Los módulos se registran con el método `with_module` del `ApplicationBuilder`.
 
 ```rust
 #[sword::main]
-async fn main() {
-    let app = Application::builder()
+async fn main() -> Result<(), Error> {
+    let app = Application::builder()?
         .with_module::<SharedModule>()
         .with_module::<UsersModule>()
-        .build();
+        .build()?;
 
-    app.run().await;
+    app.run().await
 }
 ```

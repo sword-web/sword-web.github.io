@@ -189,7 +189,7 @@ if let Some(bad_request) = details.bad_request() {
 ```
 
 ::: tip When to use GrpcError or GrpcStatus?
-`GrpcError` converts domain errors to `Status` to propagate them with `?` in any method. `GrpcStatus` directly builds a rich error response with structured details. Both coexist: use `GrpcError` for the normal error flow and `GrpcStatus` when you need to attach standardized details.
+`GrpcError` converts domain errors to `Status` to propagate them with `?` in any method. `GrpcStatus` directly builds a rich error response with structured details. Both can coexist. Use `GrpcError` for the normal error flow and `GrpcStatus` when you need to attach standardized details.
 :::
 
 ## Tracing
@@ -249,11 +249,11 @@ The compiler validates that the referenced fields exist on the variant. Not supp
 ::: code-group
 
 ```rust [shared/errors.rs]
-use crate::auth::AuthError;
-use crate::users::UserError;
-
 use sword::grpc::*;
 use thiserror::Error;
+
+use crate::auth::AuthError;
+use crate::users::UserError;
 
 #[derive(Debug, Error, GrpcError)]
 #[grpc_error(code = "internal", tracing = error)]

@@ -1,12 +1,12 @@
 ---
 title: "Data Validation"
-description: "Input data validation is a fundamental aspect of web applications. It ensures that data meets specific rules before being processed or stored."
+description: "Input data validation checks that data meets specific rules before it is processed or stored."
 outline: [2, 3]
 ---
 
 # Data Validation
 
-Input data validation is a fundamental aspect of web applications. It ensures that data meets specific rules before being processed or stored.
+Input data validation checks that data meets specific rules before it is processed or stored.
 
 Sword integrates support for the `validator` crate via the `validation-validator` feature.
 

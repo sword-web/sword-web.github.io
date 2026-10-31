@@ -1,6 +1,6 @@
 ---
 title: "OpenAPI & Swagger UI"
-description: "Serve OpenAPI specifications and mount Swagger UI with zero code — just add configuration."
+description: "Serve OpenAPI specifications and mount Swagger UI with zero code. Just add configuration."
 outline: [2, 3]
 keywords:
   ["openapi", "swagger", "swagger ui", "api documentation", "spec", "yaml", "json", "sword web"]
@@ -26,7 +26,7 @@ version = "1.0.0"
 spec-file-paths = ["config/openapi.yaml", "config/openapi-test.yaml"]
 ```
 
-Once configured, navigate to `/docs` in your browser to explore your API interactively.
+Once configured, open `/docs` in the browser to explore the API interactively.
 
 :::info Note on the specification path
 If you have a `router-prefix` configured, it will affect the specification path.

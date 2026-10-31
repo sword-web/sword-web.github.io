@@ -114,6 +114,7 @@ You can also apply any type of interceptor at the controller level. It affects e
 
 ```rust
 use std::time::Duration;
+
 use sword::prelude::*;
 use tower_http::timeout::TimeoutLayer;
 

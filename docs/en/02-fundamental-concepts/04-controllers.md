@@ -18,6 +18,7 @@ A controller is a struct annotated with the `#[controller]` macro that implement
 
 ```rust
 use std::sync::Arc;
+
 use sword::prelude::*;
 
 #[controller(kind = Controller::Web, path = "/users")]
@@ -50,6 +51,7 @@ Each controller type defines its own attributes, documented in its practical gui
 - [Web controllers](/en/practical-guides/web/controllers)
 - [Socket.IO controllers](/en/practical-guides/socketio/controllers)
 - [gRPC controllers](/en/practical-guides/grpc/controllers)
+- [Event controllers](/en/practical-guides/events/handling-events)
 - [Scheduled job controllers](/en/practical-guides/jobs/controllers)
 
 ## Registration

@@ -130,7 +130,7 @@ pub fn error<T: Serialize>(mut self, error: T) -> Self
 pub fn errors<T: Serialize>(mut self, errors: T) -> Self
 ```
 
-Let you attach errors to the response. `error()` is for a single error, while `errors()` is for a collection of errors or a validation structure. Both have essentially the same purpose; however, both are included for semantics and clarity in the intent of the response.
+Let you attach errors to the response. `error()` is for a single error, while `errors()` is for a collection of errors or a validation structure. Both have essentially the same purpose. However, both are included for semantics and clarity in the intent of the response.
 
 ::: code-group
 
@@ -307,12 +307,12 @@ You can also add custom headers with `header(...)`. And since `File` implements 
 
 When an endpoint needs to redirect to another URL, Sword exposes `Redirect`. Each constructor covers one of the most common 3xx codes:
 
-- `Redirect::permanent(url)` — `301 Moved Permanently`
-- `Redirect::found(url)` — `302 Found`
-- `Redirect::see_other(url)` — `303 See Other`
-- `Redirect::temporary(url)` — `307 Temporary Redirect`
-- `Redirect::permanent_redirect(url)` — `308 Permanent Redirect`
-- `Redirect::status(code, url)` — a custom code
+- `Redirect::permanent(url)`: `301 Moved Permanently`
+- `Redirect::found(url)`: `302 Found`
+- `Redirect::see_other(url)`: `303 See Other`
+- `Redirect::temporary(url)`: `307 Temporary Redirect`
+- `Redirect::permanent_redirect(url)`: `308 Permanent Redirect`
+- `Redirect::status(code, url)`: a custom code
 
 For example, after a successful login you can redirect with `see_other`, which forces a `GET` request to the new location:
 

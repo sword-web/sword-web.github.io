@@ -6,13 +6,13 @@ outline: [2, 3]
 
 # Fundamentos y contratos gRPC
 
-Sword usa `tonic` como base para los controladores gRPC. En Sword, los archivos `.proto` definen el contrato público de tu servicio gRPC: no se leen en runtime, se compilan en tiempo de build y generan el código Rust del servicio, los tipos de mensaje y, opcionalmente, un descriptor para reflection.
+Sword usa `tonic` como base para los controladores gRPC. Para esto se utilizan archivos `.proto` que definen el contrato de un servicio gRPC, estos no se leen en runtime, se compilan y generan el código Rust del servicio, los tipos de mensaje y, opcionalmente, un descriptor para reflection.
 
 ## Protocol Buffers
 
 Protocol Buffers es un mecanismo extensible y neutral respecto al lenguaje y la plataforma, desarrollado por Google, para serializar datos estructurados.
 
-Defines cómo quieres estructurar tus datos una sola vez y, posteriormente, puedes utilizar código fuente generado automáticamente tras un proceso de compilación para escribir y leer fácilmente tus datos estructurados desde y hacia distintos flujos de datos, utilizando diversos lenguajes de programación.
+Los `.proto` definen cómo se estructuran los datos una sola vez. Después, el código generado al compilar se usa para escribir y leer esos datos desde y hacia distintos flujos, en diversos lenguajes de programación.
 
 ## Tipos de RPC
 
@@ -56,7 +56,7 @@ Esto facilita:
 
 #### Servicios
 
-Usa el sufijo `GrpcService` en servicios proto, porque en tu código de aplicación pueden coexistir servicios de negocio con nombres similares.
+Usa el sufijo `GrpcService` en servicios proto, porque en tu aplicación pueden coexistir servicios de negocio con nombres similares.
 
 ::: code-group
 

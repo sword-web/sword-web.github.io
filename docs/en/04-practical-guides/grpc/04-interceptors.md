@@ -43,7 +43,7 @@ struct UsersController;
 :::
 
 ::: info No `next()`
-Unlike web interceptors, there is no `next()` in this variant: the interceptor validates/transforms the incoming metadata and returns `Ok(req)` or an error `Status`.
+Unlike web interceptors, there is no `next()` in this variant. The interceptor validates/transforms the incoming metadata and returns `Ok(req)` or an error `Status`.
 :::
 
 ## Interceptors with configuration

@@ -82,10 +82,10 @@ let db_provider = Database::new(db_conf)
     .await
     .expect("Failed to create Database provider");
 
-Application::builder()
+Application::builder()?
     .with_module::<SomeModule>()
     .with_provider(db_provider)
-    .build();
+    .build()?;
 ```
 
 ## Componentes
@@ -97,7 +97,7 @@ Un componente (`Component`) es un inyectable que se **autoconstruye** a partir d
 Usa el atributo `#[injectable]` en la definición de la estructura:
 
 :::info Consejo
-La sintaxis `#[injectable(component)]` también es válida, pero no es necesaria. Úsala solo si quieres ser explícito sobre tu intención de definir un componente.
+La sintaxis `#[injectable(component)]` también es válida, pero no es necesaria. Úsala solo para marcar el tipo explícitamente como componente.
 :::
 
 ```rust
@@ -125,9 +125,9 @@ impl TaskRepository {
 }
 ```
 
-`TaskRepository` no necesita un constructor específico: el contenedor resuelve cada campo y lo construye automáticamente.
+`TaskRepository` no necesita un constructor específico ya que el contenedor resuelve cada campo y lo construye automáticamente.
 
-Probablemente notaste que `Database` está envuelto en un puntero `Arc`. No es obligatorio, pero es útil para compartir referencias de un mismo componente o proveedor en varios lugares sin clonar de más.
+`Database` está envuelto en un puntero `Arc`. No es obligatorio, pero es útil para compartir referencias de un mismo componente o proveedor en varios lugares sin clonar de más.
 
 ### Inyección múltiple
 

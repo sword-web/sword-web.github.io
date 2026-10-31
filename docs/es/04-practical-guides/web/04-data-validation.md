@@ -1,12 +1,12 @@
 ---
 title: "Validación de Datos"
-description: "La validación de datos de entrada es un aspecto fundamental en aplicaciones web."
+description: "La validación de datos de entrada comprueba que los datos cumplen reglas específicas antes de procesarse o almacenarse."
 outline: [2, 3]
 ---
 
 # Validación de Datos
 
-La validación de datos de entrada es un aspecto fundamental en aplicaciones web. Permite asegurar que los datos cumplen reglas específicas antes de ser procesados o almacenados.
+La validación de datos de entrada comprueba que los datos cumplen reglas específicas antes de procesarse o almacenarse.
 
 Sword integra soporte con el crate `validator` mediante la feature `validation-validator`.
 

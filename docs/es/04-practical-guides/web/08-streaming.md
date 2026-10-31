@@ -70,12 +70,12 @@ Server-Sent Events (SSE) es una tecnología de push del servidor que permite a u
 En Sword se declara con el atributo `#[sse]`. El handler devuelve un `Sse` que envuelve un flujo de eventos, y la ruta se sirve por `GET` con content-type `text/event-stream`.
 
 ```rust
-use async_stream::stream;
 use std::time::Duration;
-use tokio::time::sleep;
 
+use async_stream::stream;
 use sword::prelude::*;
 use sword::web::*;
+use tokio::time::sleep;
 
 #[controller(kind = Controller::Web, path = "/sse")]
 struct SseController;

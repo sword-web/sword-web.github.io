@@ -90,7 +90,7 @@ Valores que acepta `time-style`:
 
 ### Patrón de tiempo
 
-`time-pattern` solo se aplica a `local` y `utc`. Sword usa sintaxis `strftime`, igual que `chrono`; algunos ejemplos:
+`time-pattern` solo se aplica a `local` y `utc`. Sword usa sintaxis `strftime`, igual que `chrono`. Algunos ejemplos:
 
 | Patrón                 | Resultado aproximado   |                 |
 | ---------------------- | ---------------------- | --------------- |

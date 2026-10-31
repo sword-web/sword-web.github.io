@@ -6,7 +6,7 @@ outline: [2, 3]
 
 # Manejo de errores en una aplicación web
 
-Normalmente los métodos de cada controlador retornan errores HTTP, sin embargo, servicios, repositorios y otros componentes suelen retornar errores de dominio propios de un módulo.
+Normalmente los métodos de cada controlador retornan errores HTTP. Sin embargo, servicios, repositorios y otros componentes suelen retornar errores de dominio propios de un módulo.
 
 Por esto, Sword provee `HttpError`, una macro para enums de errores. Esta macro genera las conversiones correspondientes de cada error a `JsonResponse` en función de los atributos que sean definidos en cada variante.
 
@@ -105,12 +105,12 @@ El compilador valida que los campos referenciados existan en la variante. No sop
 ::: code-group
 
 ```rust [shared/errors.rs]
-use crate::auth::AuthError;
-use crate::users::UserError;
-
 use sword::prelude::*;
 use sword::web::*;
 use thiserror::Error;
+
+use crate::auth::AuthError;
+use crate::users::UserError;
 
 #[derive(Debug, Error, HttpError)]
 pub enum AppError {

@@ -13,9 +13,10 @@ En Sword, un controlador gRPC es una estructura que implementa un trait generada
 :::code-group
 
 ```rust [controller.rs]
-use super::proto::*;
 use sword::grpc::*;
 use sword::prelude::*;
+
+use super::proto::*;
 
 #[controller(kind = Controller::Grpc, service = UserGrpcServiceServer)]
 pub struct UsersController;
@@ -78,7 +79,7 @@ message UserItem {
 impl UserGrpcService for UsersController { ... }
 ```
 
-De la misma forma que lo establece `tonic`, este atributo es necesario para implementar el trait generado por `tonic`: permite que los métodos del trait puedan ser `async` y sean registrados correctamente en el servidor gRPC.
+De la misma forma que lo establece `tonic`, este atributo es necesario para implementar el trait generado al compilar los contratos `.proto`, esto permite que los métodos del trait puedan ser `async` y sean registrados correctamente en el servidor gRPC.
 
 </ApiSection>
 

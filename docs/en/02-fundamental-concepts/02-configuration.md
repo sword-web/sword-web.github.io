@@ -21,8 +21,8 @@ You can access it through the `config` field of an `ApplicationBuilder` or `Appl
 :::details Assuming the following snippet for the examples:
 
 ```rust
-use sword::prelude::*;
 use serde::Deserialize;
+use sword::prelude::*;
 
 #[config(key = "database")]
 #[derive(Debug, Clone, Deserialize)]
@@ -263,3 +263,5 @@ You can find configuration examples for each Sword application type in the pract
 - [Configuration of a web application](/en/practical-guides/web/configuration)
 - [Configuration of a Socket.IO application](/en/practical-guides/socketio/configuration)
 - [Configuration of a gRPC application](/en/practical-guides/grpc/configuration)
+- [Configuration of in-memory events](/en/practical-guides/events/memory/#configuration)
+- [Configuration of NATS events](/en/practical-guides/events/nats/#configuration)

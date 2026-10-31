@@ -12,7 +12,7 @@ This page describes the general model for handling errors in Sword. The details 
 
 - Errors are typed as enums, not as strings.
 - The format returned to clients is uniform within each protocol.
-- Only what each variant declares is exposed; internal details are not exposed.
+- Only what each variant declares is exposed. Internal details stay hidden.
 
 ## Domain errors, not transport errors
 
@@ -42,7 +42,7 @@ Each transport provides a macro that turns the domain enum into the response it 
 | Web       | `HttpError` | `JsonResponse`  | See [here](/en/practical-guides/web/error-handling) |
 | gRPC      | `GrpcError` | `tonic::Status` | See [here](/en/practical-guides/grpc/grpc-errors)   |
 
-In both cases the procedure is the same: you derive the macro on the enum and annotate each variant with the code and the message you want to expose.
+In both cases the procedure is the same, deriving the macro on the enum and declaring each variant with the code and the message you want to expose.
 
 ## Propagation and composition
 

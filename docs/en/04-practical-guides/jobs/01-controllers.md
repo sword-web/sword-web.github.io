@@ -28,8 +28,9 @@ A job controller is a struct annotated with `#[controller(kind = Controller::Job
 
 ```rust
 use std::time::Duration;
-use sword::prelude::*;
+
 use sword::jobs::*;
+use sword::prelude::*;
 
 #[controller(kind = Controller::JobHandler)]
 pub struct CleanupJobs;
@@ -62,8 +63,9 @@ As with any other controller, a job controller can receive dependencies in its f
 
 ```rust
 use std::sync::Arc;
-use sword::prelude::*;
+
 use sword::jobs::*;
+use sword::prelude::*;
 
 #[injectable]
 pub struct EmailService;

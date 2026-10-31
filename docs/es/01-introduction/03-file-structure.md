@@ -19,7 +19,7 @@ module_name
 └── service.rs      # Capa de lógica de negocio
 ```
 
-Probablemente hayas visto o utilizado alguna arquitectura similar en frameworks como Spring en Java o NestJS. Sword toma fuerte inspiración en este último.
+La estructura recuerda a frameworks como Spring en Java o NestJS. Sword toma fuerte inspiración en este último.
 
 Por supuesto, esta estructura es solo una guía, es más, es altamente probable que requieras agregar archivos adicionales como:
 

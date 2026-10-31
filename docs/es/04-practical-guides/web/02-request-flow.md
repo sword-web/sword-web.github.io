@@ -6,7 +6,7 @@ outline: [2, 3]
 
 # Manejo de solicitudes HTTP y extracción
 
-En Sword, a diferencia de Axum, no se utilizan extractores individuales en la firma de los métodos del controlador. En su lugar, Sword usa una estructura que concentra la información de la solicitud y expone una API unificada para acceder a body, query, params, headers, cookies y más.
+En Sword, a diferencia de Axum, no se utilizan extractores individuales en la firma de los métodos del controlador. En su lugar, Sword usa una estructura que concentra la información de la solicitud y expone una API unificada para acceder a body, query, params, headers y cookies.
 
 ## La estructura 'Request'
 

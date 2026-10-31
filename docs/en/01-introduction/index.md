@@ -37,6 +37,6 @@ The main idea behind Sword is to provide a module-based development structure, s
 
 Building scalable web applications requires organizing code into well-defined layers and maintaining a clear separation of concerns.
 
-If you are here, you have probably used `axum`, a framework developed by the `tokio` team. Axum covers most of what you need for web development, but as your project grows, the code can become hard to maintain. You may start adding pieces to extend or simplify Axum's own features, and over time the codebase becomes difficult to keep up.
+Axum, the web framework from the `tokio` team, covers most web development needs. As a project grows, the code can become hard to maintain, and adding pieces to extend or simplify Axum's own features often leads to a codebase that is difficult to keep up.
 
 Sword uses libraries from the `tokio` ecosystem to build a more organized, modular structure. The goal is to make Rust web projects easier to scale and maintain.

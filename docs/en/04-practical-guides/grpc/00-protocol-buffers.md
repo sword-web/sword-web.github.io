@@ -6,13 +6,13 @@ outline: [2, 3]
 
 # gRPC Fundamentals & Contracts
 
-Sword uses `tonic` as the foundation for gRPC controllers. In Sword, `.proto` files define the public contract of your gRPC service: they are not read at runtime, they are compiled at build time, and they generate the Rust code for the service, the message types and, optionally, a descriptor for reflection.
+Sword uses `tonic` as the foundation for gRPC controllers. For that, `.proto` files define the contract of a gRPC service. They are not read at runtime, they are compiled and generate the Rust code for the service, the message types and, optionally, a descriptor for reflection.
 
 ## Protocol Buffers
 
 Protocol Buffers is an extensible, language- and platform-neutral mechanism, developed by Google, for serializing structured data.
 
-You define how you want your data structured once, and afterwards you can use automatically generated source code, produced by a compilation process, to easily write and read your structured data across different data streams, using different programming languages.
+`.proto` files define how data is structured once. The code generated at compile time is then used to write and read that structured data across different data streams, in different programming languages.
 
 ## RPC types
 
@@ -54,7 +54,7 @@ This helps you:
 
 #### Services
 
-Use the `GrpcService` suffix in proto services, because business services with similar names can coexist in your application code.
+Use the `GrpcService` suffix in proto services, because business services with similar names can coexist in your application.
 
 ::: code-group
 
@@ -140,7 +140,7 @@ tonic-prost-build = "x.y.z"
 ```
 
 ::: tip Why is `sword` with its `grpc` feature not enough?
-When `.proto` files are compiled, they depend directly on `prost` and `tonic-prost` in the final client, meaning these crates need to be in the project's `Cargo.toml`; it is not enough for `sword` to re-export them.
+When `.proto` files are compiled, they depend directly on `prost` and `tonic-prost` in the final client, meaning these crates need to be in the project's `Cargo.toml`. It is not enough for `sword` to re-export them.
 :::
 
 ### Advanced types with the 'prost-types' crate

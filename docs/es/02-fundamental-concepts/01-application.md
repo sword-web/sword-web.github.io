@@ -15,9 +15,9 @@ Sword usa un patrón constructor para crear aplicaciones. Se implementa en la es
 El flujo consiste en llamar a `Application::builder()` y encadenar métodos:
 
 ```rust
-let app = Application::builder()
+let app = Application::builder()?
     .with_module::<SomeModule>()
-    .build();
+    .build()?;
 ```
 
 Internamente, el método `builder()`:
@@ -70,9 +70,9 @@ let cors_layer = CorsLayer::new()
     .allow_origin(Any)
     .allow_methods(vec!["GET", "POST"]);
 
-let app = Application::builder()
+let app = Application::builder()?
     .with_layer(cors_layer)
-    .build();
+    .build()?;
 ```
 
 Para más detalles sobre Tower, revisa [Interceptores en controladores web](/es/practical-guides/web/interceptors).
@@ -84,7 +84,8 @@ Para más detalles sobre Tower, revisa [Interceptores en controladores web](/es/
 Carga la configuración de la aplicación desde un fichero `.toml` ubicado en una ruta personalizada.
 
 ```rust
-pub fn from_config_path<P: AsRef<Path>>(path: P) -> ApplicationBuilder
+pub fn from_config_path<P: AsRef<Path>>(path: P)
+    -> Result<ApplicationBuilder, Error>
 ```
 
 ---
@@ -94,7 +95,7 @@ pub fn from_config_path<P: AsRef<Path>>(path: P) -> ApplicationBuilder
 Carga la configuración de la aplicación a partir de una instancia de `Config` creada manualmente.
 
 ```rust
-pub fn from_config(config: Config) -> Self
+pub fn from_config(config: Config) -> Result<ApplicationBuilder, Error>
 ```
 
 ---
@@ -104,7 +105,7 @@ pub fn from_config(config: Config) -> Self
 Finaliza la construcción del `ApplicationBuilder` y retorna una instancia de `Application` lista para ejecutarse.
 
 ```rust
-pub fn build(mut self) -> Application
+pub fn build(mut self) -> Result<Application, Error>
 ```
 
 </ApiSection>
@@ -115,12 +116,12 @@ Al construir una instancia de `Application`, con el método `build()`, puedes ej
 
 ```rust
 #[sword::main]
-async fn main() {
-    let app = Application::builder()
+async fn main() -> Result<(), Error> {
+    let app = Application::builder()?
         .with_module::<SomeModule>()
-        .build();
+        .build()?;
 
-    app.run().await;
+    app.run().await
 }
 ```
 
@@ -147,7 +148,7 @@ La aplicación también se detiene cuando recibe una señal de terminación:
   engines de inmediato y el proceso sale con código `0`.
 
 - **SIGTERM**: se envía normalmente Docker, systemd o Kubernetes para pedir el
-  apagado. Tiene el mismo comportamiento: parada inmediata y salida con `0`.
+  apagado. Tiene el mismo comportamiento, es decir, detención inmediata y código de salida `0`.
 
 En los casos manejados, el termino es inmediato, no se espera a que terminen las
 solicitudes, handlers ni jobs en curso. Las señales no se tratan como errores.
@@ -159,7 +160,7 @@ solicitudes, handlers ni jobs en curso. Las señales no se tratan como errores.
 Disponible para aplicaciones Web y Socket.IO, devuelve un clon del router (`axum::Router`) interno de la aplicación.
 
 ```rust
-pub fn router(&self) -> axum::Router
+pub fn router(&self) -> Result<axum::Router, Error>
 ```
 
 Es útil para operaciones avanzadas o para inspeccionar la configuración de rutas.
@@ -167,11 +168,11 @@ Es útil para operaciones avanzadas o para inspeccionar la configuración de rut
 **Ejemplo**
 
 ```rust
-let app = Application::builder()
+let app = Application::builder()?
     .with_module::<SomeModule>()
-    .build();
+    .build()?;
 
-let router: axum::Router = app.router();
+let router = app.router()?;
 ```
 
 </ApiSection>
@@ -186,12 +187,12 @@ Sword provee la macro `#[sword::main]`, que inicializa el runtime interno de la 
 use sword::prelude::*;
 
 #[sword::main]
-async fn main() {
-    let app = Application::builder()
+async fn main() -> Result<(), Error> {
+    let app = Application::builder()?
         .with_module::<SomeModule>()
-        .build();
+        .build()?;
 
-    app.run().await;
+    app.run().await
 }
 ```
 
