@@ -21,7 +21,14 @@ Sword puede registrar automáticamente layers y servicios comunes de Tower solo 
 
 ## Compresión
 
-Habilita compresión de respuestas con la sección `[compression]`:
+Declara y habilita la feature `compression` de `sword-layers` en `Cargo.toml`:
+
+```toml
+[dependencies]
+sword-layers = { version = "x.y.z", features = ["compression"] }
+```
+
+Luego configura la compresión de respuestas con la sección `[compression]` en el archivo de configuración de Sword:
 
 ```toml
 [compression]
@@ -39,7 +46,14 @@ La clave `algorithms` acepta una lista de estos algoritmos:
 
 ## CORS
 
-Configura el intercambio de recursos entre orígenes con la sección `[cors]`:
+Declara y habilita la feature `cors` de `sword-layers` en `Cargo.toml`:
+
+```tomltoml
+[dependencies]
+sword-layers = { version = "x.y.z", features = ["cors"] }
+```
+
+Configura el intercambio de recursos entre orígenes con la sección `[cors]` en el archivo de configuración de Sword:
 
 ```toml
 [cors]
@@ -59,7 +73,14 @@ Las opciones disponibles son:
 
 ## Servidor de archivos estáticos
 
-Sirve un directorio de archivos estáticos con la sección `[serve-dir]`:
+Habilita la feature `servedir` de `sword-layers` en `Cargo.toml`:
+
+```toml
+[dependencies]
+sword-layers = { version = "x.y.z", features = ["servedir"] }
+```
+
+Y configura el servidor de archivos estáticos con la sección `[serve-dir]` en el archivo de configuración de Sword:
 
 ```toml
 [serve-dir]

@@ -28,7 +28,7 @@ You can build most of the patterns you would normally use in `axum`. To learn mo
 A web application can be extended with these features:
 
 - `web-multipart`: Enables support for `multipart/form-data` in HTTP controllers.
-- `validation-validator`: Enables input data validation in web controllers with the `validator` crate.
+- `web-validator`: Enables input data validation in web controllers with the `validator` crate.
 
 ## Socket.IO Application
 
@@ -57,7 +57,7 @@ For now, Sword only supports the `Local Adapter` from `socketioxide`.
 
 A Socket.IO application can be extended with these features:
 
-- `validation-validator`: Enables input data validation in Socket.IO controllers with the `validator` crate.
+- `socketio-validator`: Enables input data validation in Socket.IO controllers with the `validator` crate.
 
 ## gRPC Application
 

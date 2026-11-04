@@ -8,7 +8,7 @@ outline: [2, 3]
 
 Input data validation checks that data meets specific rules before it is processed or stored.
 
-Sword integrates support for the `validator` crate via the `validation-validator` feature.
+Sword integrates support for the `validator` crate via the `socketio-validator` feature.
 
 ## Enabling the feature
 
@@ -16,7 +16,7 @@ To use validation based on the `validator` crate, add the dependencies and enabl
 
 ```toml
 [dependencies]
-sword = { version = "x.y.z", features = ["web", "validation-validator"] }
+sword = { version = "x.y.z", features = ["web", "web-validator"] }
 serde = { version = "x.y.z", features = ["derive"] }
 validator = { version = "x.y.z", features = ["derive"] }
 ```
@@ -130,4 +130,4 @@ Sword automatically handles validation errors and responds with an HTTP `400 Bad
 
 ## Final Note
 
-This integration corresponds specifically to the `validation-validator` feature. If you decide to use another validation library, you will need to define your own validation logic and the error format you wish to expose.
+This integration corresponds specifically to the `web-validator` feature. If you decide to use another validation library, you will need to define your own validation logic and the error format you wish to expose.

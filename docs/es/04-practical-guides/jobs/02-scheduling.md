@@ -15,7 +15,7 @@ La macro `#[cron("...")]` ejecuta un job siguiendo una expresión cron:
 
 ```rust
 #[cron("0 */5 * * * *")]
-async fn refresh_cache(&self, _uuid: Uuid, _scheduler: JobScheduler) {
+async fn refresh_cache(&self, _: Uuid, _: JobScheduler) {
     // Se ejecuta cada 5 minutos.
 }
 ```
@@ -37,7 +37,7 @@ La macro `#[repeated(Duration)]` ejecuta un job cada vez que transcurre la durac
 use std::time::Duration;
 
 #[repeated(Duration::from_secs(30))]
-async fn poll(&self, _uuid: Uuid, _scheduler: JobScheduler) {
+async fn poll(&self, _: Uuid, _: JobScheduler) {
     // Se ejecuta cada 30 segundos.
 }
 ```
@@ -50,7 +50,7 @@ La macro `#[once(Duration)]` ejecuta un job una única vez, tras la duración in
 use std::time::Duration;
 
 #[once(Duration::from_secs(10))]
-async fn warm_up(&self, _uuid: Uuid, _scheduler: JobScheduler) {
+async fn warm_up(&self, _: Uuid, _: JobScheduler) {
     // Se ejecuta una vez, 10 segundos después del arranque.
 }
 ```

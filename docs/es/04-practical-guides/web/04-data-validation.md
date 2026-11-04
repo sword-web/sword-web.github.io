@@ -8,7 +8,7 @@ outline: [2, 3]
 
 La validación de datos de entrada comprueba que los datos cumplen reglas específicas antes de procesarse o almacenarse.
 
-Sword integra soporte con el crate `validator` mediante la feature `validation-validator`.
+Sword integra soporte con el crate `validator` mediante la feature `web-validator`.
 
 ## Activación de la feature
 
@@ -16,7 +16,7 @@ Para usar validación basada en el crate `validator`, agrega las dependencias y 
 
 ```toml
 [dependencies]
-sword = { version = "x.y.z", features = ["web", "validation-validator"] }
+sword = { version = "x.y.z", features = ["web", "web-validator"] }
 serde = { version = "x.y.z", features = ["derive"] }
 validator = { version = "x.y.z", features = ["derive"] }
 ```
@@ -130,4 +130,4 @@ Sword maneja automáticamente los errores de validación y responde con un estad
 
 ## Nota final
 
-Esta integración corresponde específicamente a la feature `validation-validator`. Si decides usar otra librería de validación, debes definir tu propia lógica de validación y el formato de error que quieras exponer.
+Esta integración corresponde específicamente a la feature `web-validator`. Si decides usar otra librería de validación, debes definir tu propia lógica de validación y el formato de error que quieras exponer.

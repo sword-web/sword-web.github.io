@@ -12,11 +12,11 @@ For the full reference of `try_data` and `try_validated_data`, see [Event handli
 
 ## Enabling the feature
 
-To use validation in `SocketContext`, you must enable the `validation-validator` feature.
+To use validation in `SocketContext`, you must enable the `socketio-validator` feature.
 
 ```toml
 [dependencies]
-sword = { version = "x.y.z", features = ["socketio", "validation-validator"] }
+sword = { version = "x.y.z", features = ["socketio", "socketio-validator"] }
 serde = { version = "x.y.z", features = ["derive"] }
 validator = { version = "x.y.z", features = ["derive"] }
 ```

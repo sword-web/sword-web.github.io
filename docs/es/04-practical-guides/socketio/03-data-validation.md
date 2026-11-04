@@ -12,11 +12,11 @@ Para la referencia completa de `try_data` y `try_validated_data`, revisa [Manejo
 
 ## Activación de la feature
 
-Para usar validación en `SocketContext`, debes habilitar la feature `validation-validator`.
+Para usar validación en `SocketContext`, debes habilitar la feature `socketio-validator`.
 
 ```toml
 [dependencies]
-sword = { version = "x.y.z", features = ["socketio", "validation-validator"] }
+sword = { version = "x.y.z", features = ["socketio", "socketio-validator"] }
 serde = { version = "x.y.z", features = ["derive"] }
 validator = { version = "x.y.z", features = ["derive"] }
 ```
@@ -46,7 +46,7 @@ pub struct ChatController;
 impl ChatController {
     #[on("message")]
     async fn handle_message(&self, socket: SocketContext) {
-        let Ok(data) = socket.try_validated_data::<IncomingDataDto>() else {
+        let Ok(data) = socket.try_data_validator::<IncomingDataDto>() else {
             eprintln!("Failed to validate message data");
             return;
         };
@@ -61,6 +61,6 @@ impl ChatController {
 ## Diferencia con el método 'try_data'
 
 - `try_data::<T>()` solo deserializa el payload.
-- `try_validated_data::<T>()` deserializa y luego ejecuta `Validate`.
+- `try_data_validator::<T>()` deserializa y luego ejecuta `Validate`.
 
 Si la validación falla, el método retorna un error y puedes decidir cómo manejarlo dentro del handler.
