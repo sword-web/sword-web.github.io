@@ -45,6 +45,19 @@ sword = { version = "x.y.z", features = ["events", "events-memory"] }
 
 An application can use both transports, but each handler can only use one. The `events` feature is mandatory, and at least one of the other two is required.
 
+## Concurrency and handler limit
+
+Handlers run concurrently, and a configuration attribute prevents that number from growing too large.
+
+| Key           | Type    | Default | Description                                         |
+| ------------- | ------- | ------- | --------------------------------------------------- |
+| `concurrency` | `usize` | `256`   | Maximum number of handlers running at the same time |
+
+```toml
+[events]
+concurrency = 256
+```
+
 ## Defining an event
 
 An event is a struct annotated with an attribute macro, for example:

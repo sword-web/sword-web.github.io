@@ -45,6 +45,19 @@ sword = { version = "x.y.z", features = ["events", "events-memory"] }
 
 Una aplicación puede usar ambos transportes, pero cada handler solo puede usar uno. La feature `events` es obligatoria, y al menos una de las otras dos es necesaria.
 
+## Concurrencia y número máximo de handlers
+
+Los handlers se ejecutan de forma concurrente, para evitar que la cantidad crezca en exceso se provee un atributo de configuración para ello:
+
+| Key           | Tipo    | Default | Descripción                                       |
+| ------------- | ------- | ------- | ------------------------------------------------- |
+| `concurrency` | `usize` | `256`   | Cantidad máxima de handlers ejecutándose a la vez |
+
+```toml
+[events]
+concurrency = 256
+```
+
 ## Definir un evento
 
 Un evento es una struct anotada con una macro de atributo, por ejemplo:
