@@ -37,8 +37,6 @@ num_of_event_retry = 3
 delay_between_event_retry_ms = 1000
 ```
 
-La cantidad de handlers que corren a la vez no se define acá. Usa `[events] concurrency`, que comparten todos los transportes. Ver [Concurrencia y contrapresión](/es/practical-guides/events/handling-events#concurrencia-y-contrapresion).
-
 ## Publicar eventos
 
 El engine registra `MemoryEventPublisher` como provider. Inyéctalo en el controlador y publica con `publish`:

@@ -37,8 +37,6 @@ num_of_event_retry = 3
 delay_between_event_retry_ms = 1000
 ```
 
-The number of handlers that run at once is not set here. Use `[events] concurrency`, which every transport shares. See [Concurrency and backpressure](/en/practical-guides/events/handling-events#concurrency-and-backpressure).
-
 ## Publishing events
 
 The engine registers `MemoryEventPublisher` as a provider. Inject it into the controller and publish with `publish`:

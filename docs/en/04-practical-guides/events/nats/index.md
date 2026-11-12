@@ -35,8 +35,6 @@ url = "nats://127.0.0.1:4222"
 
 NATS must be available at startup. If the server does not respond, the application does not start, even when no handler uses NATS.
 
-The number of handlers that run at once is shared with the other transports. Use `[events] concurrency`. See [Concurrency and backpressure](/en/practical-guides/events/handling-events#concurrency-and-backpressure).
-
 ## Subjects
 
 The subject is the contract between services. Choosing `order.created` defines the address of the event. In Sword it is used under the name `key` to unify the publishing and subscription API across transports.

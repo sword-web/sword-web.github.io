@@ -45,26 +45,18 @@ sword = { version = "x.y.z", features = ["events", "events-memory"] }
 
 Una aplicación puede usar ambos transportes, pero cada handler solo puede usar uno. La feature `events` es obligatoria, y al menos una de las otras dos es necesaria.
 
-## Concurrencia y contrapresión
+## Concurrencia y número máximo de handlers
 
-Los handlers corren en paralelo, pero el engine limita cuántos lo hacen a la vez. El límite aplica a todos los transportes.
+Los handlers se ejecutan de forma concurrente, para evitar que la cantidad crezca en exceso se provee un atributo de configuración para ello:
+
+| Key           | Tipo    | Default | Descripción                                       |
+| ------------- | ------- | ------- | ------------------------------------------------- |
+| `concurrency` | `usize` | `256`   | Cantidad máxima de handlers ejecutándose a la vez |
 
 ```toml
 [events]
 concurrency = 256
 ```
-
-Cada handler en ejecución ocupa un lugar. Cuando todos los lugares están ocupados, el engine deja de leer eventos. El canal en memoria se llena y los publicadores esperan. Así se acota la memoria y se protegen recursos compartidos como el pool de la base de datos.
-
-El valor por defecto es 256. Se dimensiona con el ritmo de llegada y la latencia del handler.
-
-```text
-concurrency ≈ eventos por segundo × latencia del handler en segundos
-```
-
-Por ejemplo, 500 eventos por segundo con un handler de 40 ms necesitan unos 20 lugares.
-
-El límite aplica por transporte. Una aplicación que habilita los transportes en memoria y NATS tiene un conjunto de lugares para cada uno.
 
 ## Definir un evento
 
