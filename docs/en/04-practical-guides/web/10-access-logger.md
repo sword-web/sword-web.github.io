@@ -6,7 +6,7 @@ outline: [2, 3]
 
 # Access Logger
 
-Sword can log one line per request once the response is sent: method, uri, status, latency and a truncated request id. This is separate from the global `[tracing]` subscriber and is driven entirely by the `[web.logger]` section.
+Sword can log one line per request once the response is sent. The line includes the method, the URI, the status, the latency and the request id. This is separate from the global `[tracing]` subscriber and is driven entirely by the `[web.logger]` section.
 
 The logger is off unless the section is present.
 
@@ -30,7 +30,7 @@ log-query = false
 ## Levels
 
 - `info` logs every request at `INFO` regardless of the status.
-- `auto` picks the level from the response status:
+- `auto` picks the level from the response status.
 
 | Status        | Level   |
 | ------------- | ------- |
@@ -38,6 +38,17 @@ log-query = false
 | `4xx`         | `WARN`  |
 | `5xx`         | `ERROR` |
 
+## Log fields
+
+| Field        | Description                                                                  |
+| ------------ | ---------------------------------------------------------------------------- |
+| `status`     | HTTP status code.                                                            |
+| `latency`    | Time spent handling the request, formatted from `Duration` (e.g. `1.234ms`). |
+| `request_id` | First 8 characters of `x-request-id`, or `-` when the header is missing.     |
+| message      | `METHOD URI`, including the query string only when `log-query = true`.       |
+
+Requests matching `skip-paths` are neither measured nor logged.
+
 ## Request ID
 
-The logger reuses the `x-request-id` header set by the built-in `RequestIdLayer`. When present, the logger logs only the first 8 characters. Otherwise, it uses a `-` placeholder.
+The logger reuses the `x-request-id` header set by the built-in `RequestIdLayer`. When present, it logs only the first 8 characters. Otherwise it uses a `-` placeholder.

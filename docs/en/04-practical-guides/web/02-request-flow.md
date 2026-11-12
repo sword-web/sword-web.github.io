@@ -34,7 +34,7 @@ impl ApiController {
 
 ## Why not use extractors directly?
 
-Focused extractors have advantages, especially when you only want to retrieve the strictly necessary data for each handler. However, they also introduce some drawbacks in larger applications:
+Focused extractors have advantages, especially when you only want to retrieve the strictly necessary data for each handler. However, they also introduce some drawbacks in larger applications.
 
 - They force you to repeat extractors across many methods.
 - The order of the parameters can depend on ownership rules.
@@ -133,11 +133,11 @@ pub trait RequestExt {
 
 impl RequestExt for Request {
     fn user(&self) -> Option<&User> {
-        self.extensions.get::<User>()
+        self.extensions().get::<User>()
     }
 
     fn claims(&self) -> Option<&SessionClaims> {
-        self.extensions.get::<SessionClaims>()
+        self.extensions().get::<SessionClaims>()
     }
 }
 ```

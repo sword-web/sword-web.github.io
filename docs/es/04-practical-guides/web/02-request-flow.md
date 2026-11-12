@@ -34,7 +34,7 @@ impl ApiController {
 
 ## ¿Por qué no usar extractores directamente?
 
-Los extractores focalizados tienen ventajas, especialmente cuando quieres obtener solo los datos estrictamente necesarios en cada handler. Sin embargo, también introducen algunas desventajas en aplicaciones grandes:
+Los extractores focalizados tienen ventajas, especialmente cuando quieres obtener solo los datos estrictamente necesarios en cada handler. Sin embargo, también introducen algunas desventajas en aplicaciones grandes.
 
 - Obligan a repetir extractores en muchos métodos
 - El orden de los parámetros puede depender de reglas de ownership
@@ -133,11 +133,11 @@ pub trait RequestExt {
 
 impl RequestExt for Request {
     fn user(&self) -> Option<&User> {
-        self.extensions.get::<User>()
+        self.extensions().get::<User>()
     }
 
     fn claims(&self) -> Option<&SessionClaims> {
-        self.extensions.get::<SessionClaims>()
+        self.extensions().get::<SessionClaims>()
     }
 }
 ```
