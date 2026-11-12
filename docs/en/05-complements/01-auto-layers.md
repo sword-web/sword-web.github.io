@@ -17,18 +17,27 @@ keywords:
 
 # Auto-registered Layers & Services
 
-Sword can automatically register common Tower layers and services through configuration alone, via `toml`. When the corresponding feature is compiled, the layer is registered automatically: it uses the values from its section when present, and the defaults otherwise. No manual registration is needed.
+Sword can automatically register common Tower layers and services through configuration alone, via `toml`. When the corresponding feature is compiled, the layer is registered automatically. It uses the values from its section when present, and the defaults otherwise. No manual registration is needed.
+
+These layers are opt-in. Enable the feature for the layer you need in your `Cargo.toml`.
+
+```toml
+[dependencies]
+sword-layers = { version = "x.y.z", features = ["compression"] }
+```
+
+Use `cors` or `servedir` instead of `compression` for the other layers.
 
 ## Compression
 
-Enable response compression with the `[compression]` section:
+Enable response compression with the `[compression]` section.
 
 ```toml
 [compression]
 algorithms = ["gzip", "br"]
 ```
 
-The `algorithms` key accepts a list of these algorithms:
+The `algorithms` key accepts a list of these algorithms.
 
 | Algorithm | Note                           |
 | --------- | ------------------------------ |
@@ -39,7 +48,7 @@ The `algorithms` key accepts a list of these algorithms:
 
 ## CORS
 
-Configure Cross-Origin Resource Sharing with the `[cors]` section:
+Configure Cross-Origin Resource Sharing with the `[cors]` section.
 
 ```toml
 [cors]
@@ -47,7 +56,7 @@ allow-origins = ["*"]
 allow-methods = ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS", "HEAD"]
 ```
 
-The available options are:
+The available options are the following.
 
 | Option              | Description                                |
 | ------------------- | ------------------------------------------ |
@@ -59,7 +68,7 @@ The available options are:
 
 ## Static file serving
 
-Serve a directory of static files with the `[serve-dir]` section:
+Serve a directory of static files with the `[serve-dir]` section.
 
 ```toml
 [serve-dir]
