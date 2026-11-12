@@ -45,6 +45,27 @@ sword = { version = "x.y.z", features = ["events", "events-memory"] }
 
 An application can use both transports, but each handler can only use one. The `events` feature is mandatory, and at least one of the other two is required.
 
+## Concurrency and backpressure
+
+Handlers run concurrently, but the engine caps how many run at the same time. The limit applies to every transport.
+
+```toml
+[events]
+concurrency = 256
+```
+
+Each running handler holds one slot. When all slots are busy, the engine stops reading events. The in-memory channel fills and publishers wait. This bounds memory and protects shared resources such as a database pool.
+
+The default is 256. Size it from the arrival rate and the handler latency.
+
+```text
+concurrency ≈ events per second × handler latency in seconds
+```
+
+For example, 500 events per second with a handler that takes 40 ms needs about 20 slots.
+
+The limit applies per transport. An application that enables the in-memory and NATS transports has one set of slots for each.
+
 ## Defining an event
 
 An event is a struct annotated with an attribute macro, for example:
