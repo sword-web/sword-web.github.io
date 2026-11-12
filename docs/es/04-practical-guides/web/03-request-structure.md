@@ -12,29 +12,42 @@ La estructura `Request` es el extractor principal para trabajar con solicitudes 
 
 #### Acceso a las extensiones de la solicitud
 
-Atributo que retorna las extensiones de Axum asociadas a la solicitud actual.
+Retorna las extensiones de la solicitud, donde layers e interceptores pueden guardar valores.
 
 ```rust
-pub extensions: Extensions
+pub fn extensions(&self) -> &Extensions
+pub fn extensions_mut(&mut self) -> &mut Extensions
 ```
 
 **Cuándo usarlo**
 
-- Para leer estado agregado por layers o interceptores previos.
+- Para leer o escribir estado compartido con layers e interceptores.
 
 ---
 
 #### Obteniendo la URI de la solicitud
 
-Método que retorna la URI completa de la solicitud
+Retorna una referencia a la URI completa de la solicitud.
 
 ```rust
-pub fn uri(&self) -> String
+pub fn uri(&self) -> &Uri
 ```
 
 **Retorna**
 
-- URI completa de la solicitud, incluyendo path y query string.
+- URI de la solicitud, incluyendo path y query string.
+
+---
+
+#### Obteniendo la versión HTTP
+
+```rust
+pub fn version(&self) -> Version
+```
+
+**Retorna**
+
+- Versión HTTP de la solicitud.
 
 ---
 
@@ -99,8 +112,8 @@ where
 
 **Parámetros**
 
-- `T`: Tipo al que se quiere parsear el parámetro de ruta.
-- `key`: Nombre del parámetro de ruta a extraer.
+- `T` es el tipo al que se quiere parsear el parámetro de ruta.
+- `key` es el nombre del parámetro de ruta a extraer.
 
 **Retorna**
 
@@ -137,7 +150,7 @@ pub fn body<T: DeserializeOwned>(&self) -> Result<T, RequestError>
 
 **Parámetros**
 
-- `T`: Tipo al que se quiere deserializar el body JSON. Debe implementar `DeserializeOwned`.
+- `T` es el tipo al que se quiere deserializar el body JSON. Debe implementar `DeserializeOwned`.
 
 **Retorna**
 
@@ -158,7 +171,7 @@ pub fn query<T: DeserializeOwned>(&self) -> Result<Option<T>, RequestError>
 
 **Parámetros**
 
-- `T`: Tipo al que se quiere deserializar la query string. Debe implementar `DeserializeOwned`.
+- `T` es el tipo al que se quiere deserializar la query string. Debe implementar `DeserializeOwned`.
 
 **Retorna**
 

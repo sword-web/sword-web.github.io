@@ -8,7 +8,7 @@ outline: [2, 3]
 
 Al igual que en controladores web, es posible validar datos entrantes en eventos Socket.IO usando el crate `validator`.
 
-Para la referencia completa de `try_data` y `try_validated_data`, revisa [Manejo de eventos y referencia de SocketContext](/es/practical-guides/socketio/event-handling).
+Para la referencia completa de `try_data` y `try_data_validator`, revisa [Manejo de eventos y referencia de SocketContext](/es/practical-guides/socketio/event-handling).
 
 ## Activación de la feature
 

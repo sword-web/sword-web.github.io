@@ -12,29 +12,42 @@ The `Request` struct is the main extractor for working with HTTP requests in Swo
 
 #### Accessing the request extensions
 
-Returns the Axum extensions attached to the current request.
+Returns the request extensions, where layers and interceptors can store values.
 
 ```rust
-pub extensions: Extensions
+pub fn extensions(&self) -> &Extensions
+pub fn extensions_mut(&mut self) -> &mut Extensions
 ```
 
 **When to use it**
 
-- To read state added by previous layers or interceptors.
+- To read or write state shared with layers and interceptors.
 
 ---
 
 #### Getting the request URI
 
-Returns the full request URI.
+Returns a reference to the full request URI.
 
 ```rust
-pub fn uri(&self) -> String
+pub fn uri(&self) -> &Uri
 ```
 
 **Returns**
 
-- The full request URI, including the path and query string.
+- The request URI, including the path and query string.
+
+---
+
+#### Getting the HTTP version
+
+```rust
+pub fn version(&self) -> Version
+```
+
+**Returns**
+
+- The HTTP version of the request.
 
 ---
 
@@ -99,8 +112,8 @@ where
 
 **Parameters**
 
-- `T`: the type to parse the route parameter into.
-- `key`: the name of the route parameter to extract.
+- `T` is the type to parse the route parameter into.
+- `key` is the name of the route parameter to extract.
 
 **Returns**
 
@@ -137,7 +150,7 @@ pub fn body<T: DeserializeOwned>(&self) -> Result<T, RequestError>
 
 **Parameters**
 
-- `T`: the type to deserialize the JSON body into. It must implement `DeserializeOwned`.
+- `T` is the type to deserialize the JSON body into. It must implement `DeserializeOwned`.
 
 **Returns**
 
@@ -158,7 +171,7 @@ pub fn query<T: DeserializeOwned>(&self) -> Result<Option<T>, RequestError>
 
 **Parameters**
 
-- `T`: the type to deserialize the query string into. It must implement `DeserializeOwned`.
+- `T` is the type to deserialize the query string into. It must implement `DeserializeOwned`.
 
 **Returns**
 

@@ -8,7 +8,7 @@ outline: [2, 3]
 
 Sword permite aplicar interceptores a controladores y rutas web.
 
-Existen tres mecanismos: interceptores tradicionales, interceptores con configuración y layers de Tower.
+Los tres mecanismos son interceptores tradicionales, interceptores con configuración y layers de Tower.
 
 ## Interceptores tradicionales
 
@@ -31,7 +31,7 @@ impl OnRequest for RequestLogger {
 }
 ```
 
-Luego, puedes aplicar este interceptor a un controlador o ruta específica:
+Luego, puedes aplicar este interceptor a un controlador o ruta específica.
 
 ```rust
 use sword::prelude::*;
@@ -69,7 +69,7 @@ impl OnRequestWithConfig<&str> for RequestLogger {
 }
 ```
 
-Luego, puedes aplicar este interceptor a un controlador o ruta específica:
+Luego, puedes aplicar este interceptor a un controlador o ruta específica.
 
 ```rust
 use sword::prelude::*;
@@ -134,7 +134,7 @@ impl ApiController {
 
 Las extensiones permiten almacenar y compartir datos a lo largo del ciclo de vida de una request HTTP. Son especialmente útiles para que un interceptor deje información que el handler consumirá después.
 
-Un interceptor puede insertar valores en `req.extensions` antes de delegar la ejecución al siguiente paso del pipeline:
+Un interceptor puede insertar valores en `req.extensions_mut()` antes de delegar la ejecución al siguiente paso del pipeline.
 
 ```rust
 use sword::prelude::*;
@@ -145,14 +145,14 @@ struct RequestIdInterceptor;
 
 impl OnRequest for RequestIdInterceptor {
     async fn on_request(&self, mut req: Request) -> WebInterceptorResult {
-        req.extensions.insert("request-123".to_string());
+        req.extensions_mut().insert("request-123".to_string());
 
         req.next().await
     }
 }
 ```
 
-Luego, el handler lee ese valor por tipo desde la misma request:
+Luego, el handler lee ese valor por tipo desde la misma request.
 
 ```rust
 use sword::prelude::*;
@@ -165,7 +165,7 @@ struct ApiController;
 impl ApiController {
     #[get("/data")]
     async fn get_data(&self, req: Request) -> JsonResponse {
-        let request_id = req.extensions.get::<String>().cloned();
+        let request_id = req.extensions().get::<String>().cloned();
 
         JsonResponse::Ok().data(serde_json::json!({
             "request_id": request_id,

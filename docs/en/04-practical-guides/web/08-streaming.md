@@ -6,7 +6,7 @@ outline: [2, 3]
 
 # Streaming
 
-Sword exposes two forms of streaming: `StreamRequest`, for working with the request body as a stream without buffering it in memory, and Server-Sent Events (SSE), for sending real-time responses from the server to the client.
+Sword exposes two forms of streaming. `StreamRequest` works with the request body as a stream without buffering it in memory. Server-Sent Events (SSE) send real-time responses from the server to the client.
 
 ## StreamRequest
 
@@ -30,7 +30,7 @@ struct StreamTagInterceptor;
 
 impl OnRequestStream for StreamTagInterceptor {
     async fn on_request(&self, mut req: StreamRequest) -> WebInterceptorResult {
-        req.extensions.insert("stream-ok".to_string());
+        req.extensions_mut().insert("stream-ok".to_string());
         req.next().await
     }
 }
@@ -51,7 +51,7 @@ impl OnRequestStreamWithConfig<&'static str> for StreamConfigInterceptor {
         config: &'static str,
         mut req: StreamRequest,
     ) -> WebInterceptorResult {
-        req.extensions.insert(config.to_string());
+        req.extensions_mut().insert(config.to_string());
         req.next().await
     }
 }
@@ -97,7 +97,7 @@ impl SseController {
 }
 ```
 
-The stream is built with the `stream!` macro: each `yield` produces an event that is sent to the client. `Event::default()` creates an event, `.event(name)` defines its type and `.data(value)` its content.
+The stream is built with the `stream!` macro. Each `yield` produces an event that is sent to the client. `Event::default()` creates an event, `.event(name)` defines its type and `.data(value)` its content.
 
 The return type **MUST** be `Sse<impl EventStream + use<>>`, which avoids having to name the concrete stream type.
 

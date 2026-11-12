@@ -8,7 +8,7 @@ outline: [2, 3]
 
 Just like in web controllers, you can validate incoming data in Socket.IO events using the `validator` crate.
 
-For the full reference of `try_data` and `try_validated_data`, see [Event handling and SocketContext reference](/en/practical-guides/socketio/event-handling).
+For the full reference of `try_data` and `try_data_validator`, see [Event handling and SocketContext reference](/en/practical-guides/socketio/event-handling).
 
 ## Enabling the feature
 
@@ -46,7 +46,7 @@ pub struct ChatController;
 impl ChatController {
     #[on("message")]
     async fn handle_message(&self, socket: SocketContext) {
-        let Ok(data) = socket.try_validated_data::<IncomingDataDto>() else {
+        let Ok(data) = socket.try_data_validator::<IncomingDataDto>() else {
             eprintln!("Failed to validate message data");
             return;
         };
@@ -61,6 +61,6 @@ impl ChatController {
 ## Difference from the 'try_data' method
 
 - `try_data::<T>()` only deserializes the payload.
-- `try_validated_data::<T>()` deserializes and then runs `Validate`.
+- `try_data_validator::<T>()` deserializes and then runs `Validate`.
 
 If validation fails, the method returns an error, and you can decide how to handle it within the handler.

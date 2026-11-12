@@ -6,7 +6,7 @@ outline: [2, 3]
 
 # Access Logger
 
-Sword puede registrar una línea por solicitud una vez enviada la respuesta: método, uri, status, latencia y un request id truncado. Esto es independiente del subscriber global de `[tracing]` y se controla únicamente con la sección `[web.logger]`.
+Sword puede registrar una línea por solicitud una vez enviada la respuesta. La línea incluye el método, la URI, el status, la latencia y el request id. Esto es independiente del subscriber global de `[tracing]` y se controla únicamente con la sección `[web.logger]`.
 
 El logger está desactivado salvo que la sección esté presente.
 
@@ -30,7 +30,7 @@ log-query = false
 ## Niveles
 
 - `info` registra cada solicitud en `INFO` sin importar el status.
-- `auto` elige el nivel según el status de la respuesta:
+- `auto` elige el nivel según el status de la respuesta.
 
 | Status        | Nivel   |
 | ------------- | ------- |
@@ -38,6 +38,17 @@ log-query = false
 | `4xx`         | `WARN`  |
 | `5xx`         | `ERROR` |
 
+## Campos del log
+
+| Campo        | Descripción                                                                   |
+| ------------ | ----------------------------------------------------------------------------- |
+| `status`     | Código de status HTTP.                                                        |
+| `latency`    | Tiempo de procesamiento, formateado desde `Duration` (por ejemplo `1.234ms`). |
+| `request_id` | Primeros 8 caracteres de `x-request-id`, o `-` si el header no está presente. |
+| mensaje      | `MÉTODO URI`, incluyendo el query string solo cuando `log-query = true`.      |
+
+Las solicitudes que coinciden con `skip-paths` no se miden ni se registran.
+
 ## Request ID
 
-El logger reutiliza el header `x-request-id` que fija el `RequestIdLayer` integrado. Cuando está presente, solo registra los primeros 8 caracteres. En caso contrario, usa un placeholder `-`.
+El logger reutiliza el header `x-request-id` que fija el `RequestIdLayer` integrado. Cuando está presente, registra solo los primeros 8 caracteres, en caso contrario usa un placeholder `-`.

@@ -139,7 +139,7 @@ pub fn try_data<T: DeserializeOwned>(&self) -> Result<T, SocketError>
 
 **Parameters**
 
-- `T`: the expected data type. It must implement `DeserializeOwned`.
+- `T` is the expected data type. It must implement `DeserializeOwned`.
 
 **Returns**
 
@@ -159,7 +159,7 @@ This method consumes the internal payload. A second call in the same handler fai
 #### Accessing the event payload with validation
 
 ```rust
-pub fn try_validated_data<T>(&self) -> Result<T, SocketError>
+pub fn try_data_validator<T>(&self) -> Result<T, SocketError>
 where
     T: DeserializeOwned + Validate
 ```
@@ -207,7 +207,7 @@ pub fn query<T: DeserializeOwned>(&self) -> Result<Option<T>, SocketError>
 
 **Parameters**
 
-- `T`: the expected data type. It must implement `DeserializeOwned`.
+- `T` is the expected data type. It must implement `DeserializeOwned`.
 
 **Returns**
 
@@ -231,8 +231,8 @@ where
 
 **Parameters**
 
-- `event`: the name of the event to emit.
-- `data`: the serializable payload to send.
+- `event` is the name of the event to emit.
+- `data` is the serializable payload to send.
 
 **Returns**
 
@@ -257,8 +257,8 @@ pub fn emit_with_ack<T: ?Sized + Serialize, V>(
 
 **Parameters**
 
-- `event`: the name of the event to emit.
-- `data`: the serializable payload to send.
+- `event` is the name of the event to emit.
+- `data` is the serializable payload to send.
 
 **Returns**
 
@@ -396,7 +396,7 @@ where
 
 **Parameters**
 
-- `data`: the serializable payload to send as the callback response.
+- `data` is the serializable payload to send as the callback response.
 
 **Returns**
 
