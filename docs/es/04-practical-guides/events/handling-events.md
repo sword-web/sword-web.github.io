@@ -49,14 +49,18 @@ Una aplicación puede usar ambos transportes, pero cada handler solo puede usar 
 
 Los handlers se ejecutan de forma concurrente, para evitar que la cantidad crezca en exceso se provee un atributo de configuración para ello:
 
-| Key           | Tipo    | Default | Descripción                                       |
-| ------------- | ------- | ------- | ------------------------------------------------- |
-| `concurrency` | `usize` | `256`   | Cantidad máxima de handlers ejecutándose a la vez |
+| Key                  | Tipo    | Default | Descripción                                              |
+| -------------------- | ------- | ------- | -------------------------------------------------------- |
+| `concurrency`        | `usize` | `256`   | Cantidad máxima de handlers ejecutándose a la vez        |
+| `handler_timeout_ms` | `u64`   | `30000` | Tiempo máximo de un intento del handler, en milisegundos |
 
 ```toml
 [events]
 concurrency = 256
+handler_timeout_ms = 30000
 ```
+
+El timeout aplica a cada intento. Un valor de `0` lo desactiva. Ambos transportes heredan el valor y pueden sobrescribirlo en su propia sección.
 
 ## Definir un evento
 
@@ -193,12 +197,12 @@ fn publish(
 
 **Errores de publicación**
 
-| Error          | Cuándo se emite                                                   |
-| -------------- | ----------------------------------------------------------------- |
-| `Closed`       | El canal en memoria dejó de recibir (normalmente tras el apagado) |
-| `NotConnected` | Se publica antes de que NATS conecte                              |
-| `Codec`        | El evento no se puede serializar                                  |
-| `Transport`    | El cliente no puede enviar el evento                              |
+| Error          | Cuándo se emite                      |
+| -------------- | ------------------------------------ |
+| `Closed`       | El canal en memoria dejó de recibir. |
+| `NotConnected` | Se publica antes de que NATS conecte |
+| `Codec`        | El evento no se puede serializar     |
+| `Transport`    | El cliente no puede enviar el evento |
 
 </ApiSection>
 
@@ -206,7 +210,7 @@ fn publish(
 
 Declara los handlers en un controlador cuyo atributo `kind` es `Controller::Events`.
 
-El atributo `source` selecciona qué transporte consume sus suscripciones:
+El atributo `transport` selecciona qué transporte consume sus suscripciones:
 
 ```rust
 use sword::events::*;
@@ -214,7 +218,7 @@ use sword::prelude::*;
 
 use crate::orders::OrderCreated;
 
-#[controller(kind = Controller::Events, source = EventSource::Memory)]
+#[controller(kind = Controller::Events, transport = EventTransport::Memory)]
 pub struct OrderEventsHandler;
 
 impl OrderEventsHandler {
@@ -229,15 +233,15 @@ impl OrderEventsHandler {
 
 Cada método anotado con `#[subscribe(key = "...")]` se convierte en un handler para un evento con la key indicada.
 
-El atributo `source` se puede declarar en el controlador o en handlers individuales, pero no en ambos. Las reglas son:
+El atributo `transport` se puede declarar en el controlador o en handlers individuales, pero no en ambos. Las reglas son:
 
 - Declarado en el controlador, todos los `#[subscribe]` de ese controlador usan ese transporte.
 
-- Declarado en un handler con `#[subscribe(key = "...", source = ...)]`, solo ese handler lo usa, y el controlador no debe declarar uno.
+- Declarado en un handler con `#[subscribe(key = "...", transport = ...)]`, solo ese handler lo usa, y el controlador no debe declarar uno.
 
 - Sin declararlo en ninguno de los dos, la compilación falla.
 
-El valor debe ser `EventSource::Memory` o `EventSource::Nats`, y la feature correspondiente debe estar habilitada.
+El valor debe ser `EventTransport::Memory` o `EventTransport::Nats`, y la feature correspondiente debe estar habilitada.
 
 ## Elegir un transporte
 

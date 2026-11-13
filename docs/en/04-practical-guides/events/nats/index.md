@@ -24,16 +24,68 @@ sword = { version = "x.y.z", features = ["events", "events-nats"] }
 
 Configure the server in the `[events.nats]` section:
 
-| Key   | Type     | Default                 | Description                             |
-| ----- | -------- | ----------------------- | --------------------------------------- |
-| `url` | `String` | `nats://127.0.0.1:4222` | NATS server address (must not be empty) |
+| Key                        | Type     | Default                 | Description                                                |
+| -------------------------- | -------- | ----------------------- | ---------------------------------------------------------- |
+| `url`                      | `String` | `nats://127.0.0.1:4222` | NATS server address (must not be empty)                    |
+| `handler_timeout_ms`       | `u64`    | inherits `[events]`     | Overrides the handler timeout for this transport           |
+| `connection_timeout_ms`    | `u64`    | `5000`                  | Time allowed for a single connection attempt               |
+| `retry_on_initial_connect` | `bool`   | `false`                 | Keeps retrying when the first connection at startup fails  |
+| `max_reconnects`           | `usize`  | unlimited               | Attempts before giving up                                  |
+| `subscription_capacity`    | `usize`  | `65536`                 | Messages buffered per subscription before they are dropped |
 
 ```toml
 [events.nats]
 url = "nats://127.0.0.1:4222"
 ```
 
-NATS must be available at startup. If the server does not respond, the application does not start, even when no handler uses NATS.
+When `[events.nats]` is present, NATS must be available at startup. If the server does not respond, the application does not start. Enabling the feature without that section registers the publisher but does not open a connection.
+
+`retry_on_initial_connect` without `max_reconnects` retries forever. Set `max_reconnects` to bound startup.
+
+## Authentication
+
+`[events.nats.auth]` accepts one of two methods.
+
+| Method            | Keys               |
+| ----------------- | ------------------ |
+| User and password | `user`, `password` |
+| Token             | `token`            |
+
+```toml
+[events.nats.auth]
+user = "app"
+password = "${NATS_PASSWORD}"
+```
+
+```toml
+[events.nats.auth]
+token = "${NATS_TOKEN}"
+```
+
+The methods are mutually exclusive. A token together with a user and password is a startup error.
+
+## TLS
+
+A `tls://` URL encrypts the connection and verifies the server certificate. For a private CA, set `ca_file` to the CA file.
+
+```toml
+[events.nats]
+url = "tls://nats.example.com:4222"
+
+[events.nats.tls]
+ca_file = "/etc/nats/ca.pem"
+```
+
+Mutual TLS adds a client certificate and key.
+
+```toml
+[events.nats.tls]
+ca_file = "/etc/nats/ca.pem"
+client_cert = "/etc/nats/client.pem"
+client_key = "/etc/nats/client.key"
+```
+
+A `[events.nats.tls]` section requires TLS even when the URL uses `nats://`. The files are checked at startup.
 
 ## Subjects
 
@@ -116,7 +168,7 @@ You can inspect the error or ignore it by turning it into an `Option`, as in the
 
 ## Consuming events
 
-To handle NATS events, declare an event controller with `source = EventSource::Nats`, or on the handler if the controller is transport-agnostic.
+To handle NATS events, declare an event controller with `transport = EventTransport::Nats`, or on the handler if the controller is transport-agnostic.
 
 ```rust [billing/controllers/events.rs]
 use sword::events::*;
@@ -124,7 +176,7 @@ use sword::prelude::*;
 
 use crate::orders::OrderCreated;
 
-#[controller(kind = Controller::Events, source = EventSource::Nats)]
+#[controller(kind = Controller::Events, transport = EventTransport::Nats)]
 pub struct BillingEventsHandler;
 
 impl BillingEventsHandler {
@@ -163,7 +215,7 @@ use sword::prelude::*;
 
 use crate::orders::OrderCreated;
 
-#[controller(kind = Controller::Events, source = EventSource::Nats)]
+#[controller(kind = Controller::Events, transport = EventTransport::Nats)]
 pub struct AuditEventsHandler;
 
 impl AuditEventsHandler {

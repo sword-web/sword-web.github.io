@@ -24,11 +24,12 @@ sword = { version = "x.y.z", features = ["events", "events-memory"] }
 
 Configura el transporte en la sección `[events.memory]`. Todas las keys son opcionales. Una sección ausente usa los valores por defecto:
 
-| Key                            | Tipo    | Default | Descripción                                               |
-| ------------------------------ | ------- | ------- | --------------------------------------------------------- |
-| `buffer_size`                  | `usize` | `1024`  | Capacidad del canal, en eventos (debe ser mayor que cero) |
-| `num_of_event_retry`           | `u8`    | `3`     | Intentos extra tras el primer fallo del handler           |
-| `delay_between_event_retry_ms` | `u64`   | `1000`  | Espera entre intentos, en milisegundos                    |
+| Key                            | Tipo    | Default              | Descripción                                               |
+| ------------------------------ | ------- | -------------------- | --------------------------------------------------------- |
+| `buffer_size`                  | `usize` | `1024`               | Capacidad del canal, en eventos (debe ser mayor que cero) |
+| `num_of_event_retry`           | `u8`    | `3`                  | Intentos extra tras el primer fallo del handler           |
+| `delay_between_event_retry_ms` | `u64`   | `1000`               | Espera entre intentos, en milisegundos                    |
+| `handler_timeout_ms`           | `u64`   | hereda de `[events]` | Sobrescribe el timeout del handler para este transporte   |
 
 ```toml
 [events.memory]
@@ -95,13 +96,13 @@ Un `publish` exitoso solo confirma que el evento quedó en el canal, no que se h
 
 El canal tiene una capacidad fija y es compartido por todos los eventos. Cuando está lleno, `publish` espera a que se libere espacio en lugar de descartar el evento.
 
-El único error propio del transporte es `EventPublishError::Closed`, que aparece cuando el engine dejó de recibir, normalmente tras el apagado.
+El único error propio del transporte es `EventPublishError::Closed`, que aparece cuando el engine dejó de recibir.
 
 Para la firma de `publish` y el resto de errores, ver [Manejo de eventos](/es/practical-guides/events/handling-events).
 
 ## Suscripción a eventos
 
-Selecciona el transporte del controlador con el atributo `source` en la macro `controller` del controlador. Si el controlador maneja eventos de múltiples transportes entonces cada handler puede usar el atributo `source` en la macro `subscribe`.
+Selecciona el transporte del controlador con el atributo `transport` en la macro `controller` del controlador. Si el controlador maneja eventos de múltiples transportes entonces cada handler puede usar el atributo `transport` en la macro `subscribe`.
 
 ```rust
 use std::sync::Arc;
@@ -112,7 +113,7 @@ use sword::prelude::*;
 use crate::orders::OrderCreated;
 use crate::store::EventStore;
 
-#[controller(kind = Controller::Events, source = EventSource::Memory)]
+#[controller(kind = Controller::Events, transport = EventTransport::Memory)]
 pub struct OrderEventsHandler {
     store: Arc<EventStore>,
 }
@@ -137,4 +138,3 @@ A diferencia de **NATS**, en este transporte no hay _wildcards_. Los handlers de
 | ---------------------------- | ------------------------------------------ |
 | `buffer_size = 0`            | Error al iniciar la aplicación, no arranca |
 | El handler devuelve un error | Se reintenta si está configurado           |
-| Apagado de la aplicación     | Los pendientes se descartan y se registran |

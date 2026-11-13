@@ -24,11 +24,12 @@ sword = { version = "x.y.z", features = ["events", "events-memory"] }
 
 Configure the transport in the `[events.memory]` section. Every key is optional. An absent section uses the defaults:
 
-| Key                            | Type    | Default | Description                                             |
-| ------------------------------ | ------- | ------- | ------------------------------------------------------- |
-| `buffer_size`                  | `usize` | `1024`  | Channel capacity, in events (must be greater than zero) |
-| `num_of_event_retry`           | `u8`    | `3`     | Extra attempts after the first handler failure          |
-| `delay_between_event_retry_ms` | `u64`   | `1000`  | Wait between attempts, in milliseconds                  |
+| Key                            | Type    | Default             | Description                                             |
+| ------------------------------ | ------- | ------------------- | ------------------------------------------------------- |
+| `buffer_size`                  | `usize` | `1024`              | Channel capacity, in events (must be greater than zero) |
+| `num_of_event_retry`           | `u8`    | `3`                 | Extra attempts after the first handler failure          |
+| `delay_between_event_retry_ms` | `u64`   | `1000`              | Wait between attempts, in milliseconds                  |
+| `handler_timeout_ms`           | `u64`   | inherits `[events]` | Overrides the handler timeout for this transport        |
 
 ```toml
 [events.memory]
@@ -95,13 +96,13 @@ A successful `publish` only confirms that the event is in the channel, not that 
 
 The channel has a fixed capacity and is shared by all events. When it is full, `publish` waits for space instead of dropping the event.
 
-The only transport-specific error is `EventPublishError::Closed`, which appears when the engine stops receiving, normally after shutdown.
+The only transport-specific error is `EventPublishError::Closed`, which appears when the engine stops receiving.
 
 For the `publish` signature and the remaining errors, see [Handling Events](/en/practical-guides/events/handling-events).
 
 ## Subscribing to events
 
-Select the transport with the `source` attribute of the `controller` macro. If the controller handles events from several transports, each handler can declare its own `source` in the `subscribe` macro.
+Select the transport with the `transport` attribute of the `controller` macro. If the controller handles events from several transports, each handler can declare its own `transport` in the `subscribe` macro.
 
 ```rust
 use std::sync::Arc;
@@ -112,7 +113,7 @@ use sword::prelude::*;
 use crate::orders::OrderCreated;
 use crate::store::EventStore;
 
-#[controller(kind = Controller::Events, source = EventSource::Memory)]
+#[controller(kind = Controller::Events, transport = EventTransport::Memory)]
 pub struct OrderEventsHandler {
     store: Arc<EventStore>,
 }
@@ -137,4 +138,3 @@ Unlike **NATS**, this transport has no _wildcards_. Handlers must subscribe to t
 | ------------------------ | --------------------------------------------- |
 | `buffer_size = 0`        | Startup error, the application does not start |
 | Handler returns an error | Retried if configured                         |
-| Application shutdown     | Pending events are discarded and counted      |

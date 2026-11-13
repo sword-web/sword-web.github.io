@@ -24,16 +24,68 @@ sword = { version = "x.y.z", features = ["events", "events-nats"] }
 
 Configura el servidor en la sección `[events.nats]`:
 
-| Key   | Tipo     | Default                 | Descripción                                   |
-| ----- | -------- | ----------------------- | --------------------------------------------- |
-| `url` | `String` | `nats://127.0.0.1:4222` | Dirección del servidor (no puede estar vacía) |
+| Key                        | Tipo     | Default                 | Descripción                                              |
+| -------------------------- | -------- | ----------------------- | -------------------------------------------------------- |
+| `url`                      | `String` | `nats://127.0.0.1:4222` | Dirección del servidor (no puede estar vacía)            |
+| `handler_timeout_ms`       | `u64`    | hereda de `[events]`    | Sobrescribe el timeout del handler para este transporte  |
+| `connection_timeout_ms`    | `u64`    | `5000`                  | Tiempo máximo de un intento de conexión                  |
+| `retry_on_initial_connect` | `bool`   | `false`                 | Reintenta cuando falla la primera conexión al arrancar   |
+| `max_reconnects`           | `usize`  | sin límite              | Intentos antes de rendirse                               |
+| `subscription_capacity`    | `usize`  | `65536`                 | Mensajes en buffer por suscripción antes de descartarlos |
 
 ```toml
 [events.nats]
 url = "nats://127.0.0.1:4222"
 ```
 
-NATS debe estar disponible al arrancar. Si el servidor no responde, la aplicación no inicia, aunque ningún handler use NATS.
+Cuando `[events.nats]` está presente, NATS debe estar disponible al arrancar. Si el servidor no responde, la aplicación no inicia. Habilitar la feature sin esa sección registra el publisher pero no abre una conexión.
+
+`retry_on_initial_connect` sin `max_reconnects` reintenta para siempre. Define `max_reconnects` para acotar el arranque.
+
+## Autenticación
+
+`[events.nats.auth]` acepta uno de dos métodos.
+
+| Método               | Keys               |
+| -------------------- | ------------------ |
+| Usuario y contraseña | `user`, `password` |
+| Token                | `token`            |
+
+```toml
+[events.nats.auth]
+user = "app"
+password = "${NATS_PASSWORD}"
+```
+
+```toml
+[events.nats.auth]
+token = "${NATS_TOKEN}"
+```
+
+Los métodos son excluyentes. Un token junto con usuario y contraseña es un error de arranque.
+
+## TLS
+
+Una URL `tls://` cifra la conexión y verifica el certificado del servidor. Para una CA propia, define `ca_file` con el archivo de la CA.
+
+```toml
+[events.nats]
+url = "tls://nats.example.com:4222"
+
+[events.nats.tls]
+ca_file = "/etc/nats/ca.pem"
+```
+
+El TLS mutuo agrega un certificado de cliente y su clave.
+
+```toml
+[events.nats.tls]
+ca_file = "/etc/nats/ca.pem"
+client_cert = "/etc/nats/client.pem"
+client_key = "/etc/nats/client.key"
+```
+
+Una sección `[events.nats.tls]` exige TLS aunque la URL use `nats://`. Los archivos se revisan al arrancar.
 
 ## Subjects
 
@@ -116,7 +168,7 @@ Puedes inspeccionar el error o bien ignorarlo convirtiéndolo en un `Option` com
 
 ## Consumir eventos
 
-Para manejar eventos NATS declara un controlador de eventos con `source = EventSource::Nats` o bien en el handler si el controlador es agnóstico del transporte.
+Para manejar eventos NATS declara un controlador de eventos con `transport = EventTransport::Nats` o bien en el handler si el controlador es agnóstico del transporte.
 
 ```rust [billing/controllers/events.rs]
 use sword::events::*;
@@ -124,7 +176,7 @@ use sword::prelude::*;
 
 use crate::orders::OrderCreated;
 
-#[controller(kind = Controller::Events, source = EventSource::Nats)]
+#[controller(kind = Controller::Events, transport = EventTransport::Nats)]
 pub struct BillingEventsHandler;
 
 impl BillingEventsHandler {
@@ -163,7 +215,7 @@ use sword::prelude::*;
 
 use crate::orders::OrderCreated;
 
-#[controller(kind = Controller::Events, source = EventSource::Nats)]
+#[controller(kind = Controller::Events, transport = EventTransport::Nats)]
 pub struct AuditEventsHandler;
 
 impl AuditEventsHandler {

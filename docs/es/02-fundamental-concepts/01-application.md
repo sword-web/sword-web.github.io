@@ -144,14 +144,9 @@ Si un engine falla, la aplicación y todos los engines asociados se detienen.
 
 La aplicación también se detiene cuando recibe una señal de terminación:
 
-- **SIGINT**: se genera al presionar Ctrl+C en la terminal. Detiene todos los
-  engines de inmediato y el proceso sale con código `0`.
+- **SIGINT**: se genera al presionar Ctrl+C en la terminal. El proceso sale con código `0`.
 
-- **SIGTERM**: se envía normalmente Docker, systemd o Kubernetes para pedir el
-  apagado. Tiene el mismo comportamiento, es decir, detención inmediata y código de salida `0`.
-
-En los casos manejados, el termino es inmediato, no se espera a que terminen las
-solicitudes, handlers ni jobs en curso. Las señales no se tratan como errores.
+- **SIGTERM**: normalmente la envían Docker, systemd o Kubernetes. El proceso sale con código `0`.
 
 ---
 
