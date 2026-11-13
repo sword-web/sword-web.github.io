@@ -2,6 +2,8 @@ import { defineConfig, type DefaultTheme } from "vitepress"
 
 type Locale = "en" | "es"
 
+const docsVersion = "0.6"
+
 type PageNode = {
 	key: string
 	path?: string
@@ -341,7 +343,7 @@ function buildSidebar(locale: Locale): DefaultTheme.SidebarItem[] {
 	const build = (nodes: PageNode[]): DefaultTheme.SidebarItem[] =>
 		nodes.map((node) => ({
 			text: labels[locale][node.key],
-			...(node.path ? { link: `/${locale}/${node.path}` } : {}),
+			...(node.path ? { link: `/${locale}/${docsVersion}/${node.path}` } : {}),
 			...(node.items ? { items: build(node.items) } : {}),
 			...(node.collapsed !== undefined ? { collapsed: node.collapsed } : {}),
 		}))
@@ -373,20 +375,21 @@ export default defineConfig({
 
 		return page
 			.split("/")
-			.map((segment, index) => (index === 0 ? segment : segment.replace(/^\d+-/, "")))
+			.map((segment, index) => (index < 2 ? segment : segment.replace(/^\d+-/, "")))
 			.join("/")
 	},
 	locales: {
 		en: {
 			label: "English",
 			lang: "en",
+			link: "/en/0.6/",
 			themeConfig: {
 				logo: {
 					dark: "/logo-new.png",
 					light: "/logo-new-dark.png",
 				},
 				nav: [
-					{ text: "Home", link: "/en/" },
+					{ text: "Home", link: "/en/0.6/" },
 					{
 						text: "Examples",
 						link: "https://github.com/sword-web/sword/tree/main/examples",
@@ -398,13 +401,14 @@ export default defineConfig({
 		es: {
 			label: "Español",
 			lang: "es",
+			link: "/es/0.6/",
 			themeConfig: {
 				logo: {
 					dark: "/logo-new.png",
 					light: "/logo-new-dark.png",
 				},
 				nav: [
-					{ text: "Inicio", link: "/es/" },
+					{ text: "Inicio", link: "/es/0.6/" },
 					{
 						text: "Ejemplos",
 						link: "https://github.com/sword-web/sword/tree/main/examples",

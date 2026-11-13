@@ -30,10 +30,10 @@ hero:
   actions:
     - theme: brand
       text: What is Sword?
-      link: /en/introduction/
+      link: /en/0.6/introduction/
     - theme: alt
       text: Getting Started
-      link: /en/introduction/getting-started
+      link: /en/0.6/introduction/getting-started
     - theme: alt
       text: GitHub
       link: "https://github.com/sword-web/"
@@ -62,7 +62,7 @@ Then open `http://localhost:3000` in your browser.
 <div class="sword-cta">
 <h2>Ready to build with Sword?</h2>
 <div class="sword-cta-actions">
-<a class="sword-cta-btn brand" href="/en/introduction/getting-started">Get Started</a>
+<a class="sword-cta-btn brand" href="/en/0.6/introduction/getting-started">Get Started</a>
 <a class="sword-cta-btn alt" href="https://github.com/sword-web">Star on GitHub</a>
 </div>
 </div>

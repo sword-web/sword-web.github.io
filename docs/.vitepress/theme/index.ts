@@ -7,11 +7,14 @@ import ApiSection from "./components/ApiSection.vue"
 import DependencyInjectionDiagram from "./components/DependencyInjectionDiagram.vue"
 import ControllersDiagram from "./components/ControllersDiagram.vue"
 import EventFlowDiagram from "./components/EventFlowDiagram.vue"
+import VersionSelect from "./components/VersionSelect.vue"
 
 export default {
 	extends: DefaultTheme,
 	Layout: () => {
-		return h(DefaultTheme.Layout, null, {})
+		return h(DefaultTheme.Layout, null, {
+			"nav-bar-content-after": () => h(VersionSelect),
+		})
 	},
 	enhanceApp({ app }) {
 		app.component("ApiSection", ApiSection)

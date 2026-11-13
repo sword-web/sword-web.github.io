@@ -1,0 +1,93 @@
+---
+title: "Definición de Controladores Web"
+description: "En Sword un controlador web es una estructura que actúa como un grupo de métodos relacionados a una ruta base, y cada método representa un endpoint HTTP específico."
+outline: [2, 3]
+---
+
+# Definición de Controladores Web
+
+En Sword un controlador web es una estructura que actúa como un grupo de métodos relacionados a una ruta en común, y cada método representa un endpoint HTTP específico.
+
+Estos controladores están basados en los handlers de `axum`, pero añadiendo una capa de integración con el sistema de módulos, inyección de dependencias e interceptores del framework.
+
+## Definir un controlador web
+
+```rust
+use sword::prelude::*;
+use sword::web::*;
+
+#[controller(kind = Controller::Web, path = "/users")]
+pub struct UsersController;
+
+impl UsersController {
+    #[get("/")]
+    async fn list(&self) -> WebResult {
+        Ok(JsonResponse::Ok().message("Users list"))
+    }
+}
+```
+
+## Acceder a la solicitud
+
+Puedes recibir `req: Request` como parámetro y extraer params, body, query, headers, cookies y otros datos relacionados con la solicitud HTTP.
+
+```rust
+use sword::prelude::*;
+use sword::web::*;
+
+#[controller(kind = Controller::Web, path = "/users")]
+pub struct UsersController;
+
+impl UsersController {
+    #[get("/{id}")]
+    async fn get_by_id(&self, req: Request) -> WebResult {
+        let id = req.param::<u64>("id")?;
+
+        Ok(JsonResponse::Ok().data(id))
+    }
+}
+```
+
+Para más detalles sobre extracción, revisa [Manejo de Solicitudes](/es/0.6/practical-guides/web/request-flow).
+
+## Métodos HTTP soportados
+
+Sword soporta los métodos HTTP estándar que provee `axum`:
+
+| Método HTTP | Macro               |
+| ----------- | ------------------- |
+| GET         | `#[get("...")]`     |
+| POST        | `#[post("...")]`    |
+| PUT         | `#[put("...")]`     |
+| DELETE      | `#[delete("...")]`  |
+| PATCH       | `#[patch("...")]`   |
+| HEAD        | `#[head("...")]`    |
+| OPTIONS     | `#[options("...")]` |
+| CONNECT     | `#[connect("...")]` |
+| TRACE       | `#[trace("...")]`   |
+
+Todos los métodos reciben la ruta de la misma forma, por ejemplo: `#[get("/")]`, `#[post("/api/users")]`, etc.
+
+## Sobre el uso de '&self'
+
+Los handlers reciben `&self` porque el controlador puede tener dependencias inyectadas en sus campos y usarlas dentro de los métodos.
+
+Ese flujo se explica en [Inyección de dependencias](/es/0.6/fundamental-concepts/dependency-injection).
+
+## Tipo de retorno
+
+Sword busca simplificar y estandarizar las respuestas HTTP hacia un formato JSON común, por lo que el tipo de retorno recomendado es `JsonResponse` o `WebResult` el cual es un alias de `Result<JsonResponse, JsonResponse>`.
+
+También puedes usar `WebResult<JsonResponse>` explícitamente para mayor claridad:
+
+```rust
+#[get("/")]
+async fn get_users(&self, req: Request) -> WebResult<JsonResponse> {
+    let data = req.body::<Vec<User>>()?;
+    Ok(JsonResponse::Ok().data(data).request_id(req.id()))
+}
+```
+
+Para todos los patrones de respuesta, incluidos auto-wrap con `Result<T, E>`, manejo de errores y construcción de payload, consulta [Manejo de Respuestas](/es/0.6/practical-guides/web/response-handling).
+
+Sin embargo, los métodos del controlador también pueden retornar cualquier tipo que implemente `IntoResponse`, ya que la capa web de Sword se apoya en `axum`.
