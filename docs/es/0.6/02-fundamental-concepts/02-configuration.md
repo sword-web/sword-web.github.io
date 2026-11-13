@@ -1,6 +1,6 @@
 ---
 title: "Configuración"
-description: "Configuración común de una aplicación Sword: la estructura Config, la sección [application] y la configuración personalizada."
+description: "Configuración común de una aplicación Sword. Cubre la estructura Config, la sección [application], la configuración personalizada y los diagnósticos."
 outline: [2, 3]
 ---
 
@@ -18,7 +18,7 @@ Para acceder a ella, se puede usar el campo `config` de una instancia de `Applic
 
 <ApiSection title="API Reference: Métodos y atributos de la estructura 'Config'">
 
-:::details Asumiendo el siguiente snippet de código para los ejemplos:
+:::details Ejemplo de código usado en esta sección
 
 ```rust
 use serde::Deserialize;
@@ -55,7 +55,7 @@ where
 
 **Parámetros**
 
-- `T`: tipo de la estructura de configuración que se desea extraer. Debe implementar `DeserializeOwned` y `ConfigItem`.
+- `T` es el tipo de la estructura de configuración que se desea extraer. Debe implementar `DeserializeOwned` y `ConfigItem`.
 
 **Ejemplo**
 
@@ -77,7 +77,7 @@ where
 
 **Parámetros**
 
-- `T`: tipo de la estructura de configuración que se desea extraer. Debe implementar `DeserializeOwned`, `ConfigItem` y `Default`.
+- `T` es el tipo de la estructura de configuración que se desea extraer. Debe implementar `DeserializeOwned`, `ConfigItem` y `Default`.
 
 **Ejemplo**
 
@@ -99,7 +99,7 @@ where
 
 **Parámetros**
 
-- `T`: tipo de la estructura de configuración que se desea extraer. Debe implementar `DeserializeOwned` y `ConfigItem`.
+- `T` es el tipo de la estructura de configuración que se desea extraer. Debe implementar `DeserializeOwned` y `ConfigItem`.
 
 **Ejemplo**
 
@@ -107,7 +107,7 @@ where
 let database = config.expect::<DatabaseConfig>();
 ```
 
-Esto es útil cuando la configuración es obligatoria y no se puede continuar sin ella, el método es equivalente a:
+Esto es útil cuando la configuración es obligatoria y no se puede continuar sin ella. El método equivale al siguiente código.
 
 ```rust
 let database = config.get::<DatabaseConfig>().expect("Expected configuration item not found");
@@ -117,12 +117,13 @@ let database = config.get::<DatabaseConfig>().expect("Expected configuration ite
 
 ## Configuración de la aplicación
 
-Sword establece una configuración general compartida para cualquier tipo de aplicación:
+Sword establece una configuración general compartida para cualquier tipo de aplicación.
 
-| Key           | Tipo             | Default | Descripción             |
-| ------------- | ---------------- | ------- | ----------------------- |
-| `name`        | `Option<String>` | `None`  | Nombre de la aplicación |
-| `environment` | `Option<String>` | `None`  | Nombre del entorno      |
+| Key           | Tipo                | Default  | Descripción                                       |
+| ------------- | ------------------- | -------- | ------------------------------------------------- |
+| `name`        | `Option<String>`    | `None`   | Nombre de la aplicación                           |
+| `environment` | `Option<String>`    | `None`   | Nombre del entorno                                |
+| `diagnostics` | `miette \| tracing` | `miette` | Cómo reporta Sword los fallos de build y arranque |
 
 ::: details Ejemplo en formato TOML
 
@@ -130,15 +131,36 @@ Sword establece una configuración general compartida para cualquier tipo de apl
 [application]
 name = "My Sword App"
 environment = "development"
+diagnostics = "miette"
 ```
 
 :::
+
+## Diagnósticos
+
+Sword reporta los fallos de build y arranque como diagnósticos. Un diagnóstico tiene un código estable, una fase, un motivo y contexto opcional. Algunos diagnósticos ligados a código fuente también incluyen un span.
+
+La clave `[application] diagnostics` elige cómo los muestra Sword.
+
+- `miette` imprime un informe legible. Es el valor por defecto.
+- `tracing` emite un evento estructurado a través del subscriber activo.
+
+Un error de configuración con `miette` se ve así.
+
+```text
+sword.build.web · Build error
+
+  × Invalid [web] configuration: host must not be empty
+  help: Use 0.0.0.0, 127.0.0.1, or a specific interface
+```
+
+Con `tracing`, Sword emite un evento por diagnóstico. Si no hay subscriber activo, Sword reporta un error de configuración.
 
 ## Configuración personalizada
 
 Sword permite definir configuraciones propias además de la configuración base del framework. Es útil cuando la aplicación necesita parámetros específicos de dominio o de integración.
 
-Marca una struct con la macro `#[config]` e indica la clave TOML donde se cargará:
+Marca una struct con la macro `#[config]` e indica la clave TOML donde se cargará.
 
 :::code-group
 
@@ -170,13 +192,30 @@ serde = { version = "x.y.z", features = ["derive"] }
 
 **Traits requeridos**
 
-Para que un struct se use como configuración personalizada, debe derivar o implementar:
+Para que un struct se use como configuración personalizada, debe derivar o implementar los siguientes traits.
 
 - `Debug`
 - `Clone`
 - `Deserialize`
 
 La macro genera automáticamente la implementación del trait `ConfigItem` así como el registro de la configuración en el estado de la aplicación.
+
+## Validación
+
+Sword revisa las secciones de configuración que administra cuando arranca la aplicación. Son `[application]`, `[web]`, `[grpc]`, `[socketio]`, `[events]` y `[tracing]`.
+
+Si una sección tiene un valor inválido, la aplicación no arranca. El error indica la sección y la clave.
+
+```text
+sword.build.web · Build error
+
+  × Invalid [web] configuration: host must not be empty
+  help: Use 0.0.0.0, 127.0.0.1, or a specific interface
+```
+
+Las secciones ausentes usan sus defaults y no se validan.
+
+Para tus propias secciones creadas con `#[config]`, los tipos inválidos fallan al arrancar. Las reglas semánticas (rangos, combinaciones y similares) no se revisan automáticamente. Agrega esas validaciones en tu código cuando las necesites.
 
 ## Variables de entorno
 
@@ -203,14 +242,14 @@ Esto es útil para secretos, certificados o claves privadas.
 
 ## Unidades especiales
 
-Tambien es posible utilizar unidades legibles por humanos para tamaños y duraciones. Estas unidades guardan el valor parseado y también el valor crudo para logging y display.
+También es posible utilizar unidades legibles por humanos para tamaños y duraciones. Estas unidades guardan el valor parseado y también el valor crudo para logging y display.
 
 ### Representación de bytes
 
-`ByteConfig` representa tamaños en bytes:
+`ByteConfig` representa tamaños en bytes.
 
-- `raw`: string original leída desde TOML (por ejemplo `"10MB"`).
-- `parsed`: valor convertido a bytes (`usize`) para uso interno.
+- `raw` es el string original leído desde TOML (por ejemplo `"10MB"`).
+- `parsed` es el valor convertido a bytes (`usize`) para uso interno.
 
 ::: code-group
 
@@ -232,10 +271,10 @@ También puedes usar formatos binarios como `KiB`, `MiB`, etc. Consulta los form
 
 ### Representación de tiempo
 
-`TimeConfig` representa duraciones:
+`TimeConfig` representa duraciones.
 
-- `raw`: string original (por ejemplo `"30s"`, `"1h 30m"`).
-- `parsed`: `std::time::Duration` listo para timeouts, intervalos, etc.
+- `raw` es el string original (por ejemplo `"30s"`, `"1h 30m"`).
+- `parsed` es un `std::time::Duration` listo para timeouts, intervalos, etc.
 
 ::: code-group
 
@@ -258,7 +297,7 @@ Consulta los formatos disponibles en [`duration-str`](https://docs.rs/duration-s
 
 ## Configuración por tipo de aplicación
 
-Puedes encontrar ejemplos de configuración específica para cada tipo de aplicación Sword en las guías prácticas:
+Puedes encontrar ejemplos de configuración específica para cada tipo de aplicación Sword en las guías prácticas.
 
 - [Configuración de una aplicación web](/es/0.6/practical-guides/web/configuration)
 - [Configuración de una aplicación Socket.IO](/es/0.6/practical-guides/socketio/configuration)

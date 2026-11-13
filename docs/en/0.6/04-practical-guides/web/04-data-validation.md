@@ -8,11 +8,11 @@ outline: [2, 3]
 
 Input data validation checks that data meets specific rules before it is processed or stored.
 
-Sword integrates support for the `validator` crate via the `socketio-validator` feature.
+Sword integrates support for the `validator` crate via the `web-validator` feature.
 
 ## Enabling the feature
 
-To use validation based on the `validator` crate, add the dependencies and enable the corresponding feature:
+To use validation based on the `validator` crate, add the dependencies and enable the corresponding feature.
 
 ```toml
 [dependencies]
@@ -21,7 +21,7 @@ serde = { version = "x.y.z", features = ["derive"] }
 validator = { version = "x.y.z", features = ["derive"] }
 ```
 
-With this enabled, you can use methods such as:
+With this enabled, you can use methods such as the following.
 
 - `req.body_validator::<T>()`
 - `req.query_validator::<T>()`

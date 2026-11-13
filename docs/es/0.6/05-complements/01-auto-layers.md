@@ -17,25 +17,27 @@ keywords:
 
 # Layers y Servicios Auto-registrados
 
-Sword puede registrar automáticamente layers y servicios comunes de Tower solo con configuración vía `toml`. Cuando la feature correspondiente está compilada, el layer se registra automáticamente: usa los valores de su sección cuando está presente y los defaults en caso contrario. No se necesita registro manual.
+Sword puede registrar automáticamente layers y servicios comunes de Tower solo con configuración vía `toml`. Cuando la feature correspondiente está compilada, el layer se registra automáticamente. Usa los valores de su sección cuando está presente y los defaults en caso contrario. No se necesita registro manual.
 
-## Compresión
-
-Declara y habilita la feature `compression` de `sword-layers` en `Cargo.toml`:
+Estos layers son opt-in. Habilita la feature del layer que necesites en tu `Cargo.toml`.
 
 ```toml
 [dependencies]
 sword-layers = { version = "x.y.z", features = ["compression"] }
 ```
 
-Luego configura la compresión de respuestas con la sección `[compression]` en el archivo de configuración de Sword:
+Usa `cors` o `servedir` en lugar de `compression` para los otros layers.
+
+## Compresión
+
+Configura la compresión de respuestas con la sección `[compression]`.
 
 ```toml
 [compression]
 algorithms = ["gzip", "br"]
 ```
 
-La clave `algorithms` acepta una lista de estos algoritmos:
+La clave `algorithms` acepta una lista de estos algoritmos.
 
 | Algoritmo | Nota                              |
 | --------- | --------------------------------- |
@@ -46,14 +48,7 @@ La clave `algorithms` acepta una lista de estos algoritmos:
 
 ## CORS
 
-Declara y habilita la feature `cors` de `sword-layers` en `Cargo.toml`:
-
-```toml
-[dependencies]
-sword-layers = { version = "x.y.z", features = ["cors"] }
-```
-
-Configura el intercambio de recursos entre orígenes con la sección `[cors]` en el archivo de configuración de Sword:
+Configura el intercambio de recursos entre orígenes con la sección `[cors]`.
 
 ```toml
 [cors]
@@ -61,7 +56,7 @@ allow-origins = ["*"]
 allow-methods = ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS", "HEAD"]
 ```
 
-Las opciones disponibles son:
+Las opciones disponibles son las siguientes.
 
 | Opción              | Descripción                                       |
 | ------------------- | ------------------------------------------------- |
@@ -73,14 +68,7 @@ Las opciones disponibles son:
 
 ## Servidor de archivos estáticos
 
-Habilita la feature `servedir` de `sword-layers` en `Cargo.toml`:
-
-```toml
-[dependencies]
-sword-layers = { version = "x.y.z", features = ["servedir"] }
-```
-
-Y configura el servidor de archivos estáticos con la sección `[serve-dir]` en el archivo de configuración de Sword:
+Sirve un directorio de archivos estáticos con la sección `[serve-dir]`.
 
 ```toml
 [serve-dir]

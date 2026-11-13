@@ -1,6 +1,6 @@
 ---
 title: "Configuration"
-description: "Common configuration for a Sword application: the Config struct, the [application] section, and custom configuration."
+description: "Common configuration for a Sword application. It covers the Config struct, the [application] section, custom configuration and diagnostics."
 outline: [2, 3]
 ---
 
@@ -18,7 +18,7 @@ You can access it through the `config` field of an `ApplicationBuilder` or `Appl
 
 <ApiSection title="API Reference: Methods and attributes of the 'Config' struct">
 
-:::details Assuming the following snippet for the examples:
+:::details Example snippet used in this section
 
 ```rust
 use serde::Deserialize;
@@ -55,7 +55,7 @@ where
 
 **Parameters**
 
-- `T`: the configuration struct to extract. It must implement `DeserializeOwned` and `ConfigItem`.
+- `T` is the configuration struct to extract. It must implement `DeserializeOwned` and `ConfigItem`.
 
 **Example**
 
@@ -77,7 +77,7 @@ where
 
 **Parameters**
 
-- `T`: the configuration struct to extract. It must implement `DeserializeOwned`, `ConfigItem`, and `Default`.
+- `T` is the configuration struct to extract. It must implement `DeserializeOwned`, `ConfigItem`, and `Default`.
 
 **Example**
 
@@ -99,7 +99,7 @@ where
 
 **Parameters**
 
-- `T`: the configuration struct to extract. It must implement `DeserializeOwned` and `ConfigItem`.
+- `T` is the configuration struct to extract. It must implement `DeserializeOwned` and `ConfigItem`.
 
 **Example**
 
@@ -107,7 +107,7 @@ where
 let database = config.expect::<DatabaseConfig>();
 ```
 
-This is useful when the configuration is required and the application cannot continue without it. It is equivalent to:
+This is useful when the configuration is required and the application cannot continue without it. It is equivalent to the code below.
 
 ```rust
 let database = config.get::<DatabaseConfig>().expect("Expected configuration item not found");
@@ -117,12 +117,13 @@ let database = config.get::<DatabaseConfig>().expect("Expected configuration ite
 
 ## Application configuration
 
-Sword defines a shared configuration for every application type:
+Sword defines a shared configuration for every application type.
 
-| Key           | Type             | Default | Description      |
-| ------------- | ---------------- | ------- | ---------------- |
-| `name`        | `Option<String>` | `None`  | Application name |
-| `environment` | `Option<String>` | `None`  | Environment name |
+| Key           | Type                | Default  | Description                                  |
+| ------------- | ------------------- | -------- | -------------------------------------------- |
+| `name`        | `Option<String>`    | `None`   | Application name                             |
+| `environment` | `Option<String>`    | `None`   | Environment name                             |
+| `diagnostics` | `miette \| tracing` | `miette` | How Sword reports build and startup failures |
 
 ::: details TOML example
 
@@ -130,15 +131,36 @@ Sword defines a shared configuration for every application type:
 [application]
 name = "My Sword App"
 environment = "development"
+diagnostics = "miette"
 ```
 
 :::
+
+## Diagnostics
+
+Sword reports build and startup failures as diagnostics. A diagnostic has a stable code, a phase, a reason and optional context. Some diagnostics tied to source code also include a span.
+
+The `[application] diagnostics` key selects how Sword shows them.
+
+- `miette` prints a readable report. This is the default.
+- `tracing` emits a structured event through the active subscriber.
+
+A configuration error with `miette` looks like this.
+
+```text
+sword.build.web · Build error
+
+  × Invalid [web] configuration: host must not be empty
+  help: Use 0.0.0.0, 127.0.0.1, or a specific interface
+```
+
+With `tracing`, Sword emits one event per diagnostic. If no subscriber is active, Sword reports a configuration error.
 
 ## Custom configuration
 
 Sword lets you define your own configuration on top of the framework's base configuration. This is useful when the application needs domain-specific or integration-specific settings.
 
-Annotate a struct with the `#[config]` macro and set the TOML key where it will be loaded:
+Annotate a struct with the `#[config]` macro and set the TOML key where it will be loaded.
 
 :::code-group
 
@@ -170,13 +192,30 @@ serde = { version = "x.y.z", features = ["derive"] }
 
 **Required traits**
 
-To use a struct as custom configuration, it must derive or implement:
+To use a struct as custom configuration, it must derive or implement the following traits.
 
 - `Debug`
 - `Clone`
 - `Deserialize`
 
 The macro generates the `ConfigItem` implementation and registers the configuration in the application state.
+
+## Validation
+
+Sword checks the configuration sections it owns when the application starts. These are `[application]`, `[web]`, `[grpc]`, `[socketio]`, `[events]` and `[tracing]`.
+
+If a section has an invalid value, the application does not start. The error names the section and the key.
+
+```text
+sword.build.web · Build error
+
+  × Invalid [web] configuration: host must not be empty
+  help: Use 0.0.0.0, 127.0.0.1, or a specific interface
+```
+
+Sections that are absent use their defaults and are not validated.
+
+For your own sections created with `#[config]`, invalid types fail at startup. Semantic rules (ranges, combinations, and similar) are not checked automatically. Add those checks in your code when you need them.
 
 ## Environment variables
 
@@ -192,7 +231,7 @@ The syntax is `${VARIABLE_NAME:default_value}`. If you do not set a default and 
 
 ## Loading content from files
 
-You can load file content into TOML values with the `file:` prefix:
+You can load file content into TOML values with the `file:` prefix.
 
 ```toml
 [auth]
@@ -207,10 +246,10 @@ You can also use human-readable units for sizes and durations. These units keep 
 
 ### Byte representation
 
-`ByteConfig` represents byte sizes:
+`ByteConfig` represents byte sizes.
 
-- `raw`: the original string read from TOML (for example, `"10MB"`).
-- `parsed`: the value converted to bytes (`usize`) for internal use.
+- `raw` is the original string read from TOML (for example, `"10MB"`).
+- `parsed` is the value converted to bytes (`usize`) for internal use.
 
 ::: code-group
 
@@ -232,10 +271,10 @@ You can also use binary units such as `KiB`, `MiB`, etc. See the available forma
 
 ### Time representation
 
-`TimeConfig` represents durations:
+`TimeConfig` represents durations.
 
-- `raw`: the original string (for example, `"30s"`, `"1h 30m"`).
-- `parsed`: a `std::time::Duration` ready for timeouts, intervals, etc.
+- `raw` is the original string (for example, `"30s"`, `"1h 30m"`).
+- `parsed` is a `std::time::Duration` ready for timeouts, intervals, etc.
 
 ::: code-group
 
@@ -258,7 +297,7 @@ See the available formats in [`duration-str`](https://docs.rs/duration-str/lates
 
 ## Configuration per application type
 
-You can find configuration examples for each Sword application type in the practical guides:
+You can find configuration examples for each Sword application type in the practical guides.
 
 - [Configuration of a web application](/en/0.6/practical-guides/web/configuration)
 - [Configuration of a Socket.IO application](/en/0.6/practical-guides/socketio/configuration)
